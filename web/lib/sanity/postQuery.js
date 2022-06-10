@@ -6,7 +6,7 @@ export const postQuery = groq`
     title,
     publishedAt,
     "slug": slug.current,
-    "categories":   category[]->{title, slug},
+    "categories": category[]->{title, slug},
     mainImage,
     body,
   }

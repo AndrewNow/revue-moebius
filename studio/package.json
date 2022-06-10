@@ -1,0 +1,36 @@
+{
+  "name": "revuemoebius",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Barebones blog set-up with NextJS and Sanity. Integrated with Stripe in a tutorial for https://sanity.io. Read it [here](https://www.sanity.io/guides/building-ecommerce-sites-with-the-stripe-api). Comes with Sanity's inbuilt image handler",
+  "main": "package.json",
+  "author": "Andrew Nowacki <andrew.p.nowacki@gmail.com>",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "sanity start",
+    "build": "sanity build"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@sanity/base": "^2.30.1",
+    "@sanity/core": "^2.30.1",
+    "@sanity/default-layout": "^2.30.1",
+    "@sanity/default-login": "^2.30.1",
+    "@sanity/desk-tool": "^2.30.1",
+    "@sanity/eslint-config-studio": "^2.0.0",
+    "@sanity/vision": "^2.30.1",
+    "eslint": "^8.6.0",
+    "prop-types": "^15.7",
+    "react": "^17.0",
+    "react-dom": "^17.0",
+    "sanity-plugin-color-picker": "^1.0.3",
+    "styled-components": "^5.2.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bathrobe/sanity-next-stripe-starter"
+  }
+}
