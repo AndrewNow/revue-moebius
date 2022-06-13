@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer, useCallback } from "react";
+import { useState, useEffect, useReducer } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import { client } from "../../lib/sanity/client";
@@ -6,37 +6,140 @@ import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
 import { nouvellesListQuery } from "../../lib/sanity/nouvellesQuery";
 import { categoryQuery } from "../../lib/sanity/categoryQuery";
 import Image from "next/image";
-import NewsArticles from "../../components/newsArticles";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Nouvelles({ nouvellesList, categories }) {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
   //
-  //  Filtering system state, handlers, etc.
+  //  Animation values
   //
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
 
-  const [filterParams, setFilterParams] = useState([]);
-
-  const handleButtonClick = (categoryName) => {
-    let currentParams = filterParams;
-
-    if (currentParams.includes(categoryName)) {
-      currentParams = currentParams.filter((item) => item !== categoryName);
-    } else {
-      currentParams.push(categoryName);
-    }
-    setFilterParams(currentParams);
+  const animateArticles = {
+    visible: {
+      opacity: 1,
+    },
+    hidden: {
+      opacity: 0,
+    },
   };
 
-  console.log(filterParams);
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:
+  //
+  //  Logic for filtering the posts according to the toggled filters
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:
+  const [activeParams, setActiveParams] = useState([]);
+  const [filteredArticleData, setFilteredArticleData] = useState([]);
+  const [selectedCount, setSelectedCount] = useState(0);
 
-  // const filteredNewsArr = nouvellesList;
+  const handleFilterUpdate = (param) => {
+    let currentParams = activeParams;
 
-  // const result = filteredNewsArr.filter(
-  //   filterParams.includes(articleTag.title)
-  // );
+    let filterItemsByTitle = activeParams.map((item) => item.title);
+    // If an item is already clicked, remove it from the array
+    if (filterItemsByTitle.includes(param.title)) {
+      currentParams = currentParams.filter((item) => {
+        return item.title !== param.title;
+      });
+    } else {
+      // Add the item to the array
+      currentParams.push(param);
+    }
+    setActiveParams(currentParams);
+    // SelectedCount updates the useEffect, keeping track of the changes to the filter params
+    setSelectedCount(currentParams.length);
+  };
 
-  // console.log(result)
+  useEffect(() => {
+    let newData;
+    let filterItemsByTitle = activeParams.map((item) => item.title);
+
+    // If no items are in the filter, render ALL the news posts
+    if (selectedCount === 0) {
+      newData = nouvellesList;
+    } else {
+      // Else only show the ones that have the filter applied to them
+      newData = nouvellesList.filter((item) => {
+        if (filterItemsByTitle.includes(item.category[0].title)) {
+          return item;
+        }
+      });
+    }
+    setFilteredArticleData(newData);
+  }, [selectedCount]);
+
+  // Render the buttons for the filter
+  function ListFilterButtons() {
+    const buttons = categories.map((tag) => {
+      let filterItemsByTitle = activeParams.map((item) => item.title);
+      let buttonEnabled = filterItemsByTitle.includes(tag.title);
+
+      return (
+        <FilterTag
+          key={tag.title}
+          value={tag.title}
+          onClick={() => handleFilterUpdate(tag)}
+          style={{
+            background: buttonEnabled ? tag.color : "",
+            border: buttonEnabled
+              ? `1px solid ${tag.color}`
+              : "1px solid var(--color-black)",
+          }}
+        >
+          <small style={{ color: buttonEnabled && "var(--static-black)" }}>
+            {tag.title}
+          </small>
+        </FilterTag>
+      );
+    });
+    return <>{buttons}</>;
+  }
+
+  // Render articles according to the filtered data (filteredArticleData)
+  function ListNewsArticles() {
+    const items = filteredArticleData.slice(0, visiblePosts).map((article) => {
+      const articleTag = article.category[0];
+      return (
+        <Article
+          key={article._id}
+          variants={animateArticles}
+          animate="visible"
+          exit="hidden"
+        >
+          <ImageWrapper>
+            <Image
+              src={article.imageUrl}
+              alt="Thumbnail image"
+              quality={100}
+              width={852}
+              height={480}
+              layout="responsive"
+            />
+            <Tag style={{ background: articleTag.color }}>
+              <small>{articleTag.title}</small>
+            </Tag>
+          </ImageWrapper>
+          <ArticleLink>
+            <Link href={`/nouvelles/${article.slug}`}>{article.title}</Link>
+          </ArticleLink>
+          <small>{article.publishedAt}</small>
+        </Article>
+      );
+    });
+    // Render the articles w/ the associated filter, if none exist then show a placeholder.
+    return (
+      <>
+        {filteredArticleData.length > 0 ? (
+          items
+        ) : (
+          <h5 style={{ color: "var(--color-black)" }}>
+            Nous n'avons pas d'articles de ce type pour le moment.
+          </h5>
+        )}
+      </>
+    );
+  }
 
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
   //
@@ -46,8 +149,8 @@ export default function Nouvelles({ nouvellesList, categories }) {
 
   // Only display 6 posts at first
   const [visiblePosts, setVisiblePosts] = useState(6);
-
-  const MORE_POSTS = 6;
+  // Value to increment more/less posts by
+  const MORE_POSTS = 4;
 
   // When user clicks on the load more button, load 6 more posts (see: MORE_POSTS)
   const handleLoadNewPosts = () =>
@@ -56,14 +159,11 @@ export default function Nouvelles({ nouvellesList, categories }) {
   // When we reach the end of the array, load more posts button becomes a "close posts" button
   const handleClosePosts = () => setVisiblePosts(6);
 
-  // Fallback for if there are no posts
-  if (nouvellesList.length === 0) {
-    return <p>Aucun article trouvé.</p>;
-  }
   // Counter for the display at the top
-  // !!! This probably is buggy and needs work. Should be replaced.
   const countDisplayedPosts =
-    visiblePosts >= nouvellesList.length ? nouvellesList.length : visiblePosts;
+    visiblePosts >= filteredArticleData.length
+      ? filteredArticleData.length
+      : visiblePosts;
 
   return (
     <Main>
@@ -76,103 +176,22 @@ export default function Nouvelles({ nouvellesList, categories }) {
       <Inner>
         <CountResults>
           <small>
-            Affichage de {countDisplayedPosts} sur {nouvellesList.length}{" "}
-            résultats
+            Affichage de {countDisplayedPosts} sur {filteredArticleData.length}{" "}
+            {filteredArticleData.length > 1 ? "résultats" : "résultat"}
           </small>
         </CountResults>
         <Hr />
-        <Filter
-        // onSubmit={handleButtonFormSubmit}
-        >
+        <Filter>
           <small style={{ marginRight: "2rem", color: "var(--color-black)" }}>
             Filtrer par type d'article:
           </small>
-          {categories.map((tag, i) => {
-            // const buttonEnabled = filterState.find(
-            //   ({ filterName }) => filterName === tag.title
-            // );
-
-            // const buttonEnabled = () => {
-            //   return filterParams.includes(tag.title);
-            // };
-
-            return (
-              <FilterTag
-                key={i}
-                value={tag.title}
-                onClick={() => handleButtonClick(tag.title)}
-                // style={{
-                //   background: buttonEnabled === true ? tag.color : "",
-                //   border:
-                //     buttonEnabled === true
-                //       ? `1px solid ${tag.color}`
-                //       : "1px solid var(--color-black)",
-                // }}
-              >
-                <small>{tag.title}</small>
-              </FilterTag>
-            );
-          })}
+          <ListFilterButtons />
         </Filter>
         <ArticleGrid>
-          {nouvellesList.slice(0, visiblePosts).map((article) => {
-            const articleTag = article.category[0];
-            return (
-              <Article key={article._id}>
-                <ImageWrapper>
-                  <Image
-                    src={article.imageUrl}
-                    alt="Thumbnail image"
-                    quality={100}
-                    width={852}
-                    height={480}
-                    layout="responsive"
-                  />
-                  <Tag style={{ background: articleTag.color }}>
-                    <small>{articleTag.title}</small>
-                  </Tag>
-                </ImageWrapper>
-                <ArticleLink>
-                  <Link href={`/nouvelles/${article.slug}`}>
-                    {article.title}
-                  </Link>
-                </ArticleLink>
-                <small>{article.publishedAt}</small>
-              </Article>
-            );
-          })}
-
-          {/*
-            1. check if filterParams has a length
-            if 'yes' loop over all articles and only render those where filterParams.includes(articleTag.title)
-            if 'no' return all articles
-            
-            if filterParams has a length and no articles are available, show placeholder
-          */}
-
-          {/* {filterParams.length ? (
-            // if filters enabled, only show articles where
-            // filterParams.includes(articleTag.title)
-            // if no results from that filter, show placeholder
-            <NewsArticles
-              nouvellesList={nouvellesList}
-              visiblePosts={visiblePosts}
-              filterParams={filterParams}
-            />
-          ) : (
-            // if no filters enabled, return all articles
-            <NewsArticles
-              nouvellesList={nouvellesList}
-              visiblePosts={visiblePosts}
-            />
-          )} */}
-          {/* <NewsArticles
-            nouvellesList={nouvellesList}
-            visiblePosts={visiblePosts}
-            filterParams={filterParams}
-          /> */}
+          <AnimatePresence>
+            <ListNewsArticles />
+          </AnimatePresence>
         </ArticleGrid>
-        {/* Only show the buttons if there are more than 6 news posts. */}
         {nouvellesList.length > 6 && (
           <>
             {visiblePosts >= nouvellesList.length ? (
@@ -261,7 +280,7 @@ const ArticleGrid = styled.div`
   width: 100%;
 `;
 
-const Article = styled.article`
+const Article = styled(motion.article)`
   position: relative;
   margin-bottom: 2rem;
 
@@ -311,7 +330,8 @@ const FilterTag = styled.button`
   cursor: pointer;
 
   small {
-    color: var(--static-black);
+    transition: var(--transition);
+    color: var(--color-black);
     user-select: none;
   }
 

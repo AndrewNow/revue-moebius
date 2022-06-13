@@ -24,3 +24,27 @@ export const nouvellesListQuery = groq`
     "imageUrl": mainImage.asset->url,
   }
 `;
+
+// Display all articles, except for the featured one
+export const nouvellesListHomepageQuery = groq`
+  *[_type == "nouvelles" && !defined(featured)]{
+    _id,
+    title,
+    publishedAt,
+    "category": categories[]->{title, color},
+    "slug": slug.current,
+    "imageUrl": mainImage.asset->url,
+  }
+`;
+
+// Query for only the featured article on the home page.
+export const nouvellesFeaturedQuery = groq`
+  *[_type == "nouvelles" && featured == true]{
+    _id,
+    title,
+    publishedAt,
+    "category": categories[]->{title, color},
+    "slug": slug.current,
+    "imageUrl": mainImage.asset->url,
+  }[0]
+`;

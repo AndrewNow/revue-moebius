@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const NewsArticles = ({ nouvellesList, visiblePosts, filterParams }) => {
-  console.log("filterparams", filterParams);
+  // console.log("filterparams", filterParams);
   return nouvellesList.slice(0, visiblePosts).map((article) => {
     const articleTag = article.category[0];
     return (

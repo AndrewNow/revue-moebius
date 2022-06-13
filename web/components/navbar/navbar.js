@@ -25,12 +25,12 @@ const Navbar = () => {
   };
 
   return (
-    <>
-      <NavbarWrapper>
+    <Wrapper>
+      <NavbarInner>
         <Hamburger
           toggled={isOpen}
           toggle={setOpen}
-          color="var(--static-black)"
+          color="var(--color-black)"
         />
         <p>Logo</p>
         <div>
@@ -55,15 +55,20 @@ const Navbar = () => {
             </motion.div>
           </AnimatePresence>
         </div>
-      </NavbarWrapper>
+      </NavbarInner>
       <NavMenu isOpen={isOpen} />
-    </>
+    </Wrapper>
   );
 };
 
 export default Navbar;
 
-const NavbarWrapper = styled.nav`
+const Wrapper = styled.div`
+  position: relative;
+  z-index: 999;
+`;
+
+const NavbarInner = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -75,3 +80,4 @@ const NavbarWrapper = styled.nav`
   left: 50%;
   transform: translateX(-50%);
 `;
+

@@ -3,39 +3,57 @@ import { client } from "../lib/sanity/client";
 import { homeQuery } from "../lib/sanity/homeQuery";
 import styled from "styled-components";
 import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
+import {
+  numeroHomepageQuery,
+  numeroListQuery,
+} from "../lib/sanity/numeroQuery";
+import { bannerQuery } from "../lib/sanity/bannerQuery";
+import Landing from "../components/homepage/landing";
+import BannerMarquee from "../components/bannerMarquee";
+import NewsSection from "../components/homepage/newsSection";
+import {
+  nouvellesListHomepageQuery,
+  nouvellesFeaturedQuery,
+} from "../lib/sanity/nouvellesQuery";
+import NumerosSection from "../components/homepage/numerosSection";
 
-export default function Home({ posts }) {
+export default function Home({
+  latestNumero,
+  bannerData,
+  newsFeed,
+  featuredArticle,
+  numerosData,
+}) {
   return (
     <Main>
       <Inner>
-        <Header>My Blog</Header>
-        <Header>My Blog</Header>
-        <Header>My Blog</Header>
-        <Header>My Blog</Header>
-        <hr />
-        <ul>
-          {/* {posts.map((p) => (
-            <li key={p._id}>
-              <Link href={`/posts/${p.slug}`}>
-              <a>{p.title}</a>
-              </Link>
-              </li>
-            ))} */}
-        </ul>
+        <Landing data={latestNumero} />
       </Inner>
+      <BannerMarquee data={bannerData} />
+      <Inner>
+        <NewsSection newsFeed={newsFeed} featuredArticle={featuredArticle} />
+      </Inner>
+      <NumerosSection numerosData={numerosData} />
     </Main>
   );
 }
 
 export async function getStaticProps() {
   const footerLogos = await client.fetch(footerLogoQuery);
-
-  const posts = await client.fetch(homeQuery);
+  const latestNumero = await client.fetch(numeroHomepageQuery);
+  const bannerData = await client.fetch(bannerQuery);
+  const newsFeed = await client.fetch(nouvellesListHomepageQuery);
+  const featuredArticle = await client.fetch(nouvellesFeaturedQuery);
+  const numerosData = await client.fetch(numeroListQuery);
 
   return {
     props: {
-      posts,
+      latestNumero,
+      bannerData,
+      newsFeed,
+      featuredArticle,
       footerLogos,
+      numerosData,
     },
     // params: {
     //   slug: string,
@@ -47,9 +65,10 @@ export async function getStaticProps() {
 const Main = styled.div`
   background-color: var(--color-cream);
   transition: var(--transition);
+  overflow-x: hidden;
 `;
 
-const Inner = styled.div`
+export const Inner = styled.div`
   width: 92.5%;
   margin: 0 auto;
 `;

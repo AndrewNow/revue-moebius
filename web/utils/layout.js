@@ -46,7 +46,7 @@ const Main = styled.main`
     line-height: 130%;
   }
   h5 {
-    font-size: 23px;
+    font-size: 27px;
     line-height: 140%;
     font-weight: normal;
     letter-spacing: 1%;

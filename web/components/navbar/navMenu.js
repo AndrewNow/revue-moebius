@@ -111,14 +111,29 @@ const NavMenu = ({ isOpen }) => {
     },
   };
 
+  const backgroundAnim = {
+    hidden: {
+      opacity: 0,
+      transitionEnd: {
+        display: "none",
+      },
+    },
+
+    visible: {
+      opacity: 1,
+      display: "inline-block",
+    },
+  };
+
   return (
     <>
-      <AnimatePresence key="Menuopen">
+      <AnimatePresence>
         <Menu
           variants={openModal}
           initial="hidden"
           animate={isOpen ? "open" : "hidden"}
           exit="hidden"
+          key="Menuopen"
         >
           <Wrapper>
             <HorizontalLine
@@ -145,9 +160,7 @@ const NavMenu = ({ isOpen }) => {
                 animate={isOpen ? "animate" : "hidden"}
                 exit="hidden"
               >
-                <motion.h3 variants={fadeTextChild}>
-                  À propos
-                </motion.h3>
+                <motion.h3 variants={fadeTextChild}>À propos</motion.h3>
                 <motion.h3 variants={fadeTextChild}>
                   Proposer un texte
                 </motion.h3>
@@ -188,6 +201,13 @@ const NavMenu = ({ isOpen }) => {
             </BottomInner>
           </Bottom>
         </Menu>
+        <BlurBackground
+          variants={backgroundAnim}
+          initial="hidden"
+          animate={isOpen ? "visible" : "hidden"}
+          exit="hidden"
+          key="blurBG"
+        />
       </AnimatePresence>
     </>
   );
@@ -205,6 +225,16 @@ const Menu = styled(motion.div)`
   width: 100%;
   height: 85vh;
   /* min-height: 85vh; */
+  z-index: 11;
+`;
+
+const BlurBackground = styled(motion.div)`
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  background: #00000090;
+  z-index: 10;
 `;
 
 const Wrapper = styled.div`

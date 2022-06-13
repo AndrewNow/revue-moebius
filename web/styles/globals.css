@@ -85,6 +85,9 @@ label {
   padding: 0;
 }
 
+a {
+  color: var(--color-black);
+}
 
 /* See font sizing scales in layout.js */
 h1 {
@@ -122,7 +125,6 @@ p {
 p > i {
   font-family: "Simula-Italic";
 }
-
 
 small {
   font-family: "IBM-Plex-Regular", monospace;
