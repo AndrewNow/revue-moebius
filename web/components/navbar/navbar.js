@@ -56,7 +56,7 @@ const Navbar = () => {
           </AnimatePresence>
         </div>
       </NavbarInner>
-      <NavMenu isOpen={isOpen} />
+      <NavMenu isOpen={isOpen} setOpen={setOpen} />
     </Wrapper>
   );
 };

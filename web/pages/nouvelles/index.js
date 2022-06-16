@@ -147,6 +147,7 @@ export default function Nouvelles({ nouvellesList, categories }) {
   //
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
 
+  
   // Only display 6 posts at first
   const [visiblePosts, setVisiblePosts] = useState(6);
   // Value to increment more/less posts by

@@ -71,7 +71,7 @@ const Button = styled.button`
   justify-content: flex-start;
   color: var(--color-cream);
   transition: var(--transition);
-  width: 165px;
+  width: 175px;
 
 
   small {

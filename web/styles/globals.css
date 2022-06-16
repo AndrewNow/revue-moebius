@@ -126,6 +126,14 @@ p > i {
   font-family: "Simula-Italic";
 }
 
+blockquote {
+  font-family: "Simula-Italic";
+  font-weight: 100;
+  border-left: 2px solid var(--color-purple);
+  padding-left: 1rem;
+  margin-left: 1rem;
+}
+
 small {
   font-family: "IBM-Plex-Regular", monospace;
   text-transform: uppercase;

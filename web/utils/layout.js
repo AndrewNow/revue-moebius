@@ -56,7 +56,7 @@ const Main = styled.main`
     line-height: 150%;
   }
 
-  p {
+  p, blockquote {
     font-size: 23px;
     line-height: 150%;
     letter-spacing: -1%;

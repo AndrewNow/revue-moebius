@@ -1,12 +1,39 @@
+import { useState, useEffect } from "react";
 import { client } from "../../lib/sanity/client";
 import styled from "styled-components";
 import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
 import { Inner } from "../../pages/index";
 import { numeroListQuery } from "../../lib/sanity/numeroQuery";
+import { archiveListQuery } from "../../lib/sanity/archiveQuery";
 import Image from "next/image";
 import Link from "next/link";
+import HoverImage from "./hoverImage";
+import ArchiveItemMap from "./archiveItem";
 
-const Numeros = ({ numeroData }) => {
+const useMousePosition = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const updateMousePosition = (e) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("mousemove", updateMousePosition);
+    }
+
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("mousemove", updateMousePosition);
+      }
+    };
+  }, []);
+  return mousePos;
+};
+
+const Numeros = ({ numeroData, archiveData }) => {
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const { x, y } = useMousePosition();
   return (
     <>
       <Header>
@@ -24,11 +51,14 @@ const Numeros = ({ numeroData }) => {
               return (
                 <GridItem>
                   <ItemImage>
-                    <Image
-                      src={numero.imageUrl}
-                      alt={`Image couveture pour ${numero.title}`}
-                      layout="fill"
-                    />
+                    <Link href={`/numeros/${numero.slug}`}>
+                      <Image
+                        src={numero.imageUrl}
+                        alt={`Image couveture pour ${numero.title}`}
+                        layout="fill"
+                        className="imageHover"
+                      />
+                    </Link>
                   </ItemImage>
                   <ItemText>
                     <small>n°{numero.number}</small>
@@ -44,6 +74,39 @@ const Numeros = ({ numeroData }) => {
           </Grid>
         </Content>
       </Inner>
+      <Archive>
+        <h1>Archive</h1>
+        <Inner>
+          <ArchiveHoverWrapper>
+            {archiveData.map((archive, index) => {
+              return (
+                <ArchiveItemMap
+                  setActiveIndex={setActiveIndex}
+                  archive={archive}
+                  index={index}
+                  key={index + "idx"}
+                />
+              );
+            })}
+            <CursorMedia>
+              {archiveData.map((image, index) => {
+                const isActive = index === activeIndex;
+                const xPos = isActive ? x : 0;
+                const yPos = isActive ? y : 0;
+                return (
+                  <HoverImage
+                    key={index + "imgIndex"}
+                    data={image}
+                    active={isActive}
+                    x={xPos}
+                    y={yPos}
+                  />
+                );
+              })}
+            </CursorMedia>
+          </ArchiveHoverWrapper>
+        </Inner>
+      </Archive>
     </>
   );
 };
@@ -53,11 +116,13 @@ export default Numeros;
 export async function getStaticProps() {
   const footerLogos = await client.fetch(footerLogoQuery);
   const numeroData = await client.fetch(numeroListQuery);
+  const archiveData = await client.fetch(archiveListQuery);
 
   return {
     props: {
       footerLogos,
       numeroData,
+      archiveData,
     },
     revalidate: 10,
   };
@@ -69,6 +134,8 @@ const Header = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  position: relative;
+  z-index: 5;
   h1 {
     color: var(--static-cream);
     max-width: 80%;
@@ -78,6 +145,8 @@ const Header = styled.header`
 
 const Content = styled.section`
   margin: 10rem 0;
+  position: relative;
+  z-index: 5;
 `;
 
 const ContentHeader = styled.div`
@@ -130,4 +199,65 @@ const ItemImage = styled.div`
   width: 100%;
   overflow: hidden;
   border-radius: 5px;
+  cursor: pointer;
+
+  .imageHover {
+    transition: var(--transition);
+    transform-origin: center;
+  }
+  :hover {
+    .imageHover {
+      /* scale: 1.05; */
+      transform: scale(1.05);
+      filter: blur(5px) saturate(110%);
+    }
+  }
+`;
+
+const Archive = styled.section`
+  z-index: 1;
+  position: relative;
+  background: var(--color-clay);
+  padding: 10rem 0;
+  box-sizing: border-box;
+  h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--static-cream);
+  }
+`;
+
+const ArchiveHoverWrapper = styled.div`
+  position: relative;
+  z-index: 1;
+
+  #archive-item {
+    position: relative;
+    z-index: 2;
+  }
+`;
+
+const CursorMedia = styled.div`
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: var(--transition);
+
+  .hover-media {
+    z-index: 2;
+    opacity: 0;
+    position: absolute;
+    width: auto;
+    height: auto;
+    max-height: 50%;
+    max-width: 60%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+  .is-active {
+    opacity: 1;
+  }
 `;

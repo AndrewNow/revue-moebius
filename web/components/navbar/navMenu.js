@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
-const NavMenu = ({ isOpen }) => {
+const NavMenu = ({ isOpen, setOpen }) => {
   const openModal = {
     hidden: {
       y: "-100%",
@@ -160,14 +161,30 @@ const NavMenu = ({ isOpen }) => {
                 animate={isOpen ? "animate" : "hidden"}
                 exit="hidden"
               >
-                <motion.h3 variants={fadeTextChild}>À propos</motion.h3>
-                <motion.h3 variants={fadeTextChild}>
-                  Proposer un texte
+                <motion.h3
+                  variants={fadeTextChild}
+                  onClick={() => setOpen(!isOpen)}
+                >
+                  À propos
                 </motion.h3>
-                <motion.h3 variants={fadeTextChild}>
+                <motion.h3
+                  variants={fadeTextChild}
+                  onClick={() => setOpen(!isOpen)}
+                >
+                  <Link href="/proposer-un-texte">Proposer un texte</Link>
+                </motion.h3>
+                <motion.h3
+                  variants={fadeTextChild}
+                  onClick={() => setOpen(!isOpen)}
+                >
                   Vente et abonnements
                 </motion.h3>
-                <motion.h3 variants={fadeTextChild}>Numéros</motion.h3>
+                <motion.h3
+                  variants={fadeTextChild}
+                  onClick={() => setOpen(!isOpen)}
+                >
+                  <Link href="/numeros">Numéros</Link>
+                </motion.h3>
               </Links>
               <VerticalLine
                 variants={animateVerticalLine2}
@@ -181,10 +198,30 @@ const NavMenu = ({ isOpen }) => {
                 animate={isOpen ? "animate" : "hidden"}
                 exit="hidden"
               >
-                <motion.h3 variants={fadeTextChild}>Résidences</motion.h3>
-                <motion.h3 variants={fadeTextChild}>Mœbius-balado</motion.h3>
-                <motion.h3 variants={fadeTextChild}>Nouvelles</motion.h3>
-                <motion.h3 variants={fadeTextChild}>Nous contacter</motion.h3>
+                <motion.h3
+                  variants={fadeTextChild}
+                  onClick={() => setOpen(!isOpen)}
+                >
+                  Résidences
+                </motion.h3>
+                <motion.h3
+                  variants={fadeTextChild}
+                  onClick={() => setOpen(!isOpen)}
+                >
+                  Mœbius-balado
+                </motion.h3>
+                <motion.h3
+                  variants={fadeTextChild}
+                  onClick={() => setOpen(!isOpen)}
+                >
+                  <Link href="/nouvelles">Nouvelles</Link>
+                </motion.h3>
+                <motion.h3
+                  variants={fadeTextChild}
+                  onClick={() => setOpen(!isOpen)}
+                >
+                  Nous contacter
+                </motion.h3>
               </Links>
             </Content>
           </Wrapper>
@@ -272,7 +309,6 @@ const Content = styled(motion.div)`
 const Links = styled(motion.div)`
   width: 35%;
   height: 100%;
-  color: var(--color-cream);
   transition: var(--transition);
   display: flex;
   justify-content: flex-end;
@@ -282,6 +318,9 @@ const Links = styled(motion.div)`
 
   h3 {
     margin: 1rem 2rem;
+  }
+  h3 > a {
+    color: var(--color-cream);
   }
 `;
 
