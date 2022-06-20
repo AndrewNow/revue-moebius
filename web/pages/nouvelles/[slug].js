@@ -8,7 +8,6 @@ import Image from "next/image";
 import styled from "styled-components";
 
 export default function Nouvelles({ nouvelles }) {
-  console.log(nouvelles[0]);
   return (
     <>
       <h2>{nouvelles?.title}</h2>

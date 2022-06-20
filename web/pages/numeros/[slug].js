@@ -121,7 +121,7 @@ export default function Numeros({ numero, readMoreData }) {
             <h1>Lire plus d'articles</h1>
           </ReadMoreHeader>
           <Grid>
-            {randomizedThreeArticles.map((item) => {
+            {randomizedThreeArticles?.map((item) => {
               return (
                 <GridItem key={item._id}>
                   <ItemImage>

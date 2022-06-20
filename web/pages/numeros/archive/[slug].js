@@ -36,7 +36,7 @@ export default function Archive({ numero, readMoreData }) {
           <HeaderFlex>
             <HeaderImage>
               <Image
-                src={numero.imageUrl}
+                src={numero?.imageUrl}
                 alt="Thumbnail image"
                 quality={100}
                 layout="fill"
