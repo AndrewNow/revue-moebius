@@ -30,7 +30,7 @@ export default function Nouvelles({ nouvelles }) {
 }
 
 export async function getStaticProps({ params }) {
-  const footerLogos =    client.fetch(footerLogoQuery);
+  const footerLogos = client.fetch(footerLogoQuery);
 
   let slug;
   const nouvelles = await client.fetch(nouvellesQuery, {

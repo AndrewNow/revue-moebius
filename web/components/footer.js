@@ -50,7 +50,7 @@ const Footer = ({ logos }) => {
       </Bottom>
       <Bottom style={{ borderTop: "1px solid var(--static-cream)" }}>
         <ImageBanner>
-          {logos[0]?.Partenaires.map((partner, i) => {
+          {logos?.[0]?.Partenaires.map((partner, i) => {
             return (
               <ImageInnerWrapper key={i}>
                 <Image
