@@ -2,13 +2,11 @@ import Link from "next/link";
 import groq from "groq";
 import BlockContent from "@sanity/block-content-to-react";
 import { client } from "../../lib/sanity/client";
-import { nouvellesQuery } from "../../lib/sanity/nouvellesQuery";
 import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
 import Image from "next/image";
 import styled from "styled-components";
 
 export default function balado({ balado }) {
-  console.log(balado[0]);
   return (
     <>
       <h2>{balado?.title}</h2>
