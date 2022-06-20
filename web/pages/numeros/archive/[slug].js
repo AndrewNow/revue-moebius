@@ -10,23 +10,25 @@ import { footerLogoQuery } from "../../../lib/sanity/footerLogoQuery";
 import Image from "next/image";
 import styled from "styled-components";
 import { Inner } from "../../index";
+import { useState, useEffect } from "react";
 
 export default function Archive({ numero, readMoreData }) {
   // logic for showing 3 randomized articles at the bottom of the page
   // the {readMoreData} already filters out the current article
 
-  console.log(numero);
+  const [randomizedThreeArticles, setRandomizedThreeArticles] = useState();
+
   const DISPLAY_MORE = 3;
 
-  const getMultipleRandom = (arr, num) => {
-    const shuffled = [...arr].sort(() => 0.5 - Math.random());
+  useEffect(() => {
+    const getMultipleRandom = (arr, num) => {
+      const shuffled = [...arr].sort(() => 0.5 - Math.random());
 
-    return shuffled.slice(0, num);
-  };
+      return shuffled.slice(0, num);
+    };
+    setRandomizedThreeArticles(getMultipleRandom(readMoreData, DISPLAY_MORE));
+  }, []);
 
-  const randomizedThreeArticles = getMultipleRandom(readMoreData, DISPLAY_MORE);
-
-  console.log(numero);
   return (
     <>
       <Header>
@@ -122,7 +124,7 @@ export default function Archive({ numero, readMoreData }) {
             <h1>Lire plus d'articles</h1>
           </ReadMoreHeader>
           <Grid>
-            {randomizedThreeArticles.map((item) => {
+            {randomizedThreeArticles?.map((item) => {
               return (
                 <GridItem key={item._id}>
                   <ItemImage>
