@@ -5,6 +5,9 @@ import Hamburger from "hamburger-react";
 import NavMenu from "./navMenu";
 import ToggleDarkMode from "./toggleDarkMode";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import Logo from "../../images/logo.png";
+import Link from "next/link";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
@@ -26,36 +29,47 @@ const Navbar = () => {
 
   return (
     <Wrapper>
-      <NavbarInner>
+      <HamburgerWrapper>
         <Hamburger
           toggled={isOpen}
           toggle={setOpen}
           color="var(--color-black)"
         />
-        <p>Logo</p>
-        <div>
-          <AnimatePresence>
-            <motion.div
-              key="toggle"
-              variants={fadeIn}
-              initial="hidden"
-              animate={isOpen ? "visible" : "hidden"}
-              exit="hidden"
-            >
-              <ToggleDarkMode />
-            </motion.div>
-            <motion.div
-              key="menu"
-              variants={fadeIn}
-              initial="visible"
-              animate={isOpen ? "hidden" : "visible"}
-              exit="hidden"
-            >
-              <p>Search</p>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </NavbarInner>
+      </HamburgerWrapper>
+      <LogoWrapper>
+        <Link href="/">
+          <Image
+            src={Logo}
+            alt="Moebius logo"
+            layout="fixed"
+            width={154}
+            height={38}
+            style={{ filter: "var(--logo-color)" }}
+          />
+        </Link>
+      </LogoWrapper>
+      <RightSideWrapper>
+        <AnimatePresence>
+          <motion.div
+            key="toggle"
+            variants={fadeIn}
+            initial="hidden"
+            animate={isOpen ? "visible" : "hidden"}
+            exit="hidden"
+          >
+            <ToggleDarkMode />
+          </motion.div>
+          <motion.div
+            key="menu"
+            variants={fadeIn}
+            initial="visible"
+            animate={isOpen ? "hidden" : "visible"}
+            exit="hidden"
+          >
+            <p>Search</p>
+          </motion.div>
+        </AnimatePresence>
+      </RightSideWrapper>
       <NavMenu isOpen={isOpen} setOpen={setOpen} />
     </Wrapper>
   );
@@ -68,16 +82,25 @@ const Wrapper = styled.div`
   z-index: 999;
 `;
 
-const NavbarInner = styled.nav`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 130px;
-  width: 92.5%;
+const HamburgerWrapper = styled.div`
   position: fixed;
   z-index: 999;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 41px;
+  left: 3.75%;
 `;
 
+const RightSideWrapper = styled.div`
+  position: fixed;
+  z-index: 999;
+  top: 41px;
+  right: 3.75%;
+`;
+
+const LogoWrapper = styled.div`
+  position: fixed;
+  z-index: 999;
+  top: 41px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+`;

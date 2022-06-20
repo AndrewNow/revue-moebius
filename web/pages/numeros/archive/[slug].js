@@ -1,16 +1,21 @@
 import Link from "next/link";
 import groq from "groq";
 import BlockContent from "@sanity/block-content-to-react";
-import { client } from "../../lib/sanity/client";
-import { numeroQuery, numeroReadMoreQuery } from "../../lib/sanity/numeroQuery";
-import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
+import { client } from "../../../lib/sanity/client";
+import {
+  archiveQuery,
+  archiveReadMoreQuery,
+} from "../../../lib/sanity/archiveQuery";
+import { footerLogoQuery } from "../../../lib/sanity/footerLogoQuery";
 import Image from "next/image";
 import styled from "styled-components";
-import { Inner } from "../../pages/index";
+import { Inner } from "../../index";
 
-export default function Numeros({ numero, readMoreData }) {
+export default function Archive({ numero, readMoreData }) {
   // logic for showing 3 randomized articles at the bottom of the page
   // the {readMoreData} already filters out the current article
+
+  console.log(numero);
   const DISPLAY_MORE = 3;
 
   const getMultipleRandom = (arr, num) => {
@@ -21,6 +26,7 @@ export default function Numeros({ numero, readMoreData }) {
 
   const randomizedThreeArticles = getMultipleRandom(readMoreData, DISPLAY_MORE);
 
+  console.log(numero);
   return (
     <>
       <Header>
@@ -28,7 +34,7 @@ export default function Numeros({ numero, readMoreData }) {
           <HeaderFlex>
             <HeaderImage>
               <Image
-                src={numero?.imageUrl}
+                src={numero.imageUrl}
                 alt="Thumbnail image"
                 quality={100}
                 layout="fill"
@@ -38,9 +44,9 @@ export default function Numeros({ numero, readMoreData }) {
               <h5>Mœbius, N°{numero?.number}</h5>
               <h1>{numero?.title}</h1>
               <small>
-                {numero?.publishedAt}
+                {numero?.publishedAt && numero?.publishedAt}
                 <br />
-                Dirigé par {numero?.directedBy}
+                {numero?.directedBy && `Dirigé par ${numero?.directedBy}`}
               </small>
             </HeaderText>
           </HeaderFlex>
@@ -120,7 +126,7 @@ export default function Numeros({ numero, readMoreData }) {
               return (
                 <GridItem key={item._id}>
                   <ItemImage>
-                    <Link href={`/numeros/${item.slug}`}>
+                    <Link href={`/numeros/archive/${item.slug}`}>
                       <Image
                         src={item.imageUrl}
                         alt={`Image couveture pour ${item.title}`}
@@ -132,7 +138,9 @@ export default function Numeros({ numero, readMoreData }) {
                   <ItemText>
                     <small>n°{item.number}</small>
                     <h5>
-                      <Link href={`/numeros/${item.slug}`}>{item.title}</Link>
+                      <Link href={`/numeros/archive/${item.slug}`}>
+                        {item.title}
+                      </Link>
                     </h5>
                   </ItemText>
                 </GridItem>
@@ -149,19 +157,17 @@ export async function getStaticProps({ params }) {
   const footerLogos = await client.fetch(footerLogoQuery);
 
   let slug;
-
-  const numero = await client.fetch(numeroQuery, {
+  const numero = await client.fetch(archiveQuery, {
     slug: params.slug,
   });
 
-  const readMoreData = await client.fetch(numeroReadMoreQuery, {
+  const readMoreData = await client.fetch(archiveReadMoreQuery, {
     slug: params.slug,
   });
 
   return {
     props: {
       numero,
-
       readMoreData,
       footerLogos,
     },
@@ -170,9 +176,8 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   const paths = await client.fetch(
-    groq`*[_type == "numero" && defined(slug.current)][].slug.current`
+    groq`*[_type == "archive" && defined(slug.current)][].slug.current`
   );
-
 
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
@@ -181,7 +186,7 @@ export async function getStaticPaths() {
 }
 
 const Header = styled.header`
-  background-color: var(--color-yellow);
+  background-color: var(--color-blue);
   height: 95vh;
 `;
 

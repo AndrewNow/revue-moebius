@@ -171,7 +171,10 @@ export default function Nouvelles({ nouvellesList, categories }) {
       <Header>
         <HeaderText>
           <h1>Nouvelles et événements</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+          <p>
+            Retrouvez les captations d'événements passés aussi bien que les
+            toutes dernières nouvelles de la revue.
+          </p>
         </HeaderText>
       </Header>
       <Inner>
@@ -270,6 +273,11 @@ const Header = styled.header`
 const HeaderText = styled.div`
   text-align: center;
   padding: 5rem 0;
+
+  p {
+    max-width: 30%;
+    margin: 0 auto;
+  }
 `;
 
 const ArticleGrid = styled.div`

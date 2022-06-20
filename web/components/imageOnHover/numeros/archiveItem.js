@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Link from "next/link";
 
 const ArchiveItem = ({ archive, setActiveIndex, index }) => {
   const [hovered, setHovered] = useState(false);
@@ -36,53 +37,55 @@ const ArchiveItem = ({ archive, setActiveIndex, index }) => {
   };
 
   return (
-    <Item
-      id="archive-item"
-      onMouseEnter={() => handleMouseEnter(index)}
-      onMouseLeave={handleMouseLeave}
-    >
-      <motion.h4
-        initial={{ color: "var(--static-cream)" }}
-        animate={{
-          color: hovered ? "var(--static-black)" : "var(--static-cream)",
-          transition: {
-            duration: 0.2,
-            ease: "easeInOut",
-          },
-        }}
+    <Link href={`/numeros/archive/${archive.slug}`}>
+      <Item
+        id="archive-item"
+        onMouseEnter={() => handleMouseEnter(index)}
+        onMouseLeave={handleMouseLeave}
       >
-        N° {archive.number}
-      </motion.h4>
-      <motion.h4
-        initial={{ color: "var(--static-cream)" }}
-        animate={{
-          color: hovered ? "var(--static-black)" : "var(--static-cream)",
-          transition: {
-            duration: 0.2,
-            ease: "easeInOut",
-          },
-        }}
-      >
-        {archive.title}
-      </motion.h4>
-      <svg
-        width="12"
-        height="22"
-        viewBox="0 0 12 22"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M1.64955 21.2878L11.8322 10.9167L1.64955 0.545507L0.376952 1.84167L9.28695 10.9167L0.376953 19.9917L1.64955 21.2878Z"
-          fill="#FEFEFE"
+        <motion.h4
+          initial={{ color: "var(--static-cream)" }}
+          animate={{
+            color: hovered ? "var(--static-black)" : "var(--static-cream)",
+            transition: {
+              duration: 0.2,
+              ease: "easeInOut",
+            },
+          }}
+        >
+          N° {archive.number}
+        </motion.h4>
+        <motion.h4
+          initial={{ color: "var(--static-cream)" }}
+          animate={{
+            color: hovered ? "var(--static-black)" : "var(--static-cream)",
+            transition: {
+              duration: 0.2,
+              ease: "easeInOut",
+            },
+          }}
+        >
+          {archive.title}
+        </motion.h4>
+        <svg
+          width="12"
+          height="22"
+          viewBox="0 0 12 22"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1.64955 21.2878L11.8322 10.9167L1.64955 0.545507L0.376952 1.84167L9.28695 10.9167L0.376953 19.9917L1.64955 21.2878Z"
+            fill="#FEFEFE"
+          />
+        </svg>
+        <HoverWhite
+          variants={hoverAnimBackground}
+          initial="hidden"
+          animate={hovered ? "visible" : "hidden"}
         />
-      </svg>
-      <HoverWhite
-        variants={hoverAnimBackground}
-        initial="hidden"
-        animate={hovered ? "visible" : "hidden"}
-      />
-    </Item>
+      </Item>
+    </Link>
   );
 };
 

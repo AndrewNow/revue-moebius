@@ -72,6 +72,7 @@ const Button = styled.button`
   color: var(--color-cream);
   transition: var(--transition);
   width: 175px;
+  height: 34px;
 
 
   small {

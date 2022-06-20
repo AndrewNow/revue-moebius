@@ -7,8 +7,8 @@ import { numeroListQuery } from "../../lib/sanity/numeroQuery";
 import { archiveListQuery } from "../../lib/sanity/archiveQuery";
 import Image from "next/image";
 import Link from "next/link";
-import HoverImage from "./hoverImage";
-import ArchiveItemMap from "./archiveItem";
+import HoverImage from "../../components/imageOnHover/hoverImage";
+import ArchiveItemMap from "../../components/imageOnHover/numeros/archiveItem";
 
 const useMousePosition = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -38,13 +38,13 @@ const Numeros = ({ numeroData, archiveData }) => {
     <>
       <Header>
         <Inner>
-          <h1>La revue Mœbius lorem ipsum dolor sit amet</h1>
+          <h1>Survolez tous les numéros de la revue.</h1>
         </Inner>
       </Header>
       <Inner>
         <Content>
           <ContentHeader>
-            <h1>Éditions</h1>
+            <h1>Numéros récents</h1>
           </ContentHeader>
           <Grid>
             {numeroData.map((numero) => {
@@ -75,7 +75,7 @@ const Numeros = ({ numeroData, archiveData }) => {
         </Content>
       </Inner>
       <Archive>
-        <h1>Archive</h1>
+        <h1>Archives</h1>
         <Inner>
           <ArchiveHoverWrapper>
             {archiveData.map((archive, index) => {
@@ -138,7 +138,7 @@ const Header = styled.header`
   z-index: 5;
   h1 {
     color: var(--static-cream);
-    max-width: 80%;
+    max-width: 70%;
     margin-bottom: 3rem;
   }
 `;

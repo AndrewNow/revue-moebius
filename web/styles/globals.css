@@ -16,11 +16,13 @@
 }
 
 [data-theme="light"] {
+  --logo-color: invert(0);
   --color-cream: #fffff8;
   --color-black: #353535;
 }
 
 [data-theme="dark"] {
+  --logo-color: invert(1);
   --color-black: #fffff8;
   --color-cream: #353535;
 }

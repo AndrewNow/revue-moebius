@@ -75,7 +75,7 @@ const Wrapper = styled.footer`
   background: var(--static-black);
   width: 100%;
   position: relative;
-  z-index: 0;
+  z-index: 5;
 `;
 
 const Newsletter = styled.div`

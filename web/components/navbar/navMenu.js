@@ -165,7 +165,7 @@ const NavMenu = ({ isOpen, setOpen }) => {
                   variants={fadeTextChild}
                   onClick={() => setOpen(!isOpen)}
                 >
-                  À propos
+                  <Link href="/a-propos">À propos</Link>
                 </motion.h3>
                 <motion.h3
                   variants={fadeTextChild}

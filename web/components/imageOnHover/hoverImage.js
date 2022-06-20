@@ -9,9 +9,10 @@ const HoverImage = ({ data, active, x, y }) => {
       <Image
         src={data.imageUrl}
         alt={`Image couveture pour ${data.title}`}
-        width={275}
-        height={413}
+        width={375}
+        height={470}
         quality={80}
+        objectFit="cover"
       />
     </div>
   );

@@ -1,78 +1,136 @@
 import styled from "styled-components";
 import { client } from "../lib/sanity/client";
 import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
+import { proposerUnTexteQuery } from "../lib/sanity/proposerUnTexteQuery";
+import BlockContent from "@sanity/block-content-to-react";
+import Image from "next/image";
+import { useInView } from "react-intersection-observer";
+import { useRef, useCallback } from "react";
 
-const ProposerUnTexte = () => {
+const ProposerUnTexte = ({ pageData }) => {
+  const options = {
+    root: null,
+    threshold: 0.2,
+    triggerOnce: false,
+  };
+
+  const [headerRef, headerIsVisible] = useInView(options);
+  const [submissionRef, submissionIsVisible] = useInView(options);
+  const [editionRef, editionIsVisible] = useInView(options);
+
+  const headerScrollRef = useRef(null);
+  const submissionScrollRef = useRef(null);
+  const editionScrollRef = useRef(null);
+
+  // Use `useCallback` so we don't recreate the function on each render. Could result in infinite loop
+  const headerRefs = useCallback(
+    (node) => {
+      headerScrollRef.current = node;
+      headerRef(node);
+    },
+    [headerRef]
+  );
+
+  const submissionRefs = useCallback(
+    (node) => {
+      submissionScrollRef.current = node;
+      submissionRef(node);
+    },
+    [submissionRef]
+  );
+
+  const editionRefs = useCallback(
+    (node) => {
+      editionScrollRef.current = node;
+      editionRef(node);
+    },
+    [editionRef]
+  );
+
+  const handleScollTo = (ref) =>
+    ref.current.scrollIntoView({
+      behavior: "smooth",
+    });
+
   return (
     <Wrapper>
-      <Sidebar></Sidebar>
+      <Sidebar>
+        <SidebarList>
+          <small
+            onClick={() => handleScollTo(headerScrollRef)}
+            style={{
+              color: headerIsVisible
+                ? "var(--color-black)"
+                : "var(--color-grey)",
+            }}
+          >
+            {pageData.title}
+          </small>
+          <br />
+          <br />
+          <small
+            onClick={() => handleScollTo(submissionScrollRef)}
+            style={{
+              color: submissionIsVisible
+                ? "var(--color-black)"
+                : "var(--color-grey)",
+            }}
+          >
+            Protocole de soumission
+          </small>
+          <br />
+          <br />
+          <small
+            onClick={() => handleScollTo(editionScrollRef)}
+            style={{
+              color: editionIsVisible
+                ? "var(--color-black)"
+                : "var(--color-grey)",
+            }}
+          >
+            Protocole d'édition
+          </small>
+        </SidebarList>
+      </Sidebar>
       <MainContent>
         <Landing>
           <LandingText>
-            <h1>Current call for submissions</h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
+            <h1 ref={headerRefs}>{pageData.title}</h1>
+            <p>{pageData.description}</p>
           </LandingText>
         </Landing>
         <Protocols>
-          <ProtocolImage></ProtocolImage>
+          <ProtocolImage>
+            <ImageWrapper>
+              <Image
+                src={pageData.imageUrl}
+                alt="Image décoratif"
+                layout="fill"
+                objectFit="contain"
+              />
+            </ImageWrapper>
+          </ProtocolImage>
           <ProtocolText>
-            <h3>Protocole de soumission</h3>
-            <p>
-              La longueur des textes en prose ne doit pas dépasser 3,000 mots.
-              La longueur des textes en vers ne doit pas dépasser 7 pages. Les
-              textes doivent être soumis en format .doc, par courriel, à
-              l’adresse{" "}
-              <a href="mailto:redactionmoebius@gmail.com">
-                redactionmoebius@gmail.com.
-              </a>
-              <br />
-              <br />
-              Le courriel doit inclure les coordonnées complètes de l’auteurice
-              (adresse postale et numéro de téléphone) ainsi que la mention du
-              numéro pour lequel la soumission est proposée. Les textes doivent
-              être inédits. Une seule soumission par auteurice est acceptée pour
-              un même numéro et un maximum de deux textes d’un·e même auteurice
-              sont publiés dans la revue par année.
-            </p>
-            <br />
-            <br />
-            <h3>Protocole d’édition</h3>
-            <p>
-              La longueur des textes en prose ne doit pas dépasser 3,000 mots.
-              La longueur des textes en vers ne doit pas dépasser 7 pages. Les
-              textes doivent être soumis en format .doc, par courriel, à
-              l’adresse redactionmoebius@gmail.com. Le courriel doit inclure les
-              coordonnées complètes de l’auteurice (adresse postale et numéro de
-              téléphone) ainsi que la mention du numéro pour lequel la
-              soumission est proposée.
-            </p>
+            <Protocol>
+              <h3 ref={submissionRefs}>Protocole de soumission</h3>
+              <BlockContent blocks={pageData.soumission} />
+            </Protocol>
+            <Protocol>
+              <h3 ref={editionRefs}>Protocole d’édition</h3>
+              <BlockContent blocks={pageData.edition} />
+            </Protocol>
           </ProtocolText>
         </Protocols>
-        <OtherInfo>
-          <small>
-            Pour les auteurices qui n’ont pas la résidence canadienne;
-            <br />
-            <br />
-            La Revue Mœbius est subventionnée par le Conseil des arts du Canada, le
-            Conseil des arts et des lettres du Québec, et le Conseil des arts de
-            Montréal, et sa mission première est de diffuser le travail de
-            création littéraire des auteurices du Canada. La Revue souhaite par
-            ailleurs entretenir la richesse de ses liens avec la francophonie et
-            accepte les soumissions d’auteurs et d’autrices de partout à travers
-            le monde. C’est pour nous une fierté d’avoir reçu, et parfois
-            publié, des textes de grande qualité en provenance entre autres de
-            Belgique, de Haïti, de Suisse, d’Algérie, du Brésil, de France et
-            des États-Unis. Toutefois, sur les douze textes retenus pour
-            publication dans la section thématique de chaque numéro (en réponse
-            à l’appel de texte), deux seulement peuvent provenir d’auteurices
-            qui ne sont pas résident·e·s canadien·n·e·s.
-          </small>
-        </OtherInfo>
+        {(pageData.extraInfoTitle || pageData.extraInfoDescription) && (
+          <OtherInfo>
+            <small>
+              {pageData.extraInfoTitle}
+              <br />
+              <br />
+              {pageData.extraInfoDescription}
+            </small>
+          </OtherInfo>
+        )}
       </MainContent>
     </Wrapper>
   );
@@ -82,8 +140,10 @@ export default ProposerUnTexte;
 
 export async function getStaticProps() {
   const footerLogos = await client.fetch(footerLogoQuery);
+  const pageData = await client.fetch(proposerUnTexteQuery);
   return {
     props: {
+      pageData,
       footerLogos,
     },
     revalidate: 10,
@@ -99,6 +159,22 @@ const Wrapper = styled.div`
 
 const Sidebar = styled.div`
   width: 20%;
+  position: sticky;
+  top: 10vh;
+  height: 300px;
+`;
+
+const SidebarList = styled.div`
+  width: 80%;
+  margin: 2rem auto;
+  cursor: pointer;
+  user-select: none;
+  small {
+    transition: var(--transition);
+  }
+  small:hover {
+    text-decoration: underline;
+  }
 `;
 
 const MainContent = styled.div`
@@ -116,16 +192,18 @@ const LandingText = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  margin: 4rem;
+  margin: 12rem 4rem;
   h1,
   p {
     color: var(--color-black);
   }
   h1 {
-    width: 55%;
+    scroll-margin: 120px;
+    width: 75%;
+    margin-bottom: 2rem;
   }
   p {
-    width: 50%;
+    width: 60%;
   }
 `;
 
@@ -141,22 +219,35 @@ const Protocols = styled.div`
 const ProtocolText = styled.div`
   width: 55%;
   margin: 5rem 0;
+`;
+
+const Protocol = styled.div`
+  margin-bottom: 7.5rem;
+
   h3,
   p {
     color: var(--static-black);
   }
   h3 {
+    scroll-margin: 120px;
     font-family: "Surt";
     width: 55%;
     line-height: 100%;
     margin-bottom: 2rem;
   }
-  p {
-    margin-bottom: 3rem;
-  }
 `;
 const ProtocolImage = styled.div`
+  position: sticky;
+  top: 10rem;
+  height: 650px;
   width: 35%;
+`;
+
+const ImageWrapper = styled.div`
+  aspect-ratio: 4/5;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 5px;
 `;
 
 const OtherInfo = styled.div`
