@@ -28,7 +28,7 @@ const Main = styled.main`
   }
 
   h1 {
-    font-size: 130px;
+    font-size: 6.77vw;
     line-height: 120%;
     letter-spacing: -0.02em;
   }
@@ -56,9 +56,57 @@ const Main = styled.main`
     line-height: 150%;
   }
 
-  p, blockquote {
+  p,
+  blockquote {
     font-size: 23px;
     line-height: 150%;
     letter-spacing: -1%;
+  }
+
+  @media (max-width: ${breakpoints.xxl}px) {
+    h1 {
+      font-size: 100px;
+    }
+
+  }
+  @media (max-width: ${breakpoints.xl}px) {
+    h1 {
+      font-size: 75px;
+    }
+    h5 {
+      font-size: 23px;
+    }
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    h1 {
+      font-size: 65px;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    h1 {
+      font-size: 50px;
+    }
+    h2 {
+      font-size: 38px;
+    }
+    h3 {
+      font-size: 44px;
+    }
+    h4 {
+      font-size: 32px;
+    }
+    h5 {
+      font-size: 20px;
+    }
+    h6 {
+      font-size: 14px;
+    }
+    p,
+    blockquote {
+      font-size: 18px;
+    }
+    small {
+      font-size: 14px;
+    }
   }
 `;

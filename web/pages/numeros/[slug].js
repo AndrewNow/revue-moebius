@@ -7,6 +7,7 @@ import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
 import Image from "next/image";
 import styled from "styled-components";
 import { Inner } from "../../pages/index";
+import { breakpoints } from "../../utils/breakpoints";
 
 export default function Numeros({ numero, readMoreData }) {
   // logic for showing 3 randomized articles at the bottom of the page
@@ -173,7 +174,6 @@ export async function getStaticPaths() {
     groq`*[_type == "numero" && defined(slug.current)][].slug.current`
   );
 
-
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
     fallback: true,
@@ -182,7 +182,11 @@ export async function getStaticPaths() {
 
 const Header = styled.header`
   background-color: var(--color-yellow);
-  height: 95vh;
+  height: 100%;
+  padding-bottom: 5rem;
+  @media (max-width: ${breakpoints.xl}px) {
+    padding-bottom: 3rem;
+  }
 `;
 
 const HeaderFlex = styled.div`
@@ -192,6 +196,10 @@ const HeaderFlex = styled.div`
   position: relative;
   width: 100%;
   padding-top: 5rem;
+
+  @media (max-width: ${breakpoints.l}px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const HeaderText = styled.div`
@@ -215,8 +223,42 @@ const HeaderText = styled.div`
   h1 {
     width: 90%;
     margin: 4rem 0;
-    font-size: 105px;
+    font-size: 5.5vw;
     line-height: 110%;
+  }
+  @media (max-width: ${breakpoints.xl}px) {
+    margin-top: 5rem;
+    h1 {
+      font-size: 6.77vw;
+    }
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    width: 90%;
+    margin: 0 3rem;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+    h5,
+    h1,
+    small {
+      text-align: center;
+    }
+    small,
+    h1 {
+      width: 100%;
+    }
+    h1 {
+      margin: 2rem 0;
+    }
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    margin-bottom: 1rem;
+    h1 {
+      font-size: 50px;
+    }
+    small {
+      width: 80%;
+      margin: 0 auto;
+    }
   }
 `;
 
@@ -230,6 +272,13 @@ const HeaderImage = styled.div`
   margin-left: 0;
   overflow: hidden;
   border-radius: 5px;
+  @media (max-width: ${breakpoints.l}px) {
+    width: 50%;
+    margin: 2rem;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    width: 80%;
+  }
 `;
 
 const MainFlex = styled.div`
@@ -239,22 +288,13 @@ const MainFlex = styled.div`
   position: relative;
   width: 100%;
   margin: 10rem 0;
-`;
-
-const MainContent = styled.div`
-  width: 55%;
-  margin: 0 3rem;
-
-  * {
-    color: var(--color-black);
-    transition: var(--transition);
+  @media (max-width: ${breakpoints.l}px) {
+    flex-direction: column;
+    width: 90%;
+    margin: 5rem auto;
   }
-  a {
-    color: var(--color-purple);
-
-    :hover {
-      opacity: 0.6;
-    }
+  @media (max-width: ${breakpoints.s}px) {
+    margin: 2rem auto;
   }
 `;
 
@@ -276,10 +316,47 @@ const SideContent = styled.div`
   * {
     color: var(--color-black);
   }
+  @media (max-width: ${breakpoints.l}px) {
+    position: relative;
+    top: auto;
+    width: 100%;
+    margin: 0rem;
+    margin-bottom: 3rem;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    margin-bottom: 2rem;
+  }
+`;
+
+const MainContent = styled.div`
+  width: 55%;
+  margin: 0 3rem;
+
+  * {
+    color: var(--color-black);
+    transition: var(--transition);
+  }
+  a {
+    color: var(--color-purple);
+
+    :hover {
+      opacity: 0.6;
+    }
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+    margin: 0;
+  }
 `;
 
 const ReadMore = styled.div`
   background: var(--color-clay);
+
+  @media (max-width: ${breakpoints.l}px) {
+    & ${Inner} {
+      width: auto;
+    }
+  }
 `;
 
 const ReadMoreHeader = styled.div`
@@ -301,12 +378,41 @@ const Grid = styled.div`
   align-items: start;
   grid-template-columns: 1fr 1fr 1fr;
   padding-bottom: 5rem;
+
+  /* @media (max-width: ${breakpoints.m}px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  } */
+  @media (max-width: ${breakpoints.l}px) {
+    /* column-gap: 2rem; */
+    right: 0;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    width: 100%;
+    padding-bottom: 0;
+  }
 `;
 
 const GridItem = styled.div`
-  width: 490px;
+  width: 80%;
+  /* max-width: 490px; */
   position: relative;
   margin-top: 2rem;
+  @media (max-width: ${breakpoints.l}px) {
+    width: 300px;
+    min-width: 300px;
+    margin: 2rem;
+    scroll-snap-align: center;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    width: 250px;
+    min-width: 250px;
+    margin: 1rem;
+  }
 `;
 
 const ItemText = styled.div`
@@ -348,6 +454,9 @@ const ItemImage = styled.div`
       filter: blur(5px);
     }
   }
+  @media (max-width: ${breakpoints.s}px) {
+    pointer-events: none;
+  }
 `;
 
 const Return = styled.small`
@@ -376,5 +485,8 @@ const Return = styled.small`
     svg {
       transform: translateX(-5px);
     }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    margin: 3rem 5%;
   }
 `;
