@@ -13,7 +13,6 @@ import { breakpoints } from "../../utils/breakpoints";
 export default function Numeros({ numero, readMoreData }) {
   // logic for showing 3 randomized articles at the bottom of the page
   // the {readMoreData} already filters out the current article
-
   const [randomizedThreeArticles, setRandomizedThreeArticles] = useState();
 
   const DISPLAY_MORE = 3;
@@ -26,6 +25,7 @@ export default function Numeros({ numero, readMoreData }) {
     };
     setRandomizedThreeArticles(getMultipleRandom(readMoreData, DISPLAY_MORE));
   }, []);
+
   return (
     <>
       <Header>
@@ -123,21 +123,21 @@ export default function Numeros({ numero, readMoreData }) {
           <Grid>
             {randomizedThreeArticles?.map((item) => {
               return (
-                <GridItem key={item._id}>
+                <GridItem key={item?._id}>
                   <ItemImage>
-                    <Link href={`/numeros/${item.slug}`}>
+                    <Link href={`/numeros/${item?.slug}`}>
                       <Image
                         src={item.imageUrl}
-                        alt={`Image couveture pour ${item.title}`}
+                        alt={`Image couveture pour ${item?.title}`}
                         layout="fill"
                         className="imageHover"
                       />
                     </Link>
                   </ItemImage>
                   <ItemText>
-                    <small>n°{item.number}</small>
+                    <small>n°{item?.number}</small>
                     <h5>
-                      <Link href={`/numeros/${item.slug}`}>{item.title}</Link>
+                      <Link href={`/numeros/${item?.slug}`}>{item?.title}</Link>
                     </h5>
                   </ItemText>
                 </GridItem>

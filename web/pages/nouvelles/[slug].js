@@ -13,7 +13,6 @@ export default function Nouvelles({ nouvelles }) {
       <h2>{nouvelles?.title}</h2>
       <p>{nouvelles?.publishedAt}</p>
       <hr />
-      {/* <img src={urlFor(nouvelles?.mainImage).width(300)} /> */}
       <ImageWrapper>
         <Image
           src={nouvelles?.imageUrl}
