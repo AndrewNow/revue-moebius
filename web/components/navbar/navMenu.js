@@ -177,7 +177,7 @@ const NavMenu = ({ isOpen, setOpen }) => {
                   variants={fadeTextChild}
                   onClick={() => setOpen(!isOpen)}
                 >
-                  Vente et abonnements
+                  <Link href="/vente">Vente et abonnements</Link>
                 </motion.h3>
                 <motion.h3
                   variants={fadeTextChild}
@@ -262,7 +262,7 @@ const Menu = styled(motion.div)`
   width: 100%;
   height: 85vh;
   /* min-height: 85vh; */
-  z-index: 11;
+  z-index: 990;
 `;
 
 const BlurBackground = styled(motion.div)`

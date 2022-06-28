@@ -202,14 +202,15 @@ const ItemImage = styled.div`
   cursor: pointer;
 
   .imageHover {
-    transition: var(--transition);
+    transition: var(--transition-image);
     transform-origin: center;
   }
   :hover {
     .imageHover {
       /* scale: 1.05; */
-      transform: scale(1.05);
-      filter: blur(5px) saturate(110%);
+      transform: scale(1.025);
+
+      filter: blur(2px) saturate(110%) brightness(0.8);
     }
   }
 `;
@@ -244,7 +245,7 @@ const CursorMedia = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  transition: var(--transition);
+  transition: var(--transition-image);
 
   .hover-media {
     z-index: 2;

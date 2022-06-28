@@ -9,6 +9,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import { Inner } from "../../pages/index";
 import { breakpoints } from "../../utils/breakpoints";
+import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
 
 export default function Numeros({ numero, readMoreData }) {
   // logic for showing 3 randomized articles at the bottom of the page
@@ -25,6 +26,17 @@ export default function Numeros({ numero, readMoreData }) {
     };
     setRandomizedThreeArticles(getMultipleRandom(readMoreData, DISPLAY_MORE));
   }, []);
+
+  const { addItem } = useShoppingCart();
+
+  const stripeFormattedProduct = {
+    title: numero.title,
+    price: numero.price,
+    number: numero.number,
+    currency: numero.currency,
+    image: numero.imageUrl,
+    id: numero._id,
+  };
 
   return (
     <>
@@ -47,6 +59,24 @@ export default function Numeros({ numero, readMoreData }) {
                 <br />
                 Dirigé par {numero?.directedBy}
               </small>
+              <Button
+                onClick={() => addItem(stripeFormattedProduct)}
+                aria-label="Ajouter au panier"
+                disabled={numero.available ? false : true}
+                suppressHydrationWarning
+              >
+                {numero?.available ? (
+                  <small suppressHydrationWarning>
+                    Ajouter au panier -{" "}
+                    {formatCurrencyString({
+                      value: numero?.price,
+                      currency: numero?.currency,
+                    })}
+                  </small>
+                ) : (
+                  <small>Numéro non disponible</small>
+                )}
+              </Button>
             </HeaderText>
           </HeaderFlex>
         </Inner>
@@ -207,6 +237,7 @@ const HeaderFlex = styled.div`
 `;
 
 const HeaderText = styled.div`
+  position: relative;
   align-self: center;
   width: 55%;
   margin: 3rem;
@@ -492,5 +523,47 @@ const Return = styled.small`
   }
   @media (max-width: ${breakpoints.s}px) {
     margin: 3rem 5%;
+  }
+`;
+
+const Button = styled.button`
+  background: none;
+  display: inline-block;
+  margin: 3rem auto;
+  border: 1px solid var(--color-black) !important;
+  border-radius: 10px;
+  padding: 1rem 1rem;
+
+  transition: var(--transition);
+
+  background: var(--color-cream);
+
+  small {
+    margin: 0 auto;
+    width: 100%;
+    color: var(--color-black);
+    transition: var(--transition);
+  }
+
+  :disabled {
+    cursor: not-allowed;
+    border: 1px solid var(--color-grey) !important;
+    background: var(--color-cream);
+    small {
+      color: var(--color-grey);
+    }
+    :hover {
+      background: var(--color-cream);
+    }
+  }
+  :hover {
+    small {
+      color: var(--static-black);
+    }
+    background: var(--color-turquoise);
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    display: block;
+    margin: 3rem auto;
   }
 `;

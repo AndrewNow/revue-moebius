@@ -9,6 +9,7 @@
   --color-error: #830202;
   --color-grey: #8a8a8a;
   --transition: 0.25s all ease;
+  --transition-image: .75s all ease;
 
   /* Static for colors that don't change in dark mode */
   --static-cream: #fffff8;

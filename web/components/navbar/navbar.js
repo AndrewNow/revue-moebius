@@ -8,9 +8,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Logo from "../../images/logo.png";
 import Link from "next/link";
+import CartSummary from "../cartSummary";
+import { useShoppingCart } from "use-shopping-cart";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
+  const [openCart, setOpenCart] = useState(false);
 
   const fadeIn = {
     hidden: {
@@ -27,9 +30,11 @@ const Navbar = () => {
     },
   };
 
+  const { cartCount } = useShoppingCart();
+
   return (
     <Wrapper>
-      <HamburgerWrapper>
+      <HamburgerWrapper onClick={() => setOpenCart(false)}>
         <Hamburger
           toggled={isOpen}
           toggle={setOpen}
@@ -44,6 +49,7 @@ const Navbar = () => {
             layout="fixed"
             width={154}
             height={38}
+            quality={100}
             style={{ filter: "var(--logo-color)" }}
           />
         </Link>
@@ -59,18 +65,28 @@ const Navbar = () => {
           >
             <ToggleDarkMode />
           </motion.div>
-          <motion.div
+          <Panier
             key="menu"
             variants={fadeIn}
             initial="visible"
             animate={isOpen ? "hidden" : "visible"}
             exit="hidden"
+            onClick={() => setOpenCart(!openCart)}
           >
-            <p>Search</p>
-          </motion.div>
+            <small style={{ color: "var(--color-black)" }}>
+              Panier ({cartCount > 0 ? cartCount : 0})
+            </small>
+          </Panier>
+          {openCart && (
+            <CartSummary setOpenCart={setOpenCart} openCart={openCart} />
+          )}
         </AnimatePresence>
       </RightSideWrapper>
-      <NavMenu isOpen={isOpen} setOpen={setOpen} />
+      <NavMenu
+        isOpen={isOpen}
+        setOpen={setOpen}
+        style={{ zIndex: "1001", position: "relative" }}
+      />
     </Wrapper>
   );
 };
@@ -79,28 +95,37 @@ export default Navbar;
 
 const Wrapper = styled.div`
   position: relative;
-  z-index: 999;
+  /* z-index: 999; */
 `;
 
 const HamburgerWrapper = styled.div`
   position: fixed;
-  z-index: 999;
+  z-index: 1000;
   top: 41px;
   left: 3.75%;
 `;
 
 const RightSideWrapper = styled.div`
   position: fixed;
-  z-index: 999;
+  z-index: 1000;
   top: 41px;
   right: 3.75%;
 `;
 
 const LogoWrapper = styled.div`
   position: fixed;
-  z-index: 999;
+  z-index: 1000;
   top: 41px;
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
+`;
+
+const Panier = styled(motion.div)`
+  z-index: 999;
+  cursor: pointer;
+  user-select: none;
+  :hover {
+    text-decoration: underline;
+  }
 `;

@@ -16,7 +16,8 @@ export const numeroQuery = groq`
     pages,
     authors,
     codirectors,
-    body
+    body,
+    currency
   }
 `;
 
@@ -47,7 +48,8 @@ export const numeroListQuery = groq`
     pages,
     authors,
     codirectors,
-    body
+    body,
+    currency
   }
 `;
 
@@ -67,6 +69,7 @@ export const numeroReadMoreQuery = groq`
     pages,
     authors,
     codirectors,
-    body
+    body,
+    currency
   }
 `;

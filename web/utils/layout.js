@@ -18,10 +18,6 @@ const Main = styled.main`
   margin: 0 auto;
   background-color: var(--color-cream);
 
-  a,
-  button {
-  }
-
   button {
     border: none;
     cursor: pointer;
