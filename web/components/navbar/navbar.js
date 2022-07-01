@@ -47,7 +47,7 @@ const Navbar = () => {
           <Image
             src={Logo}
             alt="Moebius logo"
-            layout="fixed"
+            layout="fill"
             width={154}
             height={38}
             quality={100}
@@ -107,7 +107,31 @@ const HamburgerWrapper = styled.div`
   @media (max-width: ${breakpoints.l}px) {
     top: 30px;
   }
+  @media (max-width: ${breakpoints.m}px) {
+    top: 25px;
+  }
 `;
+
+const LogoWrapper = styled.div`
+  position: fixed;
+  width: 154px;
+  height: auto;
+  aspect-ratio: 154/38;
+  z-index: 1000;
+  top: 41px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  
+  @media (max-width: ${breakpoints.l}px) {
+    top: 30px;
+    width: 130px;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    width: 100px;
+    top: 40px;
+  }
+  `;
 
 const RightSideWrapper = styled.div`
   position: fixed;
@@ -117,18 +141,11 @@ const RightSideWrapper = styled.div`
   @media (max-width: ${breakpoints.l}px) {
     top: 34px;
   }
-`;
-
-const LogoWrapper = styled.div`
-  position: fixed;
-  z-index: 1000;
-  top: 41px;
-  left: 50%;
-  transform: translateX(-50%);
-  cursor: pointer;
-
-  @media (max-width: ${breakpoints.l}px) {
-    top: 30px;
+  @media (max-width: ${breakpoints.m}px) {
+    top: 37px;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    top: 44px;
   }
 `;
 
@@ -138,5 +155,9 @@ const Panier = styled(motion.div)`
   user-select: none;
   :hover {
     text-decoration: underline;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    small {
+    }
   }
 `;

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { breakpoints } from "../../utils/breakpoints";
 
 const ToggleDarkMode = () => {
   // Set Dark mode / Light mode
@@ -74,7 +75,6 @@ const Button = styled.button`
   width: 175px;
   height: 34px;
 
-
   small {
     position: relative;
     align-self: center;
@@ -85,14 +85,36 @@ const Button = styled.button`
       text-decoration: underline;
     }
   }
+  @media (max-width: ${breakpoints.m}px) {
+    width: auto;
+    height: 25px;
+    small {
+      font-size: 14px !important;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    height: 20px;
+    small {
+      font-size: 12px !important;
+      white-space: nowrap;
+    }
+  }
 `;
 
 const Circle = styled.span`
   width: 20px;
-  height: 20px;
+  height: auto;
+  aspect-ratio: 1/1;
   margin-right: 0.5rem;
   display: inline-block;
   border-radius: 100%;
   background-color: var(--color-cream);
   transition: var(--transition);
+
+  @media (max-width: ${breakpoints.m}px) {
+    width: 15px;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    width: 10px;
+  }
 `;

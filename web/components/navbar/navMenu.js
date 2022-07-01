@@ -369,7 +369,7 @@ const Links = styled(motion.div)`
     }
   }
   @media (max-width: ${breakpoints.l}px) {
-    width: 90%;
+    width: 100%;
     height: auto;
     margin: 0 auto;
   }
