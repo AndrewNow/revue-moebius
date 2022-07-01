@@ -63,7 +63,7 @@ export default function Numeros({ numero, readMoreData }) {
               <Button
                 onClick={() => addItem(stripeFormattedProduct)}
                 aria-label="Ajouter au panier"
-                disabled={numero.available ? false : true}
+                disabled={numero?.available ? false : true}
                 suppressHydrationWarning
               >
                 {numero?.available ? (
@@ -163,7 +163,7 @@ export default function Numeros({ numero, readMoreData }) {
                   <ItemImage>
                     <Link href={`/numeros/${item?.slug}`}>
                       <Image
-                        src={item.imageUrl}
+                        src={item?.imageUrl}
                         alt={`Image couveture pour ${item?.title}`}
                         layout="fill"
                         className="imageHover"
