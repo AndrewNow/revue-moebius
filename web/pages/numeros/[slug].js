@@ -31,12 +31,12 @@ export default function Numeros({ numero, readMoreData }) {
   const { addItem } = useShoppingCart();
 
   const stripeFormattedProduct = {
-    title: numero.title,
-    price: numero.price,
-    number: numero.number,
-    currency: numero.currency,
-    image: numero.imageUrl,
-    id: numero._id,
+    title: numero?.title,
+    price: numero?.price,
+    number: numero?.number,
+    currency: numero?.currency,
+    image: numero?.imageUrl,
+    id: numero?._id,
   };
 
   return (
