@@ -10,6 +10,7 @@ import Logo from "../../images/logo.png";
 import Link from "next/link";
 import CartSummary from "../cartSummary";
 import { useShoppingCart } from "use-shopping-cart";
+import { breakpoints } from "../../utils/breakpoints";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
@@ -103,6 +104,9 @@ const HamburgerWrapper = styled.div`
   z-index: 1000;
   top: 41px;
   left: 3.75%;
+  @media (max-width: ${breakpoints.l}px) {
+    top: 30px;
+  }
 `;
 
 const RightSideWrapper = styled.div`
@@ -110,6 +114,9 @@ const RightSideWrapper = styled.div`
   z-index: 1000;
   top: 41px;
   right: 3.75%;
+  @media (max-width: ${breakpoints.l}px) {
+    top: 34px;
+  }
 `;
 
 const LogoWrapper = styled.div`
@@ -119,6 +126,10 @@ const LogoWrapper = styled.div`
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
+
+  @media (max-width: ${breakpoints.l}px) {
+    top: 30px;
+  }
 `;
 
 const Panier = styled(motion.div)`

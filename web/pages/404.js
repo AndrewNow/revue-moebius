@@ -9,7 +9,7 @@ const FourOFour = () => {
     <Wrapper>
       <Text>
         <h1>404</h1>
-        <p>Nous n'arrivons pas à trouver la page que vous recherchez.</p>
+        <p>Cette page est aussi introuvable que Réjean Ducharme.</p>
         <Link href="/">
           <Button>
             <small>Retourner à la page d'accueil</small>
@@ -43,7 +43,7 @@ const Text = styled.div`
   color: var(--static-black);
   text-align: center;
   p {
-    padding-bottom: 5rem;
+    padding-bottom: 3rem;
   }
 `;
 

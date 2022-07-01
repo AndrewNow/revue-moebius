@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-
+import { breakpoints } from "../../utils/breakpoints";
 const NavMenu = ({ isOpen, setOpen }) => {
   const openModal = {
     hidden: {
@@ -148,6 +148,12 @@ const NavMenu = ({ isOpen, setOpen }) => {
                 <SearchInner>
                   <p>Search</p>
                 </SearchInner>
+                <HorizontalLineMobile
+                  variants={animateHorizontalLine}
+                  initial="hidden"
+                  animate={isOpen ? "animate" : "hidden"}
+                  exit="hidden"
+                />
               </Search>
               <VerticalLine
                 variants={animateVerticalLine}
@@ -208,7 +214,7 @@ const NavMenu = ({ isOpen, setOpen }) => {
                   variants={fadeTextChild}
                   onClick={() => setOpen(!isOpen)}
                 >
-                  Mœbius-balado
+                  <Link href="/balado">Mœbius-balado</Link>
                 </motion.h3>
                 <motion.h3
                   variants={fadeTextChild}
@@ -263,6 +269,12 @@ const Menu = styled(motion.div)`
   height: 85vh;
   /* min-height: 85vh; */
   z-index: 990;
+  @media (max-width: ${breakpoints.l}px) {
+    height: auto;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    height: 100vh;
+  }
 `;
 
 const BlurBackground = styled(motion.div)`
@@ -272,6 +284,9 @@ const BlurBackground = styled(motion.div)`
   top: 0;
   background: #00000090;
   z-index: 10;
+  @media (max-width: ${breakpoints.s}px) {
+    display: none;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -279,6 +294,9 @@ const Wrapper = styled.div`
   height: 70%;
   position: relative;
   /* height: 60vh; */
+  @media (max-width: ${breakpoints.l}px) {
+    margin-top: 100px;
+  }
 `;
 
 const HorizontalLine = styled(motion.span)`
@@ -290,6 +308,19 @@ const HorizontalLine = styled(motion.span)`
   margin: 0;
 `;
 
+const HorizontalLineMobile = styled(motion.span)`
+  display: none;
+
+  @media (max-width: ${breakpoints.l}px) {
+    height: 1px;
+    display: inline;
+    background: var(--color-cream);
+    transform-origin: left;
+    float: left;
+    margin: 0;
+  }
+`;
+
 const VerticalLine = styled(motion.span)`
   width: 1px;
   display: inline;
@@ -297,6 +328,9 @@ const VerticalLine = styled(motion.span)`
   transform-origin: top;
   float: top;
   margin: 0;
+  @media (max-width: ${breakpoints.s}px) {
+    display: none;
+  }
 `;
 
 const Content = styled(motion.div)`
@@ -304,34 +338,76 @@ const Content = styled(motion.div)`
   height: 100%;
   position: relative;
   display: flex;
+  @media (max-width: ${breakpoints.l}px) {
+    flex-direction: column;
+  }
+  @media (max-width: ${breakpoints.xs}px) {
+    padding-top: 1rem;
+  }
 `;
 
 const Links = styled(motion.div)`
   width: 35%;
   height: 100%;
   transition: var(--transition);
-  display: flex;
+  display: inline-flex;
   justify-content: flex-end;
   flex-direction: column;
 
   position: relative;
 
   h3 {
+    font-size: 3.333vw !important;
     margin: 1rem 2rem;
   }
   h3 > a {
     color: var(--color-cream);
+  }
+  @media (max-width: ${breakpoints.xl}px) {
+    h3 {
+      font-size: 3.5vw !important;
+    }
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    width: 95%;
+    h3 {
+      font-size: 28px !important;
+      margin: 1.3vh 0;
+      text-align: left;
+      max-width: 90%;
+    }
+  }
+  @media (max-width: ${breakpoints.xs}px) {
+    h3 {
+      margin: .5rem 0;
+      font-size: 24px!important;
+    }
   }
 `;
 
 const Search = styled.div`
   height: 100%;
   width: 30%;
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+    height: auto;
+  }
+  @media (max-width: ${breakpoints.xs}px) {
+    display: none;
+  }
 `;
 
 const SearchInner = styled.div`
   width: 70%;
   margin: 2rem auto;
+  @media (max-width: ${breakpoints.l}px) {
+    width: 90%;
+  }
 `;
 
 const Bottom = styled.div`
@@ -348,4 +424,21 @@ const BottomInner = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: ${breakpoints.m}px) {
+    small {
+      font-size: 12px!important;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    margin: 2rem auto;
+    width: 90%;
+    small {
+      font-size: 12px!important;
+    }
+  }
+  @media (max-width: ${breakpoints.xs}px) {
+    small {
+      font-size: 10px!important;
+    }
+  }
 `;

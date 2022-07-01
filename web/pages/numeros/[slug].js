@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { Inner } from "../../pages/index";
 import { breakpoints } from "../../utils/breakpoints";
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
+import ShareButton from "../../components/shareButton";
 
 export default function Numeros({ numero, readMoreData }) {
   // logic for showing 3 randomized articles at the bottom of the page
@@ -118,6 +119,11 @@ export default function Numeros({ numero, readMoreData }) {
               <br />
             </small>
           )}
+          <br />
+          <br />
+          <ShareButton
+            input={`https://revuemoebius.com/numeros/${numero?.slug}`}
+          />
         </SideContent>
         <MainContent>
           <BlockContent blocks={numero?.body} />

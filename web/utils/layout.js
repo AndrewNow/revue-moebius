@@ -63,11 +63,20 @@ const Main = styled.main`
     h1 {
       font-size: 100px;
     }
+    h3 {
+      font-size: 50px;
+    }
 
   }
   @media (max-width: ${breakpoints.xl}px) {
     h1 {
       font-size: 75px;
+    }
+    h2 {
+      font-size: 65px;
+    }
+    h4 {
+      font-size: 35px;
     }
     h5 {
       font-size: 23px;
@@ -76,6 +85,18 @@ const Main = styled.main`
   @media (max-width: ${breakpoints.l}px) {
     h1 {
       font-size: 65px;
+    }
+    h2 {
+      font-size: 50px;
+    }
+    h3 {
+      font-size: 45px;
+    }
+    h4 {
+      font-size: 30px;
+    }
+    h5 {
+      font-size: 20px;
     }
   }
   @media (max-width: ${breakpoints.s}px) {
@@ -89,7 +110,7 @@ const Main = styled.main`
       font-size: 44px;
     }
     h4 {
-      font-size: 32px;
+      font-size: 28px;
     }
     h5 {
       font-size: 20px;

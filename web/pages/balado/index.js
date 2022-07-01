@@ -5,11 +5,46 @@ import { baladoListQuery } from "../../lib/sanity/baladoQuery";
 import { Inner } from "../index";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Balado({ baladoData }) {
+  // logic for getting the most recent balado for the header section
+  const [featuredBalado, setFeaturedBalado] = useState(baladoData);
+
+  useEffect(() => {
+    let newestBalado = baladoData.splice(0, 1);
+    setFeaturedBalado(newestBalado);
+  }, []);
+
+  const featured = featuredBalado[0];
   return (
     <Main>
       <Inner>
+        {featured && (
+          <FeaturedBalado>
+            <FeaturedText>
+              <small>{featured?.publishedAt}</small>
+              <h1>
+                Mœbius n°{featured?.number},<br /> {featured?.title}
+              </h1>
+              <EpisodeLink>
+                <Link href={`balado/${featured?.slug}`}>
+                  <small>Écouter l'épisode</small>
+                </Link>
+              </EpisodeLink>
+            </FeaturedText>
+            <FeaturedImageWrapper>
+              <Image
+                src={featured.imageUrl}
+                alt={`Image couverture pour Moebius-Balado ${featured.number}`}
+                width={700}
+                height={700}
+                quality={95}
+                priority={true}
+              />
+            </FeaturedImageWrapper>
+          </FeaturedBalado>
+        )}
         <Header>
           <h4>Mœbius-balado</h4>
           <p>
@@ -24,15 +59,15 @@ export default function Balado({ baladoData }) {
         <Grid>
           {baladoData.map((balado) => {
             return (
-              <Item>
+              <Item key={balado._id}>
                 <ImageWrapper>
                   <Image
                     src={balado.imageUrl}
                     alt={`Image couverture pour Moebius-Balado ${balado.number}`}
                     height={500}
                     width={500}
-                    layout="fill"
                     quality={90}
+                    // layout="fill"
                   />
                 </ImageWrapper>
                 <small>{balado.publishedAt}</small>
@@ -67,6 +102,37 @@ export async function getStaticProps() {
   };
 }
 
+const FeaturedBalado = styled.section`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding-top: 15vh;
+  padding-bottom: 5vh;
+  width: 90%;
+`;
+
+const FeaturedImageWrapper = styled.div`
+  position: relative;
+
+  margin: 0 2rem;
+`;
+
+const FeaturedText = styled.div`
+  position: relative;
+  display: block;
+  max-width: 70%;
+  h1 {
+    margin: 2rem 0;
+    color: var(--color-black);
+  }
+  small {
+    margin: 1rem auto;
+    color: var(--color-grey);
+    display: inline-block;
+  }
+`;
+
 const Header = styled.header`
   padding: 5rem 0;
   border-bottom: 1px solid var(--color-black);
@@ -95,7 +161,7 @@ const Grid = styled.div`
   padding: 5rem 0;
 `;
 
-const Item = styled.article`
+const Item = styled.div`
   text-align: center;
   max-width: 500px;
   small,
@@ -126,8 +192,9 @@ const EpisodeLink = styled.div`
   border-radius: 10px;
   cursor: pointer;
   transition: var(--transition);
-  
   small {
+    transition: var(--transition);
+    display: inline-block;
     padding: 1rem 4rem;
     margin: 0;
     color: var(--color-black);

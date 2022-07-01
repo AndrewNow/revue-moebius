@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
+import { breakpoints } from "../utils/breakpoints";
 
 const Footer = ({ logos }) => {
   return (
@@ -58,7 +59,8 @@ const Footer = ({ logos }) => {
                   alt={partner?.partnershipName}
                   quality={100}
                   layout="fill"
-                  objectFit="scale-down"
+                  // objectFit="scale-down"
+                  objectFit="contain"
                 />
               </ImageInnerWrapper>
             );
@@ -76,6 +78,7 @@ const Wrapper = styled.footer`
   width: 100%;
   position: relative;
   z-index: 5;
+  border-top: 1px solid var(--color-black);
 `;
 
 const Newsletter = styled.div`
@@ -94,10 +97,19 @@ const MainContent = styled.div`
   display: flex;
   border-top: 1px solid var(--static-cream);
   border-bottom: 1px solid var(--static-cream);
+
+  @media (max-width: ${breakpoints.m}px) {
+    flex-direction: column;
+  }
 `;
 
 const Socials = styled.div`
   width: 30%;
+
+  @media (max-width: ${breakpoints.m}px) {
+    width: 100%;
+    border-bottom: 1px solid var(--static-cream);
+  }
 `;
 
 const Information = styled.div`
@@ -112,6 +124,19 @@ const Information = styled.div`
     height: 100%;
     width: 1px;
     background: var(--static-cream);
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    width: 100%;
+    border-bottom: 1px solid var(--static-cream);
+    :first-child {
+      border-top: 1px solid var(--static-cream);
+    }
+    :last-child {
+      border-bottom: none;
+    }
+    :before {
+      display: none;
+    }
   }
 `;
 
@@ -141,6 +166,9 @@ const SocialsInner = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   color: var(--static-cream);
+  @media (max-width: ${breakpoints.m}px) {
+    margin: 2rem;
+  }
 `;
 
 const Bottom = styled.div`
@@ -156,6 +184,18 @@ const BottomInner = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: ${breakpoints.m}px) {
+    width: 100%;
+    margin: 2rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    small {
+      :first-child {
+        margin-bottom: 1rem;
+      }
+    }
+  }
 `;
 
 const ImageBanner = styled.div`
@@ -166,10 +206,30 @@ const ImageBanner = styled.div`
   align-items: center;
   height: 125px;
   position: relative;
+
+  @media (max-width: ${breakpoints.m}px) {
+    height: 225px;
+    width: 90%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  @media (max-width: 620px) {
+    height: 250px;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    height: 400px;
+  }
+  
 `;
 
 const ImageInnerWrapper = styled.div`
   width: 140px;
   height: 40px;
   position: relative;
+  @media (max-width: ${breakpoints.m}px) {
+    max-height: 70px;
+    min-height: 40px;
+    max-width: 50%;
+    min-width: 140px;
+  }
 `;

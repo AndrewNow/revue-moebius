@@ -106,7 +106,7 @@ export default function CartSummary({ setOpenCart, openCart }) {
               ) : (
                 <NoItemsInCart>
                   <p>
-                    Il n'y a aucun objet dans votre panier!
+                    Il n'y a aucun article dans votre panier!
                     <br />
                     <br />
                     <Link href="/vente">Cliquez ici</Link> pour magasiner.
@@ -173,6 +173,18 @@ const Close = styled.small`
   right: 1rem;
   font-family: "Surt";
   cursor: pointer;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 100%;
+  display: grid;
+  place-items: center;
+  transition: var(--transition);
+
+  padding-top: 4px;
+  :hover {
+    background: #99bfb150;
+  }
 `;
 
 const Count = styled.div`

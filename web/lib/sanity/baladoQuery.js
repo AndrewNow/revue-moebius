@@ -25,3 +25,16 @@ export const baladoListQuery = groq`
     publishedAt,
   }
 `;
+
+// Query for the featured balado on the home page
+export const featuredBaladoQuery = groq`
+ *[_type == "balado"] | order(number desc) {
+    _id,  
+    title, 
+    number,
+    embed,
+    "imageUrl": mainImage.asset->url,
+    "slug": slug.current,
+    publishedAt,
+  }[0]
+`;

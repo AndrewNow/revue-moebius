@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { breakpoints } from "../../utils/breakpoints";
 
 const NewsSection = ({ newsFeed, featuredArticle }) => {
   return (
@@ -83,6 +84,9 @@ const Header = styled.header`
 const Articles = styled.div`
   border-bottom: 1px solid var(--color-black);
   display: flex;
+  @media (max-width: ${breakpoints.l}px) {
+    flex-direction: column;
+  }
 `;
 
 const FeaturedArticle = styled.div`
@@ -90,6 +94,11 @@ const FeaturedArticle = styled.div`
   position: relative;
   width: 60%;
   border-right: 1px solid var(--color-black);
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-black);
+  }
 `;
 
 const FeaturedArticleImg = styled.div`
@@ -97,6 +106,9 @@ const FeaturedArticleImg = styled.div`
   display: block;
   position: relative;
   margin-right: 2rem;
+  @media (max-width: ${breakpoints.l}px) {
+    margin-right: 0;
+  }
 `;
 
 const FeaturedArticleText = styled.div`
@@ -136,6 +148,20 @@ const ArticleFeed = styled.div`
   /* height: 100%; */
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
+  @media (max-width: 1500px) {
+    height: 670px;
+  }
+  @media (max-width: ${breakpoints.xxl}px) {
+    width: 45%;
+    height: 620px;
+  }
+  @media (max-width: ${breakpoints.xl}px) {
+    height: 530px;
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+    height: 450px;
+  }
 `;
 
 const Article = styled.article`
@@ -150,13 +176,39 @@ const Article = styled.article`
   :last-child {
     border-bottom: none;
   }
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+  }
 `;
 
 const ArticleImg = styled.div`
   position: relative;
   aspect-ratio: 1/1;
-  width: 275px;
-  height: 275px;
+  max-width: 45%;
+  min-width: 45%;
+  /* width: 275px; */
+  height: auto;
+
+  @media (max-width: ${breakpoints.xxl}px) {
+    min-width: 225px;
+    width: 225px;
+  }
+  @media (max-width: ${breakpoints.xl}px) {
+    min-width: 40%;
+    width: 40%;
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    min-width: 22%;
+    width: 22%;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    min-width: 180px;
+    width: 180px;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    max-width: 35%;
+    min-width: 150px;
+  }
 `;
 
 const ArticleText = styled.div`
@@ -178,6 +230,46 @@ const ArticleText = styled.div`
       text-decoration: underline;
     }
   }
+  @media (max-width: ${breakpoints.xxl}px) {
+    padding-left: 1rem;
+    h5 {
+      font-size: 27px;
+    }
+  }
+  @media (max-width: ${breakpoints.xl}px) {
+    h5{
+      font-size: 24px;
+    }
+    small {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    padding-left: 2rem;
+    h5 {
+      font-size: 35px;
+    }
+    small {
+      font-size: 16px;
+    }
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    padding-left: 1rem;
+    h5 {
+      font-size: 27px;
+    }
+    small {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    h5 {
+      font-size: 24px;
+    }
+    small {
+      font-size: 12px;
+    }
+  }
 `;
 
 const FeedTag = styled.div`
@@ -190,5 +282,21 @@ const FeedTag = styled.div`
 
   small {
     color: var(--static-black);
+  }
+  @media (max-width: ${breakpoints.xl}px) {
+    top: 7px;
+    left: 7px;
+    padding: 5px 7px;
+    small {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    top: 5px;
+    left: 5px;
+    padding: 5px 7px;
+    small {
+      font-size: 12px;
+    }
   }
 `;

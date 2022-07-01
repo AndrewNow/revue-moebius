@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { breakpoints } from "../../utils/breakpoints";
 
 const Landing = ({ data }) => {
   return (
@@ -46,6 +47,16 @@ const LandingSection = styled.section`
   margin: 0 auto;
   display: flex;
   justify-content: space-evenly;
+
+  @media (max-width: ${breakpoints.l}px) {
+    min-height: 80vh;
+    height: auto;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    flex-direction: column-reverse;
+    align-items: center;
+    min-height: auto;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -56,13 +67,21 @@ const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: ${breakpoints.m}px) {
+    width: 80%;
+    margin: 3rem 0;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    width: 100%;
+    margin: 2rem 0;
+  }
 `;
 
 const MainImage = styled.div`
-  position: relative;
+  // 70% of parent image wrapper width
   width: 70%;
+  position: relative;
   z-index: 3;
-  // 60% of parent image wrapper width
 `;
 
 const SupportingImage = styled.div`
@@ -88,6 +107,15 @@ const TextWrapper = styled.div`
     margin-bottom: 2rem;
     line-height: 110%;
   }
+
+  @media (max-width: ${breakpoints.m}px) {
+    margin-top: 10rem;
+    margin-bottom: 4rem;
+    width: 80%;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    margin-bottom: 2rem;
+  }
 `;
 
 const InternalLink = styled.div`
@@ -108,6 +136,12 @@ const InternalLink = styled.div`
     small {
       color: var(--static-black) !important;
     }
+    border: 1px solid transparent;
     background: var(--color-turquoise);
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    background: var(--color-turquoise);
+    color: var(--static-black);
+    border: 1px solid transparent;
   }
 `;

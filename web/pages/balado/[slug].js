@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { Inner } from "../index";
 import { breakpoints } from "../../utils/breakpoints";
 import Spotify from "react-spotify-embed";
+import ShareButton from "../../components/shareButton";
 
 export default function Balado({ balado }) {
   return (
@@ -15,8 +16,11 @@ export default function Balado({ balado }) {
       <Header>
         <small>{balado?.publishedAt}</small>
         <h1>
-          N°{balado.number}- {balado?.title}
+          N°{balado?.number}- {balado?.title}
         </h1>
+        <SpotifyButton href={balado?.embed} target="_blank" rel="noreferrer">
+          <small>Ouvrir dans Spotify</small>
+        </SpotifyButton>
       </Header>
       <Content>
         {balado?.embed && (
@@ -24,7 +28,10 @@ export default function Balado({ balado }) {
             <Spotify wide height="100%" link={balado?.embed} />
           </SpotifyWrapper>
         )}
-        <BlockContent blocks={balado?.body} />
+        <MarkdownWrapper>
+          <BlockContent blocks={balado?.body} />
+        </MarkdownWrapper>
+        <ShareButton input={balado?.embed} />
         <Return>
           <Link href="/balado">
             <span>
@@ -80,15 +87,35 @@ export async function getStaticPaths() {
 }
 
 const Header = styled.header`
-  width: 90%;
-  padding-top: 15vh;
+  width: 80%;
+  padding-top: 10vh;
   padding-left: 5vw;
-  padding-bottom: 5rem;
+  padding-bottom: 3rem;
   color: var(--color-black);
 
   small {
     padding: 2rem 0;
     display: block;
+  }
+`;
+
+const SpotifyButton = styled.a`
+  border: 1px solid var(--color-black);
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 3rem;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: var(--transition);
+
+  small {
+    padding: 0;
+  }
+
+  :hover {
+    background: var(--color-turquoise);
+    color: var(--static-black);
+    border: 1px solid transparent;
   }
 `;
 
@@ -146,5 +173,18 @@ const Return = styled.small`
   }
   @media (max-width: ${breakpoints.s}px) {
     margin: 3rem 5%;
+  }
+`;
+
+const MarkdownWrapper = styled.div`
+  margin-bottom: 5rem;
+  margin-top: 3rem;
+
+  a {
+    color: var(--color-purple);
+    transition: var(--transition);
+    :hover {
+      opacity: 0.7;
+    }
   }
 `;

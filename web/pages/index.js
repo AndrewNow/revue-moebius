@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { client } from "../lib/sanity/client";
-import { homeQuery } from "../lib/sanity/homeQuery";
 import styled from "styled-components";
 import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
 import {
@@ -8,14 +6,18 @@ import {
   numeroListQuery,
 } from "../lib/sanity/numeroQuery";
 import { bannerQuery } from "../lib/sanity/bannerQuery";
-import Landing from "../components/homepage/landing";
-import BannerMarquee from "../components/bannerMarquee";
-import NewsSection from "../components/homepage/newsSection";
+import { featuredBaladoQuery } from "../lib/sanity/baladoQuery";
 import {
   nouvellesListHomepageQuery,
   nouvellesFeaturedQuery,
 } from "../lib/sanity/nouvellesQuery";
+import { faqQuery } from "../lib/sanity/faqQuery";
+import Landing from "../components/homepage/landing";
+import BannerMarquee from "../components/bannerMarquee";
+import NewsSection from "../components/homepage/newsSection";
 import NumerosSection from "../components/homepage/numerosSection";
+import BaladoSection from "../components/homepage/baladoSection";
+import Faq from "../components/homepage/faq";
 
 export default function Home({
   latestNumero,
@@ -23,6 +25,8 @@ export default function Home({
   newsFeed,
   featuredArticle,
   numerosData,
+  baladoData,
+  faqData,
 }) {
   return (
     <Main>
@@ -34,6 +38,8 @@ export default function Home({
         <NewsSection newsFeed={newsFeed} featuredArticle={featuredArticle} />
       </Inner>
       <NumerosSection numerosData={numerosData} />
+      <BaladoSection baladoData={baladoData} />
+      <Faq faqData={faqData} />
     </Main>
   );
 }
@@ -45,6 +51,8 @@ export async function getStaticProps() {
   const newsFeed = await client.fetch(nouvellesListHomepageQuery);
   const featuredArticle = await client.fetch(nouvellesFeaturedQuery);
   const numerosData = await client.fetch(numeroListQuery);
+  const baladoData = await client.fetch(featuredBaladoQuery);
+  const faqData = await client.fetch(faqQuery);
 
   return {
     props: {
@@ -54,10 +62,9 @@ export async function getStaticProps() {
       featuredArticle,
       footerLogos,
       numerosData,
+      baladoData,
+      faqData,
     },
-    // params: {
-    //   slug: string,
-    // },
     revalidate: 10,
   };
 }
@@ -71,13 +78,4 @@ const Main = styled.div`
 export const Inner = styled.div`
   width: 92.5%;
   margin: 0 auto;
-`;
-
-const Header = styled.h1`
-  padding-top: 130px;
-  margin: 0;
-  color: var(--color-black);
-  background: var(--color-cream);
-
-  transition: var(--transition);
 `;

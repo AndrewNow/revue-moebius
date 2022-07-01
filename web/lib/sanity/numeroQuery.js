@@ -53,7 +53,7 @@ export const numeroListQuery = groq`
   }
 `;
 
-// Query for read more articles, only get 3.
+// Query for read more articles, showing results that are not equal to the current article
 export const numeroReadMoreQuery = groq`
  *[_type == "numero" && !(slug.current == $slug)] | order(number desc) {
     _id,  
