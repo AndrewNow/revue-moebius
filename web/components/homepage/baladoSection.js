@@ -116,9 +116,9 @@ const EpisodeLink = styled.div`
   @media (max-width: ${breakpoints.s}px) {
     small {
       padding: 0.75rem 3.5rem;
+      color: var(--static-black);
     }
     background: var(--color-turquoise);
-    color: var(--static-black);
     border: 1px solid transparent;
   }
 `;
@@ -132,13 +132,21 @@ const Banner = styled.div`
   justify-content: center;
   align-items: center;
   user-select: none;
+  color: var(--static-black);
 
   a {
     cursor: pointer;
     margin: 0 1rem;
     text-decoration: none;
+    color: var(--static-black);
 
     :hover {
+      text-decoration: underline;
+    }
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    a {
       text-decoration: underline;
     }
   }

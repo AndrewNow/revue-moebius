@@ -400,13 +400,16 @@ const Search = styled.div`
   @media (max-width: ${breakpoints.xs}px) {
     display: none;
   }
-`;
+  `;
 
 const SearchInner = styled.div`
   width: 70%;
   margin: 2rem auto;
   @media (max-width: ${breakpoints.l}px) {
     width: 90%;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    margin: 1rem auto; 
   }
 `;
 

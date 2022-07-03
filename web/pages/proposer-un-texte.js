@@ -6,6 +6,7 @@ import BlockContent from "@sanity/block-content-to-react";
 import Image from "next/image";
 import { useInView } from "react-intersection-observer";
 import { useRef, useCallback } from "react";
+import { breakpoints } from "../utils/breakpoints";
 
 const ProposerUnTexte = ({ pageData }) => {
   const options = {
@@ -101,14 +102,14 @@ const ProposerUnTexte = ({ pageData }) => {
         </Landing>
         <Protocols>
           <ProtocolImage>
-            <ImageWrapper>
+            {/* <ImageWrapper>
               <Image
                 src={pageData.imageUrl}
                 alt="Image décoratif"
                 layout="fill"
                 objectFit="contain"
               />
-            </ImageWrapper>
+            </ImageWrapper> */}
           </ProtocolImage>
           <ProtocolText>
             <Protocol>
@@ -162,6 +163,13 @@ const Sidebar = styled.div`
   position: sticky;
   top: 10vh;
   height: 300px;
+  @media (max-width: ${breakpoints.l}px) {
+    width: 25%;
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    display: none;
+  }
 `;
 
 const SidebarList = styled.div`
@@ -175,17 +183,32 @@ const SidebarList = styled.div`
   small:hover {
     text-decoration: underline;
   }
+  @media (max-width: ${breakpoints.l}px) {
+    small {
+      font-size: 13px;
+    }
+  }
 `;
 
 const MainContent = styled.div`
   width: 80%;
   border-left: 1px solid var(--color-black);
+  @media (max-width: ${breakpoints.l}px) {
+    width: 75%;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    width: 100%;
+    border: none;
+  }
 `;
 
 const Landing = styled.header`
   height: 100vh;
   position: relative;
   margin-bottom: 2rem;
+  @media (max-width: ${breakpoints.m}px) {
+    height: 60vh;
+  }
 `;
 
 const LandingText = styled.div`
@@ -205,6 +228,16 @@ const LandingText = styled.div`
   p {
     width: 60%;
   }
+  @media (max-width: ${breakpoints.m}px) {
+    margin: 2rem;
+    h1 {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    p {
+      width: 90%;
+    }
+  }
 `;
 
 const Protocols = styled.div`
@@ -214,11 +247,23 @@ const Protocols = styled.div`
   justify-content: space-between;
   width: 100%;
   position: relative;
+
+  @media (max-width: ${breakpoints.l}px) {
+    flex-direction: column;
+    padding: 2rem;
+  }
 `;
 
 const ProtocolText = styled.div`
-  width: 55%;
+  /* width: 55%; */
+  // is 55% when image is in place
+  width: 65%;
   margin: 5rem 0;
+
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+    margin: 0;
+  }
 `;
 
 const Protocol = styled.div`
@@ -235,12 +280,28 @@ const Protocol = styled.div`
     line-height: 100%;
     margin-bottom: 2rem;
   }
+
+  @media (max-width: ${breakpoints.l}px) {
+    margin-bottom: 3.5rem;
+    h3 {
+      width: 100%;
+      margin-top: 2rem;
+    }
+  }
 `;
 const ProtocolImage = styled.div`
+  display: none;
+  // No image for now.
   position: sticky;
   top: 10rem;
   height: 650px;
   width: 35%;
+  @media (max-width: ${breakpoints.l}px) {
+    position: relative;
+    width: 100%;
+    top: 0;
+    height: auto;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -258,5 +319,12 @@ const OtherInfo = styled.div`
     width: 80%;
     margin: 0 auto;
     color: var(--static-black);
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    padding: 2rem;
+    small {
+      font-size: 12px;
+    }
   }
 `;

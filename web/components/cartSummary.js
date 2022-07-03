@@ -4,6 +4,8 @@ import { fetchPostJSON } from "../utils/apiHelpers.js";
 import styled from "styled-components";
 import Image from "next/image.js";
 import Link from "next/link.js";
+import { breakpoints } from "../utils/breakpoints.js";
+import { motion } from "framer-motion";
 
 export default function CartSummary({ setOpenCart, openCart }) {
   //setting up some React states for our cart
@@ -40,8 +42,51 @@ export default function CartSummary({ setOpenCart, openCart }) {
     redirectToCheckout({ sessionId: response.id });
   };
 
+  const openModal = {
+    hidden: {
+      opacity: 0,
+      transition: {
+        ease: [0.25, 0, 0.35, 1],
+        duration: 0.15,
+        staggerChildren: 0.35,
+      },
+    },
+    open: {
+      opacity: 1,
+      transition: {
+        ease: [0.25, 0, 0.35, 1],
+        duration: 0.35,
+      },
+    },
+  };
+
+  const modalChild = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+      transition: {
+        ease: [0.25, 0, 0.35, 1],
+        duration: 0.35,
+      },
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        ease: [0.25, 0, 0.35, 1],
+        duration: 0.35,
+      },
+    },
+  };
+
   return (
-    <CartWrapper>
+    <CartWrapper
+      variants={openModal}
+      initial="hidden"
+      animate="open"
+      exit="hidden"
+      key="cartwrapper"
+    >
       <Header>
         <h4>
           Votre panier{" "}
@@ -56,7 +101,7 @@ export default function CartSummary({ setOpenCart, openCart }) {
           X
         </Close>
       </Header>
-      <CartInner>
+      <CartInner variants={modalChild}>
         <Form onSubmit={handleCheckout}>
           <LineItemWrapper>
             <ItemInner>
@@ -116,27 +161,29 @@ export default function CartSummary({ setOpenCart, openCart }) {
             </ItemInner>
             {cartCount > 0 && <Gradient />}
           </LineItemWrapper>
-          <Count suppressHydrationWarning>
-            <small>Articles:</small>
-            <small>{cartCount}</small>
-          </Count>
-          <Total suppressHydrationWarning>
-            <small>Total:</small>
-            <small>{formattedTotalPrice}</small>
-          </Total>
-          <Checkout type="submit" disabled={cartEmpty || loading}>
-            <small>Procéder au paiement</small>
-          </Checkout>
-          <ClearCart type="button" onClick={clearCart}>
-            <small>Vider votre panier</small>
-          </ClearCart>
+          <CheckoutWrapper>
+            <Count suppressHydrationWarning>
+              <small>Articles:</small>
+              <small>{cartCount}</small>
+            </Count>
+            <Total suppressHydrationWarning>
+              <small>Total:</small>
+              <small>{formattedTotalPrice}</small>
+            </Total>
+            <Checkout type="submit" disabled={cartEmpty || loading}>
+              <small>Procéder au paiement</small>
+            </Checkout>
+            <ClearCart type="button" onClick={clearCart}>
+              <small>Vider votre panier</small>
+            </ClearCart>
+          </CheckoutWrapper>
         </Form>
       </CartInner>
     </CartWrapper>
   );
 }
 
-const CartWrapper = styled.div`
+const CartWrapper = styled(motion.div)`
   position: absolute;
   z-index: 10;
   top: 2rem;
@@ -146,15 +193,52 @@ const CartWrapper = styled.div`
   border-radius: 10px;
   filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.16));
   width: 420px;
+
+
+  @media (max-width: ${breakpoints.m}px) {
+    right: 1rem;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    right: 0.225rem;
+    max-width: 90vw;
+    margin: 0 auto;
+    top: 3rem;
+  }
+  @media (max-width: ${breakpoints.xs}px) {
+    max-height: 80vh;
+    overflow-y: scroll;
+  }
 `;
 
-const CartInner = styled.div`
+const CartInner = styled(motion.div)`
   width: 90%;
   margin: 0 auto;
+  height: auto;
+  position: relative;
+  overflow-y: auto;
+  scrollbar-color: var(--color-grey) var(--color-cream);
+  scrollbar-width: thin;
+  ::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 3px;
+    background-color: var(--color-cream);
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: var(--color-grey);
+  }
+`;
+
+const Form = styled.form`
+  padding: 1rem 0;
+  position: relative;
 `;
 
 const Header = styled.div`
-  position: relative;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 10;
   background: var(--color-turquoise);
   border-radius: 10px 10px 0 0;
   border-bottom: 1px solid var(--color-black);
@@ -225,11 +309,11 @@ const Checkout = styled.button`
   :hover {
     filter: brightness(0.8);
   }
-`;
-
-const Form = styled.form`
-  padding: 1rem 0;
-  position: relative;
+  @media (max-width: ${breakpoints.xs}px) {
+    small {
+      font-size: 12px;
+    }
+  }
 `;
 
 const ClearCart = styled.button`
@@ -257,11 +341,17 @@ const LineItemWrapper = styled.div`
   position: relative;
   overflow: hidden;
   width: 100%;
+
+  @media (max-width: ${breakpoints.m}px) {
+    overflow: auto;
+  }
 `;
 
-const ItemInner = styled.div`
-  max-height: 450px;
+const CheckoutWrapper = styled.div``;
 
+const ItemInner = styled.div`
+  max-height: 45vh;
+  height: 45vh;
   overflow: auto;
   position: relative;
   display: inline-block;
@@ -277,10 +367,16 @@ const ItemInner = styled.div`
     border-radius: 5px;
     background: var(--color-black);
   }
+  @media (max-width: ${breakpoints.m}px) {
+    /* max-height: none; */
+  }
+  @media (max-width: ${breakpoints.xs}px) {
+    max-height: none;
+    height: auto;
+  }
 `;
 
 const Gradient = styled.div`
-  /* content: ""; */
   position: absolute;
   z-index: 0;
   width: 100%;
@@ -291,6 +387,10 @@ const Gradient = styled.div`
     rgba(255, 255, 255, 0) 0%,
     var(--color-cream) 85%
   );
+
+  @media (max-width: ${breakpoints.xs}px) {
+    display: none;
+  }
 `;
 
 const LineItem = styled.div`
@@ -307,6 +407,11 @@ const LineItem = styled.div`
 
   :last-child {
     margin-bottom: 4rem;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    :last-child {
+      margin-bottom: 2rem;
+    }
   }
 `;
 
@@ -328,6 +433,12 @@ const LineItemTitle = styled.div`
     font-size: 14px;
     width: 60%;
     color: var(--color-black);
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    small {
+      font-size: 12px;
+      width: 100%;
+    }
   }
 `;
 
@@ -355,6 +466,7 @@ const Button = styled.button`
   transition: var(--hover-transition);
   :hover {
     background: var(--color-yellow);
+    color: var(--static-black);
   }
 `;
 

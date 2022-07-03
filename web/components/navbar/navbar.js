@@ -11,6 +11,7 @@ import Link from "next/link";
 import CartSummary from "../cartSummary";
 import { useShoppingCart } from "use-shopping-cart";
 import { breakpoints } from "../../utils/breakpoints";
+import { CartIcon } from "../../svg/icons";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
@@ -74,13 +75,21 @@ const Navbar = () => {
             exit="hidden"
             onClick={() => setOpenCart(!openCart)}
           >
-            <small style={{ color: "var(--color-black)" }}>
-              Panier ({cartCount > 0 ? cartCount : 0})
-            </small>
+            <DesktopPanier>
+              <small style={{ color: "var(--color-black)" }}>
+                Panier ({cartCount > 0 ? cartCount : 0})
+              </small>
+            </DesktopPanier>
+            <MobilePanier>
+              <CartIcon />
+              <small>({cartCount > 0 ? cartCount : 0})</small>
+            </MobilePanier>
           </Panier>
-          {openCart && (
-            <CartSummary setOpenCart={setOpenCart} openCart={openCart} />
-          )}
+          <AnimatePresence exitBeforeEnter>
+            {openCart && (
+              <CartSummary setOpenCart={setOpenCart} openCart={openCart} />
+            )}
+          </AnimatePresence>
         </AnimatePresence>
       </RightSideWrapper>
       <NavMenu
@@ -108,7 +117,7 @@ const HamburgerWrapper = styled.div`
     top: 30px;
   }
   @media (max-width: ${breakpoints.m}px) {
-    top: 25px;
+    top: 30px;
   }
 `;
 
@@ -122,16 +131,16 @@ const LogoWrapper = styled.div`
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
-  
+
   @media (max-width: ${breakpoints.l}px) {
     top: 30px;
     width: 130px;
   }
   @media (max-width: ${breakpoints.s}px) {
     width: 100px;
-    top: 40px;
+    top: 41px;
   }
-  `;
+`;
 
 const RightSideWrapper = styled.div`
   position: fixed;
@@ -145,7 +154,11 @@ const RightSideWrapper = styled.div`
     top: 37px;
   }
   @media (max-width: ${breakpoints.s}px) {
-    top: 44px;
+    top: 30px;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
   }
 `;
 
@@ -156,8 +169,30 @@ const Panier = styled(motion.div)`
   :hover {
     text-decoration: underline;
   }
+`;
+
+const DesktopPanier = styled.div`
   @media (max-width: ${breakpoints.s}px) {
+    display: none;
+  }
+`;
+
+const MobilePanier = styled.div`
+  display: none;
+
+  @media (max-width: ${breakpoints.s}px) {
+    position: relative;
+    display: block;
+    transform: translate(-5px, 2px);
+    /* width: 40px; */
+    /* height: 40px; */
     small {
+      color: var(--color-black);
+      font-size: 12px !important;
+      position: absolute;
+      right: -15px;
+      top: 0;
+      transform: translateY(-10px);
     }
   }
 `;

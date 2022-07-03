@@ -3,6 +3,7 @@ import styled from "styled-components";
 import BlockContent from "@sanity/block-content-to-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { breakpoints } from "../../utils/breakpoints";
+import { Chevron } from "../../svg/icons";
 
 const MapFAQ = ({ data }) => {
   return data.map((question) => {
@@ -52,19 +53,7 @@ const MapFAQ = ({ data }) => {
           }}
         >
           <h4>{question.question}</h4>
-          <svg
-            style={{ transform: open ? "rotate(180deg)" : "rotate(0)" }}
-            width="44"
-            height="44"
-            viewBox="0 0 44 44"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10.7129 17.5872L21.0841 27.9583L31.4552 17.5872L30.1591 16.291L21.0841 25.366L12.0091 16.291L10.7129 17.5872Z"
-              fill="#353535"
-            />
-          </svg>
+          <Chevron open={open} />
         </QuestionTitle>
         <AnimatePresence exitBeforeEnter>
           {open && (

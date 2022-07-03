@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { numeroListQuery } from "../lib/sanity/numeroQuery";
 import { Inner } from "./index";
 import Products from "../components/products";
+import { breakpoints } from "../utils/breakpoints";
 
 const Vente = ({ numeros }) => {
   return (
@@ -55,10 +56,27 @@ const Header = styled.div`
     width: 50%;
     margin: 0 auto;
   }
+  @media (max-width: ${breakpoints.m}px) {
+    h1 {
+      margin-bottom: 2rem;
+    }
+    p {
+      width: 80%;
+    }
+  }
 `;
 
 const Content = styled.div`
   padding: 10rem 0;
+  @media (max-width: ${breakpoints.xl}px) {
+    padding: 7rem 0;
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    padding: 5rem 0;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    padding: 2.5rem 0;
+  }
 `;
 
 const Grid = styled.div`
@@ -70,4 +88,12 @@ const Grid = styled.div`
   justify-content: center;
   justify-items: center;
   align-items: start;
+
+  @media (max-width: ${breakpoints.xl}px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    display: block;
+  }
 `;

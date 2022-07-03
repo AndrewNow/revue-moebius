@@ -4,8 +4,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import BlockContent from "@sanity/block-content-to-react";
 import Image from "next/image";
 import { Instagram, LinkIcon } from "../../../svg/icons";
+import { breakpoints } from "../../../utils/breakpoints";
 
-const TeamMember = ({ member, setActiveIndex, index }) => {
+const TeamMember = ({
+  member,
+  setActiveIndex,
+  setModalOpen,
+  modalOpen,
+  index,
+}) => {
   const [hovered, setHovered] = useState(false);
   const handleMouseEnter = (index) => {
     // set the hovered index so that you can show the right image on hover
@@ -21,6 +28,11 @@ const TeamMember = ({ member, setActiveIndex, index }) => {
   const [open, setOpen] = useState(false);
   const handleModal = () => {
     setOpen(!open);
+    // this second state is for the global "modal open" state in a-propos.js.
+    // we need this second state to toggle the z-index of the other clickable items of the page,
+    // putting them behind the modal when clicked.
+    // I'm sure there's a smarter way to optimize this but this was honestly just the easiest solution I found.
+    setModalOpen(!modalOpen);
   };
 
   const hoverAnimBackground = {
@@ -105,7 +117,7 @@ const TeamMember = ({ member, setActiveIndex, index }) => {
             </motion.small>
           )}
         </ItemInner>
-        <HoverBlue
+        <HoveredBackgroundColor
           variants={hoverAnimBackground}
           initial="hidden"
           animate={hovered ? "visible" : "hidden"}
@@ -113,7 +125,7 @@ const TeamMember = ({ member, setActiveIndex, index }) => {
       </TeamItem>
       <AnimatePresence>
         {open && (
-          <Modal
+          <Container
             key={member._id + "modal"}
             variants={openModal}
             initial="hidden"
@@ -127,9 +139,10 @@ const TeamMember = ({ member, setActiveIndex, index }) => {
                   <Image
                     src={member.imageUrl}
                     alt={`Portrait de ${member.name}`}
-                    width={634}
-                    height={795}
+                    // width={634}
+                    // height={795}
                     objectFit="cover"
+                    layout="fill"
                   />
                 </ModalImage>
                 <ModalText>
@@ -167,10 +180,10 @@ const TeamMember = ({ member, setActiveIndex, index }) => {
                 </ModalText>
               </ModalFlex>
               <CloseButton onClick={handleModal}>
-                <small style={{color: "var(--color-black)"}}>x</small>
+                <small style={{ color: "var(--color-black)" }}>x</small>
               </CloseButton>
             </ModalWrapper>
-          </Modal>
+          </Container>
         )}
       </AnimatePresence>
     </>
@@ -200,9 +213,20 @@ const ItemInner = styled.div`
     width: 25%;
     text-align: right;
   }
+  @media (max-width: ${breakpoints.m}px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    small {
+      width: 80%;
+      text-align: left;
+      margin-top: 1rem;
+      font-size: 12px;
+    }
+  }
 `;
 
-const HoverBlue = styled(motion.div)`
+const HoveredBackgroundColor = styled(motion.div)`
   z-index: -1;
   /* background: white; */
   background: #b8e8d699;
@@ -215,14 +239,17 @@ const HoverBlue = styled(motion.div)`
   transform-origin: bottom;
 `;
 
-const Modal = styled(motion.div)`
+const Container = styled(motion.div)`
   z-index: 15;
   position: fixed;
   background: #00000097;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  @media (max-width: ${breakpoints.l}px) {
+    overflow-y: scroll;
+  }
 `;
 
 const ClickOut = styled.div`
@@ -236,16 +263,36 @@ const ClickOut = styled.div`
 
 const ModalWrapper = styled(motion.div)`
   position: absolute;
-  z-index: 16;
+  z-index: 20;
   padding: 1rem;
+  margin-top: 2rem;
   top: 50%;
   left: 50%;
-  /* transform: translate(-50%, -50%); */
-  width: 65%;
+  width: 1270px;
+  max-width: 65%;
   background: var(--color-cream);
   user-select: none;
   border: 1px solid var(--color-black);
   box-sizing: border-box;
+
+  @media (max-width: 1700px) {
+    max-width: 75%;
+  }
+  @media (max-width: ${breakpoints.xl}px) {
+    max-width: 90%;
+  }
+
+  @media (max-width: ${breakpoints.l}px) {
+    position: relative;
+    max-width: none;
+    width: 60%;
+    margin-top: 25vh;
+    border: none;
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    width: 100%;
+  }
 `;
 
 const ModalFlex = styled.div`
@@ -253,19 +300,38 @@ const ModalFlex = styled.div`
   justify-content: space-between;
   position: relative;
   max-height: 795px;
+  height: 100%;
+
+  @media (max-width: ${breakpoints.l}px) {
+    flex-direction: column;
+    max-height: none;
+    /* height: auto; */
+  }
 `;
 
 const ModalImage = styled.div`
-  height: 100%;
+  position: relative;
+  min-height: 100%;
   max-height: 795px;
   width: 50%;
   display: block;
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+    aspect-ratio: 4/5;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    min-height: 300px;
+    max-height: 500px;
+  }
 `;
 
 const ModalText = styled.div`
   height: 100%;
   width: 50%;
   display: block;
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+  }
 `;
 
 const ModalTextInner = styled.div`
@@ -284,10 +350,25 @@ const ModalTextInner = styled.div`
     font-family: "Editorial-Italic";
     line-height: 100%;
   }
+
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+    overflow: scroll;
+    max-height: none;
+  }
 `;
 
 const ModalSocials = styled.div`
   padding: 1rem 0;
+
+  @media (max-width: ${breakpoints.m}px) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  @media (max-width: ${breakpoints.xs}px) {
+    display: block;
+  }
 `;
 
 const SocialLink = styled.div`
@@ -304,6 +385,12 @@ const SocialLink = styled.div`
     a {
       text-decoration: underline;
     }
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    padding-right: 3rem;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    padding-right: 2rem;
   }
 `;
 

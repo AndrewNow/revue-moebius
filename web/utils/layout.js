@@ -66,6 +66,9 @@ const Main = styled.main`
     h3 {
       font-size: 50px;
     }
+    h4 {
+      font-size: 38px;
+    }
 
   }
   @media (max-width: ${breakpoints.xl}px) {
@@ -93,9 +96,17 @@ const Main = styled.main`
       font-size: 45px;
     }
     h4 {
-      font-size: 30px;
+      font-size: 35px;
     }
     h5 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 21px;
+    }
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    p {
       font-size: 20px;
     }
   }
@@ -124,6 +135,14 @@ const Main = styled.main`
     }
     small {
       font-size: 14px;
+    }
+  }
+  @media (max-width: ${breakpoints.xs}px) {
+    h4 {
+      font-size: 22px;
+    }
+    small {
+      font-size: 12px;
     }
   }
 `;

@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { breakpoints } from "../../utils/breakpoints";
+import { LightDarkButton } from "../../svg/icons";
 
 const ToggleDarkMode = () => {
   // Set Dark mode / Light mode
@@ -53,15 +54,37 @@ const ToggleDarkMode = () => {
 
   return (
     darkTheme !== undefined && (
-      <Button onClick={handleToggle}>
-        <Circle />
-        <small>Mode {darkTheme ? "sombre" : "claire"}</small>
-      </Button>
+      <>
+        <Desktop>
+          <Button onClick={handleToggle} aria-label="toggle dark mode">
+            <Circle />
+            <small>Mode {darkTheme ? "sombre" : "claire"}</small>
+          </Button>
+        </Desktop>
+        <Mobile>
+          <Button onClick={handleToggle} aria-label="toggle dark mode">
+            <LightDarkButton darkTheme={darkTheme} />
+          </Button>
+        </Mobile>
+      </>
     )
   );
 };
 
 export default ToggleDarkMode;
+
+const Desktop = styled.div`
+  @media (max-width: ${breakpoints.s}px) {
+    display: none;
+  }
+`;
+
+const Mobile = styled.div`
+  display: none;
+  @media (max-width: ${breakpoints.s}px) {
+    display: block;
+  }
+`;
 
 const Button = styled.button`
   position: relative;

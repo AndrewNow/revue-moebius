@@ -61,8 +61,6 @@ const LandingSection = styled.section`
 
 const ImageWrapper = styled.div`
   position: relative;
-  /* aspect-ratio: 559/790; */
-  /* width: 519px; */
   width: 45%;
   display: flex;
   justify-content: center;
@@ -115,6 +113,7 @@ const TextWrapper = styled.div`
   }
   @media (max-width: ${breakpoints.s}px) {
     margin-bottom: 2rem;
+    width: 100%;
   }
 `;
 
@@ -134,14 +133,16 @@ const InternalLink = styled.div`
 
   :hover {
     small {
-      color: var(--static-black) !important;
+      color: var(--static-black);
     }
     border: 1px solid transparent;
     background: var(--color-turquoise);
   }
   @media (max-width: ${breakpoints.s}px) {
     background: var(--color-turquoise);
-    color: var(--static-black);
+    small {
+      color: var(--static-black);
+    }
     border: 1px solid transparent;
   }
 `;

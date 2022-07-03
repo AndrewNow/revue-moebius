@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { client } from "../lib/sanity/client";
 import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
-import Image from "next/image";
+// import Image from "next/image";
 import { useInView } from "react-intersection-observer";
 import { useRef, useCallback } from "react";
 import { equipeQuery } from "../lib/sanity/equipeQuery";
 import HoverImage from "../components/imageOnHover/hoverImage";
 import TeamMember from "../components/imageOnHover/aPropos/teamMember";
+import { breakpoints } from "../utils/breakpoints";
 
 const useMousePosition = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -32,6 +33,11 @@ const useMousePosition = () => {
 
 const APropos = ({ equipeData }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [modalOpen, setModalOpen] = useState(false);
+  // ^ this second state is for the global "modal open" state.
+  // We need this second state to toggle the z-index of the other clickable items of the page, putting them behind the modal when clicked.
+  // I'm sure there's a smarter way to optimize this but this was honestly just the easiest solution I found.
+
   const { x, y } = useMousePosition();
 
   const options = {
@@ -90,7 +96,7 @@ const APropos = ({ equipeData }) => {
 
   return (
     <Wrapper>
-      <Sidebar>
+      <Sidebar style={{ zIndex: modalOpen ? 0 : 6 }}>
         <SidebarList>
           <small
             onClick={() => handleScollTo(headerScrollRef)}
@@ -141,7 +147,7 @@ const APropos = ({ equipeData }) => {
         </SidebarList>
       </Sidebar>
       <MainContent>
-        <Landing>
+        <Landing style={{ zIndex: modalOpen ? 0 : 6 }}>
           <LandingText>
             <h1 ref={headerRefs}>La revue Mœbius;</h1>
             <h1>Présentation et historique</h1>
@@ -179,13 +185,19 @@ const APropos = ({ equipeData }) => {
           {equipeData.map((teamCategory, i) => {
             return (
               <div key={teamCategory._id}>
-                <small key={teamCategory._id} className="small-title">
+                <small
+                  key={teamCategory._id}
+                  className="small-title"
+                  onClick={() => setOpen(!open)}
+                >
                   {teamCategory.category}
                 </small>
                 {teamCategory.membres.map((member, index) => {
                   return (
                     <TeamMember
                       setActiveIndex={setActiveIndex}
+                      setModalOpen={setModalOpen}
+                      modalOpen={modalOpen}
                       member={member}
                       index={index}
                       key={member._key}
@@ -219,7 +231,7 @@ const APropos = ({ equipeData }) => {
           <ContactUsInner>
             <h2 ref={contactUsRefs}>Contactez-nous</h2>
 
-            <ContactFlex>
+            <ContactFlex style={{ zIndex: modalOpen ? 0 : 6 }}>
               <small>
                 1463 Boulevard Saint-Joseph Est <br /> Montréal (Québec)
                 <br /> H2J 1M6 <br /> Canada
@@ -250,7 +262,7 @@ const APropos = ({ equipeData }) => {
             </ContactFlex>
           </ContactUsInner>
         </ContactUsWrapper>
-        <Distribution ref={diffusionRefs}>
+        <Distribution ref={diffusionRefs} style={{ zIndex: modalOpen ? 0 : 6 }}>
           <h2>Diffusion et distribution</h2>
           <p>
             Mœbius est subventionnée par le Conseil des arts du Canada, le
@@ -299,9 +311,15 @@ const Wrapper = styled.div`
 const Sidebar = styled.div`
   width: 20%;
   position: sticky;
-  z-index: 6;
+  /* z-index: 6; */
   top: 10vh;
   height: 300px;
+  @media (max-width: ${breakpoints.l}px) {
+    width: 25%;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    display: none;
+  }
 `;
 
 const SidebarList = styled.div`
@@ -315,39 +333,84 @@ const SidebarList = styled.div`
   small:hover {
     text-decoration: underline;
   }
+  @media (max-width: ${breakpoints.l}px) {
+    small {
+      font-size: 13px;
+    }
+  }
 `;
 
 const MainContent = styled.div`
   width: 80%;
   border-left: 1px solid var(--color-black);
+  @media (max-width: ${breakpoints.l}px) {
+    width: 75%;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    border: none;
+    width: 100%;
+  }
 `;
 
 const Landing = styled.header`
-  height: 140vh;
   position: relative;
-  z-index: 5;
   margin-bottom: 2rem;
   background: var(--color-clay);
+  @media (max-width: ${breakpoints.m}px) {
+    margin-bottom: 0rem;
+  }
 `;
 
 const LandingText = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  margin: 4rem;
+  position: relative;
+  padding-bottom: 5rem;
   h1,
   p {
     color: var(--static-cream);
   }
   h1 {
+    padding-top: 10rem;
+    padding-left: 9%;
     scroll-margin: 120px;
     line-height: 100%;
     width: 75%;
     margin-bottom: 2rem;
   }
   h1:nth-of-type(2) {
-    margin-left: 5rem;
+    padding-top: 0;
+    margin-left: 10%;
     white-space: nowrap;
+  }
+
+  @media (max-width: ${breakpoints.xxl}px) {
+    h1 {
+      font-size: 6.5vw;
+    }
+  }
+
+  @media (max-width: ${breakpoints.l}px) {
+    h1 {
+      font-size: 6vw;
+      padding-left: 5%;
+    }
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    h1 {
+      font-size: 7.5vw;
+      padding-left: 0;
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    h1 {
+      width: 90%;
+      font-size: 50px;
+      :nth-of-type(2) {
+        margin: 0 auto;
+        white-space: normal;
+      }
+    }
   }
 `;
 
@@ -357,6 +420,13 @@ const LandingParagraph = styled.div`
   width: 80%;
   margin: 5rem auto;
   column-gap: 5rem;
+  @media (max-width: ${breakpoints.l}px) {
+    margin: 2rem auto;
+    display: block;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    width: 90%;
+  }
 `;
 
 const TeamWrapper = styled.div`
@@ -364,8 +434,10 @@ const TeamWrapper = styled.div`
   margin: 0 auto;
   padding: 2rem 0;
   position: relative;
-  z-index: 1;
+  z-index: 5;
   .small-title {
+    position: relative;
+    z-index: 2;
     padding: 2rem 0;
     margin-top: 5rem;
     display: block;
@@ -375,6 +447,18 @@ const TeamWrapper = styled.div`
   #team-item {
     position: relative;
     z-index: 2;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    .small-title {
+      margin-top: 3rem;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    .small-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 `;
 
@@ -401,6 +485,10 @@ const CursorMedia = styled.div`
   .is-active {
     opacity: 1;
   }
+
+  @media (max-width: ${breakpoints.m}px) {
+    display: none;
+  }
 `;
 
 const ContactUsWrapper = styled.div`
@@ -408,12 +496,14 @@ const ContactUsWrapper = styled.div`
   margin-top: 10rem;
   padding: 10rem 0;
   padding-bottom: 5rem;
+  @media (max-width: ${breakpoints.m}px) {
+    padding: 5rem 0;
+  }
 `;
 
 const ContactUsInner = styled.div`
   width: 85%;
   margin: 0 auto;
-
   h2 {
     scroll-margin: 120px;
     font-family: "Editorial-Italic";
@@ -423,7 +513,6 @@ const ContactUsInner = styled.div`
 
 const ContactFlex = styled.div`
   position: relative;
-  z-index: 5;
   width: 85%;
   margin: 4rem 0;
   display: flex;
@@ -447,11 +536,17 @@ const ContactFlex = styled.div`
       }
     }
   }
+  @media (max-width: ${breakpoints.xxl}px) {
+    width: 95%;
+  }
+  @media (max-width: ${breakpoints.xl}px) {
+    width: 100%;
+    flex-direction: column-reverse;
+  }
 `;
 
 const Distribution = styled.div`
   position: relative;
-  z-index: 5;
   width: 85%;
   margin: 2rem auto;
   padding: 3rem 0;
@@ -471,5 +566,13 @@ const Distribution = styled.div`
   p {
     margin: 2rem 0;
     margin-left: 40%;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    h2 {
+      width: 100%;
+    }
+    p {
+      margin-left: 0;
+    }
   }
 `;

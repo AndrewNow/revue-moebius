@@ -185,8 +185,8 @@ const BottomInner = styled.div`
   justify-content: space-between;
   align-items: center;
   @media (max-width: ${breakpoints.m}px) {
-    width: 100%;
-    margin: 2rem;
+    width: 90%;
+    margin: 2rem auto;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -195,6 +195,9 @@ const BottomInner = styled.div`
         margin-bottom: 1rem;
       }
     }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+
   }
 `;
 

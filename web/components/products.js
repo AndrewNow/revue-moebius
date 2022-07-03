@@ -2,6 +2,7 @@ import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { breakpoints } from "../utils/breakpoints";
 
 const Products = ({ products }) => {
   const { addItem } = useShoppingCart();
@@ -26,31 +27,35 @@ const Products = ({ products }) => {
             src={product.imageUrl}
             alt={`image couverture pour Moebius ${product.number}`}
             layout="fill"
-            objectFit="fill"
+            objectFit="cover"
           />
         </ImageWrapper>
-        <small>Moebius n°{product.number}</small>
-        <Link href={`/numeros/${product.slug}`}>
-          <h4>{product.title}</h4>
-        </Link>
-        <Button
-          onClick={() => addItem(stripeFormattedProduct)}
-          aria-label="Ajouter au panier"
-          disabled={product.available ? false : true}
-          suppressHydrationWarning
-        >
-          {product.available ? (
-            <small suppressHydrationWarning>
-              Ajouter au panier -{" "}
-              {formatCurrencyString({
-                value: product.price,
-                currency: product.currency,
-              })}
-            </small>
-          ) : (
-            <small>Numéro non disponible</small>
-          )}
-        </Button>
+        <TextWrapper>
+          <span>
+            <small>Moebius n°{product.number}</small>
+            <Link href={`/numeros/${product.slug}`}>
+              <h4>{product.title}</h4>
+            </Link>
+          </span>
+          <Button
+            onClick={() => addItem(stripeFormattedProduct)}
+            aria-label="Ajouter au panier"
+            disabled={product.available ? false : true}
+            suppressHydrationWarning
+          >
+            {product.available ? (
+              <small suppressHydrationWarning>
+                Ajouter au panier -{" "}
+                {formatCurrencyString({
+                  value: product.price,
+                  currency: product.currency,
+                })}
+              </small>
+            ) : (
+              <small>Numéro non disponible</small>
+            )}
+          </Button>
+        </TextWrapper>
       </Numero>
     );
   });
@@ -60,8 +65,48 @@ export default Products;
 
 const Numero = styled.div`
   position: relative;
-  max-width: 325px;
+  /* max-width: 325px; */
+  @media (max-width: ${breakpoints.xl}px) {
+    max-width: 307px;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    display: flex;
+    max-width: none;
+    width: 100%;
+    margin: 2rem 0;
+  }
+`;
 
+const ImageWrapper = styled.div`
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  aspect-ratio: 324/473;
+  height: auto;
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+
+
+
+  @media (max-width: ${breakpoints.m}px) {
+    width: 200px;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    width: 150px;
+    border-radius: 0;
+    align-self: flex-end;
+  }
+  @media (max-width: ${breakpoints.xs}px) {
+    width: 120px;
+    height: 100% !important;
+  }
+`;
+
+const TextWrapper = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
   h4 {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -78,7 +123,6 @@ const Numero = styled.div`
       text-decoration: underline;
     }
   }
-
   small {
     color: var(--color-grey);
     margin: 1.5rem 0;
@@ -89,31 +133,49 @@ const Numero = styled.div`
     display: block;
     text-align: center;
   }
-`;
+  @media (max-width: ${breakpoints.m}px) {
+    width: 65%;
+    margin-left: 1rem;
 
-const ImageWrapper = styled.div`
-  position: relative;
-  display: block;
-  margin: 0 auto;
-  aspect-ratio: 324/473;
-  height: auto;
-  border-radius: 5px;
-  overflow: hidden;
+    h4 {
+      margin: 2rem 0;
+    }
+    h4,
+    small {
+      text-align: left;
+    }
+    small {
+      margin-top: 0;
+      margin: 0.5rem 0;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    justify-content: space-between;
+    h4 {
+      margin-top: 0;
+    }
+  }
+  @media (max-width: ${breakpoints.xs}px) {
+    h4 {
+      margin-bottom: 0;
+    }
+  }
 `;
 
 const Button = styled.button`
   background: none;
-  display: block;
+  display: inline-block;
   margin: 0 auto;
   border: 1px solid var(--color-black) !important;
   border-radius: 10px;
-  padding: 1rem 1rem;
+  padding: 1rem;
 
   transition: var(--transition);
 
   background: #ffffad70;
 
   small {
+    display: inline-block;
     margin: 0;
     color: var(--color-black);
     transition: var(--transition);
@@ -135,5 +197,46 @@ const Button = styled.button`
       color: var(--static-black);
     }
     background: var(--color-yellow);
+  }
+  @media (max-width: ${breakpoints.xl}px) {
+    padding: .75rem;
+    width: 100%;
+    small {
+      font-size: 14px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    border-radius: 5px;
+    margin: 0;
+    background: var(--color-turquoise);
+    border: 1px solid transparent;
+    color: var(--static-black);
+    max-width: 300px;
+    :hover {
+      background: var(--color-turquoise);
+      border: 1px solid transparent;
+      opacity: 0.9 !important;
+      color: var(--static-black);
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    padding: 0.6rem 0.5rem;
+    border-radius: 5px;
+    margin: 0;
+    max-width: 260px;
+    background: var(--color-turquoise);
+    border: 1px solid transparent;
+    color: var(--static-black);
+
+    small {
+      width: 80%;
+      font-size: 12px;
+    }
+  }
+  @media (max-width: ${breakpoints.xs}px) {
+    padding: 0.3rem 0.25rem;
   }
 `;
