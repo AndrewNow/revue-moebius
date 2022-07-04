@@ -26,7 +26,7 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
           </FeaturedArticleImg>
           <FeaturedArticleText>
             <h4>
-              <Link href={`nouvelles/${featuredArticle.slug}`}>
+              <Link href={`/nouvelles/${featuredArticle.slug}`}>
                 {featuredArticle.title}
               </Link>
             </h4>
@@ -237,7 +237,7 @@ const ArticleText = styled.div`
     }
   }
   @media (max-width: ${breakpoints.xl}px) {
-    h5{
+    h5 {
       font-size: 24px;
     }
     small {

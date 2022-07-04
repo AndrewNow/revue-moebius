@@ -15,6 +15,7 @@ module.exports = {
   ],
   images: {
     domains: ["cdn.sanity.io"],
+    // loader: 'custom'
   },
   experimental: { images: { layoutRaw: true } },
 };

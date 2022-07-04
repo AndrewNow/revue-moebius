@@ -49,8 +49,6 @@ const Navbar = () => {
             src={Logo}
             alt="Moebius logo"
             layout="fill"
-            width={154}
-            height={38}
             quality={100}
             style={{ filter: "var(--logo-color)" }}
           />
@@ -76,18 +74,27 @@ const Navbar = () => {
             onClick={() => setOpenCart(!openCart)}
           >
             <DesktopPanier>
-              <small style={{ color: "var(--color-black)" }}>
+              <small
+                style={{ color: "var(--color-black)" }}
+                suppressHydrationWarning
+              >
                 Panier ({cartCount > 0 ? cartCount : 0})
               </small>
             </DesktopPanier>
             <MobilePanier>
               <CartIcon />
-              <small>({cartCount > 0 ? cartCount : 0})</small>
+              <small suppressHydrationWarning>
+                ({cartCount > 0 ? cartCount : 0})
+              </small>
             </MobilePanier>
           </Panier>
           <AnimatePresence exitBeforeEnter>
             {openCart && (
-              <CartSummary setOpenCart={setOpenCart} openCart={openCart} />
+              <CartSummary
+                setOpenCart={setOpenCart}
+                openCart={openCart}
+                key="cart"
+              />
             )}
           </AnimatePresence>
         </AnimatePresence>

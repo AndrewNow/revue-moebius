@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { breakpoints } from "../utils/breakpoints";
+import MailchimpFormContainer from "./mailchimp/mailchimpFormContainer";
 
 const Footer = ({ logos }) => {
   return (
     <Wrapper>
       <Newsletter>
-        <h3>Sign up for our newsletter</h3>
+        <MailchimpFormContainer />
       </Newsletter>
       <MainContent>
         <Socials>
@@ -78,7 +79,6 @@ const Wrapper = styled.footer`
   width: 100%;
   position: relative;
   z-index: 5;
-  border-top: 1px solid var(--color-black);
 `;
 
 const Newsletter = styled.div`
@@ -95,7 +95,7 @@ const Newsletter = styled.div`
 const MainContent = styled.div`
   width: 100%;
   display: flex;
-  border-top: 1px solid var(--static-cream);
+  /* border-top: 1px solid var(--static-cream); */
   border-bottom: 1px solid var(--static-cream);
 
   @media (max-width: ${breakpoints.m}px) {
@@ -197,7 +197,6 @@ const BottomInner = styled.div`
     }
   }
   @media (max-width: ${breakpoints.s}px) {
-
   }
 `;
 
@@ -222,7 +221,6 @@ const ImageBanner = styled.div`
   @media (max-width: ${breakpoints.s}px) {
     height: 400px;
   }
-  
 `;
 
 const ImageInnerWrapper = styled.div`

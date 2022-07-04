@@ -39,6 +39,7 @@ export const numeroListQuery = groq`
     title, 
     number,
     "imageUrl": mainImage.asset->url,
+    image,
     "slug": slug.current,
     price,
     available,

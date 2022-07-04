@@ -87,8 +87,6 @@ const ImageWrapper = styled.div`
   border-radius: 5px;
   overflow: hidden;
 
-
-
   @media (max-width: ${breakpoints.m}px) {
     width: 200px;
   }
@@ -199,36 +197,31 @@ const Button = styled.button`
     background: var(--color-yellow);
   }
   @media (max-width: ${breakpoints.xl}px) {
-    padding: .75rem;
+    padding: 0.75rem;
     width: 100%;
     small {
       font-size: 14px;
       margin: 0 auto;
       text-align: center;
     }
-
   }
   @media (max-width: ${breakpoints.m}px) {
     border-radius: 5px;
     margin: 0;
     background: var(--color-turquoise);
-    border: 1px solid transparent;
+    border: 1px solid transparent !important;
     color: var(--static-black);
     max-width: 300px;
     :hover {
       background: var(--color-turquoise);
       border: 1px solid transparent;
-      opacity: 0.9 !important;
       color: var(--static-black);
     }
   }
   @media (max-width: ${breakpoints.s}px) {
     padding: 0.6rem 0.5rem;
     border-radius: 5px;
-    margin: 0;
     max-width: 260px;
-    background: var(--color-turquoise);
-    border: 1px solid transparent;
     color: var(--static-black);
 
     small {

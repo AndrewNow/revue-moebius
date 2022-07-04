@@ -6,7 +6,7 @@ import { breakpoints } from "../../utils/breakpoints";
 import { Chevron } from "../../svg/icons";
 
 const MapFAQ = ({ data }) => {
-  return data.map((question) => {
+  return data.map((question, idx) => {
     const [open, setOpen] = useState(false);
     const [hover, setHover] = useState(false);
 
@@ -38,6 +38,7 @@ const MapFAQ = ({ data }) => {
 
     return (
       <QuestionItem
+        key={idx + "faq"}
         onClick={() => setOpen(!open)}
         whileHover={() => setHover(true)}
         onMouseLeave={() => setHover(false)}

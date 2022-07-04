@@ -464,6 +464,7 @@ const Button = styled.button`
   background: none;
   color: var(--color-black);
   transition: var(--hover-transition);
+  text-align: center;
   :hover {
     background: var(--color-yellow);
     color: var(--static-black);
