@@ -15,11 +15,27 @@ export default async function handler(req, res) {
       // Validate the cart details that were sent from the client.
       const cartItems = req.body;
 
-      //Sanity client performs numeroListQuery
+      // Sanity client performs numeroListQuery
       let sanityData = await client.fetch(numeroListQuery);
+
+      // let productData;
+
+      // sanityData.map((product) => {
+      //   productData = {
+      //     name: product.title,
+      //     title: product.title,
+      //     price: product.price,
+      //     number: product.number,
+      //     currency: product.currency,
+      //     image: product.imageUrl,
+      //     id: product._id,
+      //   };
+      //   return;
+      // });
 
       // The POST request is then validated against the data from Sanity.
       const validate_line_items = validateCartItems(sanityData, cartItems);
+      // const validate_line_items = validateCartItems(sanityData, cartItems);
 
       // create a shorthand for validate_line_items
       const priceData = validate_line_items[0].price_data;
@@ -35,7 +51,7 @@ export default async function handler(req, res) {
         {
           price: price.id,
           quantity: validate_line_items[0].quantity,
-          tax_rates: [`txr_1KzojjBgP7yfvDo82ngdwtid`],
+          // tax_rates: [`txr_1KzojjBgP7yfvDo82ngdwtid`],
         },
       ];
 
@@ -51,10 +67,10 @@ export default async function handler(req, res) {
         // },
         //The cart items are inserted.
         line_items,
-        // automatic_tax: {
-        //   // https://stripe.com/docs/payments/checkout/taxes
-        //   enabled: true,
-        // },
+        automatic_tax: {
+          // https://stripe.com/docs/payments/checkout/taxes
+          enabled: true,
+        },
         // disbled while tax_rates are active
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}`,

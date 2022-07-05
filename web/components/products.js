@@ -12,6 +12,7 @@ const Products = ({ products }) => {
     // Format the {product} to only take the fields that Stripe will need.
     //
     const stripeFormattedProduct = {
+      name: product.title,
       title: product.title,
       price: product.price,
       number: product.number,

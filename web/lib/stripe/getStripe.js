@@ -11,8 +11,3 @@ const getStripe = () => {
 };
 
 export default getStripe;
-
-// Stripe
-// identifiant : revuemoebius@gmail.com
-// mot de passe : kfk3EM0KJjz5VsY
-// code de récupération (pour contourner l’authentification à 2 facteurs) : kmhm-lxfl-wtou-bwzc-erqp
