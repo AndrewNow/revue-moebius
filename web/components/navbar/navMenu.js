@@ -1,8 +1,46 @@
-import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
+
+const LinkData1 = [
+  {
+    url: `/a-propos`,
+    title: "À Propos",
+  },
+  {
+    url: `/proposer-un-texte`,
+    title: "Proposer un texte",
+  },
+  {
+    url: `/vente`,
+    title: "Vente et abonnements",
+  },
+  {
+    url: `/numeros`,
+    title: "Numéros",
+  },
+];
+const LinkData2 = [
+  // {
+  //   url: `/residences`,
+  //   title: "Résidences",
+  // },
+  {
+    url: `/balado`,
+    title: "Mœbius-balado",
+  },
+  {
+    url: `/nouvelles`,
+    title: "Nouvelles",
+  },
+  // {
+  //   url: `/contact`,
+  //   title: "Nous Contacter",
+  // },
+];
+
 const NavMenu = ({ isOpen, setOpen }) => {
   const openModal = {
     hidden: {
@@ -126,6 +164,24 @@ const NavMenu = ({ isOpen, setOpen }) => {
     },
   };
 
+  const hoverBlock = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+    },
+  };
+
+  const [selectedTab, setSelectedTab] = useState(LinkData1[-1]);
+
+  const [parentHovered, setParentHovered] = useState(false);
+
+  const handleParentLeave = () => {
+    setParentHovered(false);
+    setSelectedTab(-1);
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -166,31 +222,44 @@ const NavMenu = ({ isOpen, setOpen }) => {
                 initial="hidden"
                 animate={isOpen ? "animate" : "hidden"}
                 exit="hidden"
+                onMouseEnter={() => setParentHovered(true)}
+                onMouseLeave={handleParentLeave}
               >
-                <motion.h3
-                  variants={fadeTextChild}
-                  onClick={() => setOpen(!isOpen)}
-                >
-                  <Link href="/a-propos">À propos</Link>
-                </motion.h3>
-                <motion.h3
-                  variants={fadeTextChild}
-                  onClick={() => setOpen(!isOpen)}
-                >
-                  <Link href="/proposer-un-texte">Proposer un texte</Link>
-                </motion.h3>
-                <motion.h3
-                  variants={fadeTextChild}
-                  onClick={() => setOpen(!isOpen)}
-                >
-                  <Link href="/vente">Vente et abonnements</Link>
-                </motion.h3>
-                <motion.h3
-                  variants={fadeTextChild}
-                  onClick={() => setOpen(!isOpen)}
-                >
-                  <Link href="/numeros">Numéros</Link>
-                </motion.h3>
+                {LinkData1.map((link) => {
+                  return (
+                    <WrapLink
+                      key={link.title}
+                      variants={fadeTextChild}
+                      onClick={() => setOpen(!isOpen)}
+                      whileHover={() => setSelectedTab(link)}
+                    >
+                      <Link passHref href={link.url}>
+                        <LinkTitle
+                          initial={{ color: "var(--color-cream)" }}
+                          animate={{
+                            color:
+                              link === selectedTab
+                                ? "var(--color-clay)"
+                                : "var(--color-cream)",
+                          }}
+                        >
+                          {link.title}
+                        </LinkTitle>
+                      </Link>
+                      <AnimatePresence>
+                        {link === selectedTab ? (
+                          <HoverEffect
+                            variants={hoverBlock}
+                            initial="hidden"
+                            animate={parentHovered ? "visible" : "hidden"}
+                            exit="hidden"
+                            layoutId="hoverEffect"
+                          />
+                        ) : null}
+                      </AnimatePresence>
+                    </WrapLink>
+                  );
+                })}
               </Links>
               <VerticalLine
                 variants={animateVerticalLine2}
@@ -203,31 +272,47 @@ const NavMenu = ({ isOpen, setOpen }) => {
                 initial="hidden"
                 animate={isOpen ? "animate" : "hidden"}
                 exit="hidden"
+                onMouseEnter={() => setParentHovered(true)}
+                onMouseLeave={handleParentLeave}
               >
-                <motion.h3
-                  variants={fadeTextChild}
-                  onClick={() => setOpen(!isOpen)}
-                >
-                  Résidences
-                </motion.h3>
-                <motion.h3
-                  variants={fadeTextChild}
-                  onClick={() => setOpen(!isOpen)}
-                >
-                  <Link href="/balado">Mœbius-balado</Link>
-                </motion.h3>
-                <motion.h3
-                  variants={fadeTextChild}
-                  onClick={() => setOpen(!isOpen)}
-                >
-                  <Link href="/nouvelles">Nouvelles</Link>
-                </motion.h3>
-                <motion.h3
-                  variants={fadeTextChild}
-                  onClick={() => setOpen(!isOpen)}
-                >
-                  Nous contacter
-                </motion.h3>
+                {LinkData2.map((link) => {
+                  return (
+                    <WrapLink
+                      key={link.title}
+                      variants={fadeTextChild}
+                      onClick={() => setOpen(!isOpen)}
+                      whileHover={() => setSelectedTab(link)}
+                    >
+                      <Link passHref href={link.url}>
+                        <LinkTitle
+                          initial={{ color: "var(--color-cream)" }}
+                          animate={{
+                            color:
+                              link === selectedTab
+                                ? "var(--color-clay)"
+                                : "var(--color-cream)",
+                          }}
+                          transition={{
+                            delay: 0.2,
+                          }}
+                        >
+                          {link.title}
+                        </LinkTitle>
+                      </Link>
+                      <AnimatePresence>
+                        {link === selectedTab ? (
+                          <HoverEffect
+                            variants={hoverBlock}
+                            initial="hidden"
+                            animate={parentHovered ? "visible" : "hidden"}
+                            exit="hidden"
+                            layoutId="hoverEffect2"
+                          />
+                        ) : null}
+                      </AnimatePresence>
+                    </WrapLink>
+                  );
+                })}
               </Links>
             </Content>
           </Wrapper>
@@ -347,27 +432,19 @@ const Content = styled(motion.div)`
 `;
 
 const Links = styled(motion.div)`
+  box-sizing: border-box;
+  overflow: hidden;
   width: 35%;
   height: 100%;
   transition: var(--transition);
   display: inline-flex;
   justify-content: flex-end;
   flex-direction: column;
-
   position: relative;
+  a {
+    text-decoration: none;
+  }
 
-  h3 {
-    font-size: 3.333vw !important;
-    margin: 1rem 2rem;
-  }
-  h3 > a {
-    color: var(--color-cream);
-  }
-  @media (max-width: ${breakpoints.xl}px) {
-    h3 {
-      font-size: 3.5vw !important;
-    }
-  }
   @media (max-width: ${breakpoints.l}px) {
     width: 100%;
     height: auto;
@@ -375,19 +452,44 @@ const Links = styled(motion.div)`
   }
   @media (max-width: ${breakpoints.s}px) {
     width: 95%;
-    h3 {
-      font-size: 28px !important;
-      margin: 1.3vh 0;
-      text-align: left;
-      max-width: 90%;
-    }
+  }
+`;
+
+const WrapLink = styled(motion.div)`
+  position: relative;
+  padding: 1rem 2rem;
+  cursor: pointer;
+`;
+
+const LinkTitle = styled(motion.h3)`
+  font-size: 3.333vw !important;
+  position: relative;
+  z-index: 2;
+  color: var(--color-cream);
+
+  @media (max-width: ${breakpoints.xl}px) {
+    font-size: 3.5vw !important;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    font-size: 28px !important;
+    margin: 1.3vh 0;
+    text-align: left;
+    max-width: 90%;
   }
   @media (max-width: ${breakpoints.xs}px) {
-    h3 {
-      margin: .5rem 0;
-      font-size: 24px!important;
-    }
+    margin: 0.5rem 0;
+    font-size: 24px !important;
   }
+`;
+
+const HoverEffect = styled(motion.div)`
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--color-cream);
 `;
 
 const Search = styled.div`
@@ -400,7 +502,7 @@ const Search = styled.div`
   @media (max-width: ${breakpoints.xs}px) {
     display: none;
   }
-  `;
+`;
 
 const SearchInner = styled.div`
   width: 70%;
@@ -409,7 +511,7 @@ const SearchInner = styled.div`
     width: 90%;
   }
   @media (max-width: ${breakpoints.s}px) {
-    margin: 1rem auto; 
+    margin: 1rem auto;
   }
 `;
 
@@ -429,19 +531,19 @@ const BottomInner = styled.div`
   align-items: center;
   @media (max-width: ${breakpoints.m}px) {
     small {
-      font-size: 12px!important;
+      font-size: 12px !important;
     }
   }
   @media (max-width: ${breakpoints.s}px) {
     margin: 2rem auto;
     width: 90%;
     small {
-      font-size: 12px!important;
+      font-size: 12px !important;
     }
   }
   @media (max-width: ${breakpoints.xs}px) {
     small {
-      font-size: 10px!important;
+      font-size: 10px !important;
     }
   }
 `;

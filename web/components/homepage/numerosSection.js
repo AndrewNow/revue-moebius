@@ -168,7 +168,6 @@ const NumerosSection = ({ numerosData }) => {
           </svg>
         </NextButton>
       </ComponentWrapper>
-      <Inner></Inner>
     </>
   );
 };

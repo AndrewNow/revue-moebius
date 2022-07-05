@@ -31,7 +31,7 @@ const Landing = ({ data }) => {
         </SupportingImage>
       </ImageWrapper>
       <TextWrapper>
-        <small>Mœbius {data.number}</small>
+        <small>Mœbius n°{data.number}</small>
         <h1>Consultez notre dernier numéro</h1>
         <Link href={`/numeros/${data.slug}`}>
           <InternalLink>

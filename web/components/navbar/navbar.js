@@ -73,20 +73,12 @@ const Navbar = () => {
             exit="hidden"
             onClick={() => setOpenCart(!openCart)}
           >
-            <DesktopPanier>
-              <small
-                style={{ color: "var(--color-black)" }}
-                suppressHydrationWarning
-              >
-                Panier ({cartCount > 0 ? cartCount : 0})
-              </small>
-            </DesktopPanier>
-            <MobilePanier>
+            <PanierWrapper>
               <CartIcon />
               <small suppressHydrationWarning>
                 ({cartCount > 0 ? cartCount : 0})
               </small>
-            </MobilePanier>
+            </PanierWrapper>
           </Panier>
           <AnimatePresence exitBeforeEnter>
             {openCart && (
@@ -178,28 +170,22 @@ const Panier = styled(motion.div)`
   }
 `;
 
-const DesktopPanier = styled.div`
-  @media (max-width: ${breakpoints.s}px) {
-    display: none;
+const PanierWrapper = styled.div`
+  position: relative;
+  display: block;
+  transform: translate(-5px, 2px);
+  /* width: 40px; */
+  /* height: 40px; */
+  small {
+    color: var(--color-black);
+    position: absolute;
+    transform: translateY(-10px);
   }
-`;
-
-const MobilePanier = styled.div`
-  display: none;
-
   @media (max-width: ${breakpoints.s}px) {
-    position: relative;
-    display: block;
-    transform: translate(-5px, 2px);
-    /* width: 40px; */
-    /* height: 40px; */
     small {
-      color: var(--color-black);
-      font-size: 12px !important;
-      position: absolute;
       right: -15px;
       top: 0;
-      transform: translateY(-10px);
+      font-size: 12px !important;
     }
   }
 `;
