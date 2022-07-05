@@ -7,6 +7,7 @@ export const numeroQuery = groq`
     title, 
     number,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
     price,
     available,
@@ -29,6 +30,7 @@ export const numeroHomepageQuery = groq`
     number,
     "slug": slug.current,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
   }[0]
 `;
 
@@ -39,7 +41,7 @@ export const numeroListQuery = groq`
     title, 
     number,
     "imageUrl": mainImage.asset->url,
-    image,
+    "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
     price,
     available,
@@ -61,6 +63,7 @@ export const numeroReadMoreQuery = groq`
     title, 
     number,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
     price,
     available,

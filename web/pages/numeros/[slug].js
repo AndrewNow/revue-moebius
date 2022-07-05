@@ -46,6 +46,8 @@ export default function Numeros({ numero, readMoreData }) {
           <HeaderFlex>
             <HeaderImage>
               <Image
+                placeholder="blur"
+                blurDataURL={numero?.lqip}
                 src={numero?.imageUrl}
                 alt="Thumbnail image"
                 quality={100}
@@ -167,6 +169,8 @@ export default function Numeros({ numero, readMoreData }) {
                         alt={`Image couveture pour ${item?.title}`}
                         layout="fill"
                         className="imageHover"
+                        placeholder="blur"
+                        blurDataURL={item?.lqip}
                       />
                     </Link>
                   </ItemImage>

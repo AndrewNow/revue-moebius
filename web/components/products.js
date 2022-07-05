@@ -24,6 +24,8 @@ const Products = ({ products }) => {
       <Numero key={product._id}>
         <ImageWrapper>
           <Image
+            placeholder="blur"
+            blurDataURL={product.lqip}
             src={product.imageUrl}
             alt={`image couverture pour Moebius ${product.number}`}
             layout="fill"
