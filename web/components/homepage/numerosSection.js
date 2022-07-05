@@ -80,6 +80,8 @@ const NumerosSection = ({ numerosData }) => {
                     src={numero.imageUrl}
                     alt={numero.title}
                     layout="fill"
+                    placeholder="blur"
+                    blurDataURL={numero.lqip}
                   />
                 </ImageWrapper>
                 <Text>

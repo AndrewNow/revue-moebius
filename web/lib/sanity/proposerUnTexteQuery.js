@@ -9,6 +9,7 @@ export const proposerUnTexteQuery = groq`
     soumission,
     edition,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
     extraInfoTitle,
     extraInfoDescription
   }[0]

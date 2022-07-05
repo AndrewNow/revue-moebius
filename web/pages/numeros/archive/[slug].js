@@ -40,6 +40,8 @@ export default function Archive({ numero, readMoreData }) {
                 alt="Thumbnail image"
                 quality={100}
                 layout="fill"
+                placeholder="blur"
+                blurDataURL={numero?.lqip}
               />
             </HeaderImage>
             <HeaderText>
@@ -134,6 +136,8 @@ export default function Archive({ numero, readMoreData }) {
                         alt={`Image couveture pour ${item.title}`}
                         layout="fill"
                         className="imageHover"
+                        placeholder="blur"
+                        blurDataURL={item.lqip}
                       />
                     </Link>
                   </ItemImage>

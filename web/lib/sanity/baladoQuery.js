@@ -7,6 +7,7 @@ export const baladoQuery = groq`
     title, 
     number,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
     publishedAt,
     body,
@@ -21,6 +22,7 @@ export const baladoListQuery = groq`
     title, 
     number,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
     publishedAt,
   }
@@ -34,6 +36,7 @@ export const featuredBaladoQuery = groq`
     number,
     embed,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
     publishedAt,
   }[0]

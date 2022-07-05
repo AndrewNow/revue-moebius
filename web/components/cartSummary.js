@@ -6,6 +6,7 @@ import Image from "next/image.js";
 import Link from "next/link.js";
 import { breakpoints } from "../utils/breakpoints.js";
 import { motion } from "framer-motion";
+import { blurDataAnimation } from "../utils/blurDataURLTools.js";
 
 export default function CartSummary({ setOpenCart, openCart }) {
   //setting up some React states for our cart
@@ -111,7 +112,7 @@ export default function CartSummary({ setOpenCart, openCart }) {
               to add them as line items */
                   const item = cartDetails[cartItem];
                   return (
-                    <LineItem key={item._id}>
+                    <LineItem key={item.id}>
                       <ImageWrapper>
                         <Image
                           src={item.image}
@@ -119,6 +120,8 @@ export default function CartSummary({ setOpenCart, openCart }) {
                           width={69}
                           height={100}
                           quality={20}
+                          placeholder="blur"
+                          blurDataURL={blurDataAnimation(69, 100)}
                         />
                       </ImageWrapper>
                       <LineItemTitle>
@@ -194,7 +197,6 @@ const CartWrapper = styled(motion.div)`
   filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.16));
   width: 420px;
 
-
   @media (max-width: ${breakpoints.m}px) {
     right: 1rem;
   }
@@ -235,7 +237,7 @@ const Form = styled.form`
 `;
 
 const Header = styled.div`
-  position: sticky;
+  display: block;
   top: 0;
   left: 0;
   z-index: 10;
@@ -351,7 +353,7 @@ const CheckoutWrapper = styled.div``;
 
 const ItemInner = styled.div`
   max-height: 45vh;
-  height: 45vh;
+  /* height: 45vh; */
   overflow: auto;
   position: relative;
   display: inline-block;

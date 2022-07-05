@@ -46,12 +46,12 @@ export default function Numeros({ numero, readMoreData }) {
           <HeaderFlex>
             <HeaderImage>
               <Image
-                placeholder="blur"
-                blurDataURL={numero?.lqip}
                 src={numero?.imageUrl}
                 alt="Thumbnail image"
                 quality={100}
                 layout="fill"
+                placeholder="blur"
+                blurDataURL={numero?.lqip}
               />
             </HeaderImage>
             <HeaderText>

@@ -139,10 +139,10 @@ const TeamMember = ({
                   <Image
                     src={member.imageUrl}
                     alt={`Portrait de ${member.name}`}
-                    // width={634}
-                    // height={795}
                     objectFit="cover"
                     layout="fill"
+                    placeholder="blur"
+                    blurDataURL={member.lqip}
                   />
                 </ModalImage>
                 <ModalText>

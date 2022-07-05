@@ -7,6 +7,7 @@ import { nouvellesListQuery } from "../../lib/sanity/nouvellesQuery";
 import { categoryQuery } from "../../lib/sanity/categoryQuery";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { blurDataAnimation } from "../../utils/blurDataURLTools";
 
 export default function Nouvelles({ nouvellesList, categories }) {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -18,9 +19,20 @@ export default function Nouvelles({ nouvellesList, categories }) {
   const animateArticles = {
     visible: {
       opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.85,
+        delay: 0.25,
+        ease: [0.25, 0, 0.35, 1],
+      },
     },
     hidden: {
+      y: 20,
       opacity: 0,
+      transition: {
+        duration: 0.45,
+        ease: [0.25, 0, 0.35, 1],
+      },
     },
   };
 
@@ -69,7 +81,11 @@ export default function Nouvelles({ nouvellesList, categories }) {
     setFilteredArticleData(newData);
   }, [selectedCount]);
 
-  // Render the buttons for the filter
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
+  //
+  //  Render the buttons for the filter
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
   function ListFilterButtons() {
     const buttons = categories.map((tag) => {
       let filterItemsByTitle = activeParams.map((item) => item.title);
@@ -96,35 +112,44 @@ export default function Nouvelles({ nouvellesList, categories }) {
     return <>{buttons}</>;
   }
 
-  // Render articles according to the filtered data (filteredArticleData)
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
+  //
+  //  Render articles according to the filtered data (filteredArticleData)
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
   function ListNewsArticles() {
     const items = filteredArticleData.slice(0, visiblePosts).map((article) => {
       const articleTag = article.category[0];
       return (
-        <Article
-          key={article._id}
-          variants={animateArticles}
-          animate="visible"
-          exit="hidden"
-        >
-          <ImageWrapper>
-            <Image
-              src={article.imageUrl}
-              alt="Thumbnail image"
-              quality={100}
-              width={852}
-              height={480}
-              layout="responsive"
-            />
-            <Tag style={{ background: articleTag.color }}>
-              <small>{articleTag.title}</small>
-            </Tag>
-          </ImageWrapper>
-          <ArticleLink>
-            <Link href={`/nouvelles/${article.slug}`}>{article.title}</Link>
-          </ArticleLink>
-          <small>{article.publishedAt}</small>
-        </Article>
+        <AnimatePresence exitBeforeEnter key={article._id}>
+          <Article
+            key={article._id + "article"}
+            variants={animateArticles}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+          >
+            <ImageWrapper>
+              <Image
+                src={article.imageUrl}
+                alt="Thumbnail image"
+                quality={100}
+                width={852}
+                height={480}
+                layout="responsive"
+                placeholder="blur"
+                blurDataURL={blurDataAnimation(852, 480)}
+              />
+              <Tag style={{ background: articleTag.color }}>
+                <small>{articleTag.title}</small>
+              </Tag>
+            </ImageWrapper>
+            <ArticleLink>
+              <Link href={`/nouvelles/${article.slug}`}>{article.title}</Link>
+            </ArticleLink>
+            <small>{article.publishedAt}</small>
+          </Article>
+        </AnimatePresence>
       );
     });
     // Render the articles w/ the associated filter, if none exist then show a placeholder.
@@ -133,9 +158,15 @@ export default function Nouvelles({ nouvellesList, categories }) {
         {filteredArticleData.length > 0 ? (
           items
         ) : (
-          <h5 style={{ color: "var(--color-black)" }}>
+          <motion.h5
+            style={{ color: "var(--color-black)" }}
+            variants={animateArticles}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+          >
             Nous n'avons pas d'articles de ce type pour le moment.
-          </h5>
+          </motion.h5>
         )}
       </>
     );
@@ -147,7 +178,6 @@ export default function Nouvelles({ nouvellesList, categories }) {
   //
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
 
-  
   // Only display 6 posts at first
   const [visiblePosts, setVisiblePosts] = useState(6);
   // Value to increment more/less posts by
@@ -192,11 +222,10 @@ export default function Nouvelles({ nouvellesList, categories }) {
           <ListFilterButtons />
         </Filter>
         <ArticleGrid>
-          <AnimatePresence>
-            <ListNewsArticles />
-          </AnimatePresence>
+          <ListNewsArticles />
         </ArticleGrid>
-        {nouvellesList.length > 6 && (
+        {/* only show button when there are articles that correspond. */}
+        {filteredArticleData.length > 6 ? (
           <>
             {visiblePosts >= nouvellesList.length ? (
               // if user hits end of news articles, button closes posts
@@ -210,7 +239,7 @@ export default function Nouvelles({ nouvellesList, categories }) {
               </LoadMoreButton>
             )}
           </>
-        )}
+        ) : null}
       </Inner>
     </Main>
   );
@@ -329,7 +358,7 @@ const Tag = styled.div`
   }
 `;
 
-const FilterTag = styled.button`
+const FilterTag = styled(motion.button)`
   padding: 10px 18px;
   margin: 0 0.5rem;
   border-radius: 30px;

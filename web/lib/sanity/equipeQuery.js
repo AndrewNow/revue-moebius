@@ -7,6 +7,7 @@ export const equipeQuery = groq`
     membres[] {
       ...,
       "imageUrl": portrait.asset->url,
+      "lqip": portrait.asset->metadata.lqip,
     }
   }
 `;

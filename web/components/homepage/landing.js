@@ -11,6 +11,8 @@ const Landing = ({ data }) => {
           <Image
             src={data.imageUrl}
             alt={data.title}
+            placeholder="blur"
+            blurDataURL={data.lqip}
             width={519}
             height={733}
             quality={100}
@@ -20,6 +22,8 @@ const Landing = ({ data }) => {
           <Image
             src={data.imageUrl}
             alt={data.title}
+            placeholder="blur"
+            blurDataURL={data.lqip}
             width={519}
             height={733}
             quality={70}

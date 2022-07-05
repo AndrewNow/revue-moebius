@@ -19,6 +19,8 @@ export default function Nouvelles({ nouvelles }) {
           alt="Thumbnail image"
           quality={100}
           layout="fill"
+          placeholder="blur"
+          blurDataURL={nouvelles?.lqip}
         />
       </ImageWrapper>
       <BlockContent blocks={nouvelles?.body} />

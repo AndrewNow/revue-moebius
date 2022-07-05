@@ -9,6 +9,7 @@ export const nouvellesQuery = groq`
     "slug": slug.current,
     "categories": category[]->{title, slug},
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
     body,
   }
 `;
@@ -22,6 +23,7 @@ export const nouvellesListQuery = groq`
     "category": categories[]->{title, color},
     "slug": slug.current,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
   }
 `;
 
@@ -34,6 +36,7 @@ export const nouvellesListHomepageQuery = groq`
     "category": categories[]->{title, color},
     "slug": slug.current,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
   }
 `;
 
@@ -46,5 +49,6 @@ export const nouvellesFeaturedQuery = groq`
     "category": categories[]->{title, color},
     "slug": slug.current,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
   }[0]
 `;

@@ -45,6 +45,8 @@ const HoverImage = ({ data, active, x, y }) => {
         height={470}
         quality={80}
         objectFit="cover"
+        placeholder="blur"
+        blurDataURL={data.lqip}
       />
     </div>
   );

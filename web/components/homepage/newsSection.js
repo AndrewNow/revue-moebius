@@ -17,6 +17,8 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
               alt={featuredArticle.title}
               layout="fill"
               objectFit="cover"
+              placeholder="blur"
+              blurDataURL={featuredArticle.lqip}
             />
             <FeaturedTag
               style={{ background: featuredArticle.category[0].color }}
@@ -44,6 +46,8 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
                     alt={article.title}
                     layout="fill"
                     objectFit="cover"
+                    placeholder="blur"
+                    blurDataURL={article.lqip}
                   />
                   <FeedTag style={{ background: articleTag.color }}>
                     <small>{articleTag.title}</small>

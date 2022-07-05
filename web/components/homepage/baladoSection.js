@@ -12,6 +12,8 @@ const BaladoSection = ({ baladoData }) => {
           width={600}
           height={600}
           quality={90}
+          placeholder="blur"
+          blurDataURL={baladoData.lqip}
         />
         <Text>
           <h1>Mœbius balado</h1>

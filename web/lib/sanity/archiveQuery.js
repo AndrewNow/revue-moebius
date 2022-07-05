@@ -7,6 +7,7 @@ export const archiveQuery = groq`
     title, 
     number,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
     publishedAt,
     directedBy,
@@ -25,6 +26,7 @@ export const archiveListQuery = groq`
     title, 
     number,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
   }
 `;
@@ -37,6 +39,7 @@ export const archiveReadMoreQuery = groq`
     title, 
     number,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
     publishedAt,
     directedBy,

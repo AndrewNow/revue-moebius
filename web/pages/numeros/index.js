@@ -57,6 +57,8 @@ const Numeros = ({ numeroData, archiveData }) => {
                         alt={`Image couveture pour ${numero.title}`}
                         layout="fill"
                         className="imageHover"
+                        placeholder="blur"
+                        blurDataURL={numero.lqip}
                       />
                     </Link>
                   </ItemImage>

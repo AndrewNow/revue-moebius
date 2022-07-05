@@ -62,6 +62,8 @@ const Footer = ({ logos }) => {
                   layout="fill"
                   // objectFit="scale-down"
                   objectFit="contain"
+                  placeholder="blur"
+                  blurDataURL={partner?.lqip}
                 />
               </ImageInnerWrapper>
             );
