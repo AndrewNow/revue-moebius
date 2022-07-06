@@ -10,15 +10,27 @@ const Products = ({ products }) => {
   return products.map((product) => {
     //
     // Format the {product} to only take the fields that Stripe will need.
+    // https://stripe.com/docs/api/products/create
     //
     const stripeFormattedProduct = {
+      // client side data (for cartSummary)
       name: product.title,
       title: product.title,
       price: product.price,
       number: product.number,
       currency: product.currency,
       image: product.imageUrl,
-      id: product._id,
+      id: product.id,
+      // server side data (for Stripe)
+      product_data: {
+        name: product.title,
+        images: [product.image],
+      },
+      price_data: {
+        currency: "cad",
+        unit_amount: product.price,
+        unit_amount_decimal: product.price,
+      },
     };
 
     return (
@@ -42,6 +54,7 @@ const Products = ({ products }) => {
           </span>
           <Button
             onClick={() => addItem(stripeFormattedProduct)}
+            // onClick={() => addItem(product, {product_data: {name: "test"}})}
             aria-label="Ajouter au panier"
             disabled={product.available ? false : true}
             suppressHydrationWarning

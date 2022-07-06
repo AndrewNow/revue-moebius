@@ -40,7 +40,7 @@ export default function CartSummary({ setOpenCart, openCart }) {
       return;
     }
     //if nothing went wrong, sends user to Stripe checkout
-    redirectToCheckout({ sessionId: response.id });
+    redirectToCheckout(response.id);
   };
 
   const openModal = {
@@ -115,7 +115,8 @@ export default function CartSummary({ setOpenCart, openCart }) {
                     <LineItem key={item.id}>
                       <ImageWrapper>
                         <Image
-                          src={item.image}
+                          src={item?.image}
+                          // src={item?.imageUrl}
                           alt="Image couverture"
                           width={69}
                           height={100}

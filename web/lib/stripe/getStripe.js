@@ -1,13 +1,18 @@
-import { loadStripe } from "@stripe/stripe-js";
+// no longer needed as of use-shopping-cart v3.1.2, as we import the variable in the cartprovider
+// no longer needed as of use-shopping-cart v3.1.2, as we import the variable in the cartprovider
+// no longer needed as of use-shopping-cart v3.1.2, as we import the variable in the cartprovider
+// no longer needed as of use-shopping-cart v3.1.2, as we import the variable in the cartprovider
 
-let stripePromise;
+// import { loadStripe } from "@stripe/stripe-js";
 
-const getStripe = () => {
-  if (!stripePromise) {
-    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-  }
+// let stripePromise;
 
-  return stripePromise;
-};
+// const getStripe = () => {
+//   if (!stripePromise) {
+//     stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+//   }
 
-export default getStripe;
+//   return stripePromise;
+// };
+
+// export default getStripe;

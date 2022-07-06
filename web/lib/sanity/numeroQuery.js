@@ -35,12 +35,17 @@ export const numeroHomepageQuery = groq`
 `;
 
 // Query for all numeros
+// note the "name" entry - we need this because the product data from Sanity
+// needs to match how use-shopping-cart wants the data on validateCartItems()
 export const numeroListQuery = groq`
  *[_type == "numero"] | order(number desc) {
     _id,  
+    "id": _id,
+    "name": title,
     title, 
     number,
     "imageUrl": mainImage.asset->url,
+    "image": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
     price,

@@ -1,4 +1,4 @@
-import { validateCartItems } from "use-shopping-cart/src/serverUtil";
+import { validateCartItems } from "use-shopping-cart/utilities";
 import Stripe from "stripe";
 import { client } from "../../../lib/sanity/client";
 import { numeroListQuery } from "../../../lib/sanity/numeroQuery";
@@ -18,42 +18,10 @@ export default async function handler(req, res) {
       // Sanity client performs numeroListQuery
       let sanityData = await client.fetch(numeroListQuery);
 
-      // let productData;
-
-      // sanityData.map((product) => {
-      //   productData = {
-      //     name: product.title,
-      //     title: product.title,
-      //     price: product.price,
-      //     number: product.number,
-      //     currency: product.currency,
-      //     image: product.imageUrl,
-      //     id: product._id,
-      //   };
-      //   return;
-      // });
-
       // The POST request is then validated against the data from Sanity.
-      const validate_line_items = validateCartItems(sanityData, cartItems);
-      // const validate_line_items = validateCartItems(sanityData, cartItems);
-
-      // create a shorthand for validate_line_items
-      const priceData = validate_line_items[0].price_data;
-
-      const price = await stripe.prices.create({
-        tax_behavior: "exclusive",
-        currency: priceData.currency,
-        product_data: priceData.product_data,
-        unit_amount: priceData.unit_amount,
-      });
-
-      const line_items = [
-        {
-          price: price.id,
-          quantity: validate_line_items[0].quantity,
-          // tax_rates: [`txr_1KzojjBgP7yfvDo82ngdwtid`],
-        },
-      ];
+      const line_items = validateCartItems(sanityData, cartItems);
+      
+      // console.log(JSON.stringify(line_items, 0, 2));
 
       // Create Checkout Sessions from body params.
       const params = {
@@ -62,14 +30,15 @@ export default async function handler(req, res) {
         payment_method_types: ["card"],
         billing_address_collection: "auto",
         // uncomment to enable shipping collection
-        // shipping_address_collection: {
-        //   allowed_countries: ["US", "CA"],
-        // },
+        shipping_address_collection: {
+          allowed_countries: ["US", "CA"],
+        },
         //The cart items are inserted.
         line_items,
         automatic_tax: {
           // https://stripe.com/docs/payments/checkout/taxes
-          enabled: true,
+          // enabled: true,
+          enabled: false,
         },
         // disbled while tax_rates are active
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
