@@ -4,37 +4,37 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
 
-const LinkData1 = [
-  {
-    url: `/a-propos`,
-    title: "À Propos",
-  },
-  {
-    url: `/proposer-un-texte`,
-    title: "Proposer un texte",
-  },
+export const LinkData1 = [
   {
     url: `/vente`,
     title: "Vente et abonnements",
   },
   {
-    url: `/numeros`,
-    title: "Numéros",
+    url: `/a-propos`,
+    title: "À propos",
+  },
+  {
+    url: `/proposer-un-texte`,
+    title: "Proposer un texte",
   },
 ];
-const LinkData2 = [
-  // {
-  //   url: `/residences`,
-  //   title: "Résidences",
-  // },
+export const LinkData2 = [
   {
     url: `/balado`,
     title: "Mœbius-balado",
   },
   {
+    url: `/numeros`,
+    title: "Numéros",
+  },
+  {
     url: `/nouvelles`,
     title: "Nouvelles",
   },
+  // {
+  //   url: `/residences`,
+  //   title: "Résidences",
+  // },
   // {
   //   url: `/contact`,
   //   title: "Nous Contacter",
@@ -166,20 +166,26 @@ const NavMenu = ({ isOpen, setOpen }) => {
 
   const hoverBlock = {
     hidden: {
-      opacity: 0,
+      // opacity: 0,
+      height: "0%",
       transition: {
-        duration: 0.15,
+        ease: "easeInOut", 
+        duration: 0.25,
       },
     },
     visible: {
-      opacity: 1,
+      height: "100%",
+      // opacity: 1,
       transition: {
-        duration: 0.15,
+        ease: "easeIn", 
+        duration: 0.25,
       },
     },
   };
 
   const [selectedTab, setSelectedTab] = useState(LinkData1[-1]);
+
+  console.log(selectedTab);
 
   const [parentHovered, setParentHovered] = useState(false);
 
@@ -217,110 +223,112 @@ const NavMenu = ({ isOpen, setOpen }) => {
                   exit="hidden"
                 />
               </Search>
-              <VerticalLine
-                variants={animateVerticalLine}
-                initial="hidden"
-                animate={isOpen ? "animate" : "hidden"}
-                exit="hidden"
-              />
-              <Links
-                variants={fadeTextParent}
-                initial="hidden"
-                animate={isOpen ? "animate" : "hidden"}
-                exit="hidden"
-                onMouseEnter={() => setParentHovered(true)}
-                onMouseLeave={handleParentLeave}
-              >
-                {LinkData1.map((link) => {
-                  return (
-                    <WrapLink
-                      key={link.title}
-                      variants={fadeTextChild}
-                      onClick={() => setOpen(!isOpen)}
-                      whileHover={() => setSelectedTab(link)}
-                    >
-                      <Link passHref href={link.url}>
-                        <LinkTitle
-                          initial={{ color: "var(--color-cream)" }}
-                          animate={{
-                            color:
-                              link === selectedTab
-                                ? "var(--color-clay)"
-                                : "var(--color-cream)",
-                          }}
-                        >
-                          {link.title}
-                        </LinkTitle>
-                      </Link>
-                      <AnimatePresence>
-                        {link === selectedTab ? (
-                          <HoverEffect
-                            variants={hoverBlock}
-                            initial="hidden"
-                            animate={parentHovered ? "visible" : "hidden"}
-                            exit="hidden"
-                            layoutId="hoverEffect"
-                          />
-                        ) : null}
-                      </AnimatePresence>
-                    </WrapLink>
-                  );
-                })}
-              </Links>
-              <VerticalLine
-                variants={animateVerticalLine2}
-                initial="hidden"
-                animate={isOpen ? "animate" : "hidden"}
-                exit="hidden"
-              />
-              <Links
-                variants={fadeTextParent}
-                initial="hidden"
-                animate={isOpen ? "animate" : "hidden"}
-                exit="hidden"
-                onMouseEnter={() => setParentHovered(true)}
-                onMouseLeave={handleParentLeave}
-              >
-                {LinkData2.map((link) => {
-                  return (
-                    <WrapLink
-                      key={link.title}
-                      variants={fadeTextChild}
-                      onClick={() => setOpen(!isOpen)}
-                      whileHover={() => setSelectedTab(link)}
-                    >
-                      <Link passHref href={link.url}>
-                        <LinkTitle
-                          initial={{ color: "var(--color-cream)" }}
-                          animate={{
-                            color:
-                              link === selectedTab
-                                ? "var(--color-clay)"
-                                : "var(--color-cream)",
-                          }}
-                          transition={{
-                            delay: 0,
-                            duration: 0.01,
-                          }}
-                        >
-                          {link.title}
-                        </LinkTitle>
-                      </Link>
-                      <AnimatePresence>
-                        {link === selectedTab ? (
-                          <HoverEffect
-                            variants={hoverBlock}
-                            initial="hidden"
-                            animate={parentHovered ? "visible" : "hidden"}
-                            exit="hidden"
-                            layoutId="hoverEffect2"
-                          />
-                        ) : null}
-                      </AnimatePresence>
-                    </WrapLink>
-                  );
-                })}
-              </Links>
+              <GroupLinks>
+                <VerticalLine
+                  variants={animateVerticalLine}
+                  initial="hidden"
+                  animate={isOpen ? "animate" : "hidden"}
+                  exit="hidden"
+                />
+                <Links
+                  variants={fadeTextParent}
+                  initial="hidden"
+                  animate={isOpen ? "animate" : "hidden"}
+                  exit="hidden"
+                  onMouseEnter={() => setParentHovered(true)}
+                  onMouseLeave={handleParentLeave}
+                >
+                  {LinkData1.map((link) => {
+                    return (
+                      <WrapLink
+                        key={link.title}
+                        variants={fadeTextChild}
+                        onClick={() => setOpen(!isOpen)}
+                        onMouseEnter={() => setSelectedTab(link)}
+                      >
+                        <Link passHref href={link.url}>
+                          <LinkTitle
+                            initial={{ color: "var(--static-cream)" }}
+                            animate={{
+                              color:
+                                link === selectedTab
+                                  ? "var(--color-clay)"
+                                  : "var(--static-cream)",
+                            }}
+                          >
+                            {link.title}
+                          </LinkTitle>
+                        </Link>
+                        <AnimatePresence exitBeforeEnter>
+                          {link === selectedTab ? (
+                            <HoverEffect
+                              variants={hoverBlock}
+                              initial="hidden"
+                              animate={parentHovered ? "visible" : "hidden"}
+                              exit="hidden"
+                              layoutId="hoverEffect"
+                            />
+                          ) : null}
+                        </AnimatePresence>
+                      </WrapLink>
+                    );
+                  })}
+                </Links>
+                <VerticalLine
+                  variants={animateVerticalLine2}
+                  initial="hidden"
+                  animate={isOpen ? "animate" : "hidden"}
+                  exit="hidden"
+                />
+                <Links
+                  variants={fadeTextParent}
+                  initial="hidden"
+                  animate={isOpen ? "animate" : "hidden"}
+                  exit="hidden"
+                  onMouseEnter={() => setParentHovered(true)}
+                  onMouseLeave={handleParentLeave}
+                >
+                  {LinkData2.map((link) => {
+                    return (
+                      <WrapLink
+                        key={link.title}
+                        variants={fadeTextChild}
+                        onClick={() => setOpen(!isOpen)}
+                        onMouseEnter={() => setSelectedTab(link)}
+                      >
+                        <Link passHref href={link.url}>
+                          <LinkTitle
+                            initial={{ color: "var(--static-cream)" }}
+                            animate={{
+                              color:
+                                link === selectedTab
+                                  ? "var(--color-clay)"
+                                  : "var(--static-cream)",
+                            }}
+                            transition={{
+                              delay: 0,
+                              duration: 0.01,
+                            }}
+                          >
+                            {link.title}
+                          </LinkTitle>
+                        </Link>
+                        <AnimatePresence exitBeforeEnter>
+                          {link === selectedTab ? (
+                            <HoverEffect
+                              variants={hoverBlock}
+                              initial="hidden"
+                              animate={parentHovered ? "visible" : "hidden"}
+                              exit="hidden"
+                              layoutId="hoverEffect1"
+                            />
+                          ) : null}
+                        </AnimatePresence>
+                      </WrapLink>
+                    );
+                  })}
+                </Links>
+              </GroupLinks>
             </Content>
           </Wrapper>
           <Bottom>
@@ -389,12 +397,15 @@ const Wrapper = styled.div`
   @media (max-width: ${breakpoints.l}px) {
     margin-top: 100px;
   }
+  @media (max-width: ${breakpoints.m}px) {
+    height: auto;
+  }
 `;
 
 const HorizontalLine = styled(motion.span)`
   height: 1px;
   display: inline;
-  background: var(--color-cream);
+  background: var(--static-cream);
   transform-origin: left;
   float: left;
   margin: 0;
@@ -406,7 +417,7 @@ const HorizontalLineMobile = styled(motion.span)`
   @media (max-width: ${breakpoints.l}px) {
     height: 1px;
     display: inline;
-    background: var(--color-cream);
+    background: var(--static-cream);
     transform-origin: left;
     float: left;
     margin: 0;
@@ -416,7 +427,7 @@ const HorizontalLineMobile = styled(motion.span)`
 const VerticalLine = styled(motion.span)`
   width: 1px;
   display: inline;
-  background: var(--color-cream);
+  background: var(--static-cream);
   transform-origin: top;
   float: top;
   margin: 0;
@@ -438,10 +449,22 @@ const Content = styled(motion.div)`
   }
 `;
 
+const GroupLinks = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  @media (max-width: ${breakpoints.l}px) {
+    display: block;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    margin: 2rem 0;
+  }
+`;
+
 const Links = styled(motion.div)`
   box-sizing: border-box;
   overflow: hidden;
-  width: 35%;
+  width: 50%;
   height: 100%;
   transition: var(--transition);
   display: inline-flex;
@@ -457,31 +480,33 @@ const Links = styled(motion.div)`
     height: auto;
     margin: 0 auto;
   }
-  @media (max-width: ${breakpoints.s}px) {
-    width: 95%;
-  }
 `;
 
 const WrapLink = styled(motion.div)`
   position: relative;
   padding: 1rem 2rem;
   cursor: pointer;
+
+  @media (max-width: ${breakpoints.s}px) {
+    padding: 0.75rem 0;
+  }
 `;
 
 const LinkTitle = styled(motion.h3)`
   font-size: 3.333vw !important;
   position: relative;
   z-index: 2;
-  color: var(--color-cream);
+  color: var(--static-cream);
 
   @media (max-width: ${breakpoints.xl}px) {
     font-size: 3.5vw !important;
   }
+  @media (max-width: ${breakpoints.m}px) {
+    font-size: 35px !important;
+    text-align: center;
+  }
   @media (max-width: ${breakpoints.s}px) {
-    font-size: 28px !important;
-    margin: 1.3vh 0;
-    text-align: left;
-    max-width: 90%;
+    font-size: 30px !important;
   }
   @media (max-width: ${breakpoints.xs}px) {
     margin: 0.5rem 0;
@@ -496,7 +521,11 @@ const HoverEffect = styled(motion.div)`
   left: 0;
   height: 100%;
   width: 100%;
-  background: var(--color-cream);
+  background: var(--static-cream);
+
+  @media (max-width: ${breakpoints.s}px) {
+    display: none;
+  }
 `;
 
 const Search = styled.div`
@@ -526,7 +555,7 @@ const Bottom = styled.div`
   width: 100%;
   align-self: center;
   position: relative;
-  color: var(--color-cream);
+  color: var(--static-cream);
   transition: var(--transition);
 `;
 

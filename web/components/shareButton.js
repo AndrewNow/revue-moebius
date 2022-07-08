@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
+import { breakpoints } from "../utils/breakpoints";
 
 const ShareButton = ({ input }) => {
   const [copied, setCopied] = useState(false);
@@ -95,5 +96,11 @@ const Copied = styled(motion.div)`
     font-size: 14px;
     color: green;
     white-space: nowrap;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    bottom: -1.5rem;
+    small {
+      font-size: 12px;
+    }
   }
 `;

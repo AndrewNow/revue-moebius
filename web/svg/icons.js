@@ -19,6 +19,23 @@ export const Instagram = () => {
   );
 };
 
+export const Facebook = () => {
+  return (
+    <svg
+      width="35"
+      height="34"
+      viewBox="0 0 35 34"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M35 17.0426C35 7.63509 27.16 0 17.5 0C7.84 0 0 7.63509 0 17.0426C0 25.2912 6.02 32.1594 14 33.7444V22.1554H10.5V17.0426H14V12.782C14 9.49273 16.7475 6.81704 20.125 6.81704H24.5V11.9298H21C20.0375 11.9298 19.25 12.6967 19.25 13.6341V17.0426H24.5V22.1554H19.25V34C28.0875 33.1479 35 25.8877 35 17.0426Z"
+        fill="var(--color-black)"
+      />
+    </svg>
+  );
+};
+
 export const LinkIcon = () => {
   return (
     <svg

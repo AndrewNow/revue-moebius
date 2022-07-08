@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { breakpoints } from "../utils/breakpoints";
 import MailchimpFormContainer from "./mailchimp/mailchimpFormContainer";
+import { Instagram, Facebook } from "../svg/icons";
 
 const Footer = ({ logos }) => {
   return (
@@ -12,8 +13,26 @@ const Footer = ({ logos }) => {
       <MainContent>
         <Socials>
           <SocialsInner>
-            <small>@revuemoebius</small>
-            <small>@revuemoebius</small>
+            <a
+              href="https://www.instagram.com/revuemoebius/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <small>
+                <Instagram />
+                @revuemoebius
+              </small>
+            </a>
+            <a
+              href="https://www.facebook.com/revuemoebius/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <small>
+                <Facebook />
+                @revuemoebius
+              </small>
+            </a>
           </SocialsInner>
         </Socials>
         <Information>
@@ -96,21 +115,13 @@ const Newsletter = styled.div`
 
 const MainContent = styled.div`
   width: 100%;
+  position: relative;
   display: flex;
   /* border-top: 1px solid var(--static-cream); */
   border-bottom: 1px solid var(--static-cream);
 
   @media (max-width: ${breakpoints.m}px) {
     flex-direction: column;
-  }
-`;
-
-const Socials = styled.div`
-  width: 30%;
-
-  @media (max-width: ${breakpoints.m}px) {
-    width: 100%;
-    border-bottom: 1px solid var(--static-cream);
   }
 `;
 
@@ -162,14 +173,51 @@ const InformationInner = styled.div`
   }
 `;
 
-const SocialsInner = styled.div`
-  margin: 2rem 3.75vw;
+const Socials = styled.div`
+  width: 30%;
+  height: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+
+  @media (max-width: ${breakpoints.m}px) {
+    width: 100%;
+    border-bottom: 1px solid var(--static-cream);
+  }
+`;
+
+const SocialsInner = styled.div`
+  margin: 2rem 3.75vw;
+  height: 100%;
   color: var(--static-cream);
   @media (max-width: ${breakpoints.m}px) {
     margin: 2rem;
+  }
+
+  a {
+    color: var(--static-cream);
+    align-self: center;
+    text-decoration: none;
+    line-height: 100%;
+    :hover {
+      text-decoration: underline;
+    }
+  }
+  a > small {
+    margin: 0.75rem 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    :first-child {
+      margin-top: 0;
+    }
+    svg {
+      margin-right: 1rem;
+    }
+  }
+
+  a > small > svg > path {
+    fill: var(--static-cream) !important;
   }
 `;
 

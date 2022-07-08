@@ -97,6 +97,12 @@ const Header = styled.header`
     padding: 2rem 0;
     display: block;
   }
+  @media (max-width: ${breakpoints.xl}px) {
+    padding-top: 20vh;
+    padding-bottom: 5rem;
+    padding-left: 0;
+    width: 100%;
+  }
 `;
 
 const SpotifyButton = styled.a`
@@ -136,6 +142,15 @@ const Content = styled.div`
   blockquote {
     color: var(--color-black);
   }
+
+  @media (max-width: ${breakpoints.xl}px) {
+    margin-left: 0;
+    padding-bottom: 5rem;
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    padding-bottom: 2.5rem;
+  }
 `;
 
 const SpotifyWrapper = styled.div`
@@ -172,7 +187,7 @@ const Return = styled.small`
     }
   }
   @media (max-width: ${breakpoints.s}px) {
-    margin: 3rem 5%;
+    margin: 2rem auto;
   }
 `;
 

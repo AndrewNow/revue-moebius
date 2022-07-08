@@ -6,6 +6,7 @@ import { Inner } from "../index";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { breakpoints } from "../../utils/breakpoints";
 
 export default function Balado({ baladoData }) {
   // logic for getting the most recent balado for the header section
@@ -23,10 +24,13 @@ export default function Balado({ baladoData }) {
         {featured && (
           <FeaturedBalado>
             <FeaturedText>
-              <small>{featured?.publishedAt}</small>
+              <Tag>
+                <small>Nouveauté</small>
+              </Tag>
               <h1>
                 Mœbius n°{featured?.number},<br /> {featured?.title}
               </h1>
+              <Subtitle>{featured?.publishedAt}</Subtitle>
               <EpisodeLink>
                 <Link href={`balado/${featured?.slug}`}>
                   <small>Écouter l'épisode</small>
@@ -41,6 +45,8 @@ export default function Balado({ baladoData }) {
                 height={700}
                 quality={95}
                 priority={true}
+                placeholder="blur"
+                blurDataURL={featured.lqip}
               />
             </FeaturedImageWrapper>
           </FeaturedBalado>
@@ -67,6 +73,8 @@ export default function Balado({ baladoData }) {
                     height={500}
                     width={500}
                     quality={90}
+                    placeholder="blur"
+                    blurDataURL={balado.lqip}
                     // layout="fill"
                   />
                 </ImageWrapper>
@@ -110,12 +118,14 @@ const FeaturedBalado = styled.section`
   padding-top: 15vh;
   padding-bottom: 5vh;
   width: 90%;
-`;
-
-const FeaturedImageWrapper = styled.div`
-  position: relative;
-
-  margin: 0 2rem;
+  @media (max-width: ${breakpoints.xl}px) {
+    padding-top: 20vh;
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+  }
 `;
 
 const FeaturedText = styled.div`
@@ -123,13 +133,56 @@ const FeaturedText = styled.div`
   display: block;
   max-width: 70%;
   h1 {
-    margin: 2rem 0;
+    margin: 1rem 0;
     color: var(--color-black);
   }
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+    max-width: none;
+    text-align: center;
+  }
+`;
+
+const Subtitle = styled.small`
+  margin: 0.5rem auto;
+  margin-bottom: 2rem;
+  color: var(--color-grey);
+  display: block;
+
+  @media (max-width: ${breakpoints.l}px) {
+    margin-bottom: 0.5rem;
+  }
+`;
+
+const Tag = styled.div`
+  display: inline-block;
+  padding: 10px 18px;
+  margin: 0 0.5rem;
+  border-radius: 30px;
+  transition: var(--transition);
+  box-sizing: border-box;
+  /* border: 1px solid var(--static-black) !important; */
+  background: var(--color-yellow) !important;
+
   small {
-    margin: 1rem auto;
-    color: var(--color-grey);
-    display: inline-block;
+    transition: var(--transition);
+    color: var(--static-black);
+    user-select: none;
+    line-height: 100%;
+  }
+`;
+const FeaturedImageWrapper = styled.div`
+  position: relative;
+  max-width: 45%;
+  margin-left: 2rem;
+
+  @media (max-width: ${breakpoints.l}px) {
+    max-width: 60%;
+    margin: 0 auto;
+    margin-top: 2rem;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    max-width: none;
   }
 `;
 
@@ -147,6 +200,17 @@ const Header = styled.header`
   h4 {
     margin: 2rem auto;
   }
+
+  @media (max-width: ${breakpoints.l}px) {
+    border-top: 1px solid var(--color-black);
+    padding: 3rem 0;
+    h4 {
+      margin-top: 0;
+    }
+    p {
+      width: 100%;
+    }
+  }
 `;
 
 const Main = styled.div`
@@ -159,6 +223,16 @@ const Grid = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 2rem;
   padding: 5rem 0;
+
+  @media (max-width: ${breakpoints.xl}px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: ${breakpoints.l}px) {
+    grid-template-columns: 1fr;
+    place-items: center;
+    row-gap: 5rem;
+  }
 `;
 
 const Item = styled.div`
@@ -200,6 +274,14 @@ const EpisodeLink = styled.div`
     color: var(--color-black);
   }
   :hover {
+    background: var(--color-turquoise);
+    border: 1px solid transparent;
+    small {
+      color: var(--static-black);
+    }
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
     background: var(--color-turquoise);
     border: 1px solid transparent;
     small {
