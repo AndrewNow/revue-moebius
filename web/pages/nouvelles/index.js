@@ -45,12 +45,15 @@ export default function Nouvelles({ nouvellesList, categories }) {
   const [filteredArticleData, setFilteredArticleData] = useState([]);
   const [selectedCount, setSelectedCount] = useState(0);
 
+  // handler for when a given <FilterTag /> is clicked.
   const handleFilterUpdate = (param) => {
     let currentParams = activeParams;
 
+    // select only the title, since that's what we're filtering by
     let filterItemsByTitle = activeParams.map((item) => item.title);
-    // If an item is already clicked, remove it from the array
+
     if (filterItemsByTitle.includes(param.title)) {
+      // If an item is already toggled "on", remove it from the array
       currentParams = currentParams.filter((item) => {
         return item.title !== param.title;
       });

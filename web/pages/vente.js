@@ -6,8 +6,10 @@ import { numeroListQuery } from "../lib/sanity/numeroQuery";
 import { Inner } from "./index";
 import Products from "../components/products";
 import { breakpoints } from "../utils/breakpoints";
+import Abonnements from "../components/abonnements/abonnements";
+import { abonnementQuery } from "../lib/sanity/abonnementQuery";
 
-const Vente = ({ numeros }) => {
+const Vente = ({ numeros, abonnements }) => {
   return (
     <>
       <Header>
@@ -23,6 +25,7 @@ const Vente = ({ numeros }) => {
           </Grid>
         </Inner>
       </Content>
+      <Abonnements abonnements={abonnements} />
     </>
   );
 };
@@ -32,10 +35,12 @@ export default Vente;
 export async function getStaticProps() {
   const footerLogos = await client.fetch(footerLogoQuery);
   const numeros = await client.fetch(numeroListQuery);
+  const abonnements = await client.fetch(abonnementQuery);
   return {
     props: {
       footerLogos,
       numeros,
+      abonnements,
     },
     revalidate: 10,
   };
