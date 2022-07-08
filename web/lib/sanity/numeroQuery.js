@@ -82,3 +82,30 @@ export const numeroReadMoreQuery = groq`
     currency
   }
 `;
+
+export const allPurchasableProductQuery = groq`
+   *[_type in ["numero", "abonnements"]] | order(number desc) {
+    _id,  
+    "id": _id,
+    "name": title,
+    title, 
+    number,
+    "imageUrl": mainImage.asset->url,
+    "image": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
+    "slug": slug.current,
+    price,
+    available,
+    publishedAt,
+    directedBy,
+    isbn,
+    pages,
+    authors,
+    codirectors,
+    body,
+    currency,
+    type,
+    duration,
+    location
+  }
+`;

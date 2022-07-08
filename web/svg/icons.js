@@ -117,3 +117,26 @@ export const Chevron = ({ open }) => {
     </motion.svg>
   );
 };
+
+export const BookIcon = () => {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 28 28"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 8V24.47C0 24.47 6.4694 24.2243 14 28C21.5306 24.2243 28 24.47 28 24.47V8C28 8 20.3644 8 14 11.53C7.6356 8 0 8 0 8Z"
+        fill="#8A8A8A"
+        fillOpacity="0.2"
+      />
+      <path
+        d="M14 8C16.2091 8 18 6.20914 18 4C18 1.79086 16.2091 0 14 0C11.7909 0 10 1.79086 10 4C10 6.20914 11.7909 8 14 8Z"
+        fill="#8A8A8A"
+        fillOpacity="0.2"
+      />
+    </svg>
+  );
+};

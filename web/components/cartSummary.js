@@ -7,6 +7,7 @@ import Link from "next/link.js";
 import { breakpoints } from "../utils/breakpoints.js";
 import { motion } from "framer-motion";
 import { blurDataAnimation } from "../utils/blurDataURLTools.js";
+import { BookIcon } from "../svg/icons.js";
 
 export default function CartSummary({ setOpenCart, openCart }) {
   //setting up some React states for our cart
@@ -114,19 +115,25 @@ export default function CartSummary({ setOpenCart, openCart }) {
                   return (
                     <LineItem key={item.id}>
                       <ImageWrapper>
-                        <Image
-                          src={item?.image}
-                          // src={item?.imageUrl}
-                          alt="Image couverture"
-                          width={69}
-                          height={100}
-                          quality={20}
-                          placeholder="blur"
-                          blurDataURL={blurDataAnimation(69, 100)}
-                        />
+                        {item?.image ? (
+                          <Image
+                            src={item?.image}
+                            // src={item?.imageUrl}
+                            alt="Image couverture"
+                            width={69}
+                            height={100}
+                            quality={20}
+                            placeholder="blur"
+                            blurDataURL={blurDataAnimation(69, 100)}
+                          />
+                        ) : (
+                          <PlaceholderImage>
+                            <BookIcon />
+                          </PlaceholderImage>
+                        )}
                       </ImageWrapper>
                       <LineItemTitle>
-                        <small>{item.title}</small>
+                        <small>{item.name}</small>
                         <ButtonGroup>
                           <Button
                             onClick={() => decrementItem(item.id)}
@@ -143,7 +150,12 @@ export default function CartSummary({ setOpenCart, openCart }) {
                           </Button>
                         </ButtonGroup>
                       </LineItemTitle>
-                      <small style={{ alignSelf: "flex-end" }}>
+                      <small
+                        style={{
+                          alignSelf: "flex-end",
+                          justifySelf: "flex-end",
+                        }}
+                      >
                         {formatCurrencyString({
                           value: item.price,
                           currency: item.currency,
@@ -354,10 +366,9 @@ const CheckoutWrapper = styled.div``;
 
 const ItemInner = styled.div`
   max-height: 45vh;
-  /* height: 45vh; */
   overflow: auto;
   position: relative;
-  display: inline-block;
+  display: block;
 
   scrollbar-color: var(--color-black) var(--color-cream);
   scrollbar-width: thin;
@@ -397,12 +408,15 @@ const Gradient = styled.div`
 `;
 
 const LineItem = styled.div`
+  position: relative;
   display: flex;
+  justify-items: space-between;
   margin: 1rem 0;
   padding: 1rem 0;
   padding-top: 0rem;
   border-bottom: 1px solid var(--color-grey);
-  width: 97%;
+  max-width: 97%;
+  min-width: 97%;
 
   small {
     color: var(--color-black);
@@ -422,6 +436,21 @@ const ImageWrapper = styled.div`
   height: 100px;
   width: 69px;
   aspect-ratio: 69/100;
+  position: relative;
+  display: block;
+`;
+
+const PlaceholderImage = styled.div`
+  background: linear-gradient(
+    193.73deg,
+    rgba(138, 138, 138, 0.12) 11.34%,
+    rgba(138, 138, 138, 0.1) 45.35%,
+    rgba(138, 138, 138, 0.16) 91.34%
+  );
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
 `;
 
 const LineItemTitle = styled.div`
@@ -430,11 +459,12 @@ const LineItemTitle = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   padding: 0 1rem;
-
+  min-width: 60%;
+  max-width: 60%;
   small {
+    max-width: 80%;
     display: block;
     font-size: 14px;
-    width: 60%;
     color: var(--color-black);
   }
   @media (max-width: ${breakpoints.s}px) {

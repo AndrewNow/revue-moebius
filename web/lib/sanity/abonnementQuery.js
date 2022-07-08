@@ -4,7 +4,7 @@ export const abonnementQuery = groq`
  *[_type == "abonnements"] | order(number desc) {
     _id,  
     "id": _id,
-    name,
+    "name": title,
     price,
     currency,
     type,

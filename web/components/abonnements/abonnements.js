@@ -2,90 +2,29 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Inner } from "../../pages/index";
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
+import { breakpoints } from "../../utils/breakpoints";
 
 const Abonnements = ({ abonnements }) => {
   const { addItem } = useShoppingCart();
 
-  // State values must be from /studio/schemas/abonnements.js "<type>_OPTIONS"
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
+  //
+  //  Create state & handlers for each filter
+  //
+  //    State values must match /studio/schemas/abonnements.js "<...>_OPTIONS".
+  //    Possible values are:
+  //      - TYPE_OPTIONS (regular, student, institution)
+  //      - DURATION_OPTIONS (1 year, 2 years)
+  //      - LOCATION_OPTIONS (canada, usa, international)
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
 
-  // type (ex: regular, student, institution)
   const [type, setType] = useState("regular");
-  // duration (ex: 1 year, 2 years)
   const [duration, setDuration] = useState("1 an");
-  // location (ex: Canada, USA, International)
   const [location, setLocation] = useState("canada");
 
-  const handleChangeType = (e) => {
-    // When a radio box is clicked, set the state to the value of the clicked element
-    setType(e.target.value);
-    // Then, update the product filter
-    handleFilterTypeUpdate(e);
-  };
-  const handleChangeDuration = (e) => {
-    setDuration(e.target.value);
-    handleFilterDurationUpdate(e);
-  };
-  const handleChangeLocation = (e) => {
-    setLocation(e.target.value);
-    handleFilterLocationUpdate(e);
-  };
-
-  const [activeType, setActiveType] = useState("regular");
-  const [activeDuration, setActiveDuration] = useState("1 an");
-  const [activeLocation, setActiveLocation] = useState("canada");
+  // State for filtering the {abonnements}
   const [filteredAbonnements, setFilteredAbonnements] = useState([]);
-  const [selectedCount, setSelectedCount] = useState(0);
-
-  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
-  //
-  //  Handler for setting the activeType state
-  //
-  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
-  const handleFilterTypeUpdate = (e) => {
-    let currentParams = activeType;
-
-    if (currentParams.includes(e.target.value)) {
-      return;
-    } else {
-      setActiveType(e.target.value);
-    }
-    // SelectedCount updates the useEffect, keeping track of the changes to the filter params
-    setSelectedCount(currentParams.length);
-  };
-
-  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
-  //
-  //  Handler for setting the activeDuration state
-  //
-  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
-  const handleFilterDurationUpdate = (e) => {
-    let currentParams = activeDuration;
-
-    if (currentParams.includes(e.target.value)) {
-      return;
-    } else {
-      setActiveDuration(e.target.value);
-    }
-    // SelectedCount updates the useEffect, keeping track of the changes to the filter params
-    setSelectedCount(currentParams.length);
-  };
-
-  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
-  //
-  //  Handler for setting the activeLocation state
-  //
-  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
-  const handleFilterLocationUpdate = (e) => {
-    let currentParams = activeLocation;
-
-    if (currentParams.includes(e.target.value)) {
-      return;
-    } else {
-      setActiveLocation(e.target.value);
-    }
-    // SelectedCount updates the useEffect, keeping track of the changes to the filter params
-    setSelectedCount(currentParams.length);
-  };
 
   //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:
   //
@@ -93,34 +32,18 @@ const Abonnements = ({ abonnements }) => {
   //
   //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:
   useEffect(() => {
-    let newData;
-
-    if (selectedCount === 0) {
-      // on initialization, filter by default params
-      newData = abonnements.filter((item) => {
-        if (
-          type.includes(item.type) &&
-          duration.includes(item.duration) &&
-          location.includes(item.location)
-        ) {
-          return item;
-        }
-      });
-    } else {
-      newData = abonnements.filter((item) => {
-        if (
-          type.includes(item.type) &&
-          duration.includes(item.duration) &&
-          location.includes(item.location)
-        ) {
-          return item;
-        }
-      });
-    }
-    setFilteredAbonnements(newData);
-  }, [selectedCount, type]);
-
-  console.log("filtered:", filteredAbonnements);
+    let filteredData;
+    filteredData = abonnements.filter((item) => {
+      if (
+        type.includes(item.type) &&
+        duration.includes(item.duration) &&
+        location.includes(item.location)
+      ) {
+        return item;
+      }
+    });
+    setFilteredAbonnements(filteredData);
+  }, [type, duration, location]);
 
   return (
     <Wrapper>
@@ -136,17 +59,22 @@ const Abonnements = ({ abonnements }) => {
                 web de la SODEP ou sur Érudit.
               </p>
             </Header>
-            <h3>
-              Total:{" "}
-              {filteredAbonnements.length &&
-                formatCurrencyString({
-                  value: filteredAbonnements[0]?.price,
-                  currency: filteredAbonnements[0]?.currency,
-                })}
-            </h3>
-            <div>
-              <small>add to cart</small>
-            </div>
+            <AddProductWrapper>
+              <h3>
+                Total:{" "}
+                {filteredAbonnements.length &&
+                  formatCurrencyString({
+                    value: filteredAbonnements[0]?.price,
+                    currency: filteredAbonnements[0]?.currency,
+                  })}
+              </h3>
+              <Button
+                aria-label="Ajouter au panier"
+                onClick={() => addItem(filteredAbonnements[0])}
+              >
+                <small>Ajouter au panier</small>
+              </Button>
+            </AddProductWrapper>
           </Left>
           <Form>
             <RadioWrapper>
@@ -156,7 +84,7 @@ const Abonnements = ({ abonnements }) => {
                   <h3>Regulier</h3>
                   <input
                     defaultChecked={true}
-                    onClick={(e) => handleChangeType(e)}
+                    onClick={(e) => setType(e.target.value)}
                     type="radio"
                     name="type"
                     id="regular"
@@ -169,23 +97,21 @@ const Abonnements = ({ abonnements }) => {
                 <label
                   htmlFor="student"
                   style={{
-                    cursor:
-                      activeLocation === "canada" ? "pointer" : "not-allowed",
+                    cursor: location === "canada" ? "pointer" : "not-allowed",
                   }}
                 >
                   <h3
                     style={{
-                      opacity: activeLocation === "canada" ? "1" : ".5",
-                      cursor:
-                        activeLocation === "canada" ? "pointer" : "not-allowed",
+                      opacity: location === "canada" ? "1" : ".5",
+                      cursor: location === "canada" ? "pointer" : "not-allowed",
                       transition: "var(--transition)",
                     }}
                   >
                     Étudiant
                   </h3>
                   <input
-                    disabled={activeLocation !== "canada"}
-                    onClick={(e) => handleChangeType(e)}
+                    disabled={location !== "canada"}
+                    onClick={(e) => setType(e.target.value)}
                     type="radio"
                     name="type"
                     id="student"
@@ -198,7 +124,7 @@ const Abonnements = ({ abonnements }) => {
                 <label htmlFor="institution">
                   <h3>Institution</h3>
                   <input
-                    onClick={(e) => handleChangeType(e)}
+                    onClick={(e) => setType(e.target.value)}
                     type="radio"
                     name="type"
                     id="institution"
@@ -215,7 +141,7 @@ const Abonnements = ({ abonnements }) => {
                   <h3>Un an</h3>
                   <input
                     defaultChecked={true}
-                    onClick={(e) => handleChangeDuration(e)}
+                    onClick={(e) => setDuration(e.target.value)}
                     type="radio"
                     name="duration"
                     id="1 an"
@@ -228,7 +154,7 @@ const Abonnements = ({ abonnements }) => {
                 <label htmlFor="2 ans">
                   <h3>Deux ans</h3>
                   <input
-                    onClick={(e) => handleChangeDuration(e)}
+                    onClick={(e) => setDuration(e.target.value)}
                     type="radio"
                     name="duration"
                     id="2 ans"
@@ -245,7 +171,7 @@ const Abonnements = ({ abonnements }) => {
                   <h3>Au Canada</h3>
                   <input
                     defaultChecked={true}
-                    onClick={(e) => handleChangeLocation(e)}
+                    onClick={(e) => setLocation(e.target.value)}
                     type="radio"
                     name="location"
                     id="canada"
@@ -258,23 +184,21 @@ const Abonnements = ({ abonnements }) => {
                 <label
                   htmlFor="international"
                   style={{
-                    cursor:
-                      activeType === "student" ? "not-allowed" : "pointer",
+                    cursor: type === "student" ? "not-allowed" : "pointer",
                   }}
                 >
                   <h3
                     style={{
-                      opacity: activeType === "student" ? "0.5" : 1,
-                      cursor:
-                        activeType === "student" ? "not-allowed" : "pointer",
+                      opacity: type === "student" ? "0.5" : 1,
+                      cursor: type === "student" ? "not-allowed" : "pointer",
                       transition: "var(--transition)",
                     }}
                   >
                     À l'international
                   </h3>
                   <input
-                    disabled={activeType === "student"}
-                    onClick={(e) => handleChangeLocation(e)}
+                    disabled={type === "student"}
+                    onClick={(e) => setLocation(e.target.value)}
                     type="radio"
                     name="location"
                     id="international"
@@ -287,24 +211,21 @@ const Abonnements = ({ abonnements }) => {
                 <label
                   htmlFor="usa"
                   style={{
-                    cursor:
-                      activeType === "student" ? "not-allowed" : "pointer",
+                    cursor: type === "student" ? "not-allowed" : "pointer",
                   }}
                 >
                   <h3
                     style={{
-                      opacity: activeType === "student" ? "0.5" : 1,
-                      cursor:
-                        activeType === "student" ? "not-allowed" : "pointer",
+                      opacity: type === "student" ? "0.5" : 1,
+                      cursor: type === "student" ? "not-allowed" : "pointer",
                       transition: "var(--transition)",
                     }}
                   >
                     Aux États-Unis
                   </h3>
                   <input
-                    disabled={activeType === "student"}
-                    // onChange={handleChangeLocation}
-                    onClick={(e) => handleChangeLocation(e)}
+                    disabled={type === "student"}
+                    onClick={(e) => setLocation(e.target.value)}
                     type="radio"
                     name="location"
                     id="usa"
@@ -315,6 +236,22 @@ const Abonnements = ({ abonnements }) => {
               </RadioGroup>
             </RadioWrapper>
           </Form>
+          <AddProductMobileWrapper>
+            <h3>
+              Total:{" "}
+              {filteredAbonnements.length &&
+                formatCurrencyString({
+                  value: filteredAbonnements[0]?.price,
+                  currency: filteredAbonnements[0]?.currency,
+                })}
+            </h3>
+            <Button
+              aria-label="Ajouter au panier"
+              onClick={() => addItem(filteredAbonnements[0])}
+            >
+              <small>Ajouter au panier</small>
+            </Button>
+          </AddProductMobileWrapper>
         </MainFlex>
       </Inner>
     </Wrapper>
@@ -327,6 +264,13 @@ const Wrapper = styled.div`
   background: var(--color-clay);
   color: var(--static-cream);
   padding: 10rem 0;
+
+  @media (max-width: ${breakpoints.l}px) {
+    padding: 5rem 0;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    padding: 1rem 0;
+  }
 `;
 
 const Header = styled.div`
@@ -344,21 +288,53 @@ const MainFlex = styled.div`
   align-items: flex-start;
   position: relative;
   padding: 10rem 0;
+
+  @media (max-width: ${breakpoints.l}px) {
+    display: block;
+    padding: 3rem 0;
+  }
 `;
 
 const Left = styled.div`
   width: 45%;
   position: sticky;
   top: 7rem;
+  @media (max-width: ${breakpoints.l}px) {
+    top: 0;
+    position: relative;
+    width: 100%;
+  }
+`;
 
-  h3 {
-    font-family: "Surt";
+const Button = styled.button`
+  display: inline-block;
+  margin: 2rem 0;
+  padding: 1rem 3rem;
+  border-radius: 10px;
+  background: none;
+  border: 1px solid var(--static-cream) !important;
+  color: var(--static-cream);
+  transition: var(--transition);
+
+  :hover {
+    background: var(--static-cream) !important;
+    color: var(--color-clay) !important;
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    display: block;
+    width: 100%;
   }
 `;
 
 const Form = styled.form`
   width: 55%;
   position: relative;
+
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+    display: block;
+  }
 `;
 
 const RadioWrapper = styled.div`
@@ -377,6 +353,41 @@ const RadioWrapper = styled.div`
     border-top: 1px solid var(--static-cream);
   }
   border-bottom: 1px solid var(--static-cream);
+
+  @media (max-width: ${breakpoints.m}px) {
+    h3 {
+      margin-left: 0.5rem;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    h3 {
+      font-size: 35px;
+    }
+  }
+`;
+
+const AddProductWrapper = styled.div`
+  h3 {
+    font-family: "Surt";
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    display: none;
+  }
+`;
+const AddProductMobileWrapper = styled.div`
+  h3 {
+    font-family: "Surt";
+  }
+  display: none;
+  @media (max-width: ${breakpoints.l}px) {
+    display: block;
+    margin-top: 3rem;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    h3 {
+      font-size: 35px;
+    }
+  }
 `;
 
 const CheckMark = styled.span`
@@ -390,8 +401,11 @@ const CheckMark = styled.span`
   background-color: var(--color-clay);
   border: 2px solid var(--static-cream);
   border-radius: 50%;
-  /* transition: var(--transition); */
-  /* cursor: pointer; */
+
+  @media (max-width: ${breakpoints.l}px) {
+    width: 25px;
+    height: 25px;
+  }
 `;
 
 const RadioGroup = styled.span`
@@ -434,5 +448,9 @@ const RadioGroup = styled.span`
     transition: var(--transition);
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    margin-top: 1rem;
   }
 `;

@@ -167,9 +167,15 @@ const NavMenu = ({ isOpen, setOpen }) => {
   const hoverBlock = {
     hidden: {
       opacity: 0,
+      transition: {
+        duration: 0.15,
+      },
     },
     visible: {
       opacity: 1,
+      transition: {
+        duration: 0.15,
+      },
     },
   };
 
@@ -293,7 +299,8 @@ const NavMenu = ({ isOpen, setOpen }) => {
                                 : "var(--color-cream)",
                           }}
                           transition={{
-                            delay: 0.2,
+                            delay: 0,
+                            duration: 0.01,
                           }}
                         >
                           {link.title}

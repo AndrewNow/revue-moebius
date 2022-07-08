@@ -1,7 +1,7 @@
 import { validateCartItems } from "use-shopping-cart/utilities";
 import Stripe from "stripe";
 import { client } from "../../../lib/sanity/client";
-import { numeroListQuery } from "../../../lib/sanity/numeroQuery";
+import { allPurchasableProductQuery } from "../../../lib/sanity/numeroQuery";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   // https://github.com/stripe/stripe-node#configuration
@@ -16,11 +16,11 @@ export default async function handler(req, res) {
       const cartItems = req.body;
 
       // Sanity client performs numeroListQuery
-      let sanityData = await client.fetch(numeroListQuery);
+      let sanityData = await client.fetch(allPurchasableProductQuery);
 
       // The POST request is then validated against the data from Sanity.
       const line_items = validateCartItems(sanityData, cartItems);
-      
+
       // console.log(JSON.stringify(line_items, 0, 2));
 
       // Create Checkout Sessions from body params.
