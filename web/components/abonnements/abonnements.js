@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Inner } from "../../pages/index";
+import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
 
 const Abonnements = ({ abonnements }) => {
-  const [total, setTotal] = useState(null);
+  const { addItem } = useShoppingCart();
 
   // State values must be from /studio/schemas/abonnements.js "<type>_OPTIONS"
 
@@ -22,27 +23,65 @@ const Abonnements = ({ abonnements }) => {
   };
   const handleChangeDuration = (e) => {
     setDuration(e.target.value);
+    handleFilterDurationUpdate(e);
   };
   const handleChangeLocation = (e) => {
     setLocation(e.target.value);
+    handleFilterLocationUpdate(e);
   };
 
-  const [activeParams, setActiveParams] = useState(["regular"]);
+  const [activeType, setActiveType] = useState("regular");
+  const [activeDuration, setActiveDuration] = useState("1 an");
+  const [activeLocation, setActiveLocation] = useState("canada");
   const [filteredAbonnements, setFilteredAbonnements] = useState([]);
   const [selectedCount, setSelectedCount] = useState(0);
 
   //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
   //
-  //  Handler for setting the activeParams state
+  //  Handler for setting the activeType state
   //
   //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
   const handleFilterTypeUpdate = (e) => {
-    let currentParams = activeParams;
+    let currentParams = activeType;
 
     if (currentParams.includes(e.target.value)) {
       return;
     } else {
-      setActiveParams([e.target.value]);
+      setActiveType(e.target.value);
+    }
+    // SelectedCount updates the useEffect, keeping track of the changes to the filter params
+    setSelectedCount(currentParams.length);
+  };
+
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
+  //
+  //  Handler for setting the activeDuration state
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
+  const handleFilterDurationUpdate = (e) => {
+    let currentParams = activeDuration;
+
+    if (currentParams.includes(e.target.value)) {
+      return;
+    } else {
+      setActiveDuration(e.target.value);
+    }
+    // SelectedCount updates the useEffect, keeping track of the changes to the filter params
+    setSelectedCount(currentParams.length);
+  };
+
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
+  //
+  //  Handler for setting the activeLocation state
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
+  const handleFilterLocationUpdate = (e) => {
+    let currentParams = activeLocation;
+
+    if (currentParams.includes(e.target.value)) {
+      return;
+    } else {
+      setActiveLocation(e.target.value);
     }
     // SelectedCount updates the useEffect, keeping track of the changes to the filter params
     setSelectedCount(currentParams.length);
@@ -59,13 +98,21 @@ const Abonnements = ({ abonnements }) => {
     if (selectedCount === 0) {
       // on initialization, filter by default params
       newData = abonnements.filter((item) => {
-        if (type.includes(item.type)) {
+        if (
+          type.includes(item.type) &&
+          duration.includes(item.duration) &&
+          location.includes(item.location)
+        ) {
           return item;
         }
       });
     } else {
       newData = abonnements.filter((item) => {
-        if (type.includes(item.type)) {
+        if (
+          type.includes(item.type) &&
+          duration.includes(item.duration) &&
+          location.includes(item.location)
+        ) {
           return item;
         }
       });
@@ -89,22 +136,26 @@ const Abonnements = ({ abonnements }) => {
                 web de la SODEP ou sur Érudit.
               </p>
             </Header>
-            <h3>Total: {total}</h3>
+            <h3>
+              Total:{" "}
+              {filteredAbonnements.length &&
+                formatCurrencyString({
+                  value: filteredAbonnements[0]?.price,
+                  currency: filteredAbonnements[0]?.currency,
+                })}
+            </h3>
             <div>
               <small>add to cart</small>
             </div>
           </Left>
-          <Form
-          // onSubmit={(e) => handleSubmit()}
-          // onChange={handleSubmit}
-          >
+          <Form>
             <RadioWrapper>
               <small>Type de plan</small>
               <RadioGroup>
                 <label htmlFor="regular">
                   <h3>Regulier</h3>
                   <input
-                    // checked={type === "regular"}
+                    defaultChecked={true}
                     onClick={(e) => handleChangeType(e)}
                     type="radio"
                     name="type"
@@ -115,10 +166,25 @@ const Abonnements = ({ abonnements }) => {
                 </label>
               </RadioGroup>
               <RadioGroup>
-                <label htmlFor="student">
-                  <h3>Étudiant</h3>
+                <label
+                  htmlFor="student"
+                  style={{
+                    cursor:
+                      activeLocation === "canada" ? "pointer" : "not-allowed",
+                  }}
+                >
+                  <h3
+                    style={{
+                      opacity: activeLocation === "canada" ? "1" : ".5",
+                      cursor:
+                        activeLocation === "canada" ? "pointer" : "not-allowed",
+                      transition: "var(--transition)",
+                    }}
+                  >
+                    Étudiant
+                  </h3>
                   <input
-                    // checked={type === "student"}
+                    disabled={activeLocation !== "canada"}
                     onClick={(e) => handleChangeType(e)}
                     type="radio"
                     name="type"
@@ -132,7 +198,6 @@ const Abonnements = ({ abonnements }) => {
                 <label htmlFor="institution">
                   <h3>Institution</h3>
                   <input
-                    // checked={type === "institution"}
                     onClick={(e) => handleChangeType(e)}
                     type="radio"
                     name="type"
@@ -149,8 +214,8 @@ const Abonnements = ({ abonnements }) => {
                 <label htmlFor="1 an">
                   <h3>Un an</h3>
                   <input
-                    checked={duration === "1 an"}
-                    onChange={handleChangeDuration}
+                    defaultChecked={true}
+                    onClick={(e) => handleChangeDuration(e)}
                     type="radio"
                     name="duration"
                     id="1 an"
@@ -163,8 +228,7 @@ const Abonnements = ({ abonnements }) => {
                 <label htmlFor="2 ans">
                   <h3>Deux ans</h3>
                   <input
-                    checked={duration === "2 ans"}
-                    onChange={handleChangeDuration}
+                    onClick={(e) => handleChangeDuration(e)}
                     type="radio"
                     name="duration"
                     id="2 ans"
@@ -180,8 +244,8 @@ const Abonnements = ({ abonnements }) => {
                 <label htmlFor="canada">
                   <h3>Au Canada</h3>
                   <input
-                    checked={location === "canada"}
-                    onChange={handleChangeLocation}
+                    defaultChecked={true}
+                    onClick={(e) => handleChangeLocation(e)}
                     type="radio"
                     name="location"
                     id="canada"
@@ -191,11 +255,26 @@ const Abonnements = ({ abonnements }) => {
                 </label>
               </RadioGroup>
               <RadioGroup>
-                <label htmlFor="international">
-                  <h3>À l'international</h3>
+                <label
+                  htmlFor="international"
+                  style={{
+                    cursor:
+                      activeType === "student" ? "not-allowed" : "pointer",
+                  }}
+                >
+                  <h3
+                    style={{
+                      opacity: activeType === "student" ? "0.5" : 1,
+                      cursor:
+                        activeType === "student" ? "not-allowed" : "pointer",
+                      transition: "var(--transition)",
+                    }}
+                  >
+                    À l'international
+                  </h3>
                   <input
-                    checked={location === "international"}
-                    onChange={handleChangeLocation}
+                    disabled={activeType === "student"}
+                    onClick={(e) => handleChangeLocation(e)}
                     type="radio"
                     name="location"
                     id="international"
@@ -205,11 +284,27 @@ const Abonnements = ({ abonnements }) => {
                 </label>
               </RadioGroup>
               <RadioGroup>
-                <label htmlFor="usa">
-                  <h3>Aux États-Unis</h3>
+                <label
+                  htmlFor="usa"
+                  style={{
+                    cursor:
+                      activeType === "student" ? "not-allowed" : "pointer",
+                  }}
+                >
+                  <h3
+                    style={{
+                      opacity: activeType === "student" ? "0.5" : 1,
+                      cursor:
+                        activeType === "student" ? "not-allowed" : "pointer",
+                      transition: "var(--transition)",
+                    }}
+                  >
+                    Aux États-Unis
+                  </h3>
                   <input
-                    checked={location === "usa"}
-                    onChange={handleChangeLocation}
+                    disabled={activeType === "student"}
+                    // onChange={handleChangeLocation}
+                    onClick={(e) => handleChangeLocation(e)}
                     type="radio"
                     name="location"
                     id="usa"
@@ -333,5 +428,11 @@ const RadioGroup = styled.span`
   input:checked ~ ${CheckMark} {
     transition: var(--transition);
     background-color: var(--static-cream);
+  }
+
+  input:disabled ~ ${CheckMark} {
+    transition: var(--transition);
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 `;
