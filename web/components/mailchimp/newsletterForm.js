@@ -151,6 +151,8 @@ const Input = styled.input`
   font-size: 3.3333vw;
   line-height: 100%;
   padding: 2rem 3.75vw;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
   ::placeholder {
     color: var(--color-grey) !important;
     margin: 0;

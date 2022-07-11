@@ -317,6 +317,8 @@ const Filter = styled.div`
     margin-top: 2rem;
     padding: 1rem 0;
     border-bottom: 1px solid var(--color-black);
+    
+    
   }
 `;
 
