@@ -8,6 +8,7 @@ import { categoryQuery } from "../../lib/sanity/categoryQuery";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { blurDataAnimation } from "../../utils/blurDataURLTools";
+import { breakpoints } from "../../utils/breakpoints";
 
 export default function Nouvelles({ nouvellesList, categories }) {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -211,19 +212,22 @@ export default function Nouvelles({ nouvellesList, categories }) {
         </HeaderText>
       </Header>
       <Inner>
-        <CountResults>
-          <small>
-            Affichage de {countDisplayedPosts} sur {filteredArticleData.length}{" "}
-            {filteredArticleData.length > 1 ? "résultats" : "résultat"}
-          </small>
-        </CountResults>
-        <Hr />
-        <Filter>
-          <small style={{ marginRight: "2rem", color: "var(--color-black)" }}>
-            Filtrer par type d'article:
-          </small>
-          <ListFilterButtons />
-        </Filter>
+        <WrapFilter>
+          <CountResults>
+            <small>
+              Affichage de {countDisplayedPosts} sur{" "}
+              {filteredArticleData.length}{" "}
+              {filteredArticleData.length > 1 ? "résultats" : "résultat"}
+            </small>
+          </CountResults>
+          {/* <Hr /> */}
+          <Filter>
+            <small style={{ marginRight: "2rem", color: "var(--color-black)" }}>
+              Filtrer par type d'article:
+            </small>
+            <ListFilterButtons />
+          </Filter>
+        </WrapFilter>
         <ArticleGrid>
           <ListNewsArticles />
         </ArticleGrid>
@@ -273,25 +277,47 @@ const Inner = styled.div`
   margin: 0 auto;
 `;
 
-const Hr = styled.span`
-  margin-top: 2rem;
-  height: 1px;
-  width: 100%;
-  display: block;
-  background: var(--color-black);
+const WrapFilter = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: ${breakpoints.l}px) {
+    flex-direction: column-reverse;
+  }
 `;
+
+// const Hr = styled.span`
+//   margin-top: 2rem;
+//   height: 1px;
+//   width: 100%;
+//   display: block;
+//   background: var(--color-black);
+// `;
 
 const CountResults = styled.div`
   text-align: right;
   margin-top: 3rem;
-
   color: var(--color-black);
+
+  @media (max-width: ${breakpoints.l}px) {
+    margin-top: 2rem;
+    text-align: center;
+  }
 `;
 
 const Filter = styled.div`
   display: flex;
   align-items: center;
   margin-top: 2rem;
+  border-top: 1px solid var(--color-black);
+  padding-top: 2rem;
+
+  @media (max-width: ${breakpoints.l}px) {
+    overflow-x: scroll;
+    margin-top: 2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-black);
+  }
 `;
 
 const Header = styled.header`
@@ -307,8 +333,23 @@ const HeaderText = styled.div`
   padding: 5rem 0;
 
   p {
-    max-width: 30%;
+    max-width: 40%;
     margin: 0 auto;
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    h1 {
+      margin-bottom: 2rem;
+    }
+    p {
+      max-width: none;
+      width: 70%;
+    }
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    p {
+      max-width: none;
+      width: 90%;
+    }
   }
 `;
 
@@ -319,14 +360,22 @@ const ArticleGrid = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
   width: 100%;
+
+  @media (max-width: ${breakpoints.l}px) {
+    display: block;
+    margin: 3rem auto;
+  }
 `;
 
 const Article = styled(motion.article)`
   position: relative;
   margin-bottom: 2rem;
-
   small {
     color: var(--color-black);
+  }
+
+  @media (max-width: ${breakpoints.l}px) {
+    margin-bottom: 3rem;
   }
 `;
 
@@ -357,6 +406,7 @@ const Tag = styled.div`
   border-radius: 20px;
 
   small {
+    white-space: nowrap;
     color: var(--static-black);
   }
 `;
@@ -371,6 +421,7 @@ const FilterTag = styled(motion.button)`
   cursor: pointer;
 
   small {
+    white-space: nowrap;
     transition: var(--transition);
     color: var(--color-black);
     user-select: none;
@@ -409,5 +460,10 @@ const LoadMoreButton = styled.button`
     small {
       color: var(--static-black);
     }
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    margin: 3rem auto;
+    padding: 1rem 3rem;
   }
 `;

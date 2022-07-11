@@ -48,9 +48,8 @@ const MapFAQ = ({ data }) => {
           // initial="notHovered"
           // animate={hover || open ? "hovered" : "notHovered"}
           style={{
-            background:
-              hover || open ? "var(--color-yellow)" : "var(--color-cream)",
-            color: hover || open ? "var(--static-black)" : "var(--color-black)",
+            background: hover ? "var(--color-yellow)" : "var(--color-cream)",
+            color: hover ? "var(--static-black)" : "var(--color-black)",
           }}
         >
           <h4>{question.question}</h4>
@@ -144,6 +143,17 @@ const QuestionItem = styled(motion.div)`
       width: 90%;
     }
   }
+  @media (max-width: ${breakpoints.s}px) {
+    h4 {
+      line-height: 145%;
+      font-size: 27px;
+      width: 86%;
+    }
+    p {
+      width: 100%;
+      padding: 0 0.5rem;
+    }
+  }
 `;
 
 const QuestionTitle = styled(motion.div)`
@@ -187,5 +197,8 @@ const Content = styled.div`
   @media (max-width: ${breakpoints.m}px) {
     margin: 1rem auto;
     padding: 0;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    margin-bottom: 2.5rem;
   }
 `;

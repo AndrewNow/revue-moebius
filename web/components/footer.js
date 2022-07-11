@@ -179,6 +179,7 @@ const Socials = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
 
   @media (max-width: ${breakpoints.m}px) {
     width: 100%;
@@ -188,7 +189,7 @@ const Socials = styled.div`
 
 const SocialsInner = styled.div`
   margin: 2rem 3.75vw;
-  height: 100%;
+  min-height: 100%;
   color: var(--static-cream);
   @media (max-width: ${breakpoints.m}px) {
     margin: 2rem;
@@ -218,6 +219,21 @@ const SocialsInner = styled.div`
 
   a > small > svg > path {
     fill: var(--static-cream) !important;
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    a > small {
+      margin-bottom: 1rem;
+    }
+    a > small > svg {
+      max-width: 20px;
+      max-height: 20px;
+    }
+  }
+  a:nth-last-child(odd) {
+    small {
+      margin-bottom: 0;
+    }
   }
 `;
 
