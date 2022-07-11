@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
+import { breakpoints } from "../../../utils/breakpoints";
 
 const ArchiveItem = ({ archive, setActiveIndex, index }) => {
   const [hovered, setHovered] = useState(false);
@@ -121,6 +122,20 @@ const Item = styled.div`
     }
     svg > path {
       fill: var(--color-black) !important;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 1.5rem 0.5rem;
+    svg {
+      display: none;
+    }
+    h4 {
+      :first-child {
+        margin-bottom: 1rem;
+      }
     }
   }
 `;

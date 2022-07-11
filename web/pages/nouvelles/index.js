@@ -9,6 +9,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { blurDataAnimation } from "../../utils/blurDataURLTools";
 import { breakpoints } from "../../utils/breakpoints";
+import ConvertDateToString from "../../utils/convertDateToString";
 
 export default function Nouvelles({ nouvellesList, categories }) {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -151,7 +152,9 @@ export default function Nouvelles({ nouvellesList, categories }) {
             <ArticleLink>
               <Link href={`/nouvelles/${article.slug}`}>{article.title}</Link>
             </ArticleLink>
-            <small>{article.publishedAt}</small>
+            <small style={{ color: "var(--color-grey)" }}>
+              <ConvertDateToString data={article?.publishedAt} />
+            </small>
           </Article>
         </AnimatePresence>
       );
@@ -317,8 +320,6 @@ const Filter = styled.div`
     margin-top: 2rem;
     padding: 1rem 0;
     border-bottom: 1px solid var(--color-black);
-    
-    
   }
 `;
 

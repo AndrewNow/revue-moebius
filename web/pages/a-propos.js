@@ -263,7 +263,10 @@ const APropos = ({ equipeData }) => {
           </ContactUsInner>
         </ContactUsWrapper>
         <Distribution ref={diffusionRefs} style={{ zIndex: modalOpen ? 0 : 6 }}>
-          <h2>Diffusion et distribution</h2>
+          <h2>
+            Diffusion <br />
+            et distribution
+          </h2>
           <p>
             Mœbius est subventionnée par le Conseil des arts du Canada, le
             Conseil des arts et des lettres du Québec et le Conseil des arts de
@@ -560,17 +563,18 @@ const Distribution = styled.div`
   h2 {
     font-family: "Editorial-Italic";
     color: var(--color-black);
-    width: 50%;
   }
 
   p {
     margin: 2rem 0;
     margin-left: 40%;
   }
-  @media (max-width: ${breakpoints.m}px) {
-    h2 {
-      width: 100%;
+  @media (max-width: ${breakpoints.xxl}px) {
+    p {
+      margin-left: 20%;
     }
+  }
+  @media (max-width: ${breakpoints.m}px) {
     p {
       margin-left: 0;
     }

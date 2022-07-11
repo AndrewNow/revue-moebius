@@ -101,6 +101,8 @@ const NewsletterForm = ({ status, message, onValidated }) => {
           style={{
             borderBottom: `1px solid ${statusColor}`,
             color: textColor,
+            borderRadius: "0px!important",
+            WebkitAppearance: "none",
           }}
         />
         <SubmitButton onClick={handleFormSubmit}>
@@ -151,8 +153,7 @@ const Input = styled.input`
   font-size: 3.3333vw;
   line-height: 100%;
   padding: 2rem 3.75vw;
-  -webkit-appearance: none;
-  -webkit-border-radius: 0px;
+
   ::placeholder {
     color: var(--color-grey) !important;
     margin: 0;
@@ -199,15 +200,6 @@ const SubmitButton = styled.button`
     border-bottom: 1px solid var(--static-cream);
     border-left: none !important;
     height: 100%;
-
-    /* border-radius: 10px; */
-    /* margin: 1rem auto; */
-    /* border: 1px solid white !important; */
-    /* color: var(--static-cream); */
-    /* display: inline-block; */
-    /* width: auto; */
-    /* padding: 1rem 4rem; */
-    /* width: 90%; */
   }
 `;
 

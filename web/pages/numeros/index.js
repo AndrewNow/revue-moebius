@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import HoverImage from "../../components/imageOnHover/hoverImage";
 import ArchiveItemMap from "../../components/imageOnHover/numeros/archiveItem";
+import { breakpoints } from "../../utils/breakpoints";
 
 const useMousePosition = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -143,17 +144,34 @@ const Header = styled.header`
     max-width: 70%;
     margin-bottom: 3rem;
   }
+  @media (max-width: ${breakpoints.xl}px) {
+    height: 80vh;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    height: 70vh;
+    /* padding-top: 25vh; */
+    h1 {
+      max-width: none;
+      width: 100%;
+      text-align: center;
+    }
+  }
 `;
 
 const Content = styled.section`
   margin: 10rem 0;
   position: relative;
   z-index: 5;
+
+  @media (max-width: ${breakpoints.m}px) {
+    margin: 5rem 0;
+  }
 `;
 
 const ContentHeader = styled.div`
   text-align: center;
   border-bottom: 1px solid var(--color-black);
+  margin-bottom: 1rem;
   h1 {
     color: var(--color-black);
   }
@@ -165,12 +183,29 @@ const Grid = styled.div`
   justify-items: center;
   align-items: start;
   grid-template-columns: 1fr 1fr 1fr;
+
+  @media (max-width: ${breakpoints.l}px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    display: block;
+  }
 `;
 
 const GridItem = styled.div`
-  width: 490px;
+  width: 27.5vw;
   position: relative;
   margin: 2rem 0;
+
+  @media (max-width: ${breakpoints.l}px) {
+    width: 40vw;
+    margin: 2rem 0;
+    margin-bottom: 0;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    width: 95%;
+    margin: 2rem auto;
+  }
 `;
 
 const ItemText = styled.div`
@@ -190,6 +225,15 @@ const ItemText = styled.div`
   :hover {
     a {
       text-decoration: underline;
+    }
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    margin: 1rem 0;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    margin-bottom: 4rem;
+    h5 {
+      font-size: 27px;
     }
   }
 `;
@@ -228,6 +272,10 @@ const Archive = styled.section`
     margin-bottom: 1rem;
     color: var(--static-cream);
   }
+
+  @media (max-width: ${breakpoints.m}px) {
+    padding: 5rem 0;
+  }
 `;
 
 const ArchiveHoverWrapper = styled.div`
@@ -262,5 +310,9 @@ const CursorMedia = styled.div`
   }
   .is-active {
     opacity: 1;
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    display: none;
   }
 `;

@@ -1,6 +1,7 @@
 import Marquee from "react-fast-marquee";
 import styled from "styled-components";
 import Link from "next/link";
+import { breakpoints } from "../utils/breakpoints";
 
 const BannerMarquee = ({ data }) => {
   return (
@@ -32,6 +33,11 @@ const Wrapper = styled.div`
     /* cursor: pointer; */
     small > a {
       text-decoration: underline;
+    }
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    small {
+      font-size: 12px !important;
     }
   }
 `;

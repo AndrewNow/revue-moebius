@@ -11,6 +11,7 @@ import { Inner } from "../../pages/index";
 import { breakpoints } from "../../utils/breakpoints";
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
 import ShareButton from "../../components/shareButton";
+import ConvertDateToString from "../../utils/convertDateToString";
 
 export default function Numeros({ numero, readMoreData }) {
   // logic for showing 3 randomized articles at the bottom of the page
@@ -58,7 +59,7 @@ export default function Numeros({ numero, readMoreData }) {
               <h5>Mœbius, N°{numero?.number}</h5>
               <h1>{numero?.title}</h1>
               <small>
-                {numero?.publishedAt}
+                <ConvertDateToString data={numero?.publishedAt} />
                 <br />
                 Dirigé par {numero?.directedBy}
               </small>
@@ -369,7 +370,7 @@ const SideContent = styled.div`
     margin-bottom: 3rem;
   }
   @media (max-width: ${breakpoints.s}px) {
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
   }
 `;
 
@@ -476,6 +477,16 @@ const ItemText = styled.div`
   :hover {
     a {
       text-decoration: underline;
+    }
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    border-top: 1px solid var(--static-cream);
+    padding-top: 0.5rem;
+    text-align: left;
+    small {
+      margin-bottom: 0.5rem;
+      display: block;
     }
   }
 `;

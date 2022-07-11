@@ -2,12 +2,16 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
+import ConvertDateToString from "../../utils/convertDateToString";
 
 const NewsSection = ({ newsFeed, featuredArticle }) => {
   return (
     <>
       <Header>
         <h3>Nouvelles</h3>
+        <small>
+          <Link href="/nouvelles">voir tous les nouvelles →</Link>
+        </small>
       </Header>
       <Articles>
         <FeaturedArticle>
@@ -32,7 +36,9 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
                 {featuredArticle.title}
               </Link>
             </h4>
-            <small>{featuredArticle.publishedAt}</small>
+            <small>
+              <ConvertDateToString data={featuredArticle.publishedAt} />
+            </small>
           </FeaturedArticleText>
         </FeaturedArticle>
         <ArticleFeed>
@@ -59,7 +65,9 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
                       {article.title}
                     </Link>
                   </h5>
-                  <small>{article.publishedAt}</small>
+                  <small>
+                    <ConvertDateToString data={article.publishedAt} />
+                  </small>
                 </ArticleText>
               </Article>
             );
@@ -80,8 +88,22 @@ const Header = styled.header`
   border-top: 1px solid var(--color-black);
   border-bottom: 1px solid var(--color-black);
   transition: var(--transition);
-  h3 {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  /* scroll-padding: 0 24px; */
+
+  h3,
+  small,
+  a {
     color: var(--color-black);
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    align-items: center;
+    small {
+      font-size: 12px;
+    }
   }
 `;
 
@@ -164,7 +186,7 @@ const ArticleFeed = styled.div`
   }
   @media (max-width: ${breakpoints.l}px) {
     width: 100%;
-    height: 450px;
+    height: 420px;
   }
 `;
 

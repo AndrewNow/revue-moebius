@@ -9,17 +9,20 @@ import { Inner } from "../index";
 import { breakpoints } from "../../utils/breakpoints";
 import Spotify from "react-spotify-embed";
 import ShareButton from "../../components/shareButton";
+import ConvertDateToString from "../../utils/convertDateToString";
 
 export default function Balado({ balado }) {
   return (
     <Inner>
       <Header>
-        <small>{balado?.publishedAt}</small>
+        <small>
+          <ConvertDateToString data={balado?.publishedAt} />
+        </small>
         <h1>
           N°{balado?.number}- {balado?.title}
         </h1>
         <SpotifyButton href={balado?.embed} target="_blank" rel="noreferrer">
-          <small>Ouvrir dans Spotify</small>
+          <small>Ouvrir en Spotify</small>
         </SpotifyButton>
       </Header>
       <Content>

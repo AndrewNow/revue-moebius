@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { breakpoints } from "../../utils/breakpoints";
+import ConvertDateToString from "../../utils/convertDateToString";
 
 export default function Balado({ baladoData }) {
   // logic for getting the most recent balado for the header section
@@ -30,7 +31,9 @@ export default function Balado({ baladoData }) {
               <h1>
                 Mœbius n°{featured?.number},<br /> {featured?.title}
               </h1>
-              <Subtitle>{featured?.publishedAt}</Subtitle>
+              <Subtitle>
+                <ConvertDateToString data={featured?.publishedAt} />
+              </Subtitle>
               <EpisodeLink>
                 <Link href={`balado/${featured?.slug}`}>
                   <small>Écouter l'épisode</small>
@@ -78,7 +81,9 @@ export default function Balado({ baladoData }) {
                     // layout="fill"
                   />
                 </ImageWrapper>
-                <small>{balado.publishedAt}</small>
+                <small>
+                  <ConvertDateToString data={balado?.publishedAt} />
+                </small>
                 <h4>
                   Mœbius n°{balado.number} <br />
                   {balado.title}
