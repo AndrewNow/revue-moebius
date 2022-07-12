@@ -1,7 +1,7 @@
 import groq from "groq";
 
 export const proposerUnTexteQuery = groq`
-    *[_type == "proposerUnTexte"]{
+  *[_type == "proposerUnTexte"] {
     _id,
     title,
     description,

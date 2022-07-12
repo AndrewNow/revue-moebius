@@ -3,6 +3,7 @@ import Image from "next/image";
 import { breakpoints } from "../utils/breakpoints";
 import MailchimpFormContainer from "./mailchimp/mailchimpFormContainer";
 import { Instagram, Facebook } from "../svg/icons";
+import Link from "next/link";
 
 const Footer = ({ logos }) => {
   return (
@@ -52,14 +53,27 @@ const Footer = ({ logos }) => {
         <Information>
           <InformationInner>
             <Title>Index</Title>
-            <h5>À propos</h5>
-            <h5>Proposer un texte</h5>
-            <h5>Vente et abonnements</h5>
-            <h5>Numéros</h5>
-            <h5>Résidences</h5>
-            <h5>Mœbius-balado</h5>
-            <h5>Nouvelles</h5>
-            <h5>Nous contacter</h5>
+            <h5>
+              <Link href="/a-propos">À propos</Link>
+            </h5>
+            <h5>
+              <Link href="/proposer-un-texte">Proposer un texte</Link>
+            </h5>
+            <h5>
+              <Link href="/vente">Vente et abonnements</Link>
+            </h5>
+            <h5>
+              <Link href="/numeros">Numéros</Link>
+            </h5>
+            {/* <Link href="/residences">
+              <h5>Résidences</h5>
+            </Link> */}
+            <h5>
+              <Link href="/balado">Mœbius-balado</Link>
+            </h5>
+            <h5>
+              <Link href="/nouvelles">Nouvelles</Link>
+            </h5>
           </InformationInner>
         </Information>
       </MainContent>
@@ -162,13 +176,18 @@ const InformationInner = styled.div`
   display: flex;
   flex-direction: column;
   color: var(--static-cream);
-
-  h5 > a {
+  h5 > .link {
+    color: red !important;
+    :hover {
+      border: 1px solid red;
+    }
+  }
+  a {
     color: var(--static-cream);
-    text-decoration: none;
+    text-decoration: none !important;
 
     :hover {
-      text-decoration: underline;
+      text-decoration: underline !important;
     }
   }
 `;

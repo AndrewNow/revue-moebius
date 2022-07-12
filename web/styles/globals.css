@@ -6,11 +6,11 @@
   --color-purple: #98657a;
   --color-yellow: #ffffad;
   --color-blue: #adcce9;
-  --color-error: #EB5757;
-  --color-success: #92D891;
+  --color-error: #eb5757;
+  --color-success: #92d891;
   --color-grey: #8a8a8a;
   --transition: 0.25s all ease;
-  --transition-image: .75s all ease;
+  --transition-image: 0.75s all ease;
 
   /* Static for colors that don't change in dark mode */
   --static-cream: #fffff8;
@@ -21,12 +21,14 @@
   --logo-color: invert(0);
   --color-cream: #fffff8;
   --color-black: #353535;
+  --nav-color: #fffff898;
 }
 
 [data-theme="dark"] {
   --logo-color: invert(1);
   --color-black: #fffff8;
   --color-cream: #353535;
+  --nav-color: #35353598;
 }
 
 @font-face {

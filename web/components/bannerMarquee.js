@@ -36,7 +36,7 @@ const Wrapper = styled.div`
     }
   }
   @media (max-width: ${breakpoints.m}px) {
-    small {
+    small, a {
       font-size: 12px !important;
     }
   }

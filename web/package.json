@@ -13,6 +13,7 @@
     "@sanity/client": "^2.23.2",
     "@sanity/image-url": "^0.140.22",
     "@stripe/stripe-js": "^1.32.0",
+    "algoliasearch": "^4.13.1",
     "framer-motion": "^6.3.11",
     "groq": "^2.2.6",
     "hamburger-react": "^2.5.0",

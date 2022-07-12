@@ -36,14 +36,17 @@ const Products = ({ products }) => {
     return (
       <Numero key={product._id}>
         <ImageWrapper>
-          <Image
-            placeholder="blur"
-            blurDataURL={product.lqip}
-            src={product.imageUrl}
-            alt={`image couverture pour Moebius ${product.number}`}
-            layout="fill"
-            objectFit="cover"
-          />
+          <Link href={`/numeros/${product.slug}`}>
+            <Image
+              placeholder="blur"
+              blurDataURL={product.lqip}
+              src={product.imageUrl}
+              alt={`image couverture pour Moebius ${product.number}`}
+              layout="fill"
+              objectFit="cover"
+              className="imageHover"
+            />
+          </Link>
         </ImageWrapper>
         <TextWrapper>
           <span>
@@ -102,6 +105,18 @@ const ImageWrapper = styled.div`
   width: 100%;
   border-radius: 5px;
   overflow: hidden;
+
+  .imageHover {
+    cursor: pointer;
+    transition: var(--transition-image);
+    transform-origin: center;
+  }
+  :hover {
+    .imageHover {
+      transform: scale(1.025);
+      filter: blur(2px) saturate(110%) brightness(0.9);
+    }
+  }
 
   @media (max-width: ${breakpoints.m}px) {
     width: 200px;

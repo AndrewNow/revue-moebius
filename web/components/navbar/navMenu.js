@@ -169,7 +169,7 @@ const NavMenu = ({ isOpen, setOpen }) => {
       // opacity: 0,
       height: "0%",
       transition: {
-        ease: "easeInOut", 
+        ease: "easeInOut",
         duration: 0.25,
       },
     },
@@ -177,15 +177,13 @@ const NavMenu = ({ isOpen, setOpen }) => {
       height: "100%",
       // opacity: 1,
       transition: {
-        ease: "easeIn", 
+        ease: "easeIn",
         duration: 0.25,
       },
     },
   };
 
   const [selectedTab, setSelectedTab] = useState(LinkData1[-1]);
-
-  console.log(selectedTab);
 
   const [parentHovered, setParentHovered] = useState(false);
 

@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { Inner } from "../../pages/index";
 import { motion } from "framer-motion";
 import { breakpoints } from "../../utils/breakpoints";
+import ConvertDateToString from "../../utils/convertDateToString";
 
 const NumerosSection = ({ numerosData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -85,7 +86,9 @@ const NumerosSection = ({ numerosData }) => {
                   />
                 </ImageWrapper>
                 <Text>
-                  <small>{numero.publishedAt}</small>
+                  <small>
+                    <ConvertDateToString data={numero.publishedAt} />
+                  </small>
                   <h5>
                     <Link href={`/numeros/${numero.slug}`}>{numero.title}</Link>
                   </h5>

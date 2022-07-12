@@ -2,32 +2,35 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
+import { Inner } from "../../pages/index";
 
 const BaladoSection = ({ baladoData }) => {
   return (
     <>
-      <Wrapper>
-        <Image
-          src={baladoData.imageUrl}
-          width={600}
-          height={600}
-          quality={90}
-          placeholder="blur"
-          blurDataURL={baladoData.lqip}
-        />
-        <Text>
-          <h1>Mœbius balado</h1>
-          <p>
-            Découvrez le balado qui accompagne la publication de chacun de nos
-            numéros.
-          </p>
-          <EpisodeLink>
-            <Link href={`/balado`}>
-              <small>En savoir plus</small>
-            </Link>
-          </EpisodeLink>
-        </Text>
-      </Wrapper>
+      <Inner>
+        <Wrapper>
+          <Image
+            src={baladoData.imageUrl}
+            width={600}
+            height={600}
+            quality={90}
+            placeholder="blur"
+            blurDataURL={baladoData.lqip}
+          />
+          <Text>
+            <h1>Mœbius balado</h1>
+            <p>
+              Découvrez le balado qui accompagne la publication de chacun de nos
+              numéros.
+            </p>
+            <EpisodeLink>
+              <Link href={`/balado`}>
+                <small>En savoir plus</small>
+              </Link>
+            </EpisodeLink>
+          </Text>
+        </Wrapper>
+      </Inner>
       <Banner>
         <p>Écoutez le dernier épisode sur:</p> <br />
         <a href={baladoData.embed} target="_blank" rel="noreferrer">
@@ -41,11 +44,12 @@ const BaladoSection = ({ baladoData }) => {
 export default BaladoSection;
 
 const Wrapper = styled.div`
-  margin: 10rem auto;
-  width: 90%;
+  margin: 5rem auto;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  border-top: 1px solid var(--color-black);
+  padding-top: 5rem;
 
   @media (max-width: ${breakpoints.l}px) {
     width: 60%;

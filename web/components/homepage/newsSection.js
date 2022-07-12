@@ -16,14 +16,17 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
       <Articles>
         <FeaturedArticle>
           <FeaturedArticleImg>
-            <Image
-              src={featuredArticle.imageUrl}
-              alt={featuredArticle.title}
-              layout="fill"
-              objectFit="cover"
-              placeholder="blur"
-              blurDataURL={featuredArticle.lqip}
-            />
+            <Link href={`/nouvelles/${featuredArticle.slug}`}>
+              <Image
+                src={featuredArticle.imageUrl}
+                alt={featuredArticle.title}
+                layout="fill"
+                objectFit="cover"
+                placeholder="blur"
+                blurDataURL={featuredArticle.lqip}
+                className="imageHover"
+              />
+            </Link>
             <FeaturedTag
               style={{ background: featuredArticle.category[0].color }}
             >
@@ -42,19 +45,22 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
           </FeaturedArticleText>
         </FeaturedArticle>
         <ArticleFeed>
-          {newsFeed.map((article) => {
+          {newsFeed.slice(0, 6).map((article) => {
             const articleTag = article.category[0];
             return (
               <Article key={article._id}>
                 <ArticleImg>
-                  <Image
-                    src={article.imageUrl}
-                    alt={article.title}
-                    layout="fill"
-                    objectFit="cover"
-                    placeholder="blur"
-                    blurDataURL={article.lqip}
-                  />
+                  <Link href={`/nouvelles/${article.slug}`}>
+                    <Image
+                      src={article.imageUrl}
+                      alt={article.title}
+                      layout="fill"
+                      objectFit="cover"
+                      placeholder="blur"
+                      blurDataURL={article.lqip}
+                      className="imageHover"
+                    />
+                  </Link>
                   <FeedTag style={{ background: articleTag.color }}>
                     <small>{articleTag.title}</small>
                   </FeedTag>
@@ -132,6 +138,17 @@ const FeaturedArticleImg = styled.div`
   display: block;
   position: relative;
   margin-right: 2rem;
+  .imageHover {
+    cursor: pointer;
+    transition: var(--transition-image);
+    transform-origin: center;
+  }
+  :hover {
+    .imageHover {
+      transform: scale(1.025);
+      filter: blur(2px) saturate(110%) brightness(0.9);
+    }
+  }
   @media (max-width: ${breakpoints.l}px) {
     margin-right: 0;
   }
@@ -151,6 +168,11 @@ const FeaturedArticleText = styled.div`
   :hover {
     h4 > a {
       text-decoration: underline;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    small {
+      font-size: 12px;
     }
   }
 `;
@@ -186,7 +208,7 @@ const ArticleFeed = styled.div`
   }
   @media (max-width: ${breakpoints.l}px) {
     width: 100%;
-    height: 420px;
+    height: 320px;
   }
 `;
 
@@ -214,6 +236,19 @@ const ArticleImg = styled.div`
   min-width: 45%;
   /* width: 275px; */
   height: auto;
+
+  .imageHover {
+    transition: var(--transition-image);
+    transform-origin: center;
+    cursor: pointer;
+  }
+  :hover {
+    .imageHover {
+      /* scale: 1.05; */
+      transform: scale(1.125);
+      filter: blur(2px) saturate(110%) brightness(0.9);
+    }
+  }
 
   @media (max-width: ${breakpoints.xxl}px) {
     min-width: 225px;
