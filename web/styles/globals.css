@@ -34,34 +34,41 @@
 @font-face {
   font-family: "IBM-Plex-Regular";
   src: url("../fonts/IBM-Plex-Regular.woff2") format("woff2");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Editorial";
   src: url("../fonts/PPEditorialNew-Ultralight.woff2") format("woff2");
+  font-display: swap;
 }
 @font-face {
   font-family: "Editorial-Italic";
   src: url("../fonts/PPEditorialNew-UltralightItalic.woff2") format("woff2");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Simula";
   src: url("../fonts/Simula-Book.woff2") format("woff2");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Simula-Italic";
   src: url("../fonts/Simula-BookItalic.woff2") format("woff2");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Surt";
   src: url("../fonts/SurtNormal-Light.woff2") format("woff2");
+  font-display: swap;
 }
 @font-face {
   font-family: "Surt-Light";
   src: url("../fonts/Surt-Light.woff2") format("woff2");
+  font-display: swap;
 }
 
 *,

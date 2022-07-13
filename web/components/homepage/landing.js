@@ -2,12 +2,67 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
+import { motion } from "framer-motion";
 
 const Landing = ({ data }) => {
+  const imageAnim = {
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        ease: [0.25, 0, 0.35, 1],
+        duration: 0.75,
+      },
+    },
+    hidden: {
+      opacity: 0.5,
+      x: 30,
+    },
+  };
+  const secondaryImageAnim = {
+    visible: {
+      opacity: 0.5,
+      y: "-50%",
+      x: 0,
+      transition: {
+        ease: [0.25, 0, 0.35, 1],
+        duration: 0.45,
+      },
+    },
+    hidden: {
+      y: "-50%",
+      x: -10,
+      opacity: 0,
+    },
+  };
+  const textAnim = {
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.25,
+        delay: .5
+      },
+    },
+    hidden: {
+      opacity: 0,
+    },
+  };
+  const textChild = {
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 2,
+      },
+    },
+    hidden: {
+      opacity: 0,
+    },
+  };
+
   return (
     <LandingSection>
       <ImageWrapper>
-        <MainImage>
+        <MainImage variants={imageAnim} initial="hidden" animate="visible">
           <Image
             src={data.imageUrl}
             alt={data.title}
@@ -18,7 +73,11 @@ const Landing = ({ data }) => {
             quality={100}
           />
         </MainImage>
-        <SupportingImage>
+        <SupportingImage
+          variants={secondaryImageAnim}
+          initial="hidden"
+          animate="visible"
+        >
           <Image
             src={data.imageUrl}
             alt={data.title}
@@ -30,9 +89,11 @@ const Landing = ({ data }) => {
           />
         </SupportingImage>
       </ImageWrapper>
-      <TextWrapper>
-        <small>Mœbius n°{data.number}</small>
-        <h1>Consultez notre dernier numéro</h1>
+      <TextWrapper variants={textAnim} initial="hidden" animate="visible">
+        <motion.small variants={textChild}>Mœbius n°{data.number}</motion.small>
+        <motion.h1 variants={textChild}>
+          Consultez notre dernier numéro
+        </motion.h1>
         <Link href={`/numeros/${data.slug}`}>
           <InternalLink>
             <small>En savoir plus</small>
@@ -63,7 +124,7 @@ const LandingSection = styled.section`
   }
 `;
 
-const ImageWrapper = styled.div`
+const ImageWrapper = styled(motion.div)`
   position: relative;
   width: 45%;
   display: flex;
@@ -79,23 +140,23 @@ const ImageWrapper = styled.div`
   }
 `;
 
-const MainImage = styled.div`
+const MainImage = styled(motion.div)`
   // 70% of parent image wrapper width
   width: 70%;
   position: relative;
   z-index: 3;
 `;
 
-const SupportingImage = styled.div`
+const SupportingImage = styled(motion.div)`
   position: absolute;
   width: 45%;
   top: 50%;
   left: 0%;
-  transform: translate(0%, -50%);
-  opacity: 0.5;
+  /* transform: translate(0%, -50%); */
+  /* opacity: 0.5; */
 `;
 
-const TextWrapper = styled.div`
+const TextWrapper = styled(motion.div)`
   width: 55%;
   text-align: center;
   align-self: center;
