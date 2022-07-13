@@ -34,23 +34,25 @@ const Landing = ({ data }) => {
       <ImageWrapper>
         <MainImage>
           <Image
+            priority
             src={data.imageUrl}
             alt={data.title}
             placeholder="blur"
             blurDataURL={data.lqip}
-            layout="responsive"
+            layout="intrinsic"
             width={519}
             height={733}
-            quality={100}
+            quality={90}
           />
         </MainImage>
         <SupportingImage>
           <Image
+            priority
             src={data.imageUrl}
             alt={data.title}
             placeholder="blur"
             blurDataURL={data.lqip}
-            layout="responsive"
+            layout="intrinsic"
             width={519}
             height={733}
             quality={70}
@@ -120,8 +122,8 @@ const SupportingImage = styled(motion.div)`
   width: 45%;
   top: 50%;
   left: 0%;
-  /* transform: translate(0%, -50%); */
-  /* opacity: 0.5; */
+  transform: translate(0%, -50%);
+  opacity: 0.5;
 `;
 
 const TextWrapper = styled(motion.div)`
