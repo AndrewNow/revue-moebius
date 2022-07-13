@@ -5,42 +5,12 @@ import { breakpoints } from "../../utils/breakpoints";
 import { motion } from "framer-motion";
 
 const Landing = ({ data }) => {
-  const imageAnim = {
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        ease: [0.25, 0, 0.35, 1],
-        duration: 0.75,
-      },
-    },
-    hidden: {
-      opacity: 0.5,
-      x: 30,
-    },
-  };
-  const secondaryImageAnim = {
-    visible: {
-      opacity: 0.5,
-      y: "-50%",
-      x: 0,
-      transition: {
-        ease: [0.25, 0, 0.35, 1],
-        duration: 0.45,
-      },
-    },
-    hidden: {
-      y: "-50%",
-      x: -10,
-      opacity: 0,
-    },
-  };
   const textAnim = {
     visible: {
       opacity: 1,
       transition: {
         staggerChildren: 0.25,
-        delay: .5
+        delay: 0.5,
       },
     },
     hidden: {
@@ -62,27 +32,25 @@ const Landing = ({ data }) => {
   return (
     <LandingSection>
       <ImageWrapper>
-        <MainImage variants={imageAnim} initial="hidden" animate="visible">
+        <MainImage>
           <Image
             src={data.imageUrl}
             alt={data.title}
             placeholder="blur"
             blurDataURL={data.lqip}
+            layout="responsive"
             width={519}
             height={733}
             quality={100}
           />
         </MainImage>
-        <SupportingImage
-          variants={secondaryImageAnim}
-          initial="hidden"
-          animate="visible"
-        >
+        <SupportingImage>
           <Image
             src={data.imageUrl}
             alt={data.title}
             placeholder="blur"
             blurDataURL={data.lqip}
+            layout="responsive"
             width={519}
             height={733}
             quality={70}
@@ -124,7 +92,7 @@ const LandingSection = styled.section`
   }
 `;
 
-const ImageWrapper = styled(motion.div)`
+const ImageWrapper = styled.div`
   position: relative;
   width: 45%;
   display: flex;
@@ -140,7 +108,7 @@ const ImageWrapper = styled(motion.div)`
   }
 `;
 
-const MainImage = styled(motion.div)`
+const MainImage = styled.div`
   // 70% of parent image wrapper width
   width: 70%;
   position: relative;
