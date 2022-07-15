@@ -221,11 +221,15 @@ const SearchInner = styled.div`
   overflow-y: auto;
 
   @media (max-width: ${breakpoints.l}px) {
-    width: 90%;
+    width: 60%;
     max-height: 400px;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    width: 90%;
   }
   @media (max-width: ${breakpoints.s}px) {
     margin: 1rem auto;
+    max-height: 250px;
   }
 `;
 

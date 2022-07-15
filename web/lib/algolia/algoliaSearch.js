@@ -11,6 +11,7 @@ import styled from "styled-components";
 import "instantsearch.css/themes/reset.css";
 import Link from "next/link";
 import { SearchIcon } from "../../svg/icons";
+import { breakpoints } from "../../utils/breakpoints";
 
 const algoliaClient = algoliasearch(
   // process.env.ALGOLIA_APPLICATION_ID,
@@ -132,6 +133,7 @@ const Hit = ({ hit }) => {
           alt={hit.title}
           width={75}
           height={75}
+          layout="fill"
           objectFit="contain"
           placeholder="blur"
           blurDataURL={hit.lqip}
@@ -192,6 +194,10 @@ const ImageWrapper = styled.div`
   width: 25%;
   max-height: 100px;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.15));
+
+  @media (max-width: ${breakpoints.s}px) {
+    height: 60px;
+  }
 `;
 
 const TextWrapper = styled.div`
@@ -203,6 +209,12 @@ const TextWrapper = styled.div`
   small {
     color: var(--static-cream);
     font-size: 12px;
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    small {
+      font-size: 10px!important;
+    }
   }
 `;
 
@@ -241,6 +253,12 @@ const Tag = styled.div`
     transition: var(--transition);
     filter: brightness(0.9);
   }
+
+  @media (max-width: ${breakpoints.s}px) {
+    small {
+      font-size: 10px!important;
+    }
+  }
 `;
 
 const Title = styled.div`
@@ -262,5 +280,13 @@ const Title = styled.div`
   .highlighted {
     background: var(--color-turquoise);
     color: var(--static-black);
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    font-size: 11px;
+    line-height: 140%;
+    .highlight {
+      font-size: 11px;
+    }
   }
 `;
