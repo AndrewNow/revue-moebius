@@ -201,8 +201,9 @@ export async function getStaticPaths() {
   };
 }
 
+
 const Header = styled.header`
-  background-color: var(--color-blue);
+  background-color: var(--color-yellow);
   height: 100%;
   padding-bottom: 5rem;
   @media (max-width: ${breakpoints.xl}px) {
@@ -226,9 +227,8 @@ const HeaderFlex = styled.div`
 const HeaderText = styled.div`
   position: relative;
   align-self: center;
-  width: 55%;
-  margin: 3rem;
-  margin-left: 5rem;
+  width: 63%;
+  margin: 3rem 0;
 
   h5,
   h1,
@@ -305,7 +305,7 @@ const HeaderImage = styled.div`
 
 const MainFlex = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   position: relative;
   width: 100%;
@@ -351,7 +351,7 @@ const SideContent = styled.div`
 `;
 
 const MainContent = styled.div`
-  width: 55%;
+  width: 45%;
   margin: 0 3rem;
 
   * {
@@ -564,3 +564,4 @@ const Button = styled.button`
     margin: 3rem auto;
   }
 `;
+

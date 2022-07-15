@@ -11,6 +11,26 @@ export const algoliaQuery = groq`
     isbn,
     number,
     "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
+    "slug": slug.current,
+    directedBy,
+    authors,
+    codirectors,
+    body,
+  }
+`;
+
+export const ALGOLIA_QUERY_PROJECTION = `{
+    _type, 
+    _rev,
+    "objectID": _id,
+    title, 
+    description, 
+    isbn,
+    number,
+    "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
+    "slug": slug.current,
     directedBy,
     authors,
     codirectors,

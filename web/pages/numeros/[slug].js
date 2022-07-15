@@ -63,13 +63,13 @@ export default function Numeros({ numero, readMoreData }) {
                 <br />
                 Dirigé par {numero?.directedBy}
               </small>
-              <Button
-                onClick={() => addItem(stripeFormattedProduct)}
-                aria-label="Ajouter au panier"
-                disabled={numero?.available ? false : true}
-                suppressHydrationWarning
-              >
-                {numero?.available ? (
+              {numero?.available && (
+                <Button
+                  onClick={() => addItem(stripeFormattedProduct)}
+                  aria-label="Ajouter au panier"
+                  disabled={numero?.available ? false : true}
+                  suppressHydrationWarning
+                >
                   <small suppressHydrationWarning>
                     Ajouter au panier -{" "}
                     {formatCurrencyString({
@@ -77,10 +77,8 @@ export default function Numeros({ numero, readMoreData }) {
                       currency: numero?.currency,
                     })}
                   </small>
-                ) : (
-                  <small>Numéro non disponible</small>
-                )}
-              </Button>
+                </Button>
+              )}
             </HeaderText>
           </HeaderFlex>
         </Inner>
@@ -250,9 +248,8 @@ const HeaderFlex = styled.div`
 const HeaderText = styled.div`
   position: relative;
   align-self: center;
-  width: 55%;
-  margin: 3rem;
-  margin-left: 5rem;
+  width: 63%;
+  margin: 3rem 0;
 
   h5,
   h1,
@@ -329,7 +326,7 @@ const HeaderImage = styled.div`
 
 const MainFlex = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   position: relative;
   width: 100%;
@@ -375,7 +372,7 @@ const SideContent = styled.div`
 `;
 
 const MainContent = styled.div`
-  width: 55%;
+  width: 45%;
   margin: 0 3rem;
 
   * {

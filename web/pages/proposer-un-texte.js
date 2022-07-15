@@ -273,6 +273,14 @@ const Protocol = styled.div`
   p {
     color: var(--static-black);
   }
+
+  a {
+    color: var(--color-purple);
+    transition: var(--transition);
+    :hover {
+      opacity: 0.7;
+    }
+  }
   h3 {
     scroll-margin: 120px;
     font-family: "Surt";
@@ -316,6 +324,8 @@ const OtherInfo = styled.div`
   padding: 4rem;
   border-top: 1px solid var(--static-black);
   small {
+    text-transform: none;
+    line-height: 150%;
     width: 80%;
     margin: 0 auto;
     color: var(--static-black);

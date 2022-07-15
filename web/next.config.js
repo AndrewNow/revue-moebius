@@ -18,4 +18,12 @@ module.exports = {
     // loader: 'custom'
   },
   experimental: { images: { layoutRaw: true } },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
 };

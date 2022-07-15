@@ -33,7 +33,7 @@ const Navbar = () => {
 
   const { cartCount } = useShoppingCart();
 
-  //logic for hiding the navbar when the user scrolls down
+  // logic for hiding the navbar when the user scrolls down
   const [show, setShow] = useState(false);
   const [currentOffset, setCurrentOffset] = useState(0);
 
@@ -49,7 +49,6 @@ const Navbar = () => {
       };
     }
   }, [currentOffset, open]);
-
 
   return (
     <>

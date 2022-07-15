@@ -8,20 +8,19 @@ export const algoliaInstance = algoliasearch(
   process.env.ALGOLIA_ADMIN_KEY
 );
 
-export default async function RequestHandler(req, res) {
-  const index = algoliaInstance.initIndex(process.env.ALGOLIA_INDEX);
+export default async function handler(req, res) {
   let sanityData = await client.fetch(algoliaQuery);
-  
-  if (req.method === "POST") {
+  const index = algoliaInstance.initIndex(process.env.ALGOLIA_INDEX);
+  if (req.method === "GET") {
     try {
       console.time(`Saving ${sanityData.length} documents to index`);
       await index.saveObjects(sanityData);
       console.timeEnd(`Saving ${sanityData.length} documents to index`);
 
-      res.status(200).json({ body: "success!" });
+      return res.status(200).json({ body: "success!" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ body: error });
+      return res.status(500).json({ body: error });
     }
   }
 }
