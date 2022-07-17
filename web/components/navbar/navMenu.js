@@ -170,7 +170,7 @@ const Wrapper = styled.div`
   position: relative;
   /* height: 60vh; */
   @media (max-width: ${breakpoints.l}px) {
-    margin-top: 100px;
+    margin-top: 80px;
   }
   @media (max-width: ${breakpoints.m}px) {
     height: auto;
@@ -229,6 +229,7 @@ const SearchInner = styled.div`
   }
   @media (max-width: ${breakpoints.s}px) {
     margin: 1rem auto;
+    padding: 0;
     max-height: 250px;
   }
 `;

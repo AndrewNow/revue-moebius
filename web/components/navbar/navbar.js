@@ -155,11 +155,8 @@ const HamburgerWrapper = styled.div`
   z-index: 1000;
   top: 25px;
   left: 3.75%;
-  @media (max-width: ${breakpoints.l}px) {
-    top: 30px;
-  }
   @media (max-width: ${breakpoints.m}px) {
-    top: 30px;
+    top: 20px;
   }
 `;
 
@@ -175,12 +172,10 @@ const LogoWrapper = styled.div`
   cursor: pointer;
 
   @media (max-width: ${breakpoints.l}px) {
-    top: 30px;
     width: 130px;
   }
   @media (max-width: ${breakpoints.s}px) {
     width: 100px;
-    top: 41px;
   }
 `;
 
@@ -192,11 +187,8 @@ const RightSideWrapper = styled.div`
   @media (max-width: ${breakpoints.l}px) {
     top: 34px;
   }
-  @media (max-width: ${breakpoints.m}px) {
-    top: 37px;
-  }
   @media (max-width: ${breakpoints.s}px) {
-    top: 30px;
+    top: 20px;
     width: 48px;
     height: 48px;
     display: grid;

@@ -44,17 +44,19 @@ export const AlgoliaSearch = () => {
     <InstantSearch searchClient={searchClient} indexName="MOEBIUS_PRODUCTION">
       <Configure hitsPerPage={4} />
       <SearchParent>
+        <SearchIcon className="icon" />
         <SearchBox
           placeholder="Tapez pour rechercher..."
           classNames={{
             root: "searchRoot",
             form: "searchForm",
             input: "searchInput",
-            resetIcon: "searchResetUcib",
+            submitIcon: "searchSubmitIcon",
+            resetIcon: "searchResetIcon",
           }}
-          submitIconComponent={() => <SearchIcon className="icon" />}
+          submitIconComponent={() => <></>}
           // disabled reset and loading icons, we don't really need those.
-          resetIconComponent={() => <></>}
+          // resetIconComponent={() => <></>}
           loadingIconComponent={() => <></>}
         />
       </SearchParent>
@@ -64,23 +66,32 @@ export const AlgoliaSearch = () => {
 };
 
 const SearchParent = styled.span`
+  min-height: 50px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+
+  border-bottom: 1px solid var(--static-cream);
+  background: var(--color-clay);
+
   .searchRoot {
-    border-bottom: 1px solid var(--static-cream);
+    width: 95%;
     position: relative;
   }
   .searchForm {
-    /* display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    position: relative; */
+    width: 100%;
+    display: flex;
+    position: relative;
+    padding: 0px 15px;
   }
   .searchInput {
+    width: 95%;
     box-sizing: border-box;
-    width: 90%;
     background: none;
     border: none;
-    padding: 10px 15px;
-    padding-top: 0;
     color: var(--static-cream);
 
     text-transform: uppercase;
@@ -91,11 +102,28 @@ const SearchParent = styled.span`
 
     ::placeholder {
       font-family: "Surt";
+      line-height: 100%;
       color: #c9c9c9c9;
     }
     :focus {
       outline: none;
     }
+  }
+
+  .ais-SearchBox-submit {
+    display: none;
+  }
+
+  .ais-SearchBox-reset {
+    min-width: 5%;
+    padding: 5px;
+    svg {
+      fill: var(--static-cream);
+    }
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    border-bottom: none;
   }
 `;
 
@@ -213,7 +241,7 @@ const TextWrapper = styled.div`
 
   @media (max-width: ${breakpoints.s}px) {
     small {
-      font-size: 10px!important;
+      font-size: 10px !important;
     }
   }
 `;
@@ -256,7 +284,7 @@ const Tag = styled.div`
 
   @media (max-width: ${breakpoints.s}px) {
     small {
-      font-size: 10px!important;
+      font-size: 10px !important;
     }
   }
 `;
