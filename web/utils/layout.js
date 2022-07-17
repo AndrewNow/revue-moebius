@@ -7,7 +7,10 @@ export const Layout = (props) => {
     <>
       <Head>
         {/* <link rel="icon" href="/xxxfavicon.png" /> */}
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
       </Head>
       <Main>{props.children}</Main>
     </>
@@ -69,7 +72,6 @@ const Main = styled.main`
     h4 {
       font-size: 38px;
     }
-
   }
   @media (max-width: ${breakpoints.xl}px) {
     h1 {

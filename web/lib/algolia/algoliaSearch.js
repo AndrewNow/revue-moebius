@@ -5,6 +5,7 @@ import {
   Hits,
   Configure,
   Highlight,
+  useInstantSearch,
 } from "react-instantsearch-hooks-web";
 import Image from "next/image";
 import styled from "styled-components";
@@ -12,6 +13,8 @@ import "instantsearch.css/themes/reset.css";
 import Link from "next/link";
 import { SearchIcon } from "../../svg/icons";
 import { breakpoints } from "../../utils/breakpoints";
+import { motion, AnimatePresence } from "framer-motion";
+import { NoResults } from "./noResults";
 
 const algoliaClient = algoliasearch(
   // process.env.ALGOLIA_APPLICATION_ID,
@@ -39,13 +42,42 @@ const searchClient = {
   searchForFacetValues: algoliaClient.searchForFacetValues,
 };
 
-export const AlgoliaSearch = () => {
+// Debounce the search by 200ms
+let DEBOUNCE_TIME = 200;
+let timerId = undefined;
+
+function queryHook(query, search) {
+  if (timerId) {
+    clearTimeout(timerId);
+  }
+
+  timerId = setTimeout(() => search(query), DEBOUNCE_TIME);
+}
+
+function NoResultsBoundary({ children, fallback }) {
+  const { results } = useInstantSearch();
+
+  // The `__isArtificial` flag makes sure to not display the No Results message
+  // when no hits have been returned yet.
+  if (!results.__isArtificial && results.nbHits === 0) {
+    return (
+      <>
+        {fallback}
+        <div hidden>{children}</div>
+      </>
+    );
+  }
+  return children;
+}
+
+export const AlgoliaSearch = ({ setOpen, isOpen }) => {
   return (
     <InstantSearch searchClient={searchClient} indexName="MOEBIUS_PRODUCTION">
       <Configure hitsPerPage={4} />
-      <SearchParent>
+      <SearchParent layout>
         <SearchIcon className="icon" />
         <SearchBox
+          queryHook={queryHook}
           placeholder="Tapez pour rechercher..."
           classNames={{
             root: "searchRoot",
@@ -55,22 +87,38 @@ export const AlgoliaSearch = () => {
             resetIcon: "searchResetIcon",
           }}
           submitIconComponent={() => <></>}
-          // disabled reset and loading icons, we don't really need those.
+          // disabled loading icon, we don't really need one (it's also tricky to style).
           // resetIconComponent={() => <></>}
           loadingIconComponent={() => <></>}
         />
       </SearchParent>
-      <Hits hitComponent={Hit} />
+      <AnimatePresence exitBeforeEnter>
+        <HitWrapper
+          layout
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{
+            ease: "easeInOut",
+            duration: 0.25,
+          }}
+          exit={{ y: 20, opacity: 0 }}
+          key="hitWrap"
+        >
+          <NoResultsBoundary fallback={<NoResults />}>
+            <Hits hitComponent={Hit} setOpen={setOpen} isOpen={isOpen} />
+          </NoResultsBoundary>
+        </HitWrapper>
+      </AnimatePresence>
     </InstantSearch>
   );
 };
 
-const SearchParent = styled.span`
-  min-height: 50px;
+const SearchParent = styled(motion.span)`
+  min-height: 40px;
   position: relative;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   width: 100%;
   padding: 10px;
 
@@ -84,16 +132,18 @@ const SearchParent = styled.span`
   .searchForm {
     width: 100%;
     display: flex;
+    align-items: flex-end;
     position: relative;
-    padding: 0px 15px;
+    padding-left: 15px;
   }
   .searchInput {
     width: 95%;
+    height: 100%;
     box-sizing: border-box;
     background: none;
     border: none;
     color: var(--static-cream);
-
+    padding: 0;
     text-transform: uppercase;
     letter-spacing: 0.015rem;
     font-weight: 100 !important;
@@ -116,18 +166,19 @@ const SearchParent = styled.span`
 
   .ais-SearchBox-reset {
     min-width: 5%;
-    padding: 5px;
     svg {
       fill: var(--static-cream);
     }
   }
 
-  @media (max-width: ${breakpoints.s}px) {
+  @media (max-width: ${breakpoints.l}px) {
     border-bottom: none;
   }
 `;
 
-const Hit = ({ hit }) => {
+const HitWrapper = styled(motion.div)``;
+
+const Hit = ({ hit, setOpen, isOpen }) => {
   //  Style category tag
   let categoryColor = "var(--static-cream)";
   let categoryUrl = null;
@@ -154,14 +205,24 @@ const Hit = ({ hit }) => {
   }
 
   return (
-    <HitWrapper>
+    <HitArticle
+      layout
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{
+        ease: "easeInOut",
+        duration: 0.25,
+      }}
+      exit={{ y: 20, opacity: 0 }}
+    >
       <ImageWrapper>
         <Image
           src={hit.imageUrl}
           alt={hit.title}
           width={75}
           height={75}
-          layout="fill"
+          quality={20}
+          // layout="fill"
           objectFit="contain"
           placeholder="blur"
           blurDataURL={hit.lqip}
@@ -169,7 +230,10 @@ const Hit = ({ hit }) => {
       </ImageWrapper>
       <TextWrapper>
         <TagWrapper>
-          <Tag style={{ background: categoryColor }}>
+          <Tag
+            style={{ background: categoryColor }}
+            onClick={() => setOpen(!isOpen)}
+          >
             <Link href={categoryUrl}>
               <small>{hit._type}</small>
             </Link>
@@ -192,7 +256,7 @@ const Hit = ({ hit }) => {
           )}
         </TagWrapper>
         <br />
-        <Link href={categoryUrl + hit.slug}>
+        <Link href={categoryUrl + hit.slug} onClick={() => setOpen(!isOpen)}>
           <Title>
             <Highlight
               attribute="title"
@@ -205,11 +269,11 @@ const Hit = ({ hit }) => {
           </Title>
         </Link>
       </TextWrapper>
-    </HitWrapper>
+    </HitArticle>
   );
 };
 
-const HitWrapper = styled.article`
+const HitArticle = styled(motion.article)`
   border-bottom: 1px dotted var(--static-cream);
   padding: 1rem 0;
   display: flex;
@@ -222,10 +286,6 @@ const ImageWrapper = styled.div`
   width: 25%;
   max-height: 100px;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.15));
-
-  @media (max-width: ${breakpoints.s}px) {
-    height: 60px;
-  }
 `;
 
 const TextWrapper = styled.div`

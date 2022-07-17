@@ -58,6 +58,26 @@ const NavMenu = ({ isOpen, setOpen }) => {
     },
   };
 
+  const searchAnimIn = {
+    hidden: {
+      opacity: 0,
+      y: -50,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.25,
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -76,9 +96,14 @@ const NavMenu = ({ isOpen, setOpen }) => {
               exit="hidden"
             />
             <Content>
-              <Search>
-                <SearchInner>
-                  <AlgoliaSearch />
+              <Search
+                variants={searchAnimIn}
+                initial="hidden"
+                animate={isOpen ? "visible" : "hidden"}
+                exit="hidden"
+              >
+                <SearchInner layout>
+                  <AlgoliaSearch isOpen={isOpen} setOpen={setOpen} />
                 </SearchInner>
                 <HorizontalLineMobile
                   variants={animateHorizontalLine}
@@ -128,16 +153,16 @@ const Menu = styled(motion.div)`
   top: 0;
   width: 100%;
   height: 85vh;
-  /* min-height: 85vh; */
+  max-height: 800px;
   z-index: 990;
   @media (max-width: ${breakpoints.l}px) {
+    max-height: none;
     height: auto;
   }
   @media (max-width: ${breakpoints.s}px) {
     height: 100vh;
   }
 `;
-
 
 const Content = styled(motion.div)`
   width: 100%;
@@ -199,10 +224,13 @@ const HorizontalLineMobile = styled(motion.span)`
   }
 `;
 
-
 const Search = styled(motion.div)`
   height: 100%;
   width: 30%;
+
+  @media (max-width: ${breakpoints.xl}px) {
+    width: 40%;
+  }
   @media (max-width: ${breakpoints.l}px) {
     width: 100%;
     height: auto;
@@ -212,7 +240,7 @@ const Search = styled(motion.div)`
   }
 `;
 
-const SearchInner = styled.div`
+const SearchInner = styled(motion.div)`
   position: relative;
   width: 85%;
   margin: 0 auto;
@@ -222,6 +250,7 @@ const SearchInner = styled.div`
 
   @media (max-width: ${breakpoints.l}px) {
     width: 60%;
+    padding: 1rem 0;
     max-height: 400px;
   }
   @media (max-width: ${breakpoints.m}px) {

@@ -314,10 +314,10 @@ const LinkTitle = styled(motion.h3)`
 
   @media (max-width: ${breakpoints.xl}px) {
     font-size: 3.5vw !important;
+    text-align: center;
   }
   @media (max-width: ${breakpoints.m}px) {
     font-size: 35px !important;
-    text-align: center;
   }
   @media (max-width: ${breakpoints.s}px) {
     font-size: 30px !important;
