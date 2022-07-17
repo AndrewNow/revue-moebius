@@ -6,11 +6,11 @@ import { breakpoints } from "../utils/breakpoints";
 const BannerMarquee = ({ data }) => {
   return (
     <Wrapper>
-      <Marquee gradientWidth={0} speed={55}>
+      {/* <Marquee gradientWidth={0} speed={55}> */}
         <small>
           <Link href={`${data.link}`}>{data.title}</Link>
         </small>
-      </Marquee>
+      {/* </Marquee> */}
     </Wrapper>
   );
 };
