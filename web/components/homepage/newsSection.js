@@ -1,14 +1,29 @@
+import { useRef } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
 import ConvertDateToString from "../../utils/convertDateToString";
+import { textAnim, textChild } from "../../styles/animations";
+import { motion, useInView } from "framer-motion";
+import SplitText from "../../utils/splitText";
 
 const NewsSection = ({ newsFeed, featuredArticle }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
   return (
     <>
       <Header>
-        <h3>Nouvelles</h3>
+        <motion.h3
+          ref={ref}
+          variants={textAnim}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          role="heading"
+        >
+          <SplitText variants={textChild} string="Nouvelles" />
+        </motion.h3>
         <small>
           <Link href="/nouvelles">voir tous les nouvelles →</Link>
         </small>

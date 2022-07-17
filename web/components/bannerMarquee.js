@@ -20,6 +20,9 @@ export default BannerMarquee;
 const Wrapper = styled.div`
   width: 100%;
   background-color: var(--color-turquoise);
+  * {
+    font-size: 16px !important;
+  }
   small {
     padding: 1rem 0;
   }
@@ -36,8 +39,8 @@ const Wrapper = styled.div`
     }
   }
   @media (max-width: ${breakpoints.m}px) {
-    small, a {
-      font-size: 12px !important;
+    * {
+      font-size: 14px !important;
     }
   }
 `;

@@ -1,11 +1,13 @@
+import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
 import { Inner } from "../../pages/index";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { breakpoints } from "../../utils/breakpoints";
 import ConvertDateToString from "../../utils/convertDateToString";
+import SplitText from "../../utils/splitText";
+import { textAnim, textChild } from "../../styles/animations";
 
 const NumerosSection = ({ numerosData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -61,11 +63,22 @@ const NumerosSection = ({ numerosData }) => {
     setState({ ...state, scroller, itemWidth });
   }, [update]);
 
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
   return (
     <>
       <Inner>
         <Header>
-          <h3>Numéros</h3>
+          <motion.h3
+            ref={ref}
+            variants={textAnim}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            role="heading"
+          >
+            <SplitText variants={textChild} string="Numéros" />
+          </motion.h3>
           <small>
             <Link href="/numeros">voir tous les numéros →</Link>
           </small>

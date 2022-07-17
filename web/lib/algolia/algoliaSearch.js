@@ -105,7 +105,11 @@ export const AlgoliaSearch = ({ setOpen, isOpen }) => {
           key="hitWrap"
         >
           <NoResultsBoundary fallback={<NoResults />}>
-            <Hits hitComponent={Hit} setOpen={setOpen} isOpen={isOpen} />
+            <Hits
+              hitComponent={({ hit }) => (
+                <Hit hit={hit} setOpen={setOpen} isOpen={isOpen} />
+              )}
+            />
           </NoResultsBoundary>
         </HitWrapper>
       </AnimatePresence>
@@ -179,6 +183,7 @@ const SearchParent = styled(motion.span)`
 const HitWrapper = styled(motion.div)``;
 
 const Hit = ({ hit, setOpen, isOpen }) => {
+  console.log(isOpen);
   //  Style category tag
   let categoryColor = "var(--static-cream)";
   let categoryUrl = null;
@@ -256,18 +261,20 @@ const Hit = ({ hit, setOpen, isOpen }) => {
           )}
         </TagWrapper>
         <br />
-        <Link href={categoryUrl + hit.slug} onClick={() => setOpen(!isOpen)}>
-          <Title>
-            <Highlight
-              attribute="title"
-              hit={hit}
-              classNames={{
-                root: "highlight",
-                highlighted: "highlighted",
-              }}
-            />
-          </Title>
-        </Link>
+        <span onClick={() => setOpen(!isOpen)}>
+          <Link href={categoryUrl + hit.slug}>
+            <Title>
+              <Highlight
+                attribute="title"
+                hit={hit}
+                classNames={{
+                  root: "highlight",
+                  highlighted: "highlighted",
+                }}
+              />
+            </Title>
+          </Link>
+        </span>
       </TextWrapper>
     </HitArticle>
   );

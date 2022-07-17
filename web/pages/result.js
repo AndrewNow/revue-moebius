@@ -3,8 +3,8 @@ import Link from "next/link";
 import useSWR from "swr";
 import { fetchGetJSON } from "../utils/apiHelpers";
 import styled from "styled-components";
-// import { useEffect, useState } from "react";
-// import { useReward } from "react-rewards";
+import { useEffect } from "react";
+import { useReward } from "react-rewards";
 // import PrintObject from "../components/PrintObject";
 // import { breakpoints } from "../utils/breakpoints";
 
@@ -27,24 +27,30 @@ const ResultPage = () => {
   }
 
   // Confetti config
-  // const { reward } = useReward("rewardId", "confetti", {
-  //   lifetime: 800,
-  //   spread: 85,
-  //   startVelocity: 40,
-  //   elementCount: 80,
-  // });
+  const { reward } = useReward("rewardId", "confetti", {
+    lifetime: 800,
+    spread: 85,
+    startVelocity: 40,
+    elementCount: 80,
+  });
 
-  // useEffect(() => {
-  //   reward;
-  // }, []);
+  useEffect(() => {
+    reward();
+  }, [reward]);
 
   return (
     <>
       <Wrapper>
-        {/* <span id="rewardId" /> */}
-        {/* <button onClick={reward}>Test</button> */}
+        <Reward id="rewardId" />
         <Text>
-          <h3>Merci, </h3>
+          <h3>
+            Merci de soutenir la revue,{" "}
+            {
+              data?.payment_intent.charges.data[0].billing_details.name.split(
+                " "
+              )[0]
+            }{" "}
+          </h3>
           <p>
             Un courriel de confirmation va être envoyé à{" "}
             {data?.payment_intent.charges.data[0].billing_details.email}.
@@ -68,6 +74,12 @@ const ResultPage = () => {
 };
 
 export default ResultPage;
+
+const Reward = styled.span`
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
+`
 
 const Wrapper = styled.div`
   min-height: 80vh;

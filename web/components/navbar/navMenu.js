@@ -112,7 +112,7 @@ const NavMenu = ({ isOpen, setOpen }) => {
                   exit="hidden"
                 />
               </Search>
-              <NavLinks isOpen={isOpen} />
+              <NavLinks isOpen={isOpen} setOpen={setOpen} />
             </Content>
           </Wrapper>
           <Bottom>

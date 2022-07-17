@@ -3,32 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
 import { motion } from "framer-motion";
+import SplitText from "../../utils/splitText";
+import { textAnim, textChild } from "../../styles/animations";
 
 const Landing = ({ data }) => {
-  const textAnim = {
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.25,
-        delay: 0.5,
-      },
-    },
-    hidden: {
-      opacity: 0,
-    },
-  };
-  const textChild = {
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 2,
-      },
-    },
-    hidden: {
-      opacity: 0,
-    },
-  };
-
   return (
     <LandingSection>
       <ImageWrapper>
@@ -59,10 +37,18 @@ const Landing = ({ data }) => {
           />
         </SupportingImage>
       </ImageWrapper>
-      <TextWrapper variants={textAnim} initial="hidden" animate="visible">
+      <TextWrapper>
         <motion.small variants={textChild}>Mœbius n°{data.number}</motion.small>
-        <motion.h1 variants={textChild}>
-          Consultez notre dernier numéro
+        <motion.h1
+          variants={textAnim}
+          initial="hidden"
+          animate="visible"
+          role="heading"
+        >
+          <SplitText
+            variants={textChild}
+            string="Consultez notre dernier numéro"
+          />
         </motion.h1>
         <Link href={`/numeros/${data.slug}`}>
           <InternalLink>

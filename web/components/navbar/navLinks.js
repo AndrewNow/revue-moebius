@@ -41,7 +41,7 @@ export const LinkData2 = [
   // },
 ];
 
-const NavLinks = ({ isOpen }) => {
+const NavLinks = ({ isOpen, setOpen }) => {
   const animateVerticalLine = {
     hidden: {
       height: 0,

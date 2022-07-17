@@ -1,25 +1,16 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styled from "styled-components";
 import BlockContent from "@sanity/block-content-to-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { breakpoints } from "../../utils/breakpoints";
 import { Chevron } from "../../svg/icons";
+import { textAnim, textChild } from "../../styles/animations";
+import SplitText from "../../utils/splitText";
 
 const MapFAQ = ({ data }) => {
   return data.map((question, idx) => {
     const [open, setOpen] = useState(false);
     const [hover, setHover] = useState(false);
-
-    // const animHover = {
-    //   hovered: {
-    //     background: "var(--color-yellow)",
-    //     color: "var(--static-black)",
-    //   },
-    //   notHovered: {
-    //     background: "var(--color-cream)",
-    //     color: "var(--color-black)",
-    //   },
-    // };
 
     const expandAnimation = {
       visible: {
@@ -44,9 +35,6 @@ const MapFAQ = ({ data }) => {
         onMouseLeave={() => setHover(false)}
       >
         <QuestionTitle
-          // variants={animHover}
-          // initial="notHovered"
-          // animate={hover || open ? "hovered" : "notHovered"}
           style={{
             background: hover ? "var(--color-yellow)" : "var(--color-cream)",
             color: hover ? "var(--static-black)" : "var(--color-black)",
@@ -76,9 +64,21 @@ const MapFAQ = ({ data }) => {
 
 const Faq = ({ faqData }) => {
   const data = faqData[0].faqData;
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
   return (
     <Wrapper>
-      <h2>Questions fréquemment posées</h2>
+      <motion.h2
+        ref={ref}
+        variants={textAnim}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        role="heading"
+      >
+        <SplitText variants={textChild} string="Questions fréquemment posées" />
+      </motion.h2>
       <QuestionWrapper>
         <MapFAQ data={data} />
       </QuestionWrapper>
