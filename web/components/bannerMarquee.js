@@ -5,13 +5,13 @@ import { breakpoints } from "../utils/breakpoints";
 
 const BannerMarquee = ({ data }) => {
   return (
-    <Wrapper>
-      <Marquee gradientWidth={0} speed={55}>
+    <Marquee gradientWidth={0} speed={55}>
+      <Wrapper>
         <Link href={`${data.link}`}>
           <small>{data.title}</small>
         </Link>
-      </Marquee>
-    </Wrapper>
+      </Wrapper>
+    </Marquee>
   );
 };
 
