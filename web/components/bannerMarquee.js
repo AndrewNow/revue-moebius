@@ -6,11 +6,11 @@ import { breakpoints } from "../utils/breakpoints";
 const BannerMarquee = ({ data }) => {
   return (
     <Wrapper>
-      {/* <Marquee gradientWidth={0} speed={55}> */}
-        <small>
-          <Link href={`${data.link}`}>{data.title}</Link>
-        </small>
-      {/* </Marquee> */}
+      <Marquee gradientWidth={0} speed={55}>
+        <Link href={`${data.link}`}>
+          <small>{data.title}</small>
+        </Link>
+      </Marquee>
     </Wrapper>
   );
 };
@@ -27,7 +27,7 @@ const Wrapper = styled.div`
     padding: 1rem 0;
   }
 
-  small > a {
+  a {
     text-decoration: none;
     color: var(--static-black);
   }
