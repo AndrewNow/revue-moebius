@@ -8,7 +8,7 @@ const BannerMarquee = ({ data }) => {
     <Wrapper>
       <Marquee gradientWidth={0} speed={55}>
         <Link href={`${data.link}`}>
-          <small>{data.title}</small>
+          <Small>{data.title}</Small>
         </Link>
       </Marquee>
     </Wrapper>
@@ -20,9 +20,9 @@ export default BannerMarquee;
 const Wrapper = styled.div`
   width: 100%;
   background-color: var(--color-turquoise);
-  * {
+  /* * {
     font-size: 16px !important;
-  }
+  } */
   small {
     padding: 1rem 0;
   }
@@ -38,9 +38,18 @@ const Wrapper = styled.div`
       text-decoration: underline;
     }
   }
-  @media (max-width: ${breakpoints.m}px) {
+  /* @media (max-width: ${breakpoints.m}px) {
     * {
       font-size: 14px !important;
     }
-  }
+  } */
 `;
+
+
+const Small = styled.small`
+  font-size: 16px;
+
+  @media (max-width: ${breakpoints.m}px) {
+    font-size: 14px;
+  }
+`
