@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 import { breakpoints } from "../utils/breakpoints";
+import { motion } from "framer-motion";
+import { gridChild } from "../styles/animations";
 
 const Products = ({ products }) => {
   const { addItem } = useShoppingCart();
@@ -34,7 +36,7 @@ const Products = ({ products }) => {
     };
 
     return (
-      <Numero key={product._id}>
+      <Numero key={product._id} variants={gridChild}>
         <ImageWrapper>
           <Link href={`/numeros/${product.slug}`}>
             <Image
@@ -82,7 +84,7 @@ const Products = ({ products }) => {
 
 export default Products;
 
-const Numero = styled.div`
+const Numero = styled(motion.div)`
   position: relative;
   /* max-width: 325px; */
   @media (max-width: ${breakpoints.xl}px) {

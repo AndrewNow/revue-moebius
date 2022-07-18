@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Inner } from "../../pages/index";
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
 import { breakpoints } from "../../utils/breakpoints";
+import { motion, useInView } from "framer-motion";
+import SplitText from "../../utils/splitText";
+import { textAnim, textChild, textAnimFastest } from "../../styles/animations";
 
 const Abonnements = ({ abonnements }) => {
   const { addItem } = useShoppingCart();
@@ -45,19 +48,43 @@ const Abonnements = ({ abonnements }) => {
     setFilteredAbonnements(filteredData);
   }, [type, duration, location]);
 
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.
+  //
+  //  Animate title and text when in view
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
   return (
     <Wrapper>
       <Inner>
         <MainFlex>
           <Left>
             <Header>
-              <h1>Abonnements</h1>
-              <p>
-                La revue Mœbius est publiée à raison de quatre numéros par
-                année. Les taxes et frais postaux sont inclus dans les tarifs.
-                Pour l’abonnement numérique, veuillez vous rendre sur le site
-                web de la SODEP ou sur Érudit.
-              </p>
+              <motion.h1
+                ref={ref}
+                variants={textAnim}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                role="heading"
+              >
+                <SplitText variants={textChild} string="Abonnements" />
+              </motion.h1>
+              <motion.p
+                ref={ref}
+                variants={textAnimFastest}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                role="heading"
+              >
+                <SplitText variants={textChild}
+                  string="La revue Mœbius est publiée à raison de quatre numéros par
+                  année. Les taxes et frais postaux sont inclus dans les tarifs.
+                  Pour l’abonnement numérique, veuillez vous rendre sur le site
+                  web de la SODEP ou sur Érudit."
+                />
+              </motion.p>
             </Header>
             <AddProductWrapper>
               <h3>

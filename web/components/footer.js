@@ -271,7 +271,7 @@ const BottomInner = styled.div`
   align-items: center;
   @media (max-width: ${breakpoints.m}px) {
     width: 90%;
-    margin: 2rem auto;
+    margin: 2rem;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -298,7 +298,7 @@ const ImageBanner = styled.div`
     height: 225px;
     width: 90%;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
   }
   @media (max-width: 620px) {
     height: 250px;

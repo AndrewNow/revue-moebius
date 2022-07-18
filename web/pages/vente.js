@@ -1,4 +1,4 @@
-import React from "react";
+import { useRef } from "react";
 import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
 import { client } from "../lib/sanity/client";
 import styled from "styled-components";
@@ -8,19 +8,50 @@ import Products from "../components/products";
 import { breakpoints } from "../utils/breakpoints";
 import Abonnements from "../components/abonnements/abonnements";
 import { abonnementQuery } from "../lib/sanity/abonnementQuery";
+import SplitText from "../utils/splitText";
+import { motion, useInView } from "framer-motion";
+import {
+  textAnim,
+  textChild,
+  textAnimFast,
+  gridAnim,
+} from "../styles/animations";
 
 const Vente = ({ numeros, abonnements }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
   return (
     <>
       <Header>
-        <h1>Vente</h1>
-        <p>
-          Procurez-vous le tout dernier (ou le tout premier) numéro de la revue.
-        </p>
+        <motion.h1
+          variants={textAnim}
+          initial="hidden"
+          animate="visible"
+          role="heading"
+        >
+          <SplitText variants={textChild} string="Vente" />
+        </motion.h1>
+        <motion.p
+          variants={textAnimFast}
+          initial="hidden"
+          animate="visible"
+          role="heading"
+        >
+          <SplitText
+            variants={textChild}
+            string="Procurez-vous le tout dernier (ou le tout premier) numéro de la revue."
+          />
+        </motion.p>
       </Header>
       <Content>
         <Inner>
-          <Grid>
+          <Grid
+            ref={ref}
+            variants={gridAnim}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
             <Products products={numeros} />
           </Grid>
         </Inner>
@@ -69,6 +100,11 @@ const Header = styled.div`
       width: 80%;
     }
   }
+  @media (max-width: ${breakpoints.s}px) {
+    h1 {
+      margin-bottom: 1rem;
+    }
+  }
 `;
 
 const Content = styled.div`
@@ -84,7 +120,7 @@ const Content = styled.div`
   }
 `;
 
-const Grid = styled.div`
+const Grid = styled(motion.div)`
   width: 90%;
   margin: 0 auto;
   display: grid;

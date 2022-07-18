@@ -1,3 +1,9 @@
+//.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.
+//
+//  Animation variants for title and text
+//
+//.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.
+
 export const textAnim = {
   visible: {
     opacity: 1,
@@ -9,9 +15,28 @@ export const textAnim = {
     opacity: 0,
   },
 };
-
-
-
+export const textAnimFast = {
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.01,
+    },
+  },
+  hidden: {
+    opacity: 0,
+  },
+};
+export const textAnimFastest = {
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.002,
+    },
+  },
+  hidden: {
+    opacity: 0,
+  },
+};
 export const textChild = {
   visible: {
     opacity: 1,
@@ -24,3 +49,32 @@ export const textChild = {
   },
 };
 
+//.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.
+//
+//  Animation variants for grids
+//
+//.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.
+
+export const gridAnim = {
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+  hidden: {},
+};
+
+export const gridChild = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.5,
+      ease: "easeOut",
+    },
+  },
+  hidden: {
+    y: 50,
+    opacity: 0,
+  },
+};

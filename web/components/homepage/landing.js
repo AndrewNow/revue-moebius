@@ -134,6 +134,7 @@ const TextWrapper = styled(motion.div)`
   }
   @media (max-width: ${breakpoints.s}px) {
     margin-bottom: 2rem;
+    margin-top: 8rem;
     width: 100%;
   }
 `;
