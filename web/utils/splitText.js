@@ -7,7 +7,6 @@ const SplitText = ({ string, variants, ariaHidden }) => {
       <motion.span
         variants={variants}
         key={index}
-        aria-hidden={ariaHidden ? ariaHidden : false}
       >
         {char}
       </motion.span>

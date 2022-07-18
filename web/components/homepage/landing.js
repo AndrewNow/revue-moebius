@@ -46,7 +46,7 @@ const Landing = ({ data }) => {
           role="heading"
         >
           <SplitText
-            ariaHidden={false}
+            ariaHidden="false"
             variants={textChild}
             string="Consultez notre dernier numéro"
           />
