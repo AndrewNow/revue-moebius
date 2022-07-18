@@ -29,7 +29,7 @@ const Main = styled.main`
   h1 {
     font-size: 6.77vw;
     line-height: 120%;
-    /* letter-spacing: -0.02em; */
+    letter-spacing: -0.02em;
   }
 
   h2 {

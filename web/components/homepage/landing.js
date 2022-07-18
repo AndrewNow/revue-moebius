@@ -46,15 +46,23 @@ const Landing = ({ data }) => {
           role="heading"
         >
           <SplitText
+            ariaHidden={false}
             variants={textChild}
             string="Consultez notre dernier numéro"
           />
         </motion.h1>
-        <Link href={`/numeros/${data.slug}`}>
-          <InternalLink>
-            <small>En savoir plus</small>
-          </InternalLink>
-        </Link>
+        <motion.span
+          variants={textAnim}
+          initial="hidden"
+          animate="visible"
+          role="heading"
+        >
+          <Link href={`/numeros/${data.slug}`}>
+            <InternalLink>
+              <small>En savoir plus</small>
+            </InternalLink>
+          </Link>
+        </motion.span>
       </TextWrapper>
     </LandingSection>
   );
