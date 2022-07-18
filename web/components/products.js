@@ -255,9 +255,9 @@ const Button = styled.button`
     padding: 0.6rem 0.5rem;
     border-radius: 5px;
     max-width: 260px;
-    color: var(--static-black);
-
+    
     small {
+      color: var(--static-black);
       width: 80%;
       font-size: 12px;
     }

@@ -78,6 +78,7 @@ const Wrapper = styled.div`
   }
   @media (max-width: ${breakpoints.s}px) {
     width: 90%;
+    margin-top: 0rem;
   }
 `;
 

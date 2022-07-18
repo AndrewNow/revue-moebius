@@ -115,6 +115,7 @@ const Main = styled.main`
   @media (max-width: ${breakpoints.s}px) {
     h1 {
       font-size: 50px;
+      letter-spacing: 0.01rem;
     }
     h2 {
       font-size: 38px;

@@ -221,6 +221,10 @@ const Wrapper = styled.div`
   @media (max-width: ${breakpoints.xl}px) {
     scrollbar-width: normal;
   }
+  @media (max-width: ${breakpoints.s}px) {
+    padding-bottom: 1rem;
+    margin-bottom: 0;
+  }
 `;
 
 const Header = styled.header`
