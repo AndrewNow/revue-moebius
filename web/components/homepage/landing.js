@@ -46,7 +46,6 @@ const Landing = ({ data }) => {
           role="heading"
         >
           <SplitText
-            ariaHidden="false"
             variants={textChild}
             string="Consultez notre dernier numéro"
           />
@@ -130,8 +129,8 @@ const TextWrapper = styled(motion.div)`
     color: var(--color-black);
   }
   h1 {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     line-height: 110%;
   }
 
