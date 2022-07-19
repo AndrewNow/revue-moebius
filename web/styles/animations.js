@@ -26,6 +26,17 @@ export const textAnimSlow = {
     opacity: 0,
   },
 };
+export const textAnimSlower = {
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.5,
+    },
+  },
+  hidden: {
+    opacity: 0,
+  },
+};
 export const textChild = {
   visible: {
     opacity: 1,

@@ -11,7 +11,13 @@ import { breakpoints } from "../../utils/breakpoints";
 import NumeroItem from "../../components/numeroItem";
 import { motion, useInView } from "framer-motion";
 import SplitText from "../../utils/splitText";
-import { textChild, textAnimFast, textAnim } from "../../styles/animations";
+import {
+  textChild,
+  textAnimFast,
+  textAnim,
+  textAnimSlow,
+  textAnimSlower,
+} from "../../styles/animations";
 
 //.:*~*:._.:*~*:._.:*~*:._.:*~*
 //
@@ -57,28 +63,37 @@ const Numeros = ({ numeroData, archiveData }) => {
         <Inner>
           <motion.h1
             ref={ref}
-            variants={textAnimFast}
+            variants={textAnim}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             role="heading"
           >
-            <motion.span variants={textChild}>
-              Survolez tous les numéros de la revue.
-            </motion.span>
+            <SplitText
+              string="Survolez tous les numéros de la revue."
+              variantParent={textAnim}
+              variantParentMobile={textAnimSlow}
+              variantChild={textChild}
+              initial="hidden"
+              animate={isInView2 ? "visible" : "hidden"}
+            />
+            {/* <motion.span variants={textChild}> */}
+            {/* Survolez tous les numéros de la revue. */}
+            {/* </motion.span> */}
           </motion.h1>
         </Inner>
       </Header>
       <Inner>
         <Content>
           <ContentHeader>
-            <motion.h1
-              ref={ref2}
-              variants={textAnim}
-              initial="hidden"
-              animate={isInView2 ? "visible" : "hidden"}
-              role="heading"
-            >
-              <SplitText variants={textChild} string="Numéros récents" />
+            <motion.h1 ref={ref2} role="heading">
+              <SplitText
+                string="Numéros récents"
+                variantParent={textAnim}
+                variantParentMobile={textAnimSlower}
+                variantChild={textChild}
+                initial="hidden"
+                animate={isInView2 ? "visible" : "hidden"}
+              />
             </motion.h1>
           </ContentHeader>
           <Grid>
@@ -96,7 +111,7 @@ const Numeros = ({ numeroData, archiveData }) => {
           animate={isInView3 ? "visible" : "hidden"}
           role="heading"
         >
-          <SplitText variants={textChild} string="Archives" />
+          {/* <SplitText variants={textChild} string="Archives" /> */}
         </motion.h1>
         <Inner>
           <ArchiveHoverWrapper>
