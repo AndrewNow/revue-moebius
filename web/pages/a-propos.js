@@ -48,8 +48,9 @@ const APropos = ({ equipeData }) => {
   const { x, y } = useMousePosition();
 
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [activeCategory, setActiveCategory] = useState(-1);
   const [modalOpen, setModalOpen] = useState(false);
-  // ^ this second state is for the global "modal open" state.
+  // ^ this third state is for the global "modal open" state.
   // We need this second state to toggle the z-index of the other clickable items of the page, putting them behind the modal when clicked.
   // I'm sure there's a smarter way to optimize this but this was honestly just the easiest solution I found.
 
@@ -197,7 +198,7 @@ const APropos = ({ equipeData }) => {
                 string="Présentation et historique"
               />
             </motion.h1>
-            {/* <LandingParagraph>
+            <LandingParagraph>
               <motion.p
                 ref={ref2}
                 variants={textAnimFastest}
@@ -248,13 +249,16 @@ const APropos = ({ equipeData }) => {
                   variants={textChild}
                 />
               </motion.p>
-            </LandingParagraph> */}
+            </LandingParagraph>
           </LandingText>
         </Landing>
         <TeamWrapper ref={equipeRefs}>
-          {equipeData.map((teamCategory) => {
+          {equipeData.map((teamCategory, categoryIdx) => {
             return (
-              <div key={teamCategory._id}>
+              <div
+                key={teamCategory._id}
+                onMouseEnter={() => setActiveCategory(categoryIdx)}
+              >
                 <small
                   key={teamCategory._id}
                   className="small-title"
@@ -278,34 +282,20 @@ const APropos = ({ equipeData }) => {
             );
           })}
           <CursorMedia>
-            {/* this is faulty because it'll render 3 HoverImage 
-                We only need to render ONE component
+            {equipeData[activeCategory]?.membres.map((image, index) => {
+              const isActive = index === activeIndex;
+              const xPos = isActive ? x : 0;
+              const yPos = isActive ? y : 0;
 
-                currently, if I hover the first item, it'll render the first 
-                image from each category.
-
-
-                i instead want to only render from the active index list
-
-                so, create state within teammember that shows
-                which is the active category
-            */}
-            {equipeData.map((category) => {
-              return category.membres.map((image, index) => {
-                const isActive = index === activeIndex;
-                const xPos = isActive ? x : 0;
-                const yPos = isActive ? y : 0;
-
-                return (
-                  <HoverImage
-                    key={image._key + "key"}
-                    data={image}
-                    active={isActive}
-                    x={xPos}
-                    y={yPos}
-                  />
-                );
-              });
+              return (
+                <HoverImage
+                  key={image._key + "key"}
+                  data={image}
+                  active={isActive}
+                  x={xPos}
+                  y={yPos}
+                />
+              );
             })}
           </CursorMedia>
         </TeamWrapper>
