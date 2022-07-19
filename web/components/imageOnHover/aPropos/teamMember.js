@@ -269,27 +269,26 @@ const ModalWrapper = styled(motion.div)`
   top: 50%;
   left: 50%;
   width: 1270px;
+  max-height: 90vh;
   max-width: 65%;
   background: var(--color-cream);
   user-select: none;
   border: 1px solid var(--color-black);
   box-sizing: border-box;
-
   @media (max-width: 1700px) {
     max-width: 75%;
   }
   @media (max-width: ${breakpoints.xl}px) {
     max-width: 90%;
   }
-
   @media (max-width: ${breakpoints.l}px) {
     position: relative;
     max-width: none;
+    max-height: none;
     width: 60%;
     margin-top: 25vh;
     border: none;
   }
-
   @media (max-width: ${breakpoints.m}px) {
     width: 100%;
   }
@@ -301,7 +300,6 @@ const ModalFlex = styled.div`
   position: relative;
   max-height: 795px;
   height: 100%;
-
   @media (max-width: ${breakpoints.l}px) {
     flex-direction: column;
     max-height: none;
@@ -350,7 +348,6 @@ const ModalTextInner = styled.div`
     font-family: "Editorial-Italic";
     line-height: 100%;
   }
-
   @media (max-width: ${breakpoints.l}px) {
     width: 100%;
     overflow: scroll;
@@ -360,7 +357,6 @@ const ModalTextInner = styled.div`
 
 const ModalSocials = styled.div`
   padding: 1rem 0;
-
   @media (max-width: ${breakpoints.m}px) {
     display: flex;
     justify-content: flex-start;
@@ -376,7 +372,6 @@ const SocialLink = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-
   a {
     margin-left: 1rem;
     text-decoration: none;

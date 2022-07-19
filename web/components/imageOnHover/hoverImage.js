@@ -35,6 +35,7 @@ const HoverImage = ({ data, active, x, y }) => {
       ref={ref}
       style={{
         transform: `translate(${x - width / 2}px, ${y - height / 2}px)`,
+        willChange: "transform",
       }}
       className={active ? "hover-media is-active" : "hover-media"}
     >
@@ -44,7 +45,7 @@ const HoverImage = ({ data, active, x, y }) => {
         width={375}
         height={470}
         quality={80}
-        objectFit="cover"
+        objectFit="contain"
         placeholder="blur"
         blurDataURL={data.lqip}
       />

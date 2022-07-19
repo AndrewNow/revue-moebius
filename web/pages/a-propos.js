@@ -3,14 +3,27 @@ import styled from "styled-components";
 import { client } from "../lib/sanity/client";
 import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
 // import Image from "next/image";
-import { useInView } from "react-intersection-observer";
+import { useInView as useIntersectionInView } from "react-intersection-observer";
 import { useRef, useCallback } from "react";
 import { equipeQuery } from "../lib/sanity/equipeQuery";
 import HoverImage from "../components/imageOnHover/hoverImage";
 import TeamMember from "../components/imageOnHover/aPropos/teamMember";
 import { breakpoints } from "../utils/breakpoints";
+import SplitText from "../utils/splitText";
+import { motion, useInView } from "framer-motion";
+import {
+  textAnim,
+  textChild,
+  textAnimFast,
+  textAnimFastest,
+} from "../styles/animations";
 
-const useMousePosition = () => {
+//.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
+//
+//  Get mouse pos for team member section
+//
+//.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
+export const useMousePosition = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -32,24 +45,28 @@ const useMousePosition = () => {
 };
 
 const APropos = ({ equipeData }) => {
+  const { x, y } = useMousePosition();
+
   const [activeIndex, setActiveIndex] = useState(-1);
   const [modalOpen, setModalOpen] = useState(false);
   // ^ this second state is for the global "modal open" state.
   // We need this second state to toggle the z-index of the other clickable items of the page, putting them behind the modal when clicked.
   // I'm sure there's a smarter way to optimize this but this was honestly just the easiest solution I found.
 
-  const { x, y } = useMousePosition();
-
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
+  //
+  //  ref logic for sidebar nav
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
   const options = {
     root: null,
     threshold: 0.2,
     triggerOnce: false,
   };
-
-  const [headerRef, headerIsVisible] = useInView(options);
-  const [equipeRef, equipeIsVisible] = useInView(options);
-  const [diffusionRef, diffusionIsVisible] = useInView(options);
-  const [contactUsRef, contactUsIsVisible] = useInView(options);
+  const [headerRef, headerIsVisible] = useIntersectionInView(options);
+  const [equipeRef, equipeIsVisible] = useIntersectionInView(options);
+  const [diffusionRef, diffusionIsVisible] = useIntersectionInView(options);
+  const [contactUsRef, contactUsIsVisible] = useIntersectionInView(options);
 
   const headerScrollRef = useRef(null);
   const equipeScrollRef = useRef(null);
@@ -94,6 +111,16 @@ const APropos = ({ equipeData }) => {
       behavior: "smooth",
     });
 
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
+  //
+  //  Text animation refs
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  const ref2 = useRef(null);
+  const isInView2 = useInView(ref2, { once: true });
   return (
     <Wrapper>
       <Sidebar style={{ zIndex: modalOpen ? 0 : 6 }}>
@@ -148,41 +175,84 @@ const APropos = ({ equipeData }) => {
       </Sidebar>
       <MainContent>
         <Landing style={{ zIndex: modalOpen ? 0 : 6 }}>
-          <LandingText>
-            <h1 ref={headerRefs}>La revue Mœbius;</h1>
-            <h1>Présentation et historique</h1>
-            <LandingParagraph>
-              <p>
-                Mœbius est une revue littéraire québécoise fondée en 1977 par
+          <LandingText ref={ref}>
+            <motion.h1
+              ref={headerRefs}
+              variants={textAnim}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              role="heading"
+            >
+              <SplitText variants={textChild} string="La revue Mœbius;" />
+            </motion.h1>
+            <motion.h1
+              ref={headerRefs}
+              variants={textAnim}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              role="heading"
+            >
+              <SplitText
+                variants={textChild}
+                string="Présentation et historique"
+              />
+            </motion.h1>
+            {/* <LandingParagraph>
+              <motion.p
+                ref={ref2}
+                variants={textAnimFastest}
+                initial="hidden"
+                animate={isInView2 ? "visible" : "hidden"}
+                role="heading"
+              >
+                <SplitText
+                  string="Mœbius est une revue littéraire québécoise fondée en 1977 par
                 Pierre DesRuisseaux, Raymond Martin et Guy Melançon. Elle a été
                 dirigée par Robert Giroux pendant trente-cinq ans. La revue
-                paraît quatre fois par année.
+                paraît quatre fois par année."
+                  variants={textChild}
+                />
                 <br />
                 <br />
-                Valorisant la perméabilité des tons et des genres littéraires,
+                <SplitText
+                  string="Valorisant la perméabilité des tons et des genres littéraires,
                 Mœbius publie des textes en prose et en vers, ainsi que des
                 textes navigant entre l’essai et la critique littéraire, dans un
                 esprit d’hybridation et de mise en scène de la subjectivité.
                 Mœbius réunit des textes d’écrivain·e·s accompli·e·s à ceux
-                d’auteur·e·s moins connu·e·s.
-              </p>
-              <p>
-                Avec le cent cinquante-deuxième numéro qui paraît en février
+                d’auteur·e·s moins connu·e·s."
+                  variants={textChild}
+                />
+              </motion.p>
+              <motion.p
+                ref={ref2}
+                variants={textAnimFastest}
+                initial="hidden"
+                animate={isInView2 ? "visible" : "hidden"}
+                role="heading"
+              >
+                <SplitText
+                  string="Avec le cent cinquante-deuxième numéro qui paraît en février
                 2017, et à l’occasion de la formation d’une toute nouvelle
                 équipe et d’un changement de direction, l’identité visuelle et
-                les thèmes de Mœbius sont réinventés.
+                les thèmes de Mœbius sont réinventés."
+                  variants={textChild}
+                />
                 <br />
                 <br />
-                Les couvertures sont désormais signées par un·e artiste en
+                <SplitText
+                  string="Les couvertures sont désormais signées par un·e artiste en
                 résidence pour l’année. Quant aux thèmes, ils sont maintenant
                 présentés sous la forme d’une citation tirée d’une œuvre
-                littéraire.
-              </p>
-            </LandingParagraph>
+                littéraire."
+                  variants={textChild}
+                />
+              </motion.p>
+            </LandingParagraph> */}
           </LandingText>
         </Landing>
         <TeamWrapper ref={equipeRefs}>
-          {equipeData.map((teamCategory, i) => {
+          {equipeData.map((teamCategory) => {
             return (
               <div key={teamCategory._id}>
                 <small
@@ -208,6 +278,18 @@ const APropos = ({ equipeData }) => {
             );
           })}
           <CursorMedia>
+            {/* this is faulty because it'll render 3 HoverImage 
+                We only need to render ONE component
+
+                currently, if I hover the first item, it'll render the first 
+                image from each category.
+
+
+                i instead want to only render from the active index list
+
+                so, create state within teammember that shows
+                which is the active category
+            */}
             {equipeData.map((category) => {
               return category.membres.map((image, index) => {
                 const isActive = index === activeIndex;
@@ -381,7 +463,7 @@ const LandingText = styled.div`
   }
   h1:nth-of-type(2) {
     padding-top: 0;
-    margin-left: 10%;
+    margin-left: 5%;
     white-space: nowrap;
   }
 
@@ -473,7 +555,6 @@ const CursorMedia = styled.div`
   width: 100%;
   height: 100%;
   transition: var(--transition);
-
   .hover-media {
     z-index: 2;
     opacity: 0;
@@ -488,7 +569,6 @@ const CursorMedia = styled.div`
   .is-active {
     opacity: 1;
   }
-
   @media (max-width: ${breakpoints.m}px) {
     display: none;
   }

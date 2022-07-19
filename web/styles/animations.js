@@ -57,11 +57,14 @@ export const textChild = {
 
 export const gridAnim = {
   visible: {
+    opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.05,
     },
   },
-  hidden: {},
+  hidden: {
+    opacity: 0,
+  },
 };
 
 export const gridChild = {
@@ -69,12 +72,12 @@ export const gridChild = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1.5,
-      ease: "easeOut",
+      duration: 2,
+      ease: "easeInOut",
     },
   },
   hidden: {
-    y: 50,
+    y: 30,
     opacity: 0,
   },
 };

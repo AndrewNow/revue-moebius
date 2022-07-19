@@ -51,10 +51,9 @@ const Landing = ({ data }) => {
           />
         </motion.h1>
         <motion.span
-          variants={textAnim}
-          initial="hidden"
-          animate="visible"
-          role="heading"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
         >
           <Link href={`/numeros/${data.slug}`}>
             <InternalLink>

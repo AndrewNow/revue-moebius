@@ -7,7 +7,7 @@ import { motion, useInView } from "framer-motion";
 import { breakpoints } from "../../utils/breakpoints";
 import ConvertDateToString from "../../utils/convertDateToString";
 import SplitText from "../../utils/splitText";
-import { textAnim, textChild } from "../../styles/animations";
+import { textAnim, textChild, gridAnim, gridChild } from "../../styles/animations";
 
 const NumerosSection = ({ numerosData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -65,6 +65,7 @@ const NumerosSection = ({ numerosData }) => {
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const numerosInView = useInView(containerRef, { once: true });
 
   return (
     <>
@@ -85,10 +86,15 @@ const NumerosSection = ({ numerosData }) => {
         </Header>
       </Inner>
       <ComponentWrapper>
-        <Wrapper ref={containerRef}>
+        <Wrapper
+          ref={containerRef}
+          variants={gridAnim}
+          initial="hidden"
+          animate={numerosInView ? "visible" : "hidden"}
+        >
           {numerosData.slice(0, 7).map((numero) => {
             return (
-              <Numero key={numero._id}>
+              <Numero key={numero._id} variants={gridChild}>
                 <ImageWrapper>
                   <Image
                     src={numero.imageUrl}
@@ -194,7 +200,7 @@ const ComponentWrapper = styled.div`
   position: relative;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   position: relative;
   display: flex;
 
@@ -253,7 +259,7 @@ const Header = styled.header`
   }
 `;
 
-const Numero = styled.article`
+const Numero = styled(motion.article)`
   scroll-snap-align: center;
   position: relative;
   min-width: 420px;

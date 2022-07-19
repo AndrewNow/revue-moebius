@@ -8,6 +8,7 @@ const SplitText = ({ string, variants }) => {
         variants={variants}
         key={index}
         aria-hidden="true"
+        style={{ paddingRight: "1.5px"}}
       >
         {char}
       </motion.span>

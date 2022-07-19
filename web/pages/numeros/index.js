@@ -1,16 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { client } from "../../lib/sanity/client";
 import styled from "styled-components";
 import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
 import { Inner } from "../../pages/index";
 import { numeroListQuery } from "../../lib/sanity/numeroQuery";
 import { archiveListQuery } from "../../lib/sanity/archiveQuery";
-import Image from "next/image";
-import Link from "next/link";
 import HoverImage from "../../components/imageOnHover/hoverImage";
 import ArchiveItemMap from "../../components/imageOnHover/numeros/archiveItem";
 import { breakpoints } from "../../utils/breakpoints";
+import NumeroItem from "../../components/numeroItem";
+import { motion, useInView } from "framer-motion";
+import SplitText from "../../utils/splitText";
+import { textChild, textAnimFast, textAnim } from "../../styles/animations";
 
+
+//.:*~*:._.:*~*:._.:*~*:._.:*~*
+//
+//  Get mouse pos for archive section
+//
+//.:*~*:._.:*~*:._.:*~*:._.:*~*
 const useMousePosition = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -35,50 +43,63 @@ const useMousePosition = () => {
 const Numeros = ({ numeroData, archiveData }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const { x, y } = useMousePosition();
+
+  // for text animations
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const ref2 = useRef(null);
+  const isInView2 = useInView(ref2, { once: true });
+  const ref3 = useRef(null);
+  const isInView3 = useInView(ref3, { once: true });
+
   return (
     <>
       <Header>
         <Inner>
-          <h1>Survolez tous les numéros de la revue.</h1>
+          <motion.h1
+            ref={ref}
+            variants={textAnimFast}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            role="heading"
+          >
+            <SplitText
+              variants={textChild}
+              string="Survolez tous les numéros de la revue."
+            />
+          </motion.h1>
         </Inner>
       </Header>
       <Inner>
         <Content>
           <ContentHeader>
-            <h1>Numéros récents</h1>
+            <motion.h1
+              ref={ref2}
+              variants={textAnim}
+              initial="hidden"
+              animate={isInView2 ? "visible" : "hidden"}
+              role="heading"
+            >
+              <SplitText variants={textChild} string="Numéros récents" />
+            </motion.h1>
           </ContentHeader>
           <Grid>
             {numeroData.map((numero) => {
-              return (
-                <GridItem>
-                  <ItemImage>
-                    <Link href={`/numeros/${numero.slug}`}>
-                      <Image
-                        src={numero.imageUrl}
-                        alt={`Image couveture pour ${numero.title}`}
-                        layout="fill"
-                        className="imageHover"
-                        placeholder="blur"
-                        blurDataURL={numero.lqip}
-                      />
-                    </Link>
-                  </ItemImage>
-                  <ItemText>
-                    <small>n°{numero.number}</small>
-                    <h5>
-                      <Link href={`/numeros/${numero.slug}`}>
-                        {numero.title}
-                      </Link>
-                    </h5>
-                  </ItemText>
-                </GridItem>
-              );
+              return <NumeroItem numero={numero} key={numero._id} />;
             })}
           </Grid>
         </Content>
       </Inner>
       <Archive>
-        <h1>Archives</h1>
+        <motion.h1
+          ref={ref3}
+          variants={textAnim}
+          initial="hidden"
+          animate={isInView3 ? "visible" : "hidden"}
+          role="heading"
+        >
+          <SplitText variants={textChild} string="Archives" />
+        </motion.h1>
         <Inner>
           <ArchiveHoverWrapper>
             {archiveData.map((archive, index) => {
@@ -192,75 +213,6 @@ const Grid = styled.div`
   }
 `;
 
-const GridItem = styled.div`
-  width: 27.5vw;
-  position: relative;
-  margin: 2rem 0;
-
-  @media (max-width: ${breakpoints.l}px) {
-    width: 40vw;
-    margin: 2rem 0;
-    margin-bottom: 0;
-  }
-  @media (max-width: ${breakpoints.s}px) {
-    width: 95%;
-    margin: 2rem auto;
-  }
-`;
-
-const ItemText = styled.div`
-  text-align: center;
-  margin: 2rem 0;
-  h5 {
-    color: var(--color-black);
-  }
-  small {
-    color: var(--color-grey);
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  :hover {
-    a {
-      text-decoration: underline;
-    }
-  }
-  @media (max-width: ${breakpoints.m}px) {
-    margin: 1rem 0;
-  }
-  @media (max-width: ${breakpoints.s}px) {
-    margin-bottom: 4rem;
-    h5 {
-      font-size: 27px;
-    }
-  }
-`;
-
-const ItemImage = styled.div`
-  aspect-ratio: 512/732;
-  display: block;
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 5px;
-  cursor: pointer;
-
-  .imageHover {
-    transition: var(--transition-image);
-    transform-origin: center;
-  }
-  :hover {
-    .imageHover {
-      /* scale: 1.05; */
-      transform: scale(1.025);
-
-      filter: blur(2px) saturate(110%) brightness(0.8);
-    }
-  }
-`;
-
 const Archive = styled.section`
   z-index: 1;
   position: relative;
@@ -281,7 +233,7 @@ const Archive = styled.section`
 const ArchiveHoverWrapper = styled.div`
   position: relative;
   z-index: 1;
-
+  padding-bottom: 5rem;
   #archive-item {
     position: relative;
     z-index: 2;
