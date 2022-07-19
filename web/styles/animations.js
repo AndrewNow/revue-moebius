@@ -19,7 +19,20 @@ export const textAnimSlow = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.25,
+    },
+  },
+  hidden: {
+    opacity: 0,
+  },
+};
+
+export const textAnimSlowDelayed = {
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.25,
+      delayChildren: .6,
     },
   },
   hidden: {
@@ -95,7 +108,7 @@ export const gridChild = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 2,
+      duration: 1,
       ease: "easeInOut",
     },
   },

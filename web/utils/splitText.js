@@ -10,6 +10,7 @@ const SplitText = ({
   variantChild,
   initial,
   animate,
+  isParagraphText,
 }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:._.:*~*:._.:*~*
   //
@@ -26,7 +27,6 @@ const SplitText = ({
   // to look nice.
   //
   //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:._.:*~*:._.:*~*
-  console.log(animate)
   return (
     <>
       <Desktop initial={initial} variants={variantParent} animate={animate}>
@@ -50,7 +50,7 @@ const SplitText = ({
               key={index}
               aria-hidden="true"
               style={{
-                paddingRight: "4px",
+                paddingRight: isParagraphText ? "0px" : "4px",
                 position: "relative",
               }}
             >

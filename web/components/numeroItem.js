@@ -75,7 +75,7 @@ const ItemText = styled.div`
   @media (max-width: ${breakpoints.s}px) {
     margin-bottom: 4rem;
     h5 {
-      font-size: 27px;
+      font-size: 20px;
     }
   }
 `;

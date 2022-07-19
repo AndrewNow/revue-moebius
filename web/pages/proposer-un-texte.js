@@ -3,21 +3,35 @@ import { client } from "../lib/sanity/client";
 import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
 import { proposerUnTexteQuery } from "../lib/sanity/proposerUnTexteQuery";
 import BlockContent from "@sanity/block-content-to-react";
-import Image from "next/image";
-import { useInView } from "react-intersection-observer";
+import { useInView as useIntersectionInView } from "react-intersection-observer";
 import { useRef, useCallback } from "react";
 import { breakpoints } from "../utils/breakpoints";
+import SplitText from "../utils/splitText";
+import { motion, useInView } from "framer-motion";
+import {
+  textAnim,
+  textAnimFast,
+  textAnimFastest,
+  textAnimSlow,
+  textAnimSlower,
+  textChild,
+} from "../styles/animations";
 
 const ProposerUnTexte = ({ pageData }) => {
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
+  //
+  //  ref logic for sidebar nav
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
   const options = {
     root: null,
     threshold: 0.2,
     triggerOnce: false,
   };
 
-  const [headerRef, headerIsVisible] = useInView(options);
-  const [submissionRef, submissionIsVisible] = useInView(options);
-  const [editionRef, editionIsVisible] = useInView(options);
+  const [headerRef, headerIsVisible] = useIntersectionInView(options);
+  const [submissionRef, submissionIsVisible] = useIntersectionInView(options);
+  const [editionRef, editionIsVisible] = useIntersectionInView(options);
 
   const headerScrollRef = useRef(null);
   const submissionScrollRef = useRef(null);
@@ -52,6 +66,22 @@ const ProposerUnTexte = ({ pageData }) => {
     ref.current.scrollIntoView({
       behavior: "smooth",
     });
+
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
+  //
+  //  Text animation refs
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+    amount: 0.5,
+  });
+  const ref2 = useRef(null);
+  const isInView2 = useInView(ref2, {
+    once: true,
+    amount: 0.5,
+  });
 
   return (
     <Wrapper>
@@ -96,8 +126,27 @@ const ProposerUnTexte = ({ pageData }) => {
       <MainContent>
         <Landing>
           <LandingText>
-            <h1 ref={headerRefs}>{pageData.title}</h1>
-            <p>{pageData.description}</p>
+            <h1 ref={headerRefs} role="heading">
+              <SplitText
+                string={pageData.title}
+                variantParent={textAnim}
+                variantParentMobile={textAnimSlow}
+                variantChild={textChild}
+                initial="hidden"
+                animate="visible"
+              />
+            </h1>
+            <p role="heading">
+              <SplitText
+                string={pageData.description}
+                variantParent={textAnimFast}
+                variantParentMobile={textAnimFastest}
+                variantChild={textChild}
+                initial="hidden"
+                animate="visible"
+                isParagraphText={true}
+              />
+            </p>
           </LandingText>
         </Landing>
         <Protocols>
@@ -112,13 +161,45 @@ const ProposerUnTexte = ({ pageData }) => {
             </ImageWrapper> */}
           </ProtocolImage>
           <ProtocolText>
-            <Protocol>
-              <h3 ref={submissionRefs}>Protocole de soumission</h3>
-              <BlockContent blocks={pageData.soumission} />
+            <Protocol ref={ref}>
+              <h3 ref={submissionRefs} role="heading">
+                <SplitText
+                  string="Protocole de soumission"
+                  variantParent={textAnimFast}
+                  variantParentMobile={textAnimFastest}
+                  variantChild={textChild}
+                  initial="hidden"
+                  animate={isInView ? "visible" : "hidden"}
+                  isParagraphText={true}
+                />
+              </h3>
+              <motion.span
+                variants={textChild}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+              >
+                <BlockContent blocks={pageData.soumission} />
+              </motion.span>
             </Protocol>
-            <Protocol>
-              <h3 ref={editionRefs}>Protocole d’édition</h3>
-              <BlockContent blocks={pageData.edition} />
+            <Protocol ref={ref2}>
+              <h3 ref={editionRefs} role="heading">
+                <SplitText
+                  string="Protocole d’édition"
+                  variantParent={textAnimFast}
+                  variantParentMobile={textAnimFastest}
+                  variantChild={textChild}
+                  initial="hidden"
+                  animate={isInView2 ? "visible" : "hidden"}
+                  isParagraphText={true}
+                />
+              </h3>
+              <motion.span
+                variants={textChild}
+                initial="hidden"
+                animate={isInView2 ? "visible" : "hidden"}
+              >
+                <BlockContent blocks={pageData.edition} />
+              </motion.span>
             </Protocol>
           </ProtocolText>
         </Protocols>

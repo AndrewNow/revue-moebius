@@ -61,31 +61,22 @@ const Numeros = ({ numeroData, archiveData }) => {
     <>
       <Header>
         <Inner>
-          <motion.h1
-            ref={ref}
-            variants={textAnim}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            role="heading"
-          >
+          <h1 ref={ref} role="heading">
             <SplitText
               string="Survolez tous les numéros de la revue."
               variantParent={textAnim}
               variantParentMobile={textAnimSlow}
               variantChild={textChild}
               initial="hidden"
-              animate={isInView2 ? "visible" : "hidden"}
+              animate={isInView ? "visible" : "hidden"}
             />
-            {/* <motion.span variants={textChild}> */}
-            {/* Survolez tous les numéros de la revue. */}
-            {/* </motion.span> */}
-          </motion.h1>
+          </h1>
         </Inner>
       </Header>
       <Inner>
         <Content>
           <ContentHeader>
-            <motion.h1 ref={ref2} role="heading">
+            <h1 ref={ref2} role="heading">
               <SplitText
                 string="Numéros récents"
                 variantParent={textAnim}
@@ -94,7 +85,7 @@ const Numeros = ({ numeroData, archiveData }) => {
                 initial="hidden"
                 animate={isInView2 ? "visible" : "hidden"}
               />
-            </motion.h1>
+            </h1>
           </ContentHeader>
           <Grid>
             {numeroData.map((numero) => {
@@ -104,15 +95,19 @@ const Numeros = ({ numeroData, archiveData }) => {
         </Content>
       </Inner>
       <Archive>
-        <motion.h1
+        <h1
           ref={ref3}
-          variants={textAnim}
-          initial="hidden"
-          animate={isInView3 ? "visible" : "hidden"}
           role="heading"
         >
-          {/* <SplitText variants={textChild} string="Archives" /> */}
-        </motion.h1>
+          <SplitText
+            string="Archives"
+            variantParent={textAnim}
+            variantParentMobile={textAnimSlower}
+            variantChild={textChild}
+            initial="hidden"
+            animate={isInView3 ? "visible" : "hidden"}
+          />
+        </h1>
         <Inner>
           <ArchiveHoverWrapper>
             {archiveData.map((archive, index) => {
@@ -187,7 +182,6 @@ const Header = styled.header`
     h1 {
       max-width: none;
       width: 100%;
-      text-align: center;
     }
   }
 `;

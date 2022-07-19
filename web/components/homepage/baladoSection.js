@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
 import { Inner } from "../../pages/index";
-import { motion, useInView } from "framer-motion";
-import { textAnim, textChild } from "../../styles/animations";
+import { useInView } from "framer-motion";
+import { textAnim, textChild, textAnimSlow } from "../../styles/animations";
 import SplitText from "../../utils/splitText";
 
 const BaladoSection = ({ baladoData }) => {
@@ -25,15 +25,16 @@ const BaladoSection = ({ baladoData }) => {
             blurDataURL={baladoData.lqip}
           />
           <Text>
-            <motion.h1
-              ref={ref}
-              variants={textAnim}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              role="heading"
-            >
-              <SplitText variants={textChild} string="Mœbius balado" />
-            </motion.h1>
+            <h1 ref={ref} role="heading">
+              <SplitText
+                string="Mœbius balado"
+                variantParent={textAnim}
+                variantParentMobile={textAnimSlow}
+                variantChild={textChild}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+              />
+            </h1>
             <p>
               Découvrez le balado qui accompagne la publication de chacun de nos
               numéros.

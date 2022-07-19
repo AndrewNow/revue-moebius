@@ -39,32 +39,21 @@ const Landing = ({ data }) => {
       </ImageWrapper>
       <TextWrapper>
         <motion.small variants={textChild}>Mœbius n°{data.number}</motion.small>
-        <motion.h1
-          variants={textAnimSlow}
-          initial="hidden"
-          animate="visible"
-          role="heading"
-        >
-          <motion.span variants={textChild}>Consultez</motion.span>
-          <motion.span variants={textChild}> notre</motion.span>
-          <motion.span variants={textChild}> dernier</motion.span>
-          <motion.span variants={textChild}> numéro</motion.span>
-          {/* <SplitText
-            variants={textChild}
+        <h1 role="heading">
+          <SplitText
             string="Consultez notre dernier numéro"
-          /> */}
-        </motion.h1>
-        <motion.span
-          // initial={{ opacity: 0 }}
-          // animate={{ opacity: 1 }}
-          // transition={{ delay: 0.5 }}
-        >
-          <Link href={`/numeros/${data.slug}`}>
-            <InternalLink>
-              <small>En savoir plus</small>
-            </InternalLink>
-          </Link>
-        </motion.span>
+            variantParent={textAnim}
+            variantParentMobile={textAnimSlow}
+            variantChild={textChild}
+            initial="hidden"
+            animate="visible"
+          />
+        </h1>
+        <Link href={`/numeros/${data.slug}`}>
+          <InternalLink>
+            <small>En savoir plus</small>
+          </InternalLink>
+        </Link>
       </TextWrapper>
     </LandingSection>
   );

@@ -1,3 +1,4 @@
+import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { client } from "../../lib/sanity/client";
 import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
@@ -5,12 +6,26 @@ import { baladoListQuery } from "../../lib/sanity/baladoQuery";
 import { Inner } from "../index";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { breakpoints } from "../../utils/breakpoints";
 import ConvertDateToString from "../../utils/convertDateToString";
+import SplitText from "../../utils/splitText";
+import {
+  textAnim,
+  textAnimSlow,
+  textChild,
+  textAnimFast,
+  textAnimFastest,
+  gridAnim,
+  gridChild,
+} from "../../styles/animations";
+import { motion, useInView } from "framer-motion";
 
 export default function Balado({ baladoData }) {
-  // logic for getting the most recent balado for the header section
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~**~*:._.:*~*:._.:*~*
+  //
+  //  Logic for getting the most recent balado for the header section
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~**~*:._.:*~*:._.:*~*
   const [featuredBalado, setFeaturedBalado] = useState(baladoData);
 
   useEffect(() => {
@@ -19,6 +34,23 @@ export default function Balado({ baladoData }) {
   }, []);
 
   const featured = featuredBalado[0];
+
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
+  //
+  //  Text animation refs
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+    amount: 0.25,
+  });
+
+  const ref2 = useRef(null);
+  const isInView2 = useInView(ref2, {
+    once: true,
+  });
+
   return (
     <Main>
       <Inner>
@@ -28,8 +60,24 @@ export default function Balado({ baladoData }) {
               <Tag>
                 <small>Nouveauté</small>
               </Tag>
-              <h1>
-                Mœbius n°{featured?.number},<br /> {featured?.title}
+              <h1 role="heading">
+                <SplitText
+                  string={`Mœbius n°${featured?.number},`}
+                  variantParent={textAnim}
+                  variantParentMobile={textAnimSlow}
+                  variantChild={textChild}
+                  initial="hidden"
+                  animate="visible"
+                />
+                <br />
+                <SplitText
+                  string={featured?.title}
+                  variantParent={textAnim}
+                  variantParentMobile={textAnimSlow}
+                  variantChild={textChild}
+                  initial="hidden"
+                  animate="visible"
+                />
               </h1>
               <Subtitle>
                 <ConvertDateToString data={featured?.publishedAt} />
@@ -54,21 +102,44 @@ export default function Balado({ baladoData }) {
             </FeaturedImageWrapper>
           </FeaturedBalado>
         )}
-        <Header>
-          <h4>Mœbius-balado</h4>
-          <p>
-            Afin de poursuivre la mission de Mœbius de favoriser la réflexion
+        <Header ref={ref}>
+          <h4 role="heading">
+            <SplitText
+              string="Mœbius-balado"
+              variantParent={textAnim}
+              variantParentMobile={textAnimFast}
+              variantChild={textChild}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              isParagraphText={true}
+            />
+          </h4>
+          <p role="heading">
+            <SplitText
+              string="Afin de poursuivre la mission de Mœbius de favoriser la réflexion
             sur la création littéraire, Mœbius-balado accompagnera chacune des
             parutions de la revue. Mœbius-balado est maintenant disponible sur
             plusieurs plateformes ! Écoutez-le aussi sur Spotify, Anchor et plus
             encore. Merci à Littérature québécoise mobile qui rend possible ce
-            projet. Bonne écoute!
+            projet. Bonne écoute!"
+              variantParent={textAnimFastest}
+              variantParentMobile={textAnimFastest}
+              variantChild={textChild}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              isParagraphText={true}
+            />
           </p>
         </Header>
-        <Grid>
+        <Grid
+          ref={ref2}
+          variants={gridAnim}
+          initial="hidden"
+          animate={isInView2 ? "visible" : "hidden"}
+        >
           {baladoData.map((balado) => {
             return (
-              <Item key={balado._id}>
+              <Item key={balado._id} variants={gridChild}>
                 <ImageWrapper>
                   <Image
                     src={balado.imageUrl}
@@ -194,6 +265,7 @@ const FeaturedImageWrapper = styled.div`
 const Header = styled.header`
   padding: 5rem 0;
   border-bottom: 1px solid var(--color-black);
+  border-top: 1px solid var(--color-black);
 
   h4,
   p {
@@ -204,14 +276,11 @@ const Header = styled.header`
   }
   h4 {
     margin: 2rem auto;
+    margin-top: 0;
   }
 
   @media (max-width: ${breakpoints.l}px) {
-    border-top: 1px solid var(--color-black);
     padding: 3rem 0;
-    h4 {
-      margin-top: 0;
-    }
     p {
       width: 100%;
     }
@@ -223,7 +292,7 @@ const Main = styled.div`
   transition: var(--transition);
 `;
 
-const Grid = styled.div`
+const Grid = styled(motion.div)`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 2rem;
@@ -240,7 +309,7 @@ const Grid = styled.div`
   }
 `;
 
-const Item = styled.div`
+const Item = styled(motion.div)`
   text-align: center;
   max-width: 500px;
   small,

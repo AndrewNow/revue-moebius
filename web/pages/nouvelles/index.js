@@ -9,6 +9,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { breakpoints } from "../../utils/breakpoints";
 import Article from "../../components/nouvellesFilter/article";
 import Filter from "../../components/nouvellesFilter/filter";
+import SplitText from "../../utils/splitText";
+import {
+  textAnim,
+  textChild,
+  textAnimSlow,
+  textAnimFast,
+} from "../../styles/animations";
 
 export default function Nouvelles({ nouvellesData, categories }) {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._
@@ -78,16 +85,31 @@ export default function Nouvelles({ nouvellesData, categories }) {
     },
   };
 
-  console.log(filtered);
-
   return (
     <Main>
       <Header>
         <HeaderText>
-          <h1>Nouvelles et événements</h1>
+          <h1>
+            <SplitText
+              string="Nouvelles et événements"
+              variantParent={textAnim}
+              variantParentMobile={textAnimSlow}
+              variantChild={textChild}
+              initial="hidden"
+              animate="visible"
+            />
+          </h1>
           <p>
-            Retrouvez les captations d'événements passés aussi bien que les
-            toutes dernières nouvelles de la revue.
+            <SplitText
+              string="Retrouvez les captations d'événements passés aussi bien que les
+            toutes dernières nouvelles de la revue."
+              variantParent={textAnimFast}
+              variantParentMobile={textAnim}
+              variantChild={textChild}
+              initial="hidden"
+              animate="visible"
+              isParagraphText={true}
+            />
           </p>
         </HeaderText>
       </Header>

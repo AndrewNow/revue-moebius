@@ -7,7 +7,13 @@ import { motion, useInView } from "framer-motion";
 import { breakpoints } from "../../utils/breakpoints";
 import ConvertDateToString from "../../utils/convertDateToString";
 import SplitText from "../../utils/splitText";
-import { textAnim, textChild, gridAnim, gridChild } from "../../styles/animations";
+import {
+  textAnim,
+  textAnimSlow,
+  textChild,
+  gridAnim,
+  gridChild,
+} from "../../styles/animations";
 
 const NumerosSection = ({ numerosData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -71,15 +77,16 @@ const NumerosSection = ({ numerosData }) => {
     <>
       <Inner>
         <Header>
-          <motion.h3
-            ref={ref}
-            variants={textAnim}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            role="heading"
-          >
-            <SplitText variants={textChild} string="Numéros" />
-          </motion.h3>
+          <h3 ref={ref} role="heading">
+            <SplitText
+              string="Numéros"
+              variantParent={textAnim}
+              variantParentMobile={textAnimSlow}
+              variantChild={textChild}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+            />
+          </h3>
           <small>
             <Link href="/numeros">voir tous les numéros →</Link>
           </small>

@@ -4,7 +4,7 @@ import BlockContent from "@sanity/block-content-to-react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { breakpoints } from "../../utils/breakpoints";
 import { Chevron } from "../../svg/icons";
-import { textAnim, textChild } from "../../styles/animations";
+import { textAnim, textChild, textAnimSlow } from "../../styles/animations";
 import SplitText from "../../utils/splitText";
 
 const MapFAQ = ({ data }) => {
@@ -70,15 +70,16 @@ const Faq = ({ faqData }) => {
 
   return (
     <Wrapper>
-      <motion.h2
-        ref={ref}
-        variants={textAnim}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        role="heading"
-      >
-        <SplitText variants={textChild} string="Questions fréquemment posées" />
-      </motion.h2>
+      <h2 ref={ref} role="heading">
+        <SplitText
+          string="Questions fréquemment posées"
+          variantParent={textAnim}
+          variantParentMobile={textAnimSlow}
+          variantChild={textChild}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        />
+      </h2>
       <QuestionWrapper>
         <MapFAQ data={data} />
       </QuestionWrapper>

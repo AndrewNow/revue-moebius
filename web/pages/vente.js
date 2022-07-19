@@ -13,6 +13,7 @@ import { motion, useInView } from "framer-motion";
 import {
   textAnim,
   textChild,
+  textAnimSlow,
   textAnimFast,
   gridAnim,
 } from "../styles/animations";
@@ -24,25 +25,27 @@ const Vente = ({ numeros, abonnements }) => {
   return (
     <>
       <Header>
-        <motion.h1
-          variants={textAnim}
-          initial="hidden"
-          animate="visible"
-          role="heading"
-        >
-          <SplitText variants={textChild} string="Vente" />
-        </motion.h1>
-        <motion.p
-          variants={textAnimFast}
-          initial="hidden"
-          animate="visible"
-          role="heading"
-        >
+        <h1 role="heading">
           <SplitText
-            variants={textChild}
-            string="Procurez-vous le tout dernier (ou le tout premier) numéro de la revue."
+            string="Vente"
+            variantParent={textAnim}
+            variantParentMobile={textAnimSlow}
+            variantChild={textChild}
+            initial="hidden"
+            animate="visible"
           />
-        </motion.p>
+        </h1>
+        <p role="heading">
+          <SplitText
+            string="Procurez-vous le tout dernier (ou le tout premier) numéro de la revue."
+            variantParent={textAnimFast}
+            variantParentMobile={textAnim}
+            variantChild={textChild}
+            initial="hidden"
+            animate="visible"
+            isParagraphText={true}
+          />
+        </p>
       </Header>
       <Content>
         <Inner>

@@ -5,7 +5,13 @@ import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
 import { breakpoints } from "../../utils/breakpoints";
 import { motion, useInView } from "framer-motion";
 import SplitText from "../../utils/splitText";
-import { textAnim, textChild, textAnimFastest } from "../../styles/animations";
+import {
+  textAnim,
+  textChild,
+  textAnimFastest,
+  textAnimSlow,
+  textAnimFast,
+} from "../../styles/animations";
 
 const Abonnements = ({ abonnements }) => {
   const { addItem } = useShoppingCart();
@@ -62,29 +68,30 @@ const Abonnements = ({ abonnements }) => {
         <MainFlex>
           <Left>
             <Header>
-              <motion.h1
-                ref={ref}
-                variants={textAnim}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-                role="heading"
-              >
-                <SplitText variants={textChild} string="Abonnements" />
-              </motion.h1>
-              <motion.p
-                ref={ref}
-                variants={textAnimFastest}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-                role="heading"
-              >
-                <SplitText variants={textChild}
+              <h1 ref={ref} role="heading">
+                <SplitText
+                  string="Abonnements"
+                  variantParent={textAnim}
+                  variantParentMobile={textAnimSlow}
+                  variantChild={textChild}
+                  initial="hidden"
+                  animate={isInView ? "visible" : "hidden"}
+                />
+              </h1>
+              <p role="heading">
+                <SplitText
                   string="La revue Mœbius est publiée à raison de quatre numéros par
                   année. Les taxes et frais postaux sont inclus dans les tarifs.
                   Pour l’abonnement numérique, veuillez vous rendre sur le site
                   web de la SODEP ou sur Érudit."
+                  variantParent={textAnimFast}
+                  variantParentMobile={textAnim}
+                  variantChild={textChild}
+                  initial="hidden"
+                  animate={isInView ? "visible" : "hidden"}
+                  isParagraphText={true}
                 />
-              </motion.p>
+              </p>
             </Header>
             <AddProductWrapper>
               <h3>

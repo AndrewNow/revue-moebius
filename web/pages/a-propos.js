@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { client } from "../lib/sanity/client";
 import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
-// import Image from "next/image";
 import { useInView as useIntersectionInView } from "react-intersection-observer";
 import { useRef, useCallback } from "react";
 import { equipeQuery } from "../lib/sanity/equipeQuery";
@@ -14,8 +13,8 @@ import { motion, useInView } from "framer-motion";
 import {
   textAnim,
   textChild,
-  textAnimFast,
-  textAnimFastest,
+  textAnimSlow,
+  textAnimSlowDelayed,
 } from "../styles/animations";
 
 //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -122,6 +121,12 @@ const APropos = ({ equipeData }) => {
 
   const ref2 = useRef(null);
   const isInView2 = useInView(ref2, { once: true });
+
+  const ref3 = useRef(null);
+  const isInView3 = useInView(ref3, { once: true });
+
+  const ref4 = useRef(null);
+  const isInView4 = useInView(ref4, { once: true });
   return (
     <Wrapper>
       <Sidebar style={{ zIndex: modalOpen ? 0 : 6 }}>
@@ -177,65 +182,70 @@ const APropos = ({ equipeData }) => {
       <MainContent>
         <Landing style={{ zIndex: modalOpen ? 0 : 6 }}>
           <LandingText ref={ref}>
-            <motion.h1
-              ref={headerRefs}
-              variants={textAnim}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              role="heading"
-            >
-              <SplitText variants={textChild} string="La revue Mœbius;" />
-            </motion.h1>
-            <motion.h1
-              ref={headerRefs}
-              variants={textAnim}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              role="heading"
-            >
+            <h1 ref={headerRefs} role="heading">
               <SplitText
-                variants={textChild}
-                string="Présentation et historique"
+                string="La revue Mœbius;"
+                variantParent={textAnim}
+                variantParentMobile={textAnimSlow}
+                variantChild={textChild}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
               />
-            </motion.h1>
+            </h1>
+            <h1 ref={headerRefs} role="heading">
+              <SplitText
+                string="Présentation et historique"
+                variantParent={textAnim}
+                variantParentMobile={textAnimSlowDelayed}
+                variantChild={textChild}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+              />
+            </h1>
             <LandingParagraph>
               <motion.p
                 ref={ref2}
-                variants={textAnimFastest}
+                variants={textAnim}
                 initial="hidden"
                 animate={isInView2 ? "visible" : "hidden"}
                 role="heading"
               >
-                Mœbius est une revue littéraire québécoise fondée en 1977 par
-                Pierre DesRuisseaux, Raymond Martin et Guy Melançon. Elle a été
-                dirigée par Robert Giroux pendant trente-cinq ans. La revue
-                paraît quatre fois par année.
-                <br />
-                <br />
-                Valorisant la perméabilité des tons et des genres littéraires,
-                Mœbius publie des textes en prose et en vers, ainsi que des
-                textes navigant entre l’essai et la critique littéraire, dans un
-                esprit d’hybridation et de mise en scène de la subjectivité.
-                Mœbius réunit des textes d’écrivain·e·s accompli·e·s à ceux
-                d’auteur·e·s moins connu·e·s.
+                <motion.span aria-hidden="true" variants={textChild}>
+                  Mœbius est une revue littéraire québécoise fondée en 1977 par
+                  Pierre DesRuisseaux, Raymond Martin et Guy Melançon. Elle a
+                  été dirigée par Robert Giroux pendant trente-cinq ans. La
+                  revue paraît quatre fois par année.
+                  <br />
+                  <br />
+                  Valorisant la perméabilité des tons et des genres littéraires,
+                  Mœbius publie des textes en prose et en vers, ainsi que des
+                  textes navigant entre l’essai et la critique littéraire, dans
+                  un esprit d’hybridation et de mise en scène de la
+                  subjectivité. Mœbius réunit des textes d’écrivain·e·s
+                  accompli·e·s à ceux d’auteur·e·s moins connu·e·s.
+                  <br />
+                  <br />
+                </motion.span>
               </motion.p>
               <motion.p
                 ref={ref2}
-                variants={textAnimFastest}
+                variants={textAnim}
                 initial="hidden"
                 animate={isInView2 ? "visible" : "hidden"}
                 role="heading"
               >
-                Avec le cent cinquante-deuxième numéro qui paraît en février
-                2017, et à l’occasion de la formation d’une toute nouvelle
-                équipe et d’un changement de direction, l’identité visuelle et
-                les thèmes de Mœbius sont réinventés.
-                <br />
-                <br />
-                Les couvertures sont désormais signées par un·e artiste en
-                résidence pour l’année. Quant aux thèmes, ils sont maintenant
-                présentés sous la forme d’une citation tirée d’une œuvre
-                littéraire.
+                <motion.span aria-hidden="true" variants={textChild}>
+                  Avec le cent cinquante-deuxième numéro qui paraît en février
+                  2017, et à l’occasion de la formation d’une toute nouvelle
+                  équipe et d’un changement de direction, l’identité visuelle et
+                  les thèmes de Mœbius sont réinventés.
+                  <br />
+                  <br />
+                  Les couvertures sont désormais signées par un·e artiste en
+                  résidence pour l’année. Quant aux thèmes, ils sont maintenant
+                  présentés sous la forme d’une citation tirée d’une œuvre
+                  littéraire.
+                </motion.span>
               </motion.p>
             </LandingParagraph>
           </LandingText>
@@ -288,8 +298,17 @@ const APropos = ({ equipeData }) => {
           </CursorMedia>
         </TeamWrapper>
         <ContactUsWrapper>
-          <ContactUsInner>
-            <h2 ref={contactUsRefs}>Contactez-nous</h2>
+          <ContactUsInner ref={ref3}>
+            <h2 ref={contactUsRefs}>
+              <SplitText
+                string="Contactez-nous"
+                variantParent={textAnim}
+                variantParentMobile={textAnimSlow}
+                variantChild={textChild}
+                initial="hidden"
+                animate={isInView3 ? "visible" : "hidden"}
+              />
+            </h2>
 
             <ContactFlex style={{ zIndex: modalOpen ? 0 : 6 }}>
               <small>
@@ -323,9 +342,17 @@ const APropos = ({ equipeData }) => {
           </ContactUsInner>
         </ContactUsWrapper>
         <Distribution ref={diffusionRefs} style={{ zIndex: modalOpen ? 0 : 6 }}>
-          <h2>
-            Diffusion <br />
-            et distribution
+          <h2 ref={ref4}>
+            <SplitText
+              string=" Diffusion et distribution"
+              variantParent={textAnim}
+              variantParentMobile={textAnimSlow}
+              variantChild={textChild}
+              initial="hidden"
+              animate={isInView4 ? "visible" : "hidden"}
+            />
+            {/* Diffusion <br />
+            et distribution */}
           </h2>
           <p>
             Mœbius est subventionnée par le Conseil des arts du Canada, le
@@ -613,12 +640,14 @@ const Distribution = styled.div`
   padding: 3rem 0;
   border-top: 1px solid var(--color-black);
   border-bottom: 1px solid var(--color-black);
+  
   h2,
   p {
     color: var(--color-black);
   }
 
   h2 {
+    max-width: 60%;
     font-family: "Editorial-Italic";
     color: var(--color-black);
   }
@@ -632,9 +661,27 @@ const Distribution = styled.div`
       margin-left: 20%;
     }
   }
+  @media (max-width: ${breakpoints.xl}px) {
+    h2 {
+      max-width: 60%;
+    }
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    h2 {
+      max-width: 55%;
+    }
+  }
   @media (max-width: ${breakpoints.m}px) {
+    h2 {
+      max-width: 50%;
+    }
     p {
       margin-left: 0;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    h2 {
+      max-width: 60%;
     }
   }
 `;

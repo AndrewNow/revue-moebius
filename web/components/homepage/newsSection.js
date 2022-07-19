@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
 import ConvertDateToString from "../../utils/convertDateToString";
-import { textAnim, textChild } from "../../styles/animations";
 import { motion, useInView } from "framer-motion";
+import { textAnim, textChild, textAnimSlow } from "../../styles/animations";
 import SplitText from "../../utils/splitText";
 
 const NewsSection = ({ newsFeed, featuredArticle }) => {
@@ -15,15 +15,16 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
   return (
     <>
       <Header>
-        <motion.h3
-          ref={ref}
-          variants={textAnim}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          role="heading"
-        >
-          <SplitText variants={textChild} string="Nouvelles" />
-        </motion.h3>
+        <h3 ref={ref} role="heading">
+          <SplitText
+            string="Nouvelles"
+            variantParent={textAnim}
+            variantParentMobile={textAnimSlow}
+            variantChild={textChild}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          />
+        </h3>
         <small>
           <Link href="/nouvelles">voir tous les nouvelles →</Link>
         </small>
