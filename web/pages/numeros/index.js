@@ -13,7 +13,6 @@ import { motion, useInView } from "framer-motion";
 import SplitText from "../../utils/splitText";
 import { textChild, textAnimFast, textAnim } from "../../styles/animations";
 
-
 //.:*~*:._.:*~*:._.:*~*:._.:*~*
 //
 //  Get mouse pos for archive section
@@ -63,10 +62,9 @@ const Numeros = ({ numeroData, archiveData }) => {
             animate={isInView ? "visible" : "hidden"}
             role="heading"
           >
-            <SplitText
-              variants={textChild}
-              string="Survolez tous les numéros de la revue."
-            />
+            <motion.span variants={textChild}>
+              Survolez tous les numéros de la revue.
+            </motion.span>
           </motion.h1>
         </Inner>
       </Header>

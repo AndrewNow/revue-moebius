@@ -206,24 +206,18 @@ const APropos = ({ equipeData }) => {
                 animate={isInView2 ? "visible" : "hidden"}
                 role="heading"
               >
-                <SplitText
-                  string="Mœbius est une revue littéraire québécoise fondée en 1977 par
+                Mœbius est une revue littéraire québécoise fondée en 1977 par
                 Pierre DesRuisseaux, Raymond Martin et Guy Melançon. Elle a été
                 dirigée par Robert Giroux pendant trente-cinq ans. La revue
-                paraît quatre fois par année."
-                  variants={textChild}
-                />
+                paraît quatre fois par année.
                 <br />
                 <br />
-                <SplitText
-                  string="Valorisant la perméabilité des tons et des genres littéraires,
+                Valorisant la perméabilité des tons et des genres littéraires,
                 Mœbius publie des textes en prose et en vers, ainsi que des
                 textes navigant entre l’essai et la critique littéraire, dans un
                 esprit d’hybridation et de mise en scène de la subjectivité.
                 Mœbius réunit des textes d’écrivain·e·s accompli·e·s à ceux
-                d’auteur·e·s moins connu·e·s."
-                  variants={textChild}
-                />
+                d’auteur·e·s moins connu·e·s.
               </motion.p>
               <motion.p
                 ref={ref2}
@@ -232,22 +226,16 @@ const APropos = ({ equipeData }) => {
                 animate={isInView2 ? "visible" : "hidden"}
                 role="heading"
               >
-                <SplitText
-                  string="Avec le cent cinquante-deuxième numéro qui paraît en février
+                Avec le cent cinquante-deuxième numéro qui paraît en février
                 2017, et à l’occasion de la formation d’une toute nouvelle
                 équipe et d’un changement de direction, l’identité visuelle et
-                les thèmes de Mœbius sont réinventés."
-                  variants={textChild}
-                />
+                les thèmes de Mœbius sont réinventés.
                 <br />
                 <br />
-                <SplitText
-                  string="Les couvertures sont désormais signées par un·e artiste en
+                Les couvertures sont désormais signées par un·e artiste en
                 résidence pour l’année. Quant aux thèmes, ils sont maintenant
                 présentés sous la forme d’une citation tirée d’une œuvre
-                littéraire."
-                  variants={textChild}
-                />
+                littéraire.
               </motion.p>
             </LandingParagraph>
           </LandingText>
