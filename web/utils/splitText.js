@@ -5,19 +5,11 @@ import styled from "styled-components";
 const SplitText = ({ string, variants }) => {
   return string.split("").map((char, index) => {
     return (
-      <Span variants={variants} key={index} aria-hidden="true">
+      <span variants={variants} key={index} aria-hidden="true">
         {char}
-      </Span>
+      </span>
     );
   });
 };
 
 export default SplitText;
-
-const Span = styled(motion.span)`
-
-  &:after {
-    content: "";
-    padding: 1px;
-  }
-`;
