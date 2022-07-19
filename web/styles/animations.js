@@ -15,6 +15,18 @@ export const textAnim = {
     opacity: 0,
   },
 };
+export const textChild = {
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 1,
+    },
+  },
+  hidden: {
+    opacity: 0,
+  },
+};
+
 export const textAnimFast = {
   visible: {
     opacity: 1,
@@ -31,17 +43,6 @@ export const textAnimFastest = {
     opacity: 1,
     transition: {
       staggerChildren: 0.002,
-    },
-  },
-  hidden: {
-    opacity: 0,
-  },
-};
-export const textChild = {
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 1,
     },
   },
   hidden: {
