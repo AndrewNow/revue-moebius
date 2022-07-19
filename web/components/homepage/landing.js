@@ -4,7 +4,7 @@ import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
 import { motion } from "framer-motion";
 import SplitText from "../../utils/splitText";
-import { textAnim, textChild } from "../../styles/animations";
+import { textAnim, textAnimSlow, textChild } from "../../styles/animations";
 
 const Landing = ({ data }) => {
   return (
@@ -40,7 +40,7 @@ const Landing = ({ data }) => {
       <TextWrapper>
         <motion.small variants={textChild}>Mœbius n°{data.number}</motion.small>
         <motion.h1
-          variants={textAnim}
+          variants={textAnimSlow}
           initial="hidden"
           animate="visible"
           role="heading"
@@ -55,9 +55,9 @@ const Landing = ({ data }) => {
           /> */}
         </motion.h1>
         <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          // initial={{ opacity: 0 }}
+          // animate={{ opacity: 1 }}
+          // transition={{ delay: 0.5 }}
         >
           <Link href={`/numeros/${data.slug}`}>
             <InternalLink>
