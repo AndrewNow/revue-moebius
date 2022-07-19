@@ -45,10 +45,14 @@ const Landing = ({ data }) => {
           animate="visible"
           role="heading"
         >
-          <SplitText
+          <motion.span variants={textChild}>Consultez</motion.span>
+          <motion.span variants={textChild}> notre</motion.span>
+          <motion.span variants={textChild}> dernier</motion.span>
+          <motion.span variants={textChild}> numéro</motion.span>
+          {/* <SplitText
             variants={textChild}
             string="Consultez notre dernier numéro"
-          />
+          /> */}
         </motion.h1>
         <motion.span
           initial={{ opacity: 0 }}
