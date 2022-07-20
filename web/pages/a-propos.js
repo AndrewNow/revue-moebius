@@ -194,7 +194,7 @@ const APropos = ({ equipeData }) => {
             </h1>
             <h1 ref={headerRefs} role="heading">
               <SplitText
-                string="Présentation et historique"
+                string="présentation et historique"
                 variantParent={textAnim}
                 variantParentMobile={textAnimSlowDelayed}
                 variantChild={textChild}

@@ -18,6 +18,7 @@ import NewsSection from "../components/homepage/newsSection";
 import NumerosSection from "../components/homepage/numerosSection";
 import BaladoSection from "../components/homepage/baladoSection";
 import Faq from "../components/homepage/faq";
+import AProposSection from "../components/homepage/aProposSection";
 
 export default function Home({
   latestNumero,
@@ -39,6 +40,8 @@ export default function Home({
       </Inner>
       <NumerosSection numerosData={numerosData} />
       <BaladoSection baladoData={baladoData} />
+
+      <AProposSection />
       <Faq faqData={faqData} />
     </Main>
   );

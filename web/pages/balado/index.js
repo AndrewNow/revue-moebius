@@ -121,7 +121,7 @@ export default function Balado({ baladoData }) {
             parutions de la revue. Mœbius-balado est maintenant disponible sur
             plusieurs plateformes ! Écoutez-le aussi sur Spotify, Anchor et plus
             encore. Merci à Littérature québécoise mobile qui rend possible ce
-            projet. Bonne écoute!"
+            projet. Bonne écoute !"
               variantParent={textAnimFastest}
               variantParentMobile={textAnimFastest}
               variantChild={textChild}

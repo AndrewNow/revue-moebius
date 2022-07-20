@@ -49,7 +49,8 @@ const ResultPage = () => {
               data?.payment_intent.charges.data[0].billing_details.name.split(
                 " "
               )[0]
-            }{" "}
+            }
+            !
           </h3>
           <p>
             Un courriel de confirmation va être envoyé à{" "}
@@ -79,10 +80,11 @@ const Reward = styled.span`
   margin: 0 auto;
   position: absolute;
   top: 0;
-`
+`;
 
 const Wrapper = styled.div`
   min-height: 80vh;
+  background-color: var(--color-blue);
   display: flex;
   justify-content: center;
   align-items: center;
