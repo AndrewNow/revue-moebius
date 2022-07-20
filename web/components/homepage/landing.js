@@ -35,7 +35,7 @@ const Landing = ({ data }) => {
             height={733}
             quality={70}
           />
-        </SupportingImage>
+        </SupportingImage> 
       </ImageWrapper>
       <TextWrapper>
         <motion.small variants={textChild}>Mœbius n°{data.number}</motion.small>

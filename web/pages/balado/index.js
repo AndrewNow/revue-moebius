@@ -51,6 +51,7 @@ export default function Balado({ baladoData }) {
     once: true,
   });
 
+
   return (
     <Main>
       <Inner>
@@ -62,7 +63,7 @@ export default function Balado({ baladoData }) {
               </Tag>
               <h1 role="heading">
                 <SplitText
-                  string={`Mœbius n°${featured?.number},`}
+                  string={`Mœbius n°${featured?.number}, `}
                   variantParent={textAnim}
                   variantParentMobile={textAnimSlow}
                   variantChild={textChild}
@@ -88,17 +89,19 @@ export default function Balado({ baladoData }) {
                 </Link>
               </EpisodeLink>
             </FeaturedText>
-            <FeaturedImageWrapper>
-              <Image
-                src={featured.imageUrl}
-                alt={`Image couverture pour Moebius-Balado ${featured.number}`}
-                width={700}
-                height={700}
-                quality={95}
-                priority={true}
-                placeholder="blur"
-                blurDataURL={featured.lqip}
-              />
+            <FeaturedImageWrapper style={{ background: featured?.color }}>
+              <ColorWrapper>
+                <Image
+                  src={featured?.imageUrl}
+                  alt={`Image couverture pour Moebius-Balado ${featured?.number}`}
+                  width={700}
+                  height={700}
+                  quality={95}
+                  priority={true}
+                  placeholder="blur"
+                  blurDataURL={featured.lqip}
+                />
+              </ColorWrapper>
             </FeaturedImageWrapper>
           </FeaturedBalado>
         )}
@@ -138,19 +141,23 @@ export default function Balado({ baladoData }) {
           animate={isInView2 ? "visible" : "hidden"}
         >
           {baladoData.map((balado) => {
+
+            console.log(balado.color)
             return (
               <Item key={balado._id} variants={gridChild}>
-                <ImageWrapper>
-                  <Image
-                    src={balado.imageUrl}
-                    alt={`Image couverture pour Moebius-Balado ${balado.number}`}
-                    height={500}
-                    width={500}
-                    quality={90}
-                    placeholder="blur"
-                    blurDataURL={balado.lqip}
-                    // layout="fill"
-                  />
+                <ImageWrapper style={{ background: balado.color }}>
+                  <ColorWrapper>
+                    <Image
+                      src={balado.imageUrl}
+                      alt={`Image couverture pour Moebius-Balado ${balado.number}`}
+                      height={500}
+                      width={500}
+                      quality={90}
+                      placeholder="blur"
+                      blurDataURL={balado.lqip}
+                      // layout="fill"
+                    />
+                  </ColorWrapper>
                 </ImageWrapper>
                 <small>
                   <ConvertDateToString data={balado?.publishedAt} />
@@ -217,6 +224,11 @@ const FeaturedText = styled.div`
     max-width: none;
     text-align: center;
   }
+  @media (max-width: ${breakpoints.m}px) {
+    br {
+      display: none;
+    }
+  }
 `;
 
 const Subtitle = styled.small`
@@ -251,6 +263,9 @@ const FeaturedImageWrapper = styled.div`
   position: relative;
   max-width: 45%;
   margin-left: 2rem;
+  aspect-ratio: 1/1;
+  display: grid;
+  place-items: center;
 
   @media (max-width: ${breakpoints.l}px) {
     max-width: 60%;
@@ -258,8 +273,17 @@ const FeaturedImageWrapper = styled.div`
     margin-top: 2rem;
   }
   @media (max-width: ${breakpoints.m}px) {
+    width: 80%;
     max-width: none;
   }
+  @media (max-width: ${breakpoints.s}px) {
+    width: 90%;
+  }
+`;
+
+const ColorWrapper = styled.div`
+  width: 90%;
+  height: 90%;
 `;
 
 const Header = styled.header`
@@ -324,13 +348,20 @@ const Item = styled(motion.div)`
     color: var(--color-black);
     margin: 1rem auto;
   }
+  @media (max-width: ${breakpoints.s}px) {
+    width: 90%;
+    small {
+      margin-bottom: 0;
+    }
+  }
 `;
 
 const ImageWrapper = styled.div`
   width: 100%;
   aspect-ratio: 1/1;
-  display: block;
   position: relative;
+  display: grid;
+  place-items: center;
 `;
 
 const EpisodeLink = styled.div`

@@ -1,14 +1,16 @@
 import { useRef } from "react";
-import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
-import { client } from "../lib/sanity/client";
+import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
+import { client } from "../../lib/sanity/client";
 import styled from "styled-components";
-import { numeroListQuery } from "../lib/sanity/numeroQuery";
-import { Inner } from "./index";
-import Products from "../components/products";
-import { breakpoints } from "../utils/breakpoints";
-import Abonnements from "../components/abonnements/abonnements";
-import { abonnementQuery } from "../lib/sanity/abonnementQuery";
-import SplitText from "../utils/splitText";
+import { numeroListQuery } from "../../lib/sanity/numeroQuery";
+import { boutiqueListQuery } from "../../lib/sanity/boutiqueQuery";
+import Boutique from "../../components/boutique/boutique";
+import { Inner } from "../index";
+import Products from "../../components/products";
+import { breakpoints } from "../../utils/breakpoints";
+import Abonnements from "../../components/abonnements/abonnements";
+import { abonnementQuery } from "../../lib/sanity/abonnementQuery";
+import SplitText from "../../utils/splitText";
 import { motion, useInView } from "framer-motion";
 import {
   textAnim,
@@ -16,9 +18,9 @@ import {
   textAnimSlow,
   textAnimFast,
   gridAnim,
-} from "../styles/animations";
+} from "../../styles/animations";
 
-const Vente = ({ numeros, abonnements }) => {
+const Vente = ({ numeros, abonnements, boutique }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -60,6 +62,7 @@ const Vente = ({ numeros, abonnements }) => {
         </Inner>
       </Content>
       <Abonnements abonnements={abonnements} />
+      {boutique.length && <Boutique boutique={boutique} />}
     </>
   );
 };
@@ -70,11 +73,13 @@ export async function getStaticProps() {
   const footerLogos = await client.fetch(footerLogoQuery);
   const numeros = await client.fetch(numeroListQuery);
   const abonnements = await client.fetch(abonnementQuery);
+  const boutique = await client.fetch(boutiqueListQuery);
   return {
     props: {
       footerLogos,
       numeros,
       abonnements,
+      boutique,
     },
     revalidate: 10,
   };

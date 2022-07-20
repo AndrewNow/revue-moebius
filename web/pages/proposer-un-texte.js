@@ -8,6 +8,7 @@ import { useRef, useCallback } from "react";
 import { breakpoints } from "../utils/breakpoints";
 import SplitText from "../utils/splitText";
 import { motion, useInView } from "framer-motion";
+import Link from "next/link";
 import {
   textAnim,
   textAnimFast,
@@ -147,19 +148,26 @@ const ProposerUnTexte = ({ pageData }) => {
                 isParagraphText={true}
               />
             </p>
+            <motion.span
+              variants={textChild}
+              initial="hidden"
+              animate="visible"
+            >
+              {pageData.slug ? (
+                <Link href={`/nouvelles/${pageData.slug}`}>
+                  <InternalLink>
+                    <small>Consultez l'appel</small>
+                  </InternalLink>
+                </Link>
+              ) : (
+                <DisabledLink>
+                  <small>Appel fermé</small>
+                </DisabledLink>
+              )}
+            </motion.span>
           </LandingText>
         </Landing>
         <Protocols>
-          <ProtocolImage>
-            {/* <ImageWrapper>
-              <Image
-                src={pageData.imageUrl}
-                alt="Image décoratif"
-                layout="fill"
-                objectFit="contain"
-              />
-            </ImageWrapper> */}
-          </ProtocolImage>
           <ProtocolText>
             <Protocol ref={ref}>
               <h3 ref={submissionRefs} role="heading">
@@ -303,7 +311,6 @@ const LandingText = styled.div`
   }
   h1 {
     scroll-margin: 120px;
-    width: 75%;
     margin-bottom: 2rem;
   }
   p {
@@ -312,12 +319,67 @@ const LandingText = styled.div`
   @media (max-width: ${breakpoints.m}px) {
     margin: 2rem;
     h1 {
-      width: 100%;
       margin-bottom: 1rem;
     }
     p {
       width: 90%;
     }
+  }
+`;
+
+const InternalLink = styled.div`
+  display: inline-block;
+  border-radius: 10px;
+  margin: 2rem 0;
+  padding: 0.75rem 4rem;
+  border: 1px solid var(--color-black);
+  color: var(--color-black);
+  background: var(--color-white);
+  transition: var(--transition);
+  user-select: none;
+
+  cursor: pointer;
+  small {
+    transition: var(--transition);
+  }
+
+  :hover {
+    small {
+      color: var(--static-black);
+    }
+    border: 1px solid transparent;
+    background: var(--color-turquoise);
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    background: var(--color-turquoise);
+    small {
+      color: var(--static-black);
+    }
+    border: 1px solid transparent;
+  }
+`;
+const DisabledLink = styled.div`
+  display: inline-block;
+  border-radius: 10px;
+  margin: 2rem 0;
+  padding: 0.75rem 4rem;
+  border: 1px solid var(--color-black);
+  color: var(--color-black);
+  background: #ffffad70;
+  transition: var(--transition);
+  user-select: none;
+  cursor: not-allowed;
+  border: 1px solid var(--color-grey) !important;
+  background: var(--color-cream);
+  small {
+    color: var(--color-grey);
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    small {
+      color: var(--static-black);
+    }
+    border: 1px solid transparent;
   }
 `;
 
@@ -378,27 +440,27 @@ const Protocol = styled.div`
     }
   }
 `;
-const ProtocolImage = styled.div`
-  display: none;
-  // No image for now.
-  position: sticky;
-  top: 10rem;
-  height: 650px;
-  width: 35%;
-  @media (max-width: ${breakpoints.l}px) {
-    position: relative;
-    width: 100%;
-    top: 0;
-    height: auto;
-  }
-`;
+// const ProtocolImage = styled.div`
+//   display: none;
+//   // No image for now.
+//   position: sticky;
+//   top: 10rem;
+//   height: 650px;
+//   width: 35%;
+//   @media (max-width: ${breakpoints.l}px) {
+//     position: relative;
+//     width: 100%;
+//     top: 0;
+//     height: auto;
+//   }
+// `;
 
-const ImageWrapper = styled.div`
-  aspect-ratio: 4/5;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 5px;
-`;
+// const ImageWrapper = styled.div`
+//   aspect-ratio: 4/5;
+//   width: 100%;
+//   overflow: hidden;
+//   border-radius: 5px;
+// `;
 
 const OtherInfo = styled.div`
   background-color: var(--color-yellow);

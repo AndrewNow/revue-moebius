@@ -84,7 +84,7 @@ export const numeroReadMoreQuery = groq`
 `;
 
 export const allPurchasableProductQuery = groq`
-   *[_type in ["numero", "abonnements"]] | order(number desc) {
+   *[_type in ["numero", "abonnements", "boutique"]] | order(number desc) {
     _id,  
     "id": _id,
     "name": title,

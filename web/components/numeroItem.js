@@ -19,7 +19,7 @@ const NumeroItem = ({ numero }) => {
         </Link>
       </ItemImage>
       <ItemText>
-        <small>n°{numero.number}</small>
+        {numero.number && <small>n°{numero.number}</small>}
         <h5>
           <Link href={`/numeros/${numero.slug}`}>{numero.title}</Link>
         </h5>
@@ -34,7 +34,6 @@ const GridItem = styled.div`
   width: 27.5vw;
   position: relative;
   margin: 2rem 0;
-
 
   @media (max-width: ${breakpoints.l}px) {
     width: 40vw;
@@ -97,8 +96,7 @@ const ItemImage = styled.div`
     .imageHover {
       /* scale: 1.05; */
       transform: scale(1.025);
-
-      filter: blur(2px) saturate(110%) brightness(0.8);
+      filter: blur(2px) saturate(110%);
     }
   }
 `;

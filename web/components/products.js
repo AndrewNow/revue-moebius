@@ -10,7 +10,6 @@ const Products = ({ products }) => {
   const { addItem } = useShoppingCart();
 
   return products.map((product) => {
-    //
     // Format the {product} to only take the fields that Stripe will need.
     // https://stripe.com/docs/api/products/create
     //
@@ -116,7 +115,7 @@ const ImageWrapper = styled.div`
   :hover {
     .imageHover {
       transform: scale(1.025);
-      filter: blur(2px) saturate(110%) brightness(0.9);
+      filter: blur(2px) saturate(110%);
     }
   }
 
@@ -193,14 +192,13 @@ const TextWrapper = styled.div`
   }
 `;
 
-const Button = styled.button`
-  background: none;
+export const Button = styled.button`
   display: inline-block;
   margin: 0 auto;
   border: 1px solid var(--color-black) !important;
   border-radius: 10px;
   padding: 1rem;
-
+  user-select: none;
   transition: var(--transition);
 
   background: #ffffad70;
@@ -255,7 +253,7 @@ const Button = styled.button`
     padding: 0.6rem 0.5rem;
     border-radius: 5px;
     max-width: 260px;
-    
+
     small {
       color: var(--static-black);
       width: 80%;

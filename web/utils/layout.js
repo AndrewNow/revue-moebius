@@ -66,6 +66,9 @@ const Main = styled.main`
     h1 {
       font-size: 100px;
     }
+    h2 {
+      font-size: 75px;
+    }
     h3 {
       font-size: 50px;
     }
@@ -121,9 +124,6 @@ const Main = styled.main`
     }
     h3 {
       font-size: 44px;
-    }
-    h4 {
-      font-size: 28px;
     }
     h5 {
       font-size: 20px;

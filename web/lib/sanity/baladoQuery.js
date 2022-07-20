@@ -6,6 +6,11 @@ export const baladoQuery = groq`
     _id,  
     title, 
     number,
+    discussion,
+    interviews,
+    animation,
+    color, 
+    textcolor,
     "imageUrl": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
@@ -20,6 +25,8 @@ export const baladoListQuery = groq`
  *[_type == "balado"] | order(number desc) {
     _id,  
     title, 
+    color, 
+    textcolor,
     number,
     "imageUrl": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
@@ -32,7 +39,9 @@ export const baladoListQuery = groq`
 export const featuredBaladoQuery = groq`
  *[_type == "balado"] | order(number desc) {
     _id,  
-    title, 
+    title,
+    color, 
+    textcolor, 
     number,
     embed,
     "imageUrl": mainImage.asset->url,

@@ -32,12 +32,24 @@ export default function Numeros({ numero, readMoreData }) {
   const { addItem } = useShoppingCart();
 
   const stripeFormattedProduct = {
+    // client side data (for cartSummary)
+    name: numero?.title,
     title: numero?.title,
     price: numero?.price,
     number: numero?.number,
     currency: numero?.currency,
     image: numero?.imageUrl,
     id: numero?._id,
+    // server side data (for Stripe)
+    product_data: {
+      name: numero?.title,
+      images: [numero?.image],
+    },
+    price_data: {
+      currency: "cad",
+      unit_amount: numero?.price,
+      unit_amount_decimal: numero?.price,
+    },
   };
 
   return (

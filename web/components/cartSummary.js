@@ -122,8 +122,10 @@ export default function CartSummary({ setOpenCart, openCart }) {
                             alt="Image couverture"
                             width={69}
                             height={100}
-                            quality={20}
+                            quality={30}
                             placeholder="blur"
+                            objectFit="contain"
+                            objectPosition="top"
                             blurDataURL={blurDataAnimation(69, 100)}
                           />
                         ) : (
@@ -133,7 +135,7 @@ export default function CartSummary({ setOpenCart, openCart }) {
                         )}
                       </ImageWrapper>
                       <LineItemTitle>
-                        <small>{item.name}</small>
+                        {item.name && <small>{item.name}</small>}
                         <ButtonGroup>
                           <Button
                             onClick={() => decrementItem(item.id)}
@@ -157,8 +159,8 @@ export default function CartSummary({ setOpenCart, openCart }) {
                         }}
                       >
                         {formatCurrencyString({
-                          value: item.price,
-                          currency: item.currency,
+                          value: item?.price,
+                          currency: "cad",
                         })}
                       </small>
                     </LineItem>

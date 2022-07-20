@@ -5,7 +5,7 @@ export const proposerUnTexteQuery = groq`
     _id,
     title,
     description,
-    linkToNews,
+    'slug': linkToNews->slug.current,
     soumission,
     edition,
     "imageUrl": mainImage.asset->url,

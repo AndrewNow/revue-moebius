@@ -77,6 +77,11 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background: #F8F8A5;
+  color: var(--static-black);
+}
+
 body,
 main {
   margin: 0;

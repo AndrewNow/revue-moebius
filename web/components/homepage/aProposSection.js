@@ -6,8 +6,8 @@ const AProposSection = () => {
     <Wrapper>
       <TextWrapper>
         <h1>
-          La revue moebius <br />
-          Présentation et historique
+          La revue moebius; <br />
+          présentation et historique
         </h1>
         <p>
           Mœbius est une revue littéraire québécoise fondée en 1977 par Pierre
@@ -23,16 +23,19 @@ const AProposSection = () => {
 export default AProposSection;
 
 const gradient = keyframes`
-    0%{background-position:0% 19%}
-    50%{background-position:100% 82%}
-    100%{background-position:0% 19%}
+    0%{background-position:0% 45%}
+    50%{background-position:100% 56%}
+    100%{background-position:0% 45%}
 `;
 
 const Wrapper = styled.div`
   width: 90%;
   margin: 5rem auto;
   height: 700px;
-  border-radius: 50px;
+  border-radius: 40px;
+
+  display: grid;
+  place-items: center;
 
   background: linear-gradient(283deg, #98657a, #789090);
   background-size: 400% 400%;
@@ -46,7 +49,4 @@ const TextWrapper = styled.div`
   width: 80%;
   margin: 2rem auto;
   color: var(--static-cream);
-  background: #ffffff20;
-  backdrop-filter: blur(20px);
-  border: 1px solid red;
 `;
