@@ -6,7 +6,10 @@ import { breakpoints } from "../../utils/breakpoints";
 import { AlgoliaSearch } from "../../lib/algolia/algoliaSearch";
 import NavLinks from "./navLinks";
 
-const NavMenu = ({ isOpen, setOpen }) => {
+const NavMenu = ({ isOpen, setOpen, mediaKitData }) => {
+  
+  console.log(mediaKitData)
+  
   const openModal = {
     hidden: {
       y: "-100%",
@@ -123,7 +126,11 @@ const NavMenu = ({ isOpen, setOpen }) => {
               exit="hidden"
             />
             <BottomInner>
-              <small>Privacy policy</small>
+              <small>
+                {/* <a href={`${}?dl=`}> */}
+                  Téléchargez le kit média
+                {/* </a> */}
+              </small>
               <small>REVUE MOEBIEUS ©{new Date().getFullYear()}</small>
             </BottomInner>
           </Bottom>
@@ -276,6 +283,16 @@ const BottomInner = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  a {
+    color: var(--static-cream);
+    text-decoration: none;
+  }
+  :hover {
+    a {
+      text-decoration: underline;
+    }
+  }
   @media (max-width: ${breakpoints.m}px) {
     small {
       font-size: 12px !important;

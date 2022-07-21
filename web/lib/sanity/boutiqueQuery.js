@@ -15,7 +15,7 @@ export const boutiqueQuery = groq`
     price,
     available,
     publishedAt,
-    body,
+    body, 
     currency
   }
 `;

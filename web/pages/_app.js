@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Cart>
         <Layout>
-          <Navbar />
+          <Navbar mediaKitData={pageProps.mediaKitData} />
           <Component {...pageProps} />
           <Footer logos={pageProps.footerLogos} />
         </Layout>
@@ -19,3 +19,13 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+
+export async function getStaticProps() {
+  const mediaKitData = await client.fetch(footerLogoQuery);
+
+  return {
+    props: {
+      mediaKitData,
+    },
+  };
+}

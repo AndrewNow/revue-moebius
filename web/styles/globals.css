@@ -82,6 +82,10 @@
   color: var(--static-black);
 }
 
+body {
+  -webkit-text-size-adjust: 100%;
+}
+
 body,
 main {
   margin: 0;

@@ -12,7 +12,7 @@ import { useShoppingCart } from "use-shopping-cart";
 import { breakpoints } from "../../utils/breakpoints";
 import { CartIcon } from "../../svg/icons";
 
-const Navbar = () => {
+const Navbar = ({ mediaKitData }) => {
   const [isOpen, setOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
 
@@ -109,6 +109,7 @@ const Navbar = () => {
           </AnimatePresence>
         </RightSideWrapper>
         <NavMenu
+          mediaKitData={mediaKitData}
           isOpen={isOpen}
           setOpen={setOpen}
           style={{ zIndex: "1001", position: "relative" }}

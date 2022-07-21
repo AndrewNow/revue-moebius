@@ -6,5 +6,6 @@ export const footerLogoQuery = groq`
       ...,
       "imageUrl": partnerLogo.asset->url,
       "lqip": partnerLogo.asset->metadata.lqip,
+      "mediaKitPDF": mediaKit.asset->url
     }
   }`;
