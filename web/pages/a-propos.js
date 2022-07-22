@@ -43,9 +43,8 @@ export const useMousePosition = () => {
   return mousePos;
 };
 
-const APropos = ({ equipeData }) => {
+const APropos = ({ equipeData, footerLogos }) => {
   const { x, y } = useMousePosition();
-
   const [activeIndex, setActiveIndex] = useState(-1);
   const [activeCategory, setActiveCategory] = useState(-1);
   const [modalOpen, setModalOpen] = useState(false);
@@ -316,7 +315,9 @@ const APropos = ({ equipeData }) => {
                 <br /> H2J 1M6 <br /> Canada
                 <br />
                 <br />
-                Télécharger le kit média
+                <a href={`${footerLogos[0].mediaKitPDF}?dl=`}>
+                  Téléchargez le kit média
+                </a>
               </small>
               <div>
                 <small>Direction générale</small>
@@ -640,7 +641,7 @@ const Distribution = styled.div`
   padding: 3rem 0;
   border-top: 1px solid var(--color-black);
   border-bottom: 1px solid var(--color-black);
-  
+
   h2,
   p {
     color: var(--color-black);

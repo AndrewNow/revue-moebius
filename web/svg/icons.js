@@ -175,3 +175,36 @@ export const SearchIcon = () => {
     </svg>
   );
 }
+
+export const IncrementIcon = () => {
+  return (
+    <svg
+      width="9"
+      height="9"
+      viewBox="0 0 9 9"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4.19219 8.00793V4.66393H0.992188V3.57593H4.19219V0.231934H5.40819V3.57593H8.60819V4.66393H5.40819V8.00793H4.19219Z"
+        fill="#353535"
+      />
+    </svg>
+  );
+}
+export const DecrementIcon = () => {
+  return (
+    <svg
+      width="6"
+      height="2"
+      viewBox="0 0 6 2"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0.480469 1.80787V0.463867H5.12047V1.80787H0.480469Z"
+        fill="#353535"
+      />
+    </svg>
+  );
+}

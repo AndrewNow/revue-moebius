@@ -7,9 +7,6 @@ import { AlgoliaSearch } from "../../lib/algolia/algoliaSearch";
 import NavLinks from "./navLinks";
 
 const NavMenu = ({ isOpen, setOpen, mediaKitData }) => {
-  
-  console.log(mediaKitData)
-  
   const openModal = {
     hidden: {
       y: "-100%",
@@ -127,9 +124,9 @@ const NavMenu = ({ isOpen, setOpen, mediaKitData }) => {
             />
             <BottomInner>
               <small>
-                {/* <a href={`${}?dl=`}> */}
+                <a href={`${mediaKitData[0].mediaKitPDF}?dl=`}>
                   Téléchargez le kit média
-                {/* </a> */}
+                </a>
               </small>
               <small>REVUE MOEBIEUS ©{new Date().getFullYear()}</small>
             </BottomInner>

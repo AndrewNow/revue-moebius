@@ -79,7 +79,14 @@ const Footer = ({ logos }) => {
       </MainContent>
       <Bottom>
         <BottomInner>
-          <small>Privacy policy</small>
+          <small>
+            <a
+              href={`${logos[0].mediaKitPDF}?dl=`}
+              className="mediaKit"
+            >
+              Téléchargez le kit média
+            </a>
+          </small>
           <small>REVUE MOEBIEUS ©{new Date().getFullYear()}</small>
         </BottomInner>
       </Bottom>
@@ -269,6 +276,16 @@ const BottomInner = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .mediaKit {
+    text-decoration: none;
+    color: var(--static-cream);
+  }
+
+  .mediaKit :hover {
+    text-decoration: underline;
+  }
+
   @media (max-width: ${breakpoints.m}px) {
     width: 90%;
     margin: 2rem;

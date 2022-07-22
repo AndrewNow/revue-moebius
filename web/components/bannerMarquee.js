@@ -7,9 +7,9 @@ const BannerMarquee = ({ data }) => {
   return (
     <Wrapper>
       <Marquee gradientWidth={0} speed={55}>
-        <Link href={`${data.link}`}>
-          <Small>{data.title}</Small>
-        </Link>
+        <Small>
+          <Link href={`${data.link}`}>{data.title}</Link>
+        </Small>
       </Marquee>
     </Wrapper>
   );
@@ -45,11 +45,10 @@ const Wrapper = styled.div`
   } */
 `;
 
-
 const Small = styled.small`
   font-size: 16px;
 
   @media (max-width: ${breakpoints.m}px) {
     font-size: 14px;
   }
-`
+`;

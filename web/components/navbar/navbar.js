@@ -13,6 +13,7 @@ import { breakpoints } from "../../utils/breakpoints";
 import { CartIcon } from "../../svg/icons";
 
 const Navbar = ({ mediaKitData }) => {
+  console.log(mediaKitData);
   const [isOpen, setOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
 

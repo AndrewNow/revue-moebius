@@ -7,7 +7,7 @@ import Link from "next/link.js";
 import { breakpoints } from "../utils/breakpoints.js";
 import { motion } from "framer-motion";
 import { blurDataAnimation } from "../utils/blurDataURLTools.js";
-import { BookIcon } from "../svg/icons.js";
+import { BookIcon, DecrementIcon, IncrementIcon } from "../svg/icons.js";
 
 export default function CartSummary({ setOpenCart, openCart }) {
   //setting up some React states for our cart
@@ -141,14 +141,14 @@ export default function CartSummary({ setOpenCart, openCart }) {
                             onClick={() => decrementItem(item.id)}
                             aria-label="Retirer un article du panier."
                           >
-                            -
+                            <DecrementIcon />
                           </Button>
                           <small>{item.quantity}</small>
                           <Button
                             onClick={() => addItem(item)}
                             aria-label="Ajouter un article au panier."
                           >
-                            +
+                            <IncrementIcon />
                           </Button>
                         </ButtonGroup>
                       </LineItemTitle>
@@ -491,6 +491,8 @@ const ButtonGroup = styled.div`
 `;
 
 const Button = styled.button`
+  display: grid;
+  place-items: center;
   aspect-ratio: 1/1;
   width: 22px;
   height: 22px;

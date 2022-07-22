@@ -40,7 +40,6 @@ export default function Home({
       </Inner>
       <NumerosSection numerosData={numerosData} />
       <BaladoSection baladoData={baladoData} />
-
       <AProposSection />
       <Faq faqData={faqData} />
     </Main>
