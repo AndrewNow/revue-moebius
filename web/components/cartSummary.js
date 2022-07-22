@@ -494,8 +494,9 @@ const Button = styled.button`
   display: grid;
   place-items: center;
   aspect-ratio: 1/1;
-  width: 22px;
-  height: 22px;
+  min-width: 22px;
+  padding: 0;
+  height: auto;
   border-radius: 100%;
   border: 1px solid var(--color-black) !important;
   background: none;
