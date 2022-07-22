@@ -495,6 +495,7 @@ const Button = styled.button`
   place-items: center;
   aspect-ratio: 1/1;
   min-width: 22px;
+  width: 25px;
   padding: 0;
   height: auto;
   border-radius: 100%;
