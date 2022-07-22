@@ -183,6 +183,7 @@ const TextWrapper = styled.div`
     justify-content: space-between;
     h4 {
       margin-top: 0;
+      font-size: 25px;
     }
   }
   @media (max-width: ${breakpoints.xs}px) {

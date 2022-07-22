@@ -125,6 +125,9 @@ const Main = styled.main`
     h3 {
       font-size: 44px;
     }
+    h4 {
+      font-size: 25px;
+    }
     h5 {
       font-size: 20px;
     }
@@ -136,7 +139,7 @@ const Main = styled.main`
       font-size: 18px;
     }
     small {
-      font-size: 14px;
+      font-size: 13px;
     }
   }
   @media (max-width: ${breakpoints.xs}px) {
