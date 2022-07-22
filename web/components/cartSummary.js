@@ -491,11 +491,14 @@ const ButtonGroup = styled.div`
 `;
 
 const Button = styled.button`
+  position: relative;
   display: grid;
   place-items: center;
   aspect-ratio: 1/1;
   min-width: 22px;
+  min-height: 22px;
   width: 25px;
+  height: 25px;
   padding: 0;
   height: auto;
   border-radius: 100%;
@@ -503,7 +506,10 @@ const Button = styled.button`
   background: none;
   color: var(--color-black);
   transition: var(--hover-transition);
-  text-align: center;
+
+  svg {
+    margin: 0 auto;
+  }
   :hover {
     background: var(--color-yellow);
     color: var(--static-black);
