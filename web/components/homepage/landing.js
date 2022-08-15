@@ -11,31 +11,35 @@ const Landing = ({ data }) => {
     <LandingSection>
       <ImageWrapper>
         <MainImage>
-          <Image
-            priority
-            src={data.imageUrl}
-            alt={data.title}
-            placeholder="blur"
-            blurDataURL={data.lqip}
-            layout="intrinsic"
-            width={519}
-            height={733}
-            quality={90}
-          />
+          {data.imageUrl && (
+            <Image
+              priority
+              src={data.imageUrl}
+              alt={data.title}
+              placeholder="blur"
+              blurDataURL={data.lqip}
+              layout="intrinsic"
+              width={519}
+              height={733}
+              quality={90}
+            />
+          )}
         </MainImage>
         <SupportingImage>
-          <Image
-            priority
-            src={data.imageUrl}
-            alt={data.title}
-            placeholder="blur"
-            blurDataURL={data.lqip}
-            layout="intrinsic"
-            width={519}
-            height={733}
-            quality={70}
-          />
-        </SupportingImage> 
+          {data.imageUrl && (
+            <Image
+              priority
+              src={data.imageUrl}
+              alt={data.title}
+              placeholder="blur"
+              blurDataURL={data.lqip}
+              layout="intrinsic"
+              width={519}
+              height={733}
+              quality={70}
+            />
+          )}
+        </SupportingImage>
       </ImageWrapper>
       <TextWrapper>
         <motion.small variants={textChild}>Mœbius n°{data.number}</motion.small>

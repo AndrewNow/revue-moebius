@@ -13,19 +13,21 @@ const Article = ({ article }) => {
   return (
     <ArticlePost key={article._id + "article"} layout>
       <ImageWrapper>
-        <Link href={`/nouvelles/${article.slug}`}>
-          <Image
-            src={article.imageUrl}
-            alt="Thumbnail image"
-            quality={100}
-            width={852}
-            height={480}
-            layout="responsive"
-            placeholder="blur"
-            blurDataURL={blurDataAnimation(852, 480)}
-            className="imageHover"
-          />
-        </Link>
+        {article.imageUrl && (
+          <Link href={`/nouvelles/${article.slug}`}>
+            <Image
+              src={article.imageUrl}
+              alt="Thumbnail image"
+              quality={100}
+              width={852}
+              height={480}
+              layout="responsive"
+              placeholder="blur"
+              blurDataURL={blurDataAnimation(852, 480)}
+              className="imageHover"
+            />
+          </Link>
+        )}
         <Tag style={{ background: articleTag.color }}>
           <small>{articleTag.title}</small>
         </Tag>

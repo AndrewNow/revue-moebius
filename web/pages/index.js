@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
 import {
   numeroHomepageQuery,
-  numeroListQuery,
+  numeroHomepageCarouselQuery,
 } from "../lib/sanity/numeroQuery";
 import { bannerQuery } from "../lib/sanity/bannerQuery";
 import { featuredBaladoQuery } from "../lib/sanity/baladoQuery";
@@ -52,7 +52,7 @@ export async function getStaticProps() {
   const bannerData = await client.fetch(bannerQuery);
   const newsFeed = await client.fetch(nouvellesListHomepageQuery);
   const featuredArticle = await client.fetch(nouvellesFeaturedQuery);
-  const numerosData = await client.fetch(numeroListQuery);
+  const numerosData = await client.fetch(numeroHomepageCarouselQuery);
   const baladoData = await client.fetch(featuredBaladoQuery);
   const faqData = await client.fetch(faqQuery);
 

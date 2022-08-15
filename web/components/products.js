@@ -37,17 +37,19 @@ const Products = ({ products }) => {
     return (
       <Numero key={product._id} variants={gridChild}>
         <ImageWrapper>
-          <Link href={`/numeros/${product.slug}`}>
-            <Image
-              placeholder="blur"
-              blurDataURL={product.lqip}
-              src={product.imageUrl}
-              alt={`image couverture pour Moebius ${product.number}`}
-              layout="fill"
-              objectFit="cover"
-              className="imageHover"
-            />
-          </Link>
+          {product.imageUrl && (
+            <Link href={`/numeros/${product.slug}`}>
+              <Image
+                placeholder="blur"
+                blurDataURL={product.lqip}
+                src={product.imageUrl}
+                alt={`image couverture pour Moebius ${product.number}`}
+                layout="fill"
+                objectFit="cover"
+                className="imageHover"
+              />
+            </Link>
+          )}
         </ImageWrapper>
         <TextWrapper>
           <span>

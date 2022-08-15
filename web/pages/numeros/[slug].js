@@ -58,17 +58,22 @@ export default function Numeros({ numero, readMoreData }) {
         <Inner>
           <HeaderFlex>
             <HeaderImage>
-              <Image
-                src={numero?.imageUrl}
-                alt="Thumbnail image"
-                quality={100}
-                layout="fill"
-                placeholder="blur"
-                blurDataURL={numero?.lqip}
-              />
+              {numero.imageUrl && (
+                <Image
+                  src={numero?.imageUrl}
+                  alt="Thumbnail image"
+                  quality={100}
+                  layout="fill"
+                  placeholder="blur"
+                  blurDataURL={numero?.lqip}
+                />
+              )}
             </HeaderImage>
             <HeaderText>
-              <h5>Mœbius, N°{numero?.number}</h5>
+              <h5>
+                Mœbius, N°{numero?.number}
+                {numero?.secondaryNumber && `-${numero?.secondaryNumber}`}
+              </h5>
               <h1>{numero?.title}</h1>
               <small>
                 <ConvertDateToString data={numero?.publishedAt} />

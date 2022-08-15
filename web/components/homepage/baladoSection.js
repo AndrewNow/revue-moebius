@@ -16,14 +16,16 @@ const BaladoSection = ({ baladoData }) => {
     <>
       <Inner>
         <Wrapper>
-          <Image
-            src={baladoData.imageUrl}
-            width={600}
-            height={600}
-            quality={90}
-            placeholder="blur"
-            blurDataURL={baladoData.lqip}
-          />
+          {baladoData.imageUrl && (
+            <Image
+              src={baladoData.imageUrl}
+              width={600}
+              height={600}
+              quality={90}
+              placeholder="blur"
+              blurDataURL={baladoData.lqip}
+            />
+          )}
           <Text>
             <h1 ref={ref} role="heading">
               <SplitText

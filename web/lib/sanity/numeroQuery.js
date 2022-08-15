@@ -6,6 +6,7 @@ export const numeroQuery = groq`
     _id,  
     title, 
     number,
+    secondaryNumber,
     "imageUrl": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
@@ -28,10 +29,24 @@ export const numeroHomepageQuery = groq`
     _id,  
     title, 
     number,
+    secondaryNumber,
     "slug": slug.current,
     "imageUrl": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
   }[0]
+`;
+
+// Query 7 articles for the homepage Numeros carousel
+export const numeroHomepageCarouselQuery = groq`
+ *[_type == "numero"] | order(number desc)[0..7] {
+    _id,  
+    title, 
+    number,
+    publishedAt,
+    "slug": slug.current,
+    "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
+  }
 `;
 
 // Query for all numeros
@@ -44,6 +59,7 @@ export const numeroListQuery = groq`
     "name": title,
     title, 
     number,
+    secondaryNumber,
     "imageUrl": mainImage.asset->url,
     "image": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
@@ -67,6 +83,7 @@ export const numeroReadMoreQuery = groq`
     _id,  
     title, 
     number,
+    secondaryNumber,
     "imageUrl": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
@@ -90,6 +107,7 @@ export const allPurchasableProductQuery = groq`
     "name": title,
     title, 
     number,
+    secondaryNumber,
     "imageUrl": mainImage.asset->url,
     "image": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,

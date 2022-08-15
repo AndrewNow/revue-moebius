@@ -20,13 +20,15 @@ export default function Balado({ balado }) {
         <Inner>
           <BannerFlex>
             <ImageWrapper>
-              <Image
-                src={balado.imageUrl}
-                placeholder="blur"
-                blurDataURL={balado.lqip}
-                width={620}
-                height={620}
-              />
+              {balado.imageUrl && (
+                <Image
+                  src={balado.imageUrl}
+                  placeholder="blur"
+                  blurDataURL={balado.lqip}
+                  width={620}
+                  height={620}
+                />
+              )}
             </ImageWrapper>
             <BannerText>
               <h1 style={{ color: balado.textcolor }}>Mœbius-balado</h1>

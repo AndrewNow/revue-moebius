@@ -4,22 +4,30 @@ import Image from "next/image";
 import { breakpoints } from "../utils/breakpoints";
 
 const NumeroItem = ({ numero }) => {
+  console.log(numero);
   return (
     <GridItem>
       <ItemImage>
-        <Link href={`/numeros/${numero.slug}`}>
-          <Image
-            src={numero.imageUrl}
-            alt={`Image couveture pour ${numero.title}`}
-            layout="fill"
-            className="imageHover"
-            placeholder="blur"
-            blurDataURL={numero.lqip}
-          />
-        </Link>
+        {numero.imageUrl && (
+          <Link href={`/numeros/${numero.slug}`}>
+            <Image
+              src={numero.imageUrl}
+              alt={`Image couveture pour ${numero.title}`}
+              layout="fill"
+              className="imageHover"
+              placeholder="blur"
+              blurDataURL={numero.lqip}
+            />
+          </Link>
+        )}
       </ItemImage>
       <ItemText>
-        {numero.number && <small>n°{numero.number}</small>}
+        {numero.number && (
+          <small>
+            n°{numero.number}
+            {numero?.secondaryNumber && `-${numero?.secondaryNumber}`}
+          </small>
+        )}
         <h5>
           <Link href={`/numeros/${numero.slug}`}>{numero.title}</Link>
         </h5>

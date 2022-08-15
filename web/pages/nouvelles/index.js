@@ -261,7 +261,7 @@ const ArticleGrid = styled(motion.div)`
   }
 `;
 
-const LoadMoreButton = styled.button`
+export const LoadMoreButton = styled.button`
   display: block;
   margin: 5rem auto;
   padding: 1rem 5rem;

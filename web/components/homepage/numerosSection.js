@@ -99,17 +99,19 @@ const NumerosSection = ({ numerosData }) => {
           initial="hidden"
           animate={numerosInView ? "visible" : "hidden"}
         >
-          {numerosData.slice(0, 7).map((numero) => {
+          {numerosData.map((numero) => {
             return (
               <Numero key={numero._id} variants={gridChild}>
                 <ImageWrapper>
-                  <Image
-                    src={numero.imageUrl}
-                    alt={numero.title}
-                    layout="fill"
-                    placeholder="blur"
-                    blurDataURL={numero.lqip}
-                  />
+                  {numero.imageUrl && (
+                    <Image
+                      src={numero.imageUrl}
+                      alt={numero.title}
+                      layout="fill"
+                      placeholder="blur"
+                      blurDataURL={numero.lqip}
+                    />
+                  )}
                 </ImageWrapper>
                 <Text>
                   <small>

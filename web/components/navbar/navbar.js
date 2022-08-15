@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
 import Hamburger from "hamburger-react";
 import NavMenu from "./navMenu";
@@ -13,7 +13,6 @@ import { breakpoints } from "../../utils/breakpoints";
 import { CartIcon } from "../../svg/icons";
 
 const Navbar = ({ mediaKitData }) => {
-  console.log(mediaKitData);
   const [isOpen, setOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
 
@@ -38,17 +37,23 @@ const Navbar = ({ mediaKitData }) => {
   const [show, setShow] = useState(false);
   const [currentOffset, setCurrentOffset] = useState(0);
 
-  useEffect(() => {
-    if (typeof window !== `undefined`) {
-      window.onscroll = () => {
+  useLayoutEffect(() => {
+    const onScroll = () => {
+      if (typeof window !== `undefined`) {
         setCurrentOffset(window.scrollY);
         if (currentOffset < window.scrollY && window.scrollY >= 100) {
           setShow(false);
         } else if (currentOffset > window.scrollY || window.scrollY <= 100) {
           setShow(true);
         }
-      };
-    }
+      }
+    };
+    typeof window !== `undefined` &&
+      window.addEventListener("scroll", onScroll);
+    return () => {
+      typeof window !== `undefined` &&
+        window.removeEventListener("scroll", onScroll);
+    };
   }, [currentOffset, open]);
 
   return (

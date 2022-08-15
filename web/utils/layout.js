@@ -126,7 +126,7 @@ const Main = styled.main`
       font-size: 44px;
     }
     h4 {
-      font-size: 25px;
+      font-size: 30px;
     }
     h5 {
       font-size: 20px;

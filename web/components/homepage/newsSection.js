@@ -12,6 +12,8 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
+  const hasFeaturedArticle = featuredArticle ? featuredArticle : newsFeed[0];
+
   return (
     <>
       <Header>
@@ -32,31 +34,33 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
       <Articles>
         <FeaturedArticle>
           <FeaturedArticleImg>
-            <Link href={`/nouvelles/${featuredArticle.slug}`}>
-              <Image
-                src={featuredArticle.imageUrl}
-                alt={featuredArticle.title}
-                layout="fill"
-                objectFit="cover"
-                placeholder="blur"
-                blurDataURL={featuredArticle.lqip}
-                className="imageHover"
-              />
-            </Link>
+            {hasFeaturedArticle?.imageUrl && (
+              <Link href={`/nouvelles/${hasFeaturedArticle?.slug}`}>
+                <Image
+                  src={hasFeaturedArticle?.imageUrl}
+                  alt={hasFeaturedArticle?.title}
+                  layout="fill"
+                  objectFit="cover"
+                  placeholder="blur"
+                  blurDataURL={hasFeaturedArticle?.lqip}
+                  className="imageHover"
+                />
+              </Link>
+            )}
             <FeaturedTag
-              style={{ background: featuredArticle.category[0].color }}
+              style={{ background: hasFeaturedArticle?.category[0].color }}
             >
-              <small>{featuredArticle.category[0].title}</small>
+              <small>{hasFeaturedArticle?.category[0].title}</small>
             </FeaturedTag>
           </FeaturedArticleImg>
           <FeaturedArticleText>
             <h4>
-              <Link href={`/nouvelles/${featuredArticle.slug}`}>
-                {featuredArticle.title}
+              <Link href={`/nouvelles/${hasFeaturedArticle?.slug}`}>
+                {hasFeaturedArticle?.title}
               </Link>
             </h4>
             <small>
-              <ConvertDateToString data={featuredArticle.publishedAt} />
+              <ConvertDateToString data={hasFeaturedArticle?.publishedAt} />
             </small>
           </FeaturedArticleText>
         </FeaturedArticle>

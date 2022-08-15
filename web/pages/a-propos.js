@@ -632,6 +632,12 @@ const ContactFlex = styled.div`
     width: 100%;
     flex-direction: column-reverse;
   }
+
+  @media (max-width: ${breakpoints.s}px) {
+    h4 {
+      font-size: 25px;
+    }
+  }
 `;
 
 const Distribution = styled.div`

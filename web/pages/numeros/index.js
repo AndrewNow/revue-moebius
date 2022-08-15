@@ -18,6 +18,7 @@ import {
   textAnimSlow,
   textAnimSlower,
 } from "../../styles/animations";
+import { LoadMoreButton } from "../nouvelles";
 
 //.:*~*:._.:*~*:._.:*~*:._.:*~*
 //
@@ -57,6 +58,30 @@ const Numeros = ({ numeroData, archiveData }) => {
   const ref3 = useRef(null);
   const isInView3 = useInView(ref3, { once: true });
 
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
+  //
+  //  Logic for loading more posts
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
+
+  // Only display 6 posts at first
+  const [visiblePosts, setVisiblePosts] = useState(6);
+
+  // Value to increment more/less posts by
+  const MORE_POSTS = 6;
+
+  // When user clicks on the load more button, load 6 more posts (see: MORE_POSTS)
+  const handleLoadNewPosts = () =>
+    setVisiblePosts((visiblePosts) => visiblePosts + MORE_POSTS);
+
+  // When we reach the end of the array, load more posts button becomes a "close posts" button
+  const handleClosePosts = () => setVisiblePosts(6);
+
+  // render the posts after being sliced
+  const filteredArticles = numeroData.slice(0, visiblePosts).map((numero) => {
+    return <NumeroItem numero={numero} key={numero._id} />;
+  });
+
   return (
     <>
       <Header>
@@ -88,17 +113,38 @@ const Numeros = ({ numeroData, archiveData }) => {
             </h1>
           </ContentHeader>
           <Grid>
-            {numeroData.map((numero) => {
-              return <NumeroItem numero={numero} key={numero._id} />;
-            })}
+            {numeroData.length > 0 ? (
+              // Render the articles w/ the associated filter.
+              filteredArticles
+            ) : (
+              // If none exist, then show a placeholder.
+              <motion.h5
+                style={{ color: "var(--color-black)" }}
+                variants={animateArticles}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                Nous n'avons pas d'articles de ce type pour le moment.
+              </motion.h5>
+            )}
           </Grid>
+          {/* only show button when there are articles that correspond. */}
+          {visiblePosts >= numeroData.length ? (
+            // if user hits end of news articles, button closes posts
+            <LoadMoreButton onClick={handleClosePosts} layout>
+              <small>Afficher moins d'articles</small>
+            </LoadMoreButton>
+          ) : (
+            // Button to open more posts
+            <LoadMoreButton onClick={handleLoadNewPosts} layout>
+              <small>Afficher plus d'articles</small>
+            </LoadMoreButton>
+          )}
         </Content>
       </Inner>
       <Archive>
-        <h1
-          ref={ref3}
-          role="heading"
-        >
+        <h1 ref={ref3} role="heading">
           <SplitText
             string="Archives"
             variantParent={textAnim}

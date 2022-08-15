@@ -51,7 +51,6 @@ export default function Balado({ baladoData }) {
     once: true,
   });
 
-
   return (
     <Main>
       <Inner>
@@ -91,16 +90,18 @@ export default function Balado({ baladoData }) {
             </FeaturedText>
             <FeaturedImageWrapper style={{ background: featured?.color }}>
               <ColorWrapper>
-                <Image
-                  src={featured?.imageUrl}
-                  alt={`Image couverture pour Moebius-Balado ${featured?.number}`}
-                  width={700}
-                  height={700}
-                  quality={95}
-                  priority={true}
-                  placeholder="blur"
-                  blurDataURL={featured.lqip}
-                />
+                {featured?.imageUrl && (
+                  <Image
+                    src={featured?.imageUrl}
+                    alt={`Image couverture pour Moebius-Balado ${featured?.number}`}
+                    width={700}
+                    height={700}
+                    quality={95}
+                    priority={true}
+                    placeholder="blur"
+                    blurDataURL={featured.lqip}
+                  />
+                )}
               </ColorWrapper>
             </FeaturedImageWrapper>
           </FeaturedBalado>
@@ -141,22 +142,23 @@ export default function Balado({ baladoData }) {
           animate={isInView2 ? "visible" : "hidden"}
         >
           {baladoData.map((balado) => {
-
-            console.log(balado.color)
+            console.log(balado.color);
             return (
               <Item key={balado._id} variants={gridChild}>
                 <ImageWrapper style={{ background: balado.color }}>
                   <ColorWrapper>
-                    <Image
-                      src={balado.imageUrl}
-                      alt={`Image couverture pour Moebius-Balado ${balado.number}`}
-                      height={500}
-                      width={500}
-                      quality={90}
-                      placeholder="blur"
-                      blurDataURL={balado.lqip}
-                      // layout="fill"
-                    />
+                    {balado.imageUrl && (
+                      <Image
+                        src={balado.imageUrl}
+                        alt={`Image couverture pour Moebius-Balado ${balado.number}`}
+                        height={500}
+                        width={500}
+                        quality={90}
+                        placeholder="blur"
+                        blurDataURL={balado.lqip}
+                        // layout="fill"
+                      />
+                    )}
                   </ColorWrapper>
                 </ImageWrapper>
                 <small>
