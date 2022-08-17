@@ -103,9 +103,9 @@ const NumerosSection = ({ numerosData }) => {
             return (
               <Numero key={numero._id} variants={gridChild}>
                 <ImageWrapper>
-                  {numero.imageUrl && (
+                  {numero.image && (
                     <Image
-                      src={numero.imageUrl}
+                      src={numero.image}
                       alt={numero.title}
                       layout="fill"
                       placeholder="blur"

@@ -16,9 +16,11 @@ import {
   textAnimFast,
   textAnimFastest,
   gridAnim,
-  gridChild,
 } from "../../styles/animations";
 import { motion, useInView } from "framer-motion";
+import CountViewMorePosts from "../../utils/countViewMorePosts";
+import { LoadMoreButton } from "../nouvelles";
+import BaladoItem from "../../components/baladoItem";
 
 export default function Balado({ baladoData }) {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~**~*:._.:*~*:._.:*~*
@@ -50,6 +52,36 @@ export default function Balado({ baladoData }) {
   const isInView2 = useInView(ref2, {
     once: true,
   });
+
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
+  //
+  //  Logic for loading more posts
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
+
+  // Only display 6 posts at first
+  const [visiblePosts, setVisiblePosts] = useState(6);
+
+  // Value to increment more/less posts by
+  const MORE_POSTS = 6;
+
+  // When user clicks on the load more button, load 6 more posts (see: MORE_POSTS)
+  const handleLoadNewPosts = () =>
+    setVisiblePosts((visiblePosts) => visiblePosts + MORE_POSTS);
+
+  // When we reach the end of the array, load more posts button becomes a "close posts" button
+  const handleClosePosts = () => setVisiblePosts(6);
+
+  // render the posts after being sliced
+  const filteredArticles = baladoData.slice(0, visiblePosts).map((balado) => {
+    return <BaladoItem balado={balado} key={balado._id} />;
+  });
+
+  // Counter for the display at the top
+  const countDisplayedPosts =
+    visiblePosts >= filteredArticles.length
+      ? filteredArticles.length
+      : visiblePosts;
 
   return (
     <Main>
@@ -141,42 +173,39 @@ export default function Balado({ baladoData }) {
           initial="hidden"
           animate={isInView2 ? "visible" : "hidden"}
         >
-          {baladoData.map((balado) => {
-            console.log(balado.color);
-            return (
-              <Item key={balado._id} variants={gridChild}>
-                <ImageWrapper style={{ background: balado.color }}>
-                  <ColorWrapper>
-                    {balado.imageUrl && (
-                      <Image
-                        src={balado.imageUrl}
-                        alt={`Image couverture pour Moebius-Balado ${balado.number}`}
-                        height={500}
-                        width={500}
-                        quality={90}
-                        placeholder="blur"
-                        blurDataURL={balado.lqip}
-                        // layout="fill"
-                      />
-                    )}
-                  </ColorWrapper>
-                </ImageWrapper>
-                <small>
-                  <ConvertDateToString data={balado?.publishedAt} />
-                </small>
-                <h4>
-                  Mœbius n°{balado.number} <br />
-                  {balado.title}
-                </h4>
-                <EpisodeLink>
-                  <Link href={`balado/${balado.slug}`}>
-                    <small>Écouter l'épisode</small>
-                  </Link>
-                </EpisodeLink>
-              </Item>
-            );
-          })}
+          {baladoData.length > 0 ? (
+            // Render the articles w/ the associated filter.
+            filteredArticles
+          ) : (
+            // If none exist, then show a placeholder.
+            <motion.h5
+              style={{ color: "var(--color-black)" }}
+              variants={animateArticles}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              Nous n'avons pas d'articles de ce type pour le moment.
+            </motion.h5>
+          )}
         </Grid>
+        <CountViewMorePosts
+          dataSource={baladoData}
+          filteredArticles={filteredArticles}
+          count={countDisplayedPosts}
+        />
+        {/* only show button when there are articles that correspond. */}
+        {visiblePosts >= baladoData.length ? (
+          // if user hits end of news articles, button closes posts
+          <LoadMoreButton onClick={handleClosePosts} layout>
+            <small>Afficher moins d'articles</small>
+          </LoadMoreButton>
+        ) : (
+          // Button to open more posts
+          <LoadMoreButton onClick={handleLoadNewPosts} layout>
+            <small>Afficher plus d'articles</small>
+          </LoadMoreButton>
+        )}
       </Inner>
     </Main>
   );
@@ -283,16 +312,12 @@ const FeaturedImageWrapper = styled.div`
   }
 `;
 
-const ColorWrapper = styled.div`
-  width: 90%;
-  height: 90%;
-`;
 
 const Header = styled.header`
   padding: 5rem 0;
   border-bottom: 1px solid var(--color-black);
   border-top: 1px solid var(--color-black);
-
+  
   h4,
   p {
     text-align: center;
@@ -333,6 +358,11 @@ const Grid = styled(motion.div)`
     place-items: center;
     row-gap: 5rem;
   }
+`;
+
+const ColorWrapper = styled.div`
+  width: 90%;
+  height: 90%;
 `;
 
 const Item = styled(motion.div)`

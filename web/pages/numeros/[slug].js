@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import groq from "groq";
-import BlockContent from "@sanity/block-content-to-react";
 import { client } from "../../lib/sanity/client";
 import { numeroQuery, numeroReadMoreQuery } from "../../lib/sanity/numeroQuery";
 import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
@@ -12,6 +11,7 @@ import { breakpoints } from "../../utils/breakpoints";
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
 import ShareButton from "../../components/shareButton";
 import ConvertDateToString from "../../utils/convertDateToString";
+import MarkdownContent from "../../utils/MarkdownContent";
 
 export default function Numeros({ numero, readMoreData }) {
   // logic for showing 3 randomized articles at the bottom of the page
@@ -38,7 +38,7 @@ export default function Numeros({ numero, readMoreData }) {
     price: numero?.price,
     number: numero?.number,
     currency: numero?.currency,
-    image: numero?.imageUrl,
+    image: numero?.image,
     id: numero?._id,
     // server side data (for Stripe)
     product_data: {
@@ -58,9 +58,9 @@ export default function Numeros({ numero, readMoreData }) {
         <Inner>
           <HeaderFlex>
             <HeaderImage>
-              {numero.imageUrl && (
+              {numero.image && (
                 <Image
-                  src={numero?.imageUrl}
+                  src={numero?.image}
                   alt="Thumbnail image"
                   quality={100}
                   layout="fill"
@@ -144,7 +144,7 @@ export default function Numeros({ numero, readMoreData }) {
           />
         </SideContent>
         <MainContent>
-          <BlockContent blocks={numero?.body} />
+          <MarkdownContent blocks={numero?.body} />
         </MainContent>
       </MainFlex>
       <Return>
@@ -179,16 +179,18 @@ export default function Numeros({ numero, readMoreData }) {
               return (
                 <GridItem key={item?._id}>
                   <ItemImage>
-                    <Link href={`/numeros/${item?.slug}`}>
-                      <Image
-                        src={item?.imageUrl}
-                        alt={`Image couveture pour ${item?.title}`}
-                        layout="fill"
-                        className="imageHover"
-                        placeholder="blur"
-                        blurDataURL={item?.lqip}
-                      />
-                    </Link>
+                    {item?.image && (
+                      <Link href={`/numeros/${item?.slug}`}>
+                        <Image
+                          src={item?.image}
+                          alt={`Image couveture pour ${item?.title}`}
+                          layout="fill"
+                          className="imageHover"
+                          placeholder="blur"
+                          blurDataURL={item?.lqip}
+                        />
+                      </Link>
+                    )}
                   </ItemImage>
                   <ItemText>
                     <small>n°{item?.number}</small>
@@ -391,7 +393,14 @@ const SideContent = styled.div`
 const MainContent = styled.div`
   width: 45%;
   margin: 0 3rem;
-
+  video,
+  iframe {
+    display: block;
+    margin: 3rem auto;
+    aspect-ratio: 16/9;
+    width: 90%;
+    height: 100%;
+  }
   * {
     color: var(--color-black);
     transition: var(--transition);

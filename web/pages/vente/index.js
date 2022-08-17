@@ -1,8 +1,8 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
 import { client } from "../../lib/sanity/client";
 import styled from "styled-components";
-import { numeroListQuery } from "../../lib/sanity/numeroQuery";
+import { numeroVenteQuery } from "../../lib/sanity/numeroQuery";
 import { boutiqueListQuery } from "../../lib/sanity/boutiqueQuery";
 import Boutique from "../../components/boutique/boutique";
 import { Inner } from "../index";
@@ -11,18 +11,59 @@ import { breakpoints } from "../../utils/breakpoints";
 import Abonnements from "../../components/abonnements/abonnements";
 import { abonnementQuery } from "../../lib/sanity/abonnementQuery";
 import SplitText from "../../utils/splitText";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   textAnim,
   textChild,
   textAnimSlow,
   textAnimFast,
   gridAnim,
+  gridChild,
 } from "../../styles/animations";
+import { LoadMoreButton } from "../nouvelles";
+import CountViewMorePosts from "../../utils/countViewMorePosts";
 
 const Vente = ({ numeros, abonnements, boutique }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
+  //
+  //  Logic for loading more posts
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
+
+  // Only display 9 posts at first
+  const [visiblePosts, setVisiblePosts] = useState(12);
+
+  // Value to increment more/less posts by
+  const MORE_POSTS = 8;
+
+  // When user clicks on the load more button, load 6 more posts (see: MORE_POSTS)
+  const handleLoadNewPosts = () =>
+    setVisiblePosts((visiblePosts) => visiblePosts + MORE_POSTS);
+
+  // When we reach the end of the array, load more posts button becomes a "close posts" button
+  const handleClosePosts = () => setVisiblePosts(8);
+
+  // render the posts after being sliced
+  const products = numeros.slice(0, visiblePosts).map((product) => {
+    return (
+      <motion.span
+        variants={gridChild}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        key={product._id}
+      >
+        <Products product={product} />
+      </motion.span>
+    );
+  });
+
+  // Counter to show how many items are rendered
+  const countDisplayedPosts =
+    visiblePosts >= products.length ? products.length : visiblePosts;
 
   return (
     <>
@@ -57,8 +98,41 @@ const Vente = ({ numeros, abonnements, boutique }) => {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            <Products products={numeros} />
+            <AnimatePresence>
+              {numeros.length > 0 ? (
+                // Render the articles w/ the associated filter.
+                products
+              ) : (
+                // If none exist, then show a placeholder.
+                <motion.h5
+                  style={{ color: "var(--color-black)" }}
+                  variants={animateArticles}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                >
+                  Nous n'avons pas d'articles pour le moment.
+                </motion.h5>
+              )}
+            </AnimatePresence>
           </Grid>
+          <CountViewMorePosts
+            dataSource={numeros}
+            filteredArticles={products}
+            count={countDisplayedPosts}
+          />
+          {/* only show button when there are articles that correspond. */}
+          {visiblePosts >= numeros.length ? (
+            // if user hits end of news articles, button closes posts
+            <LoadMoreButton onClick={handleClosePosts} layout>
+              <small>Afficher moins d'articles</small>
+            </LoadMoreButton>
+          ) : (
+            // Button to open more posts
+            <LoadMoreButton onClick={handleLoadNewPosts} layout>
+              <small>Afficher plus d'articles</small>
+            </LoadMoreButton>
+          )}
         </Inner>
       </Content>
       <Abonnements abonnements={abonnements} />
@@ -71,7 +145,7 @@ export default Vente;
 
 export async function getStaticProps() {
   const footerLogos = await client.fetch(footerLogoQuery);
-  const numeros = await client.fetch(numeroListQuery);
+  const numeros = await client.fetch(numeroVenteQuery);
   const abonnements = await client.fetch(abonnementQuery);
   const boutique = await client.fetch(boutiqueListQuery);
   return {
@@ -131,6 +205,7 @@ const Content = styled.div`
 const Grid = styled(motion.div)`
   width: 90%;
   margin: 0 auto;
+  padding-bottom: 2.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 3rem;

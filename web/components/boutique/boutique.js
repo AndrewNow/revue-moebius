@@ -27,7 +27,7 @@ const Boutique = ({ boutique }) => {
               price: product.price,
               number: product.number,
               currency: product.currency,
-              image: product.imageUrl,
+              image: product.image,
               id: product.id,
               // server side data (for Stripe)
               product_data: {
@@ -40,21 +40,24 @@ const Boutique = ({ boutique }) => {
                 unit_amount_decimal: product.price,
               },
             };
+
+            console.log(product.image)
             return (
               <Product key={product._id}>
                 <ImageWrapper>
-                  <Link href={`/vente/${product.slug}`}>
-                    <Image
-                      src={product.imageUrl}
-                      placeholder="blur"
-                      blurDataURL={product.lqip}
-                      width={408}
-                      height={408}
-                      quality={95}
-                      layout="responsive"
-                      className="imageHover"
-                    />
-                  </Link>
+                  {product.image && (
+                    <Link href={`/vente/${product.slug}`}>
+                      <Image
+                        src={product.image}
+                        placeholder="blur"
+                        blurDataURL={product.lqip}
+                        width={408}
+                        height={408}
+                        quality={95}
+                        className="imageHover"
+                      />
+                    </Link>
+                  )}
                 </ImageWrapper>
                 <ProductInfo>
                   <WrapText>
@@ -177,7 +180,7 @@ const WrapText = styled.div`
 
     p {
       width: 100%;
-      margin-top: .5rem;
+      margin-top: 0.5rem;
     }
   }
 `;

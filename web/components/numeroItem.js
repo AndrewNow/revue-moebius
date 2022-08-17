@@ -4,14 +4,13 @@ import Image from "next/image";
 import { breakpoints } from "../utils/breakpoints";
 
 const NumeroItem = ({ numero }) => {
-  console.log(numero);
   return (
     <GridItem>
       <ItemImage>
-        {numero.imageUrl && (
+        {numero.image && (
           <Link href={`/numeros/${numero.slug}`}>
             <Image
-              src={numero.imageUrl}
+              src={numero.image}
               alt={`Image couveture pour ${numero.title}`}
               layout="fill"
               className="imageHover"

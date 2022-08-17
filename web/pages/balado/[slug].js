@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import groq from "groq";
-import BlockContent from "@sanity/block-content-to-react";
 import { client } from "../../lib/sanity/client";
 import { baladoQuery } from "../../lib/sanity/baladoQuery";
 import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
@@ -11,6 +10,7 @@ import { breakpoints } from "../../utils/breakpoints";
 import Spotify from "react-spotify-embed";
 import ShareButton from "../../components/shareButton";
 import ConvertDateToString from "../../utils/convertDateToString";
+import MarkdownContent from "../../utils/MarkdownContent";
 
 export default function Balado({ balado }) {
   console.log(balado);
@@ -104,7 +104,7 @@ export default function Balado({ balado }) {
               </SpotifyWrapper>
             )}
             <MarkdownWrapper>
-              <BlockContent blocks={balado?.body} />
+              <MarkdownContent blocks={balado?.body} />
             </MarkdownWrapper>
             <ShareButton input={balado?.embed} />
             <Return>
@@ -386,7 +386,14 @@ const Return = styled.small`
 const MarkdownWrapper = styled.div`
   margin-bottom: 5rem;
   margin-top: 3rem;
-
+  video,
+  iframe {
+    display: block;
+    margin: 3rem auto;
+    aspect-ratio: 16/9;
+    width: 90%;
+    height: 100%;
+  }
   a {
     color: var(--color-purple);
     transition: var(--transition);

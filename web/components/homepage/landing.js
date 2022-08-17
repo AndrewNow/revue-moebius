@@ -11,10 +11,10 @@ const Landing = ({ data }) => {
     <LandingSection>
       <ImageWrapper>
         <MainImage>
-          {data.imageUrl && (
+          {data.image && (
             <Image
               priority
-              src={data.imageUrl}
+              src={data.image}
               alt={data.title}
               placeholder="blur"
               blurDataURL={data.lqip}
@@ -26,10 +26,10 @@ const Landing = ({ data }) => {
           )}
         </MainImage>
         <SupportingImage>
-          {data.imageUrl && (
+          {data.image && (
             <Image
               priority
-              src={data.imageUrl}
+              src={data.image}
               alt={data.title}
               placeholder="blur"
               blurDataURL={data.lqip}

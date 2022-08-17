@@ -118,7 +118,6 @@ export default function CartSummary({ setOpenCart, openCart }) {
                         {item?.image ? (
                           <Image
                             src={item?.image}
-                            // src={item?.imageUrl}
                             alt="Image couverture"
                             width={69}
                             height={100}

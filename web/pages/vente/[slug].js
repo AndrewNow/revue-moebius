@@ -6,12 +6,11 @@ import styled from "styled-components";
 import Image from "next/image";
 import { breakpoints } from "../../utils/breakpoints";
 import ConvertDateToString from "../../utils/convertDateToString";
-import { motion } from "framer-motion";
 import SplitText from "../../utils/splitText";
 import { textAnim, textAnimSlow, textChild } from "../../styles/animations";
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
-import BlockContent from "@sanity/block-content-to-react";
 import Link from "next/link";
+import MarkdownContent from "../../utils/MarkdownContent";
 
 const BoutiqueProduct = ({ boutiqueData }) => {
   const { addItem } = useShoppingCart();
@@ -87,7 +86,7 @@ const BoutiqueProduct = ({ boutiqueData }) => {
         </ImageWrapper>
       </ProductWrapper>
       <MainContent>
-        <BlockContent blocks={boutiqueData?.body} />
+        <MarkdownContent blocks={boutiqueData?.body} />
       </MainContent>
       <Return>
         <Link href="/vente">
@@ -315,6 +314,14 @@ const MainContent = styled.div`
     :hover {
       opacity: 0.6;
     }
+  }
+  video,
+  iframe {
+    display: block;
+    margin: 3rem auto;
+    aspect-ratio: 16/9;
+    width: 90%;
+    height: 100%;
   }
   @media (max-width: ${breakpoints.l}px) {
     width: 90%;

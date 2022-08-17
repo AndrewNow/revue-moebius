@@ -6,81 +6,83 @@ import { breakpoints } from "../utils/breakpoints";
 import { motion } from "framer-motion";
 import { gridChild } from "../styles/animations";
 
-const Products = ({ products }) => {
+const Products = ({ product }) => {
   const { addItem } = useShoppingCart();
 
-  return products.map((product) => {
-    // Format the {product} to only take the fields that Stripe will need.
-    // https://stripe.com/docs/api/products/create
-    //
-    const stripeFormattedProduct = {
-      // client side data (for cartSummary)
-      name: product.title,
-      title: product.title,
-      price: product.price,
-      number: product.number,
-      currency: product.currency,
-      image: product.imageUrl,
-      id: product.id,
-      // server side data (for Stripe)
-      product_data: {
-        name: product.title,
-        images: [product.image],
-      },
-      price_data: {
-        currency: "cad",
-        unit_amount: product.price,
-        unit_amount_decimal: product.price,
-      },
-    };
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
+  //
+  // Format the {product} to only take the fields that Stripe will need.
+  // https://stripe.com/docs/api/products/create
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
 
-    return (
-      <Numero key={product._id} variants={gridChild}>
-        <ImageWrapper>
-          {product.imageUrl && (
-            <Link href={`/numeros/${product.slug}`}>
-              <Image
-                placeholder="blur"
-                blurDataURL={product.lqip}
-                src={product.imageUrl}
-                alt={`image couverture pour Moebius ${product.number}`}
-                layout="fill"
-                objectFit="cover"
-                className="imageHover"
-              />
-            </Link>
+  const stripeFormattedProduct = {
+    // client side data (for cartSummary)
+    name: product.title,
+    title: product.title,
+    price: product.price,
+    number: product.number,
+    currency: product.currency,
+    image: product.image,
+    id: product.id,
+    // server side data (for Stripe)
+    product_data: {
+      name: product.title,
+      images: [product.image],
+    },
+    price_data: {
+      currency: "cad",
+      unit_amount: product.price,
+      unit_amount_decimal: product.price,
+    },
+  };
+
+  return (
+    <Numero key={product._id} variants={gridChild}>
+      <ImageWrapper>
+        {product.image && (
+          <Link href={`/numeros/${product.slug}`}>
+            <Image
+              placeholder="blur"
+              blurDataURL={product.lqip}
+              src={product.image}
+              alt={`image couverture pour Moebius ${product.number}`}
+              layout="fill"
+              objectFit="cover"
+              className="imageHover"
+            />
+          </Link>
+        )}
+      </ImageWrapper>
+      <TextWrapper>
+        <span>
+          <small>Moebius n°{product.number}</small>
+          <Link href={`/numeros/${product.slug}`}>
+            <h4>{product.title}</h4>
+          </Link>
+        </span>
+        <Button
+          onClick={() => addItem(stripeFormattedProduct)}
+          // onClick={() => addItem(product, {product_data: {name: "test"}})}
+          aria-label="Ajouter au panier"
+          disabled={product.available ? false : true}
+          suppressHydrationWarning
+        >
+          {product.available ? (
+            <small suppressHydrationWarning>
+              Ajouter au panier -{" "}
+              {formatCurrencyString({
+                value: product.price,
+                currency: product.currency,
+              })}
+            </small>
+          ) : (
+            <small>Numéro non disponible</small>
           )}
-        </ImageWrapper>
-        <TextWrapper>
-          <span>
-            <small>Moebius n°{product.number}</small>
-            <Link href={`/numeros/${product.slug}`}>
-              <h4>{product.title}</h4>
-            </Link>
-          </span>
-          <Button
-            onClick={() => addItem(stripeFormattedProduct)}
-            // onClick={() => addItem(product, {product_data: {name: "test"}})}
-            aria-label="Ajouter au panier"
-            disabled={product.available ? false : true}
-            suppressHydrationWarning
-          >
-            {product.available ? (
-              <small suppressHydrationWarning>
-                Ajouter au panier -{" "}
-                {formatCurrencyString({
-                  value: product.price,
-                  currency: product.currency,
-                })}
-              </small>
-            ) : (
-              <small>Numéro non disponible</small>
-            )}
-          </Button>
-        </TextWrapper>
-      </Numero>
-    );
-  });
+        </Button>
+      </TextWrapper>
+    </Numero>
+  );
 };
 
 export default Products;

@@ -30,7 +30,6 @@ export const boutiqueListQuery = groq`
     "name": title,
     description,
     title, 
-    "imageUrl": mainImage.asset->url,
     "image": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,

@@ -187,7 +187,7 @@ export const IncrementIcon = () => {
     >
       <path
         d="M4.19219 8.00793V4.66393H0.992188V3.57593H4.19219V0.231934H5.40819V3.57593H8.60819V4.66393H5.40819V8.00793H4.19219Z"
-        fill="#353535"
+        fill="var(--color-black)"
       />
     </svg>
   );
@@ -203,7 +203,7 @@ export const DecrementIcon = () => {
     >
       <path
         d="M0.480469 1.80787V0.463867H5.12047V1.80787H0.480469Z"
-        fill="#353535"
+        fill="var(--color-black)"
       />
     </svg>
   );

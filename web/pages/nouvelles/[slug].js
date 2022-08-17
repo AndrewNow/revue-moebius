@@ -1,6 +1,5 @@
 import Link from "next/link";
 import groq from "groq";
-import BlockContent from "@sanity/block-content-to-react";
 import { client } from "../../lib/sanity/client";
 import { nouvellesQuery } from "../../lib/sanity/nouvellesQuery";
 import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
@@ -10,6 +9,7 @@ import { Inner } from "../index";
 import { breakpoints } from "../../utils/breakpoints";
 import ShareButton from "../../components/shareButton";
 import ConvertDateToString from "../../utils/convertDateToString";
+import MarkdownContent from "../../utils/MarkdownContent";
 
 export default function Nouvelles({ nouvelles }) {
   return (
@@ -29,7 +29,7 @@ export default function Nouvelles({ nouvelles }) {
           />
         </ImageWrapper> */}
         <MarkdownWrapper>
-          <BlockContent blocks={nouvelles?.body} />
+          <MarkdownContent blocks={nouvelles?.body} />
         </MarkdownWrapper>
         <ShareButton input={nouvelles?.embed} />
         <Return>
@@ -184,5 +184,12 @@ const MarkdownWrapper = styled.div`
     :hover {
       opacity: 0.7;
     }
+  }
+  video, iframe {
+    display: block;
+    margin: 3rem auto;
+    aspect-ratio: 16/9;
+    width: 90%;
+    height: 100%;
   }
 `;
