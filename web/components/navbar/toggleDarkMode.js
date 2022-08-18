@@ -32,7 +32,6 @@ const ToggleDarkMode = () => {
       const initialColorValue = root.style.getPropertyValue(
         "--initial-color-mode"
       );
-
       setDarkTheme(initialColorValue === "dark");
     }
   }, []);

@@ -15,13 +15,13 @@ function setInitialColorMode() {
       return preference;
     }
     // If there is no saved preference, use a media query
-    const mediaQuery = "(prefers-color-scheme: dark)";
-    const mql = window.matchMedia(mediaQuery);
-    const hasImplicitPreference = typeof mql.matches === "boolean";
+    const mql = window.matchMedia("(prefers-color-scheme: dark)");
 
+    const hasImplicitPreference = typeof mql.matches === "boolean";
     if (hasImplicitPreference) {
       return mql.matches ? "dark" : "light";
     }
+
     // default to 'light'.
     return "light";
   }
