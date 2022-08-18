@@ -93,16 +93,6 @@ export const numeroReadMoreQuery = groq`
     "image": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
-    price,
-    available,
-    publishedAt,
-    directedBy,
-    isbn,
-    pages,
-    authors,
-    codirectors,
-    body,
-    currency
   }
 `;
 

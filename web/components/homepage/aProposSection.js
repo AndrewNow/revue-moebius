@@ -23,9 +23,9 @@ const AProposSection = () => {
 export default AProposSection;
 
 const gradient = keyframes`
-    0%{background-position:0% 45%}
-    50%{background-position:100% 56%}
-    100%{background-position:0% 45%}
+  0%{background-position:0% 45%}
+  50%{background-position:100% 56%}
+  100%{background-position:0% 45%}
 `;
 
 const Wrapper = styled.div`

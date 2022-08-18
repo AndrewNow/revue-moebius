@@ -149,7 +149,7 @@ const Background = styled(motion.div)`
   left: 0;
   right: 0;
   backdrop-filter: blur(10px) saturate(80%);
-  border-bottom: 1px solid var(--color-grey);
+  border-bottom: 1px solid var(--color-black);
   /* mix-blend-mode: lighten; */
 
   @media (max-width: ${breakpoints.m}px) {

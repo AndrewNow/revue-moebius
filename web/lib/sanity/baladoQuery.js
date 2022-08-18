@@ -40,13 +40,8 @@ export const featuredBaladoQuery = groq`
  *[_type == "balado"] | order(number desc) {
     _id,  
     title,
-    color, 
-    textcolor, 
-    number,
     embed,
     "imageUrl": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
-    "slug": slug.current,
-    publishedAt,
   }[0]
 `;

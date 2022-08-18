@@ -29,7 +29,7 @@ export const nouvellesListQuery = groq`
 
 // Display all articles, except for the featured one
 export const nouvellesListHomepageQuery = groq`
-  *[_type == "nouvelles" && !defined(featured)]{
+  *[_type == "nouvelles" && (!defined(featured) || featured == false)]{
     _id,
     title,
     publishedAt,
