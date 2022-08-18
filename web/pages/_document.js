@@ -41,7 +41,6 @@ const blockingSetInitialColorMode = `(function() {
 		${setInitialColorMode.toString()}
 		setInitialColorMode();
 })()
-
 `;
 
 export default class MyDocument extends Document {

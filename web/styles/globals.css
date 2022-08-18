@@ -82,6 +82,10 @@
   color: var(--static-black);
 }
 
+html {
+  background: var(--color-cream);
+}
+
 body {
   -webkit-text-size-adjust: 100%;
 }

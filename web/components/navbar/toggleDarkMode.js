@@ -21,13 +21,14 @@ const ToggleDarkMode = () => {
     setDarkTheme(!darkTheme);
   };
 
+  
   const storeUserSetPreference = (pref) => {
     localStorage.setItem("theme", pref);
   };
 
+  const root = document.documentElement;
   useEffect(() => {
     if (document !== undefined) {
-      const root = document.documentElement;
 
       const initialColorValue = root.style.getPropertyValue(
         "--initial-color-mode"
@@ -38,7 +39,7 @@ const ToggleDarkMode = () => {
 
   useEffect(() => {
     if (document !== undefined) {
-      const root = document.documentElement;
+      // const root = document.documentElement;
       if (darkTheme !== undefined) {
         if (darkTheme) {
           root.setAttribute("data-theme", "dark");
@@ -50,7 +51,9 @@ const ToggleDarkMode = () => {
       }
     }
   }, [darkTheme]);
-
+  
+  console.log(darkTheme
+  )
   return (
     darkTheme !== undefined && (
       <>
