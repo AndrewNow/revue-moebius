@@ -72,7 +72,7 @@ const LandingSection = styled.section`
   display: flex;
   justify-content: space-evenly;
 
-  @media (max-width: ${breakpoints.l}px) {
+  @media (max-width: ${breakpoints.xl}px) {
     min-height: 80vh;
     height: auto;
   }
@@ -120,11 +120,11 @@ const TextWrapper = styled(motion.div)`
   text-align: center;
   align-self: center;
   margin-top: 4rem;
-  h1,
   small {
-    color: var(--color-black);
+    color: var(--color-grey);
   }
   h1 {
+    color: var(--color-black);
     padding-top: 2rem;
     padding-bottom: 2rem;
     line-height: 110%;

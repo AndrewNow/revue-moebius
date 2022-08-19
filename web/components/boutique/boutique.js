@@ -41,7 +41,6 @@ const Boutique = ({ boutique }) => {
               },
             };
 
-            console.log(product.image)
             return (
               <Product key={product._id}>
                 <ImageWrapper>

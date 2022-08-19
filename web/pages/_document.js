@@ -14,12 +14,13 @@ function setInitialColorMode() {
     if (hasExplicitPreference) {
       return preference;
     }
+    
     // If there is no saved preference, use a media query
-    const mql = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-    const hasImplicitPreference = typeof mql.matches === "boolean";
+    const hasImplicitPreference = typeof mediaQuery.matches === "boolean";
     if (hasImplicitPreference) {
-      return mql.matches ? "dark" : "light";
+      return mediaQuery.matches ? "dark" : "light";
     }
 
     // default to 'light'.
@@ -36,7 +37,6 @@ function setInitialColorMode() {
 }
 
 // our function needs to be a string
-
 const blockingSetInitialColorMode = `(function() {
 		${setInitialColorMode.toString()}
 		setInitialColorMode();

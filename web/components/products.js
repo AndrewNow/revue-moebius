@@ -99,6 +99,10 @@ const Numero = styled(motion.div)`
     width: 100%;
     margin: 2rem 0;
   }
+  @media (max-width: ${breakpoints.s}px) {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -127,12 +131,13 @@ const ImageWrapper = styled.div`
     width: 200px;
   }
   @media (max-width: ${breakpoints.s}px) {
-    width: 150px;
+    width: 125px;
+    /* height: 100%; */
     border-radius: 0;
     align-self: flex-end;
   }
   @media (max-width: ${breakpoints.xs}px) {
-    width: 120px;
+    width: 100px;
     height: 100% !important;
   }
 `;
@@ -185,6 +190,8 @@ const TextWrapper = styled.div`
   }
   @media (max-width: ${breakpoints.s}px) {
     justify-content: space-between;
+    /* width: 80%; */
+    width: auto;
     h4 {
       margin-top: 0;
       font-size: 25px;

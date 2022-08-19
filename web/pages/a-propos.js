@@ -497,6 +497,8 @@ const LandingText = styled.div`
     h1 {
       width: 90%;
       font-size: 50px;
+      line-height: 110%;
+
       :nth-of-type(2) {
         margin: 0 auto;
         white-space: normal;

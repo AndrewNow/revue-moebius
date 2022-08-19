@@ -220,4 +220,8 @@ const Grid = styled(motion.div)`
   @media (max-width: ${breakpoints.m}px) {
     display: block;
   }
+  @media (max-width: ${breakpoints.s}px) {
+    width: 100%;
+    padding-bottom: 1rem;
+  }
 `;

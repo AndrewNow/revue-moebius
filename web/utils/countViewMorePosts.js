@@ -18,7 +18,6 @@ export default CountViewMorePosts;
 const Wrapper = styled.div`
   display: block;
   text-align: center;
-
   margin-top: 3rem;
 
   small {

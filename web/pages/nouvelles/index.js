@@ -16,6 +16,7 @@ import {
   textAnimSlow,
   textAnimFast,
 } from "../../styles/animations";
+import CountViewMorePosts from "../../utils/countViewMorePosts";
 
 export default function Nouvelles({ nouvellesData, categories }) {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._
@@ -211,6 +212,16 @@ const CountResults = styled.div`
   @media (max-width: ${breakpoints.l}px) {
     margin-top: 2rem;
     text-align: center;
+    small {
+      font-family: "Simula";
+      text-transform: none;
+      letter-spacing: 0.01rem;
+      /* font-size: 14px; */
+      color: var(--color-grey);
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    margin-top: 2rem;
   }
 `;
 
@@ -258,6 +269,9 @@ const ArticleGrid = styled(motion.div)`
   @media (max-width: ${breakpoints.l}px) {
     display: block;
     margin: 3rem auto;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    margin: 2rem auto;
   }
 `;
 

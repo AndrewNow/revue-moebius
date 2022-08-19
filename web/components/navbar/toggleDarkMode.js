@@ -17,19 +17,19 @@ const ToggleDarkMode = () => {
 
   const [darkTheme, setDarkTheme] = useState(undefined);
 
+
   const handleToggle = () => {
     setDarkTheme(!darkTheme);
   };
 
-  
   const storeUserSetPreference = (pref) => {
     localStorage.setItem("theme", pref);
   };
 
   const root = document.documentElement;
+
   useEffect(() => {
     if (document !== undefined) {
-
       const initialColorValue = root.style.getPropertyValue(
         "--initial-color-mode"
       );
@@ -51,9 +51,7 @@ const ToggleDarkMode = () => {
       }
     }
   }, [darkTheme]);
-  
-  console.log(darkTheme
-  )
+
   return (
     darkTheme !== undefined && (
       <>

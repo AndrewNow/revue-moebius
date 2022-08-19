@@ -10,7 +10,8 @@ const MyApp = ({ Component, pageProps, router }) => {
     <LazyMotion features={domAnimation}>
       <AnimatePresence exitBeforeEnter>
         <m.div
-          key={router.route}
+          key="routerKey"
+          // key={router.asPath}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
