@@ -16,7 +16,6 @@ import {
   textAnimSlow,
   textAnimFast,
 } from "../../styles/animations";
-import CountViewMorePosts from "../../utils/countViewMorePosts";
 
 export default function Nouvelles({ nouvellesData, categories }) {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._
@@ -302,7 +301,7 @@ export const LoadMoreButton = styled.button`
   }
 
   @media (max-width: ${breakpoints.s}px) {
-    margin: 3rem auto;
+    margin: 2rem auto;
     padding: 1rem 3rem;
   }
 `;

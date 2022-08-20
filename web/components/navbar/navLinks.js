@@ -4,7 +4,7 @@ import { breakpoints } from "../../utils/breakpoints";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
-export const LinkData1 = [
+export const LinkData = [
   {
     url: `/vente`,
     title: "Vente et abonnements",
@@ -17,8 +17,6 @@ export const LinkData1 = [
     url: `/proposer-un-texte`,
     title: "Proposer un texte",
   },
-];
-export const LinkData2 = [
   {
     url: `/balado`,
     title: "Mœbius-balado",
@@ -31,15 +29,16 @@ export const LinkData2 = [
     url: `/nouvelles`,
     title: "Nouvelles",
   },
-  // {
-  //   url: `/residences`,
-  //   title: "Résidences",
-  // },
-  // {
-  //   url: `/contact`,
-  //   title: "Nous Contacter",
-  // },
 ];
+
+// {
+//   url: `/residences`,
+//   title: "Résidences",
+// },
+// {
+//   url: `/contact`,
+//   title: "Nous Contacter",
+// },
 
 const NavLinks = ({ isOpen, setOpen }) => {
   const animateVerticalLine = {
@@ -97,18 +96,40 @@ const NavLinks = ({ isOpen, setOpen }) => {
     },
   };
 
+  const fadeTextParentMobile = {
+    hidden: {
+      transition: {
+        ease: [0.7, 0, 0.84, 0],
+        duration: 0.15,
+        delay: 0,
+      },
+    },
+    animate: {
+      transition: {
+        ease: [0.7, 0, 0.84, 0],
+        duration: 0.35,
+        delayChildren: 0.2,
+        staggerChildren: 0.05,
+      },
+    },
+  };
+
   const fadeTextChild = {
     hidden: {
       opacity: 0,
-      y: -50,
+      y: -75,
+      transition: {
+        duration: 0.25,
+        ease: "easeInOut",
+      },
     },
 
     animate: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
-        ease: "easeOut",
+        duration: 0.45,
+        ease: "easeInOut",
       },
     },
   };
@@ -132,7 +153,7 @@ const NavLinks = ({ isOpen, setOpen }) => {
     },
   };
 
-  const [selectedTab, setSelectedTab] = useState(LinkData1[-1]);
+  const [selectedTab, setSelectedTab] = useState(LinkData[-1]);
 
   const [parentHovered, setParentHovered] = useState(false);
 
@@ -157,7 +178,7 @@ const NavLinks = ({ isOpen, setOpen }) => {
         onMouseEnter={() => setParentHovered(true)}
         onMouseLeave={handleParentLeave}
       >
-        {LinkData1.map((link) => {
+        {LinkData.slice(0, 3).map((link) => {
           return (
             <WrapLink
               key={link.title}
@@ -207,7 +228,7 @@ const NavLinks = ({ isOpen, setOpen }) => {
         onMouseEnter={() => setParentHovered(true)}
         onMouseLeave={handleParentLeave}
       >
-        {LinkData2.map((link) => {
+        {LinkData.slice(3, 6).map((link) => {
           return (
             <WrapLink
               key={link.title}
@@ -243,6 +264,28 @@ const NavLinks = ({ isOpen, setOpen }) => {
           );
         })}
       </Links>
+      <MobileLinks
+        variants={fadeTextParentMobile}
+        initial="hidden"
+        animate={isOpen ? "animate" : "hidden"}
+        exit="hidden"
+      >
+        {LinkData.map((link) => {
+          return (
+            <WrapLink
+              key={`${link.title}.mobile`}
+              variants={fadeTextChild}
+              onClick={() => setOpen(!isOpen)}
+            >
+              <Link passHref href={link.url}>
+                <LinkTitle initial={{ color: "var(--static-cream)" }}>
+                  {link.title}
+                </LinkTitle>
+              </Link>
+            </WrapLink>
+          );
+        })}
+      </MobileLinks>
     </GroupLinks>
   );
 };
@@ -293,6 +336,30 @@ const Links = styled(motion.div)`
     width: 100%;
     height: auto;
     margin: 0 auto;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    display: none;
+  }
+`;
+
+const MobileLinks = styled(motion.div)`
+  display: none;
+  @media (max-width: ${breakpoints.s}px) {
+    display: block;
+    box-sizing: border-box;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    transition: var(--transition);
+    display: inline-flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 0;
+    margin: 0 auto;
+    a {
+      text-decoration: none;
+    }
   }
 `;
 

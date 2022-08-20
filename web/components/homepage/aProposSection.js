@@ -58,9 +58,9 @@ const Wrapper = styled.div`
   background: linear-gradient(283deg, #98657a, #8ab7b7, #789090, #b78298);
   background-size: 400% 400%;
 
-  -webkit-animation: ${gradient} 40s ease infinite;
-  -moz-animation: ${gradient} 40s ease infinite;
-  animation: ${gradient} 40s ease infinite;
+  -webkit-animation: ${gradient} 20s ease infinite;
+  -moz-animation: ${gradient} 20s ease infinite;
+  animation: ${gradient} 20s ease infinite;
 
   @media (max-width: ${breakpoints.l}px) {
     border-radius: 15px;

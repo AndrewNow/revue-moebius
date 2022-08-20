@@ -183,7 +183,6 @@ const SearchParent = styled(motion.span)`
 const HitWrapper = styled(motion.div)``;
 
 const Hit = ({ hit, setOpen, isOpen }) => {
-  console.log(isOpen);
   //  Style category tag
   let categoryColor = "var(--static-cream)";
   let categoryUrl = null;

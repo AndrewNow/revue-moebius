@@ -14,7 +14,6 @@ import {
   textAnimFast,
   textAnimFastest,
   textAnimSlow,
-  textAnimSlower,
   textChild,
 } from "../styles/animations";
 
@@ -76,12 +75,12 @@ const ProposerUnTexte = ({ pageData }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
-    amount: 0.5,
+    amount: 0.55,
   });
   const ref2 = useRef(null);
   const isInView2 = useInView(ref2, {
     once: true,
-    amount: 0.5,
+    amount: 0.55,
   });
 
   return (

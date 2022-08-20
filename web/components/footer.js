@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { breakpoints } from "../utils/breakpoints";
 import MailchimpFormContainer from "./mailchimp/mailchimpFormContainer";
-import { Instagram, Facebook } from "../svg/icons";
+import { Instagram, Facebook, Twitter } from "../svg/icons";
 import Link from "next/link";
 
 const Footer = ({ logos }) => {
@@ -31,6 +31,16 @@ const Footer = ({ logos }) => {
             >
               <small>
                 <Facebook />
+                @revuemoebius
+              </small>
+            </a>
+            <a
+              href="https://twitter.com/Revue_Moebius"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <small>
+                <Twitter />
                 @revuemoebius
               </small>
             </a>
@@ -80,10 +90,7 @@ const Footer = ({ logos }) => {
       <Bottom>
         <BottomInner>
           <small>
-            <a
-              href={`${logos[0].mediaKitPDF}?dl=`}
-              className="mediaKit"
-            >
+            <a href={`${logos[0].mediaKitPDF}?dl=`} className="mediaKit">
               Téléchargez le kit média
             </a>
           </small>
@@ -230,14 +237,21 @@ const SocialsInner = styled.div`
       text-decoration: underline;
     }
   }
+  a:nth-child(even) {
+    small {
+      margin: 0.75rem 0;
+    }
+  }
+  a:nth-child(odd) {
+    small {
+      margin-top: 0;
+    }
+  }
   a > small {
     margin: 0.75rem 0;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    :first-child {
-      margin-top: 0;
-    }
     svg {
       margin-right: 1rem;
     }
@@ -249,16 +263,21 @@ const SocialsInner = styled.div`
 
   @media (max-width: ${breakpoints.s}px) {
     a > small {
-      margin-bottom: 1rem;
+      margin: 0rem;
     }
     a > small > svg {
       max-width: 20px;
       max-height: 20px;
     }
   }
-  a:nth-last-child(odd) {
+  a:nth-child(even) {
     small {
-      margin-bottom: 0;
+      margin: 0.75rem 0;
+    }
+  }
+  a:nth-child(odd) {
+    small {
+      margin-top: 0;
     }
   }
 `;

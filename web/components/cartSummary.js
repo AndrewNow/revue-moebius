@@ -49,7 +49,7 @@ export default function CartSummary({ setOpenCart, openCart }) {
       opacity: 0,
       transition: {
         ease: [0.25, 0, 0.35, 1],
-        duration: 0.15,
+        duration: 0.45,
         staggerChildren: 0.35,
       },
     },
@@ -171,7 +171,10 @@ export default function CartSummary({ setOpenCart, openCart }) {
                     Il n'y a aucun article dans votre panier !
                     <br />
                     <br />
-                    <Link href="/vente">Cliquez ici</Link> pour magasiner.
+                    <Link href="/vente">
+                      <a onClick={() => setOpenCart(!openCart)}>Cliquez ici</a>
+                    </Link>{" "}
+                    pour magasiner.
                   </p>
                 </NoItemsInCart>
               )}

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { breakpoints } from "./breakpoints";
 
 const CountViewMorePosts = ({ dataSource, count, filteredArticles }) => {
   return (
@@ -26,5 +27,9 @@ const Wrapper = styled.div`
     letter-spacing: 0.01rem;
     /* font-size: 14px; */
     color: var(--color-grey);
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    margin-top: 1rem;
   }
 `;

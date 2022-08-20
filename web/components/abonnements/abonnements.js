@@ -314,6 +314,9 @@ const Header = styled.div`
     margin-bottom: 2rem;
     line-height: 100%;
   }
+  @media (max-width: ${breakpoints.m}px) {
+    width: 100%;
+  }
 `;
 
 const MainFlex = styled.div`
