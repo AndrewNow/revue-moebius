@@ -40,16 +40,18 @@ const HoverImage = ({ data, active, x, y }) => {
       }}
       className={active ? "hover-media is-active" : "hover-media"}
     >
-      <Image
-        src={data.imageUrl}
-        alt={`Image couveture pour ${data.title}`}
-        width={375}
-        height={470}
-        quality={80}
-        objectFit="contain"
-        placeholder="blur"
-        blurDataURL={data.lqip}
-      />
+      {data.imageUrl && (
+        <Image
+          src={data.imageUrl}
+          alt={`Image couveture pour ${data.title}`}
+          width={375}
+          height={470}
+          quality={80}
+          objectFit="contain"
+          placeholder="blur"
+          blurDataURL={data.lqip}
+        />
+      )}
     </div>
   );
 };

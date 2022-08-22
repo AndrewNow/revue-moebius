@@ -34,8 +34,8 @@ const Landing = ({ data }) => {
               placeholder="blur"
               blurDataURL={data.lqip}
               layout="intrinsic"
-              width={519}
-              height={733}
+              width={320}
+              height={453}
               quality={70}
             />
           )}
@@ -153,6 +153,7 @@ const InternalLink = styled.div`
 
   cursor: pointer;
   small {
+    color: var(--color-black);
     transition: var(--transition);
   }
 
