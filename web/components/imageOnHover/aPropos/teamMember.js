@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import BlockContent from "@sanity/block-content-to-react";
 import Image from "next/image";
-import { Instagram, LinkIcon } from "../../../svg/icons";
+import { Instagram, LinkIcon, UserIcon } from "../../../svg/icons";
 import { breakpoints } from "../../../utils/breakpoints";
 
 const TeamMember = ({
@@ -135,16 +135,22 @@ const TeamMember = ({
             <ClickOut onClick={handleModal} />
             <ModalWrapper variants={modalChild}>
               <ModalFlex>
-                <ModalImage>
-                  <Image
-                    src={member.imageUrl}
-                    alt={`Portrait de ${member.name}`}
-                    objectFit="cover"
-                    layout="fill"
-                    placeholder="blur"
-                    blurDataURL={member.lqip}
-                  />
-                </ModalImage>
+                {member.imageUrl ? (
+                  <ModalImage>
+                    <Image
+                      src={member.imageUrl}
+                      alt={`Portrait de ${member.name}`}
+                      objectFit="cover"
+                      layout="fill"
+                      placeholder="blur"
+                      blurDataURL={member.lqip}
+                    />
+                  </ModalImage>
+                ) : (
+                  <ImageFallback>
+                    <UserIcon />
+                  </ImageFallback>
+                )}
                 <ModalText>
                   <ModalTextInner>
                     {member.position && <small>{member.position}</small>}
@@ -313,6 +319,29 @@ const ModalImage = styled.div`
   max-height: 795px;
   width: 50%;
   display: block;
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+    aspect-ratio: 4/5;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    min-height: 300px;
+    max-height: 500px;
+  }
+`;
+
+const ImageFallback = styled.div`
+  position: relative;
+  min-height: 100%;
+  max-height: 795px;
+  width: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(
+    193.73deg,
+    rgba(138, 138, 138, 0.12) 11.34%,
+    rgba(138, 138, 138, 0.1) 45.35%,
+    rgba(138, 138, 138, 0.16) 91.34%
+  );
   @media (max-width: ${breakpoints.l}px) {
     width: 100%;
     aspect-ratio: 4/5;
