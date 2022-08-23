@@ -1,11 +1,10 @@
-import { useState, useEffect, useReducer } from "react";
-import Link from "next/link";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { client } from "../../lib/sanity/client";
 import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
 import { nouvellesListQuery } from "../../lib/sanity/nouvellesQuery";
 import { categoryQuery } from "../../lib/sanity/categoryQuery";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { breakpoints } from "../../utils/breakpoints";
 import Article from "../../components/nouvellesFilter/article";
 import Filter from "../../components/nouvellesFilter/filter";

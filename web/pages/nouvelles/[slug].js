@@ -21,13 +21,6 @@ export default function Nouvelles({ nouvelles }) {
         <h1>{nouvelles?.title}</h1>
       </Header>
       <Content>
-        {/* <ImageWrapper>
-          <Image
-            src={nouvelles?.imageUrl}
-            alt="Image bannière décorative."
-            layout="fill"
-          />
-        </ImageWrapper> */}
         <MarkdownWrapper>
           <MarkdownContent blocks={nouvelles?.body} />
         </MarkdownWrapper>
@@ -104,14 +97,6 @@ const Header = styled.header`
     padding-bottom: 1rem;
   }
 `;
-
-// const ImageWrapper = styled.div`
-//   position: relative;
-//   display: block;
-//   aspect-ratio: 852/480;
-//   height: auto;
-//   width: 100%;
-// `;
 
 const Content = styled.div`
   padding-bottom: 10rem;

@@ -49,7 +49,7 @@ const APropos = ({ equipeData, footerLogos }) => {
   const [activeCategory, setActiveCategory] = useState(-1);
   const [modalOpen, setModalOpen] = useState(false);
 
-  console.log(activeIndex)
+  console.log(activeIndex);
   // ^ this third state is for the global "modal open" state.
   // We need this second state to toggle the z-index of the other clickable items of the page, putting them behind the modal when clicked.
   // I'm sure there's a smarter way to optimize this but this was honestly just the easiest solution I found.

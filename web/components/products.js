@@ -47,8 +47,10 @@ const Products = ({ product }) => {
               blurDataURL={product.lqip}
               src={product.image}
               alt={`image couverture pour Moebius ${product.number}`}
-              layout="fill"
-              objectFit="cover"
+              // layout="fill"
+              // objectFit="cover"
+              width={360}
+              height={525}
               className="imageHover"
             />
           </Link>
@@ -63,7 +65,6 @@ const Products = ({ product }) => {
         </span>
         <Button
           onClick={() => addItem(stripeFormattedProduct)}
-          // onClick={() => addItem(product, {product_data: {name: "test"}})}
           aria-label="Ajouter au panier"
           disabled={product.available ? false : true}
           suppressHydrationWarning
@@ -89,7 +90,7 @@ export default Products;
 
 const Numero = styled(motion.div)`
   position: relative;
-  /* max-width: 325px; */
+  min-width: 100%;
   @media (max-width: ${breakpoints.xl}px) {
     max-width: 307px;
   }
@@ -109,7 +110,7 @@ const ImageWrapper = styled.div`
   position: relative;
   display: block;
   margin: 0 auto;
-  aspect-ratio: 324/473;
+  aspect-ratio: 360/525;
   height: auto;
   width: 100%;
   border-radius: 5px;
@@ -146,6 +147,8 @@ const TextWrapper = styled.div`
   display: inline-flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
+
   h4 {
     text-overflow: ellipsis;
     overflow: hidden;
