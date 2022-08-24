@@ -393,6 +393,17 @@ const SideContent = styled.div`
 const MainContent = styled.div`
   width: 45%;
   margin: 0 3rem;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  code {
+    margin: 1.5rem 0;
+  }
   video,
   iframe {
     display: block;

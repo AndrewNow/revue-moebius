@@ -386,6 +386,17 @@ const Return = styled.small`
 const MarkdownWrapper = styled.div`
   margin-bottom: 5rem;
   margin-top: 3rem;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  code {
+    margin: 1.5rem 0;
+  }
   video,
   iframe {
     display: block;
