@@ -12,7 +12,6 @@ import SplitText from "../../utils/splitText";
 import { textAnim, textChild, textAnimSlow } from "../../styles/animations";
 
 export default function PrixDuPublic({ prixDuPublic }) {
-  console.log(prixDuPublic.associatedNumero[0].slug.current);
   return (
     <>
       <Header>

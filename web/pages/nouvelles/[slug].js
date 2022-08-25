@@ -171,7 +171,7 @@ const MarkdownWrapper = styled.div`
   p,
   blockquote,
   code {
-    margin: 1.5rem 0;
+    /* margin: 1.5rem 0; */
   }
 
   a {
