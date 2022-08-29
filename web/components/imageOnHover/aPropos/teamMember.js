@@ -74,7 +74,7 @@ const TeamMember = ({
   const modalChild = {
     hidden: {
       opacity: 0,
-      y: "-40%",
+      y: "30%",
       x: "-50%",
       transition: {
         ease: [0.25, 0, 0.35, 1],
@@ -83,7 +83,7 @@ const TeamMember = ({
     },
     open: {
       opacity: 1,
-      y: "-50%",
+      y: "0%",
       x: "-50%",
       transition: {
         ease: [0.25, 0, 0.35, 1],
@@ -271,11 +271,11 @@ const ModalWrapper = styled(motion.div)`
   position: absolute;
   z-index: 20;
   padding: 1rem;
-  margin-top: 2rem;
-  top: 50%;
+  margin-top: 3rem;
+  top: 5%;
   left: 50%;
   width: 1270px;
-  max-height: 90vh;
+  /* max-height: 85vh; */
   max-width: 65%;
   background: var(--color-cream);
   user-select: none;
@@ -286,8 +286,11 @@ const ModalWrapper = styled(motion.div)`
   }
   @media (max-width: ${breakpoints.xl}px) {
     max-width: 90%;
+    max-height: none;
+    margin-top: 4rem;
   }
   @media (max-width: ${breakpoints.l}px) {
+    max-height: 90vh;
     position: relative;
     max-width: none;
     max-height: none;
@@ -297,6 +300,8 @@ const ModalWrapper = styled(motion.div)`
   }
   @media (max-width: ${breakpoints.m}px) {
     width: 100%;
+    top: 0;
+    max-height: none;
   }
 `;
 
@@ -354,10 +359,10 @@ const ImageFallback = styled.div`
 
 const ModalText = styled.div`
   height: 100%;
-  width: 50%;
-  display: block;
+  /* display: inline-block; */
+  max-width: 50%;
   @media (max-width: ${breakpoints.l}px) {
-    width: 100%;
+    max-width: 100%;
   }
 `;
 
@@ -369,8 +374,16 @@ const ModalTextInner = styled.div`
   padding: 0.5rem;
   padding-bottom: 0rem;
   padding-top: 4rem;
+  overflow-wrap: anywhere;
   * {
     color: var(--color-black);
+  }
+  a {
+    overflow-wrap: normal;
+  }
+  small {
+    width: 75%;
+    display: block;
   }
   h2 {
     margin: 2rem 0;
