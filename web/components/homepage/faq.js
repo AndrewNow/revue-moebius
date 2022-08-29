@@ -1,11 +1,11 @@
 import { useState, useRef } from "react";
 import styled from "styled-components";
-import BlockContent from "@sanity/block-content-to-react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { breakpoints } from "../../utils/breakpoints";
 import { Chevron } from "../../svg/icons";
 import { textAnim, textChild, textAnimSlow } from "../../styles/animations";
 import SplitText from "../../utils/splitText";
+import MarkdownContent from "../../utils/MarkdownContent";
 
 const MapFAQ = ({ data }) => {
   return data.map((question, idx) => {
@@ -52,7 +52,7 @@ const MapFAQ = ({ data }) => {
               exit="hidden"
             >
               <Content>
-                <BlockContent blocks={question.answer} />
+                <MarkdownContent blocks={question.answer} />
               </Content>
             </AnswerWrapper>
           )}

@@ -115,6 +115,7 @@ const Content = styled.div`
   ol,
   blockquote {
     color: var(--color-black);
+    margin: 1.5rem 0;
   }
 
   @media (max-width: ${breakpoints.xl}px) {

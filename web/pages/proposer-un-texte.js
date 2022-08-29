@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { client } from "../lib/sanity/client";
 import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
 import { proposerUnTexteQuery } from "../lib/sanity/proposerUnTexteQuery";
-import BlockContent from "@sanity/block-content-to-react";
 import { useInView as useIntersectionInView } from "react-intersection-observer";
 import { useRef, useCallback } from "react";
 import { breakpoints } from "../utils/breakpoints";
@@ -16,6 +15,7 @@ import {
   textAnimSlow,
   textChild,
 } from "../styles/animations";
+import MarkdownContent from "../utils/MarkdownContent";
 
 const ProposerUnTexte = ({ pageData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -185,7 +185,7 @@ const ProposerUnTexte = ({ pageData }) => {
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
               >
-                <BlockContent blocks={pageData.soumission} />
+                <MarkdownContent blocks={pageData.soumission} />
               </motion.span>
             </Protocol>
             <Protocol ref={ref2}>
@@ -205,7 +205,7 @@ const ProposerUnTexte = ({ pageData }) => {
                 initial="hidden"
                 animate={isInView2 ? "visible" : "hidden"}
               >
-                <BlockContent blocks={pageData.edition} />
+                <MarkdownContent blocks={pageData.edition} />
               </motion.span>
             </Protocol>
           </ProtocolText>

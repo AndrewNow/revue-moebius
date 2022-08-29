@@ -8,16 +8,16 @@ import SanityImageComponent from "./sanityImageComponent";
 const MarkdownContent = ({ blocks }) => {
   const components = {
     types: {
+      image: SanityImageComponent,
       youtube: ({ value }) => {
         const { url } = value;
         const id = getYouTubeId(url);
         return <YouTube videoId={id} />;
       },
-      image: SanityImageComponent,
     },
     block: {
       ["normal-center"]: ({ children }) => (
-        <p className="test" style={{ textAlign: "center" }}>
+        <p style={{ textAlign: "center" }}>
           {children}
         </p>
       ),

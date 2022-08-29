@@ -393,6 +393,7 @@ const SideContent = styled.div`
 const MainContent = styled.div`
   width: 45%;
   margin: 0 3rem;
+
   h1,
   h2,
   h3,
@@ -402,7 +403,7 @@ const MainContent = styled.div`
   p,
   blockquote,
   code {
-    /* margin: 1.5rem 0; */
+    margin: 1.5rem 0;
   }
   video,
   iframe {
@@ -416,6 +417,13 @@ const MainContent = styled.div`
     color: var(--color-black);
     transition: var(--transition);
   }
+
+  strong {
+    font-weight: 700;
+  }
+
+
+
   a {
     color: var(--color-purple);
 
