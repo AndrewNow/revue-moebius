@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
 import ConvertDateToString from "../../utils/convertDateToString";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import { textAnim, textChild, textAnimSlow } from "../../styles/animations";
 import SplitText from "../../utils/splitText";
 

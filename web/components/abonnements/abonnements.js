@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Inner } from "../../pages/index";
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
 import { breakpoints } from "../../utils/breakpoints";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import SplitText from "../../utils/splitText";
 import {
   textAnim,

@@ -56,10 +56,17 @@ const Main = styled.main`
   }
 
   p,
-  blockquote {
+  blockquote,
+  ul,
+  li {
     font-size: 23px;
     line-height: 150%;
     letter-spacing: -1%;
+  }
+
+  li::marker {
+    font-size: 1rem;
+    color: var(--color-black);
   }
 
   @media (max-width: ${breakpoints.xxl}px) {

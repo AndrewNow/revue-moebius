@@ -401,6 +401,7 @@ const MainContent = styled.div`
   h5,
   h6,
   p,
+  ul,
   blockquote,
   code {
     margin: 1.5rem 0;

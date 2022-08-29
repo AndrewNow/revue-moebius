@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import BlockContent from "@sanity/block-content-to-react";
 import Image from "next/image";
 import { Instagram, LinkIcon, UserIcon } from "../../../svg/icons";
 import { breakpoints } from "../../../utils/breakpoints";
+import MarkdownContent from "../../../utils/MarkdownContent";
 
 const TeamMember = ({
   member,
@@ -155,7 +155,7 @@ const TeamMember = ({
                   <ModalTextInner>
                     {member.position && <small>{member.position}</small>}
                     <h2>{member.name}</h2>
-                    <BlockContent blocks={member.bio} />
+                    <MarkdownContent blocks={member.bio} />
                     <ModalSocials>
                       {member.instagram && (
                         <SocialLink>
