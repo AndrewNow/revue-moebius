@@ -104,7 +104,7 @@ export default function Numeros({ numero, readMoreData }) {
         <SideContent>
           {numero?.codirectors && (
             <small>
-              Codirecteurs
+              Codirecteurices
               <br />
               <em>{numero?.codirectors}</em>
               <br />
@@ -113,7 +113,7 @@ export default function Numeros({ numero, readMoreData }) {
           )}
           {numero?.authors && (
             <small>
-              Auteurs
+              Auteurices
               <br /> <em>{numero?.authors}</em>
               <br />
               <br />
