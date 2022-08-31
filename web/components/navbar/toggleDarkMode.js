@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { breakpoints } from "../../utils/breakpoints";
 import { LightDarkButton } from "../../svg/icons";
+import { useTheme } from "next-themes";
 
 const ToggleDarkMode = () => {
   // Set Dark mode / Light mode
@@ -15,59 +16,75 @@ const ToggleDarkMode = () => {
   // * All the above checks need to be run before our page is rendered/shown to the user.
   // * Allow the user to toggle dark mode, and save their preference for future reference.
 
-  const [darkTheme, setDarkTheme] = useState(undefined);
+  // const [darkTheme, setDarkTheme] = useState(undefined);
 
+  // const handleToggle = () => {
+  //   setDarkTheme(!darkTheme);
+  // };
+
+  // const storeUserSetPreference = (pref) => {
+  //   localStorage.setItem("theme", pref);
+  // };
+
+  // const root = document.documentElement;
+
+  // useEffect(() => {
+  //   if (document !== undefined) {
+  //     const initialColorValue = root.style.getPropertyValue(
+  //       "--initial-color-mode"
+  //     );
+  //     setDarkTheme(initialColorValue === "dark");
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   if (document !== undefined) {
+  //     // const root = document.documentElement;
+  //     if (darkTheme !== undefined) {
+  //       if (darkTheme) {
+  //         root.setAttribute("data-theme", "dark");
+  //         storeUserSetPreference("dark");
+  //       } else {
+  //         root.removeAttribute("data-theme");
+  //         storeUserSetPreference("light");
+  //       }
+  //     }
+  //   }
+  // }, [darkTheme]);
+
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  // When mounted on client, now we can show the UI
+  useEffect(() => setMounted(true), []);
+
+  
+  if (!mounted) return null;
 
   const handleToggle = () => {
-    setDarkTheme(!darkTheme);
-  };
-
-  const storeUserSetPreference = (pref) => {
-    localStorage.setItem("theme", pref);
-  };
-
-  const root = document.documentElement;
-
-  useEffect(() => {
-    if (document !== undefined) {
-      const initialColorValue = root.style.getPropertyValue(
-        "--initial-color-mode"
-      );
-      setDarkTheme(initialColorValue === "dark");
+    if (theme == "light") {
+      setTheme("dark");
+    } else {
+      setTheme("light");
     }
-  }, []);
-
-  useEffect(() => {
-    if (document !== undefined) {
-      // const root = document.documentElement;
-      if (darkTheme !== undefined) {
-        if (darkTheme) {
-          root.setAttribute("data-theme", "dark");
-          storeUserSetPreference("dark");
-        } else {
-          root.removeAttribute("data-theme");
-          storeUserSetPreference("light");
-        }
-      }
-    }
-  }, [darkTheme]);
-
+  };
+  
   return (
-    darkTheme !== undefined && (
-      <>
-        <Desktop>
-          <Button onClick={handleToggle} aria-label="toggle dark mode">
-            <Circle />
-            <small>Mode {darkTheme ? "sombre" : "claire"}</small>
-          </Button>
-        </Desktop>
-        <Mobile>
-          <Button onClick={handleToggle} aria-label="toggle dark mode">
-            <LightDarkButton darkTheme={darkTheme} />
-          </Button>
-        </Mobile>
-      </>
-    )
+    // darkTheme !== undefined && (
+    <>
+      <Desktop>
+        <Button onClick={handleToggle} aria-label="toggle dark mode">
+          <Circle />
+          <small>Mode {theme === "light" ? "sombre" : "claire"}</small>
+        </Button>
+      </Desktop>
+      <Mobile>
+        <Button onClick={handleToggle} aria-label="toggle dark mode">
+          {/* <LightDarkButton darkTheme={darkTheme} /> */}
+        </Button>
+      </Mobile>
+    </>
+    // )
   );
 };
 
