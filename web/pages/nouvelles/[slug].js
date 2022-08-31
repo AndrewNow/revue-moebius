@@ -24,7 +24,9 @@ export default function Nouvelles({ nouvelles }) {
         <MarkdownWrapper>
           <MarkdownContent blocks={nouvelles?.body} />
         </MarkdownWrapper>
-        <ShareButton input={nouvelles?.embed} />
+        <ShareButton
+          input={`https://revuemoebius.com/nouvelles/${nouvelles?.slug}`}
+        />
         <Return>
           <Link scroll={false} href="/nouvelles">
             <span>
