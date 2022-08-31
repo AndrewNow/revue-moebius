@@ -29,7 +29,7 @@ const ToggleDarkMode = () => {
         <Desktop>
           <Button onClick={handleToggle} aria-label="toggle dark mode">
             <Circle />
-            <small>Mode {theme === "dark" ? "sombre" : "claire"}</small>
+            <small>Mode {theme === "light" ? "sombre" : "claire"}</small>
           </Button>
         </Desktop>
         <Mobile>
@@ -64,7 +64,7 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  color: var(--color-cream);
+  color: var(--color-black);
   transition: var(--transition);
   width: 175px;
   height: 34px;
@@ -102,7 +102,7 @@ const Circle = styled.span`
   margin-right: 0.5rem;
   display: inline-block;
   border-radius: 100%;
-  background-color: var(--color-cream);
+  background-color: var(--color-black);
   transition: var(--transition);
 
   @media (max-width: ${breakpoints.m}px) {
