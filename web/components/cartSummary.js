@@ -264,6 +264,10 @@ const Header = styled.div`
   padding: 0.5rem;
   padding-top: 1.5rem;
 
+  small {
+    white-space: nowrap;
+  }
+
   h4 {
     font-family: "Editorial";
     text-align: center;

@@ -10,7 +10,10 @@ const MyApp = ({ Component, pageProps, router }) => {
   return (
     <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange>
       <LazyMotion features={domAnimation}>
-        <AnimatePresence exitBeforeEnter>
+        <AnimatePresence
+          exitBeforeEnter
+          onExitComplete={() => window.scrollTo(0, 0)}
+        >
           <m.div
             key={router.asPath}
             initial={{ opacity: 0 }}
