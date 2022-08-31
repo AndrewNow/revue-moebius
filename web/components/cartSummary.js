@@ -106,14 +106,14 @@ export default function CartSummary({ setOpenCart, openCart }) {
       <CartInner variants={modalChild}>
         <Form onSubmit={handleCheckout}>
           <LineItemWrapper>
-            <ItemInner>
+            <ItemInner layout layoutId="article">
               {cartCount > 0 ? (
                 Object.keys(cartDetails).map((cartItem) => {
                   /* Get items from the cart {cartDetails} and map over them, 
               to add them as line items */
                   const item = cartDetails[cartItem];
                   return (
-                    <LineItem key={item.id}>
+                    <LineItem key={item.id} layout>
                       <ImageWrapper>
                         {item?.image ? (
                           <Image
@@ -267,6 +267,7 @@ const Header = styled.div`
   h4 {
     font-family: "Editorial";
     text-align: center;
+    color: var(--static-black);
   }
 `;
 
@@ -283,6 +284,7 @@ const Close = styled.small`
   display: grid;
   place-items: center;
   transition: var(--transition);
+  color: var(--static-black);
 
   padding-top: 4px;
   :hover {
@@ -368,7 +370,7 @@ const LineItemWrapper = styled.div`
 
 const CheckoutWrapper = styled.div``;
 
-const ItemInner = styled.div`
+const ItemInner = styled(motion.div)`
   max-height: 45vh;
   overflow: auto;
   position: relative;
@@ -411,7 +413,7 @@ const Gradient = styled.div`
   }
 `;
 
-const LineItem = styled.div`
+const LineItem = styled(motion.div)`
   position: relative;
   display: flex;
   justify-items: space-between;
@@ -466,6 +468,12 @@ const LineItemTitle = styled.div`
   min-width: 60%;
   max-width: 60%;
   small {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    white-space: normal;
     max-width: 80%;
     display: block;
     font-size: 14px;
@@ -507,14 +515,18 @@ const Button = styled.button`
   border: 1px solid var(--color-black) !important;
   background: none;
   color: var(--color-black);
-  transition: var(--hover-transition);
+  transition: var(--transition);
+  box-sizing: border-box;
 
   svg {
     margin: 0 auto;
   }
   :hover {
     background: var(--color-yellow);
-    color: var(--static-black);
+    svg > path {
+      transition: var(--transition);
+      fill: var(--static-black);
+    }
   }
 `;
 

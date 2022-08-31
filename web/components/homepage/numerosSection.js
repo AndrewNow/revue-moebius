@@ -223,6 +223,7 @@ const Wrapper = styled(motion.div)`
   scrollbar-color: var(--color-purple) #ededed;
   scrollbar-width: thin;
   ::-webkit-scrollbar {
+    cursor: grab;
     width: 900px !important;
     height: 5px;
     border-radius: 3px;
