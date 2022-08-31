@@ -89,7 +89,7 @@ const BoutiqueProduct = ({ boutiqueData }) => {
         <MarkdownContent blocks={boutiqueData?.body} />
       </MainContent>
       <Return>
-        <Link href="/vente">
+        <Link scroll={false} href="/vente">
           <span>
             <svg
               width="18"

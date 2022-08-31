@@ -28,14 +28,19 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
           />
         </h3>
         <small>
-          <Link href="/nouvelles">voir tous les nouvelles →</Link>
+          <Link scroll={false} href="/nouvelles">
+            voir tous les nouvelles →
+          </Link>
         </small>
       </Header>
       <Articles>
         <FeaturedArticle>
           <FeaturedArticleImg>
             {hasFeaturedArticle?.imageUrl && (
-              <Link href={`/nouvelles/${hasFeaturedArticle?.slug}`}>
+              <Link
+                scroll={false}
+                href={`/nouvelles/${hasFeaturedArticle?.slug}`}
+              >
                 <Image
                   src={hasFeaturedArticle?.imageUrl}
                   alt={hasFeaturedArticle?.title}
@@ -55,7 +60,10 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
           </FeaturedArticleImg>
           <FeaturedArticleText>
             <h4>
-              <Link href={`/nouvelles/${hasFeaturedArticle?.slug}`}>
+              <Link
+                scroll={false}
+                href={`/nouvelles/${hasFeaturedArticle?.slug}`}
+              >
                 {hasFeaturedArticle?.title}
               </Link>
             </h4>
@@ -70,7 +78,7 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
             return (
               <Article key={article._id}>
                 <ArticleImg>
-                  <Link href={`/nouvelles/${article.slug}`}>
+                  <Link scroll={false} href={`/nouvelles/${article.slug}`}>
                     <Image
                       src={article.imageUrl}
                       alt={article.title}
@@ -87,7 +95,7 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
                 </ArticleImg>
                 <ArticleText>
                   <h5>
-                    <Link href={`/nouvelles/${article.slug}`}>
+                    <Link scroll={false} href={`/nouvelles/${article.slug}`}>
                       {article.title}
                     </Link>
                   </h5>

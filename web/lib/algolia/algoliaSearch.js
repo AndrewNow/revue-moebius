@@ -238,7 +238,7 @@ const Hit = ({ hit, setOpen, isOpen }) => {
             style={{ background: categoryColor }}
             onClick={() => setOpen(!isOpen)}
           >
-            <Link href={categoryUrl}>
+            <Link scroll={false} href={categoryUrl}>
               <small>{hit._type}</small>
             </Link>
           </Tag>
@@ -261,7 +261,7 @@ const Hit = ({ hit, setOpen, isOpen }) => {
         </TagWrapper>
         <br />
         <span onClick={() => setOpen(!isOpen)}>
-          <Link href={categoryUrl + hit.slug}>
+          <Link scroll={false} href={categoryUrl + hit.slug}>
             <Title>
               <Highlight
                 attribute="title"

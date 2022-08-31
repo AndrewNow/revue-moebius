@@ -30,7 +30,7 @@ const AProposSection = () => {
           </p>
         </Paragraph>
         <InternalLink>
-          <Link href="/a-propos">
+          <Link scroll={false} href="/a-propos">
             <small>En savoir plus</small>
           </Link>
         </InternalLink>

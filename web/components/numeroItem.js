@@ -8,7 +8,7 @@ const NumeroItem = ({ numero }) => {
     <GridItem>
       <ItemImage>
         {numero.image && (
-          <Link href={`/numeros/${numero.slug}`}>
+          <Link scroll={false} href={`/numeros/${numero.slug}`}>
             <Image
               src={numero.image}
               alt={`Image couveture pour ${numero.title}`}
@@ -28,7 +28,9 @@ const NumeroItem = ({ numero }) => {
           </small>
         )}
         <h5>
-          <Link href={`/numeros/${numero.slug}`}>{numero.title}</Link>
+          <Link scroll={false} href={`/numeros/${numero.slug}`}>
+            {numero.title}
+          </Link>
         </h5>
       </ItemText>
     </GridItem>

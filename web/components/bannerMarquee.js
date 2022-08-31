@@ -9,7 +9,9 @@ const BannerMarquee = ({ data }) => {
       <Marquee gradientWidth={0} speed={55}>
         <Small>
           {data.link ? (
-            <Link href={`${data.link}`}>{data.title}</Link>
+            <Link scroll={false} href={`${data.link}`}>
+              {data.title}
+            </Link>
           ) : (
             data.title
           )}

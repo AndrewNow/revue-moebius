@@ -10,7 +10,7 @@ const FiveHundred = () => {
       <Text>
         <h1>500</h1>
         <p>Nous n'arrivons pas à trouver la page que vous recherchez.</p>
-        <Link href="/">
+        <Link scroll={false} href="/">
           <Button>
             <small>Retourner à la page d'accueil</small>
           </Button>

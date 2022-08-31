@@ -53,7 +53,7 @@ const Landing = ({ data }) => {
             animate="visible"
           />
         </h1>
-        <Link href={`/numeros/${data.slug}`}>
+        <Link scroll={false} href={`/numeros/${data.slug}`}>
           <InternalLink>
             <small>En savoir plus</small>
           </InternalLink>

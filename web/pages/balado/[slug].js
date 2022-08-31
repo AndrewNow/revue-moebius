@@ -108,7 +108,7 @@ export default function Balado({ balado }) {
             </MarkdownWrapper>
             <ShareButton input={balado?.embed} />
             <Return>
-              <Link href="/balado">
+              <Link scroll={false} href="/balado">
                 <span>
                   <svg
                     width="18"

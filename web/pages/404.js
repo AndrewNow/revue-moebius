@@ -10,7 +10,7 @@ const FourOFour = () => {
       <Text>
         <h1>404</h1>
         <p>Cette page est aussi introuvable que Réjean Ducharme.</p>
-        <Link href="/">
+        <Link scroll={false} href="/">
           <Button>
             <small>Retourner à la page d'accueil</small>
           </Button>

@@ -41,7 +41,7 @@ const Products = ({ product }) => {
     <Numero key={product._id} variants={gridChild}>
       <ImageWrapper>
         {product.image && (
-          <Link href={`/numeros/${product.slug}`}>
+          <Link scroll={false} href={`/numeros/${product.slug}`}>
             <Image
               placeholder="blur"
               blurDataURL={product.lqip}
@@ -59,7 +59,7 @@ const Products = ({ product }) => {
       <TextWrapper>
         <span>
           <small>Moebius n°{product.number}</small>
-          <Link href={`/numeros/${product.slug}`}>
+          <Link scroll={false} href={`/numeros/${product.slug}`}>
             <h4>{product.title}</h4>
           </Link>
         </span>

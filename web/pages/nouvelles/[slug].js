@@ -26,7 +26,7 @@ export default function Nouvelles({ nouvelles }) {
         </MarkdownWrapper>
         <ShareButton input={nouvelles?.embed} />
         <Return>
-          <Link href="/nouvelles">
+          <Link scroll={false} href="/nouvelles">
             <span>
               <svg
                 width="18"
@@ -118,7 +118,6 @@ const Content = styled.div`
     margin: 1.5rem 0;
     display: block;
   }
-
 
   @media (max-width: ${breakpoints.xl}px) {
     padding-bottom: 5rem;

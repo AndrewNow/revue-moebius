@@ -45,7 +45,7 @@ const Boutique = ({ boutique }) => {
               <Product key={product._id}>
                 <ImageWrapper>
                   {product.image && (
-                    <Link href={`/vente/${product.slug}`}>
+                    <Link scroll={false} href={`/vente/${product.slug}`}>
                       <Image
                         src={product.image}
                         placeholder="blur"
@@ -60,7 +60,7 @@ const Boutique = ({ boutique }) => {
                 </ImageWrapper>
                 <ProductInfo>
                   <WrapText>
-                    <Link href={`/vente/${product.slug}`}>
+                    <Link scroll={false} href={`/vente/${product.slug}`}>
                       <h2>{product.title}</h2>
                     </Link>
                     {product.description && <p>{product.description}</p>}

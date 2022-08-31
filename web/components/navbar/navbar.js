@@ -67,7 +67,7 @@ const Navbar = ({ mediaKitData }) => {
           />
         </HamburgerWrapper>
         <LogoWrapper>
-          <Link href="/">
+          <Link scroll={false} href="/">
             <Image
               src={Logo}
               alt="Moebius logo"

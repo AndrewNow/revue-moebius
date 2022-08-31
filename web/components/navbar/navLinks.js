@@ -186,7 +186,7 @@ const NavLinks = ({ isOpen, setOpen }) => {
               onClick={() => setOpen(!isOpen)}
               onMouseEnter={() => setSelectedTab(link)}
             >
-              <Link passHref href={link.url}>
+              <Link scroll={false} passHref href={link.url}>
                 <LinkTitle
                   initial={{ color: "var(--static-cream)" }}
                   animate={{
@@ -236,7 +236,7 @@ const NavLinks = ({ isOpen, setOpen }) => {
               onClick={() => setOpen(!isOpen)}
               onMouseEnter={() => setSelectedTab(link)}
             >
-              <Link passHref href={link.url}>
+              <Link scroll={false} passHref href={link.url}>
                 <LinkTitle
                   initial={{ color: "var(--static-cream)" }}
                   animate={{
@@ -277,7 +277,7 @@ const NavLinks = ({ isOpen, setOpen }) => {
               variants={fadeTextChild}
               onClick={() => setOpen(!isOpen)}
             >
-              <Link passHref href={link.url}>
+              <Link scroll={false} passHref href={link.url}>
                 <LinkTitle initial={{ color: "var(--static-cream)" }}>
                   {link.title}
                 </LinkTitle>

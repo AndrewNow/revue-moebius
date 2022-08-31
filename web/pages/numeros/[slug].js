@@ -148,7 +148,7 @@ export default function Numeros({ numero, readMoreData }) {
         </MainContent>
       </MainFlex>
       <Return>
-        <Link href="/numeros">
+        <Link scroll={false} href="/numeros">
           <span>
             <svg
               width="18"
@@ -180,7 +180,7 @@ export default function Numeros({ numero, readMoreData }) {
                 <GridItem key={item?._id}>
                   <ItemImage>
                     {item?.image && (
-                      <Link href={`/numeros/${item?.slug}`}>
+                      <Link scroll={false} href={`/numeros/${item?.slug}`}>
                         <Image
                           src={item?.image}
                           alt={`Image couveture pour ${item?.title}`}
@@ -195,7 +195,9 @@ export default function Numeros({ numero, readMoreData }) {
                   <ItemText>
                     <small>n°{item?.number}</small>
                     <h5>
-                      <Link href={`/numeros/${item?.slug}`}>{item?.title}</Link>
+                      <Link scroll={false} href={`/numeros/${item?.slug}`}>
+                        {item?.title}
+                      </Link>
                     </h5>
                   </ItemText>
                 </GridItem>
@@ -422,8 +424,6 @@ const MainContent = styled.div`
   strong {
     font-weight: 700;
   }
-
-
 
   a {
     color: var(--color-purple);

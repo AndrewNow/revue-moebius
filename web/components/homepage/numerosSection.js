@@ -88,7 +88,9 @@ const NumerosSection = ({ numerosData }) => {
             />
           </h3>
           <small>
-            <Link href="/numeros">voir tous les numéros →</Link>
+            <Link scroll={false} href="/numeros">
+              voir tous les numéros →
+            </Link>
           </small>
         </Header>
       </Inner>
@@ -118,7 +120,9 @@ const NumerosSection = ({ numerosData }) => {
                     <ConvertDateToString data={numero.publishedAt} />
                   </small>
                   <h5>
-                    <Link href={`/numeros/${numero.slug}`}>{numero.title}</Link>
+                    <Link scroll={false} href={`/numeros/${numero.slug}`}>
+                      {numero.title}
+                    </Link>
                   </h5>
                 </Text>
               </Numero>
@@ -126,7 +130,7 @@ const NumerosSection = ({ numerosData }) => {
           })}
           <Numero>
             <ImageWrapper>
-              <Link href="/numeros">
+              <Link scroll={false} href="/numeros">
                 <Placeholder>
                   <motion.svg
                     width="72"
@@ -155,7 +159,7 @@ const NumerosSection = ({ numerosData }) => {
             <Text>
               <small>Découvrez plus</small>
               <h5>
-                <Link href="/numeros">
+                <Link scroll={false} href="/numeros">
                   Cliquez ici pour consulter tous les numéros
                 </Link>
               </h5>

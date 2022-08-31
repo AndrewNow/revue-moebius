@@ -64,7 +64,9 @@ const Footer = ({ logos }) => {
           <InformationInner>
             <Title>Index</Title>
             <h5>
-              <Link href="/a-propos">À propos</Link>
+              <Link scroll={false} href="/a-propos">
+                À propos
+              </Link>
             </h5>
             <h5>
               <Link href="/proposer-un-texte">Proposer un texte</Link>

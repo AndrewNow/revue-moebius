@@ -171,7 +171,7 @@ export default function CartSummary({ setOpenCart, openCart }) {
                     Il n'y a aucun article dans votre panier !
                     <br />
                     <br />
-                    <Link href="/vente">
+                    <Link scroll={false} href="/vente">
                       <a onClick={() => setOpenCart(!openCart)}>Cliquez ici</a>
                     </Link>{" "}
                     pour magasiner.

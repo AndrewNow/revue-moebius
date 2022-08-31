@@ -42,7 +42,7 @@ const BaladoSection = ({ baladoData }) => {
               numéros.
             </p>
             <EpisodeLink>
-              <Link href={`/balado`}>
+              <Link scroll={false} href={`/balado`}>
                 <small>En savoir plus</small>
               </Link>
             </EpisodeLink>

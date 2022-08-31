@@ -56,7 +56,7 @@ const ResultPage = () => {
             Un courriel de confirmation va être envoyé à{" "}
             {data?.payment_intent.charges.data[0].billing_details.email}.
           </p>
-          <Link href="/">
+          <Link scroll={false} href="/">
             <Button>
               <small>Retourner à la page d'accueil</small>
             </Button>
@@ -67,7 +67,7 @@ const ResultPage = () => {
     //   {/* <h2>Status: {data?.payment_intent?.status ?? "loading..."}</h2>
     //   <h3>CheckoutSession response:</h3>
     //   <PrintObject content={data ?? "loading..."} /> */}
-    //   <Link href="/">
+    //   <Link scroll={false} href="/">
     //     <a>Back home</a>
     //   </Link>
     // </div>

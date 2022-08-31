@@ -115,7 +115,7 @@ export default function Balado({ baladoData }) {
                 <ConvertDateToString data={featured?.publishedAt} />
               </Subtitle>
               <EpisodeLink>
-                <Link href={`balado/${featured?.slug}`}>
+                <Link scroll={false} href={`balado/${featured?.slug}`}>
                   <small>Écouter l'épisode</small>
                 </Link>
               </EpisodeLink>
@@ -312,12 +312,11 @@ const FeaturedImageWrapper = styled.div`
   }
 `;
 
-
 const Header = styled.header`
   padding: 5rem 0;
   border-bottom: 1px solid var(--color-black);
   border-top: 1px solid var(--color-black);
-  
+
   h4,
   p {
     text-align: center;

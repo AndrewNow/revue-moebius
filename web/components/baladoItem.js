@@ -33,7 +33,7 @@ const BaladoItem = ({ balado }) => {
         {balado.title}
       </h4>
       <EpisodeLink>
-        <Link href={`balado/${balado.slug}`}>
+        <Link scroll={false} href={`balado/${balado.slug}`}>
           <small>Écouter l'épisode</small>
         </Link>
       </EpisodeLink>

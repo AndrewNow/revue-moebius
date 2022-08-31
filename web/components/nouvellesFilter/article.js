@@ -14,7 +14,7 @@ const Article = ({ article }) => {
     <ArticlePost key={article._id + "article"} layout>
       <ImageWrapper>
         {article.imageUrl && (
-          <Link href={`/nouvelles/${article.slug}`}>
+          <Link scroll={false} href={`/nouvelles/${article.slug}`}>
             <Image
               src={article.imageUrl}
               alt="Thumbnail image"
@@ -33,7 +33,9 @@ const Article = ({ article }) => {
         </Tag>
       </ImageWrapper>
       <ArticleLink>
-        <Link href={`/nouvelles/${article.slug}`}>{article.title}</Link>
+        <Link scroll={false} href={`/nouvelles/${article.slug}`}>
+          {article.title}
+        </Link>
       </ArticleLink>
       <small style={{ color: "var(--color-grey)" }}>
         <ConvertDateToString data={article?.publishedAt} />

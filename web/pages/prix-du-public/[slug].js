@@ -18,6 +18,7 @@ export default function PrixDuPublic({ prixDuPublic }) {
         {prixDuPublic?.associatedNumero && (
           <Tag>
             <Link
+              scroll={false}
               href={`/numeros/${prixDuPublic?.associatedNumero[0].slug.current}`}
             >
               <small>
@@ -46,6 +47,7 @@ export default function PrixDuPublic({ prixDuPublic }) {
           <ShareButton input={prixDuPublic?.slug} />
           <Return>
             <Link
+              scroll={false}
               href={`/nouvelles/${prixDuPublic?.associatedNouvelles[0].slug.current}`}
             >
               <span>
@@ -218,8 +220,15 @@ const MarkdownWrapper = styled.div`
   margin-bottom: 5rem;
   margin-top: 3rem;
 
-  
-  h1, h2, h3, h4, h5, h6, p, blockquote, code {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  code {
     margin: 1.5rem 0;
   }
   a {

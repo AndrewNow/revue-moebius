@@ -24,7 +24,9 @@ const NewsArticles = ({ nouvellesList, visiblePosts, filterParams }) => {
           </Tag>
         </ImageWrapper>
         <ArticleLink>
-          <Link href={`/nouvelles/${article.slug}`}>{article.title}</Link>
+          <Link scroll={false} href={`/nouvelles/${article.slug}`}>
+            {article.title}
+          </Link>
         </ArticleLink>
         <small>{article.publishedAt}</small>
       </Article>

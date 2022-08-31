@@ -153,7 +153,7 @@ const ProposerUnTexte = ({ pageData }) => {
               animate="visible"
             >
               {pageData.slug ? (
-                <Link href={`/nouvelles/${pageData.slug}`}>
+                <Link scroll={false} href={`/nouvelles/${pageData.slug}`}>
                   <InternalLink>
                     <small>Consultez l'appel</small>
                   </InternalLink>
