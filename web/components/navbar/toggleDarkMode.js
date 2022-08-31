@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { breakpoints } from "../../utils/breakpoints";
 import { LightDarkButton } from "../../svg/icons";
+import { useTheme } from "next-theme-mode";
 
 const ToggleDarkMode = () => {
   // Set Dark mode / Light mode
@@ -15,59 +16,75 @@ const ToggleDarkMode = () => {
   // * All the above checks need to be run before our page is rendered/shown to the user.
   // * Allow the user to toggle dark mode, and save their preference for future reference.
 
-  const [darkTheme, setDarkTheme] = useState(undefined);
+  // const [darkTheme, setDarkTheme] = useState(undefined);
 
+  // const handleToggle = () => {
+  //   setDarkTheme(!darkTheme);
+  // };
+
+  // const storeUserSetPreference = (pref) => {
+  //   localStorage.setItem("theme", pref);
+  //   console.log("TOGGLEDARKMODE:", localStorage.getItem("theme"));
+  // };
+
+  // const root = document.documentElement;
+  // console.log('root', root)
+
+  // useEffect(() => {
+  //   if (document !== undefined) {
+  //     const initialColorValue = root.style.getPropertyValue(
+  //       "--initial-color-mode"
+  //     );
+  //     console.log('initialcolorvalue', initialColorValue)
+  //     setDarkTheme(initialColorValue === "dark");
+  //     console.log('setting dark theme to dark', darkTheme)
+
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   if (document !== undefined) {
+  //     // const root = document.documentElement;
+  //     if (darkTheme !== undefined) {
+  //       console.log("if statement fires, dark theme:", darkTheme)
+  //       if (darkTheme) {
+  //         root.setAttribute("data-theme", "dark");
+  //         storeUserSetPreference("dark");
+  //       } else {
+  //         root.removeAttribute("data-theme");
+  //         storeUserSetPreference("light");
+  //       }
+  //     }
+  //   }
+  // }, [darkTheme]);
+
+  const { colorMode, setColorMode } = useTheme();
+
+  const isDark = colorMode === "dark" ? true : false;
 
   const handleToggle = () => {
-    setDarkTheme(!darkTheme);
+    isDark ? setColorMode("light") : setColorMode("dark");
   };
-
-  const storeUserSetPreference = (pref) => {
-    localStorage.setItem("theme", pref);
-  };
-
-  const root = document.documentElement;
-
-  useEffect(() => {
-    if (document !== undefined) {
-      const initialColorValue = root.style.getPropertyValue(
-        "--initial-color-mode"
-      );
-      setDarkTheme(initialColorValue === "dark");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (document !== undefined) {
-      // const root = document.documentElement;
-      if (darkTheme !== undefined) {
-        if (darkTheme) {
-          root.setAttribute("data-theme", "dark");
-          storeUserSetPreference("dark");
-        } else {
-          root.removeAttribute("data-theme");
-          storeUserSetPreference("light");
-        }
-      }
-    }
-  }, [darkTheme]);
 
   return (
-    darkTheme !== undefined && (
-      <>
-        <Desktop>
-          <Button onClick={handleToggle} aria-label="toggle dark mode">
-            <Circle />
-            <small>Mode {darkTheme ? "sombre" : "claire"}</small>
-          </Button>
-        </Desktop>
-        <Mobile>
-          <Button onClick={handleToggle} aria-label="toggle dark mode">
-            <LightDarkButton darkTheme={darkTheme} />
-          </Button>
-        </Mobile>
-      </>
-    )
+    // darkTheme !== undefined && (
+    <>
+          <Paragraph>{isDark ? "true" : "false"}</Paragraph>
+      <Desktop>
+        <Button onClick={handleToggle} aria-label="toggle dark mode">
+          <Circle />
+          <small>Mode {isDark ? "sombre" : "claire"}</small>
+        </Button>
+      </Desktop>
+      <Mobile>
+        <Button onClick={handleToggle} aria-label="toggle dark mode">
+          <LightDarkButton
+          // darkTheme={darkTheme}
+          />
+        </Button>
+      </Mobile>
+    </>
+    // )
   );
 };
 
@@ -85,7 +102,9 @@ const Mobile = styled.div`
     display: block;
   }
 `;
-
+const Paragraph = styled.p`
+  color: var(--color-themecream);
+`;
 const Button = styled.button`
   position: relative;
   background: none;
@@ -93,10 +112,11 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  color: var(--color-cream);
+  /* color: var(--color-cream); */
   transition: var(--transition);
   width: 175px;
   height: 34px;
+
 
   small {
     position: relative;

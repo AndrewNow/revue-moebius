@@ -139,7 +139,6 @@ export default function Balado({ balado }) {
 export async function getStaticProps({ params }) {
   const footerLogos = await client.fetch(footerLogoQuery);
 
-  let slug;
   const balado = await client.fetch(baladoQuery, {
     slug: params.slug,
   });

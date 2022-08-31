@@ -1,6 +1,6 @@
 :root {
-  --color-cream: #fffff8;
-  --color-black: #353535;
+  /* --color-cream: #fffff8; */
+  /* --color-black: #353535; */
   --color-clay: #789090;
   --color-turquoise: #b8e8d6;
   --color-purple: #98657a;
@@ -18,17 +18,17 @@
 }
 
 [data-theme="light"] {
-  --logo-color: invert(0);
-  --color-cream: #fffff8;
-  --color-black: #353535;
-  --nav-color: #fffff898;
+  /* --logo-color: invert(0); */
+  /* --color-cream: #fffff8; */
+  /* --color-black: #353535; */
+  /* --color-nav: #fffff898; */
 }
 
 [data-theme="dark"] {
-  --logo-color: invert(1);
-  --color-black: #fffff8;
-  --color-cream: #353535;
-  --nav-color: #35353598;
+  /* --logo-color: invert(1); */
+  /* --color-cream: #353535; */
+  /* --color-black: #fffff8; */
+  /* --color-nav: #35353598; */
 }
 
 @font-face {
@@ -78,7 +78,7 @@
 }
 
 ::selection {
-  background: #F8F8A5;
+  background: #f8f8a5;
   color: var(--static-black);
 }
 
@@ -143,7 +143,9 @@ h6 {
   font-weight: 100;
 }
 
-p, ul, li {
+p,
+ul,
+li {
   font-family: "Simula";
   font-weight: 300;
 }

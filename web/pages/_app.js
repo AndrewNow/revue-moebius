@@ -4,14 +4,17 @@ import { Layout } from "../utils/layout";
 import Footer from "../components/footer";
 import Cart from "../components/cart";
 import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
+import {ThemeModeProvider} from 'next-theme-mode'
+import { Theme } from "../styles/Theme";
 
 const MyApp = ({ Component, pageProps, router }) => {
   return (
+    <ThemeModeProvider customThemes={Theme}>
     <LazyMotion features={domAnimation}>
       <AnimatePresence exitBeforeEnter>
         <m.div
-          key="routerKey"
-          // key={router.asPath}
+          // key="routerKey"
+          key={router.asPath}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -27,6 +30,7 @@ const MyApp = ({ Component, pageProps, router }) => {
         </m.div>
       </AnimatePresence>
     </LazyMotion>
+    </ThemeModeProvider>
   );
 };
 
