@@ -5,8 +5,27 @@ import Footer from "../components/footer";
 import Cart from "../components/cart";
 import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import { ThemeProvider } from "next-themes";
+import Lenis from "@studio-freight/lenis";
+import { useLayoutEffect } from "react";
 
 const MyApp = ({ Component, pageProps, router }) => {
+  useLayoutEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.1,
+      easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)), // https://easings.net
+      smooth: true,
+      direction: "vertical",
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+  }, []);
+
+
   return (
     <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange>
       <LazyMotion features={domAnimation}>

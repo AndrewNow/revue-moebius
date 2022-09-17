@@ -13,6 +13,7 @@
     "@sanity/client": "^2.23.2",
     "@sanity/image-url": "^0.140.22",
     "@stripe/stripe-js": "^1.32.0",
+    "@studio-freight/lenis": "^0.2.2",
     "algoliasearch": "^4.13.1",
     "framer-motion": "^6.3.11",
     "get-youtube-id": "^1.0.1",
