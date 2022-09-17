@@ -167,6 +167,7 @@ const NumerosSection = ({ numerosData }) => {
           </Numero>
         </Wrapper>
         <PrevButton
+          aria-label="bouton précédent"
           whileTap={{ scale: 0.9 }}
           onClick={(e) => prev(e)}
           // disabled={state.isPrevDisabled}
@@ -185,6 +186,7 @@ const NumerosSection = ({ numerosData }) => {
           </svg>
         </PrevButton>
         <NextButton
+          aria-label="bouton suivant"
           whileTap={{ scale: 0.9 }}
           onClick={(e) => next(e)}
           // disabled={state.isNextDisabled}

@@ -61,6 +61,7 @@ const Navbar = ({ mediaKitData }) => {
       <Wrapper>
         <HamburgerWrapper onClick={() => setOpenCart(false)}>
           <Hamburger
+            aria-label="Ouvrir le menu"
             toggled={isOpen}
             toggle={setOpen}
             color="var(--color-black)"
