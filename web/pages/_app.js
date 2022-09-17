@@ -21,7 +21,6 @@ const MyApp = ({ Component, pageProps, router }) => {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
-
     requestAnimationFrame(raf);
   }, []);
 
