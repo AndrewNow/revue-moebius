@@ -129,6 +129,7 @@ const SearchParent = styled(motion.span)`
   border-bottom: 1px solid var(--static-cream);
   background: var(--color-clay);
 
+
   .searchRoot {
     width: 95%;
     position: relative;
@@ -228,6 +229,7 @@ const Hit = ({ hit, setOpen, isOpen }) => {
           quality={20}
           // layout="fill"
           objectFit="contain"
+          // objectPosition="top"
           placeholder="blur"
           blurDataURL={hit.lqip}
         />
@@ -316,6 +318,11 @@ const TagWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  
+  small {
+    display: block;
+    padding: .15rem 0;
+  }
 
   .number-highlighted {
     background: var(--color-turquoise);
@@ -358,6 +365,7 @@ const Tag = styled.div`
 const Title = styled.div`
   margin-top: 0.5rem;
   color: var(--static-cream);
+  line-height: 80%;
 
   cursor: pointer;
 
