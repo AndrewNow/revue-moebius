@@ -19,6 +19,8 @@ import NumerosSection from "../components/homepage/numerosSection";
 import BaladoSection from "../components/homepage/baladoSection";
 import Faq from "../components/homepage/faq";
 import AProposSection from "../components/homepage/aProposSection";
+import ResidencesSection from "../components/homepage/residencesSection";
+import { activeResidenciesQuery } from "../lib/sanity/residencesQuery";
 
 export default function Home({
   latestNumero,
@@ -26,6 +28,7 @@ export default function Home({
   newsFeed,
   featuredArticle,
   numerosData,
+  residencesData,
   baladoData,
   faqData,
 }) {
@@ -39,6 +42,7 @@ export default function Home({
         <NewsSection newsFeed={newsFeed} featuredArticle={featuredArticle} />
       </Inner>
       <NumerosSection numerosData={numerosData} />
+      <ResidencesSection data={residencesData} />
       <BaladoSection baladoData={baladoData} />
       <AProposSection />
       <Faq faqData={faqData} />
@@ -53,6 +57,7 @@ export async function getStaticProps() {
   const newsFeed = await client.fetch(nouvellesListHomepageQuery);
   const featuredArticle = await client.fetch(nouvellesFeaturedQuery);
   const numerosData = await client.fetch(numeroHomepageCarouselQuery);
+  const residencesData = await client.fetch(activeResidenciesQuery);
   const baladoData = await client.fetch(featuredBaladoQuery);
   const faqData = await client.fetch(faqQuery);
 
@@ -64,6 +69,7 @@ export async function getStaticProps() {
       featuredArticle,
       footerLogos,
       numerosData,
+      residencesData,
       baladoData,
       faqData,
     },
