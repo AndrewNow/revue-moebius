@@ -11,8 +11,6 @@ const ResidencesSection = ({ data }) => {
     threshold: 0.1,
   });
 
-  console.log(inView);
-
   return (
     <Wrapper ref={ref}>
       <Banner>

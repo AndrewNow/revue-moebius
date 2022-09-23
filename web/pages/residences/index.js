@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { client } from "../../lib/sanity/client";
 import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
-import { residenciesPageQuery } from "../../lib/sanity/residencesQuery";
+import {
+  activeResidenciesQuery,
+  residencesArchiveQuery,
+} from "../../lib/sanity/residencesQuery";
 import { useInView as useIntersectionInView } from "react-intersection-observer";
 import { useRef, useCallback } from "react";
 import { breakpoints } from "../../utils/breakpoints";
@@ -18,8 +21,9 @@ import {
 import MarkdownContent from "../../utils/MarkdownContent";
 import Image from "next/image";
 import { Instagram, LinkIcon } from "../../svg/icons";
+import ResidenceArchive from "../../components/residenceArchive/residenceArchive";
 
-const Residency = ({ pageData }) => {
+const Residency = ({ pageData, archiveData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
   //
   //  ref logic for sidebar nav
@@ -31,37 +35,47 @@ const Residency = ({ pageData }) => {
     triggerOnce: false,
   };
 
-  const [headerRef, headerIsVisible] = useIntersectionInView(options);
-  const [submissionRef, submissionIsVisible] = useIntersectionInView(options);
-  const [editionRef, editionIsVisible] = useIntersectionInView(options);
+  const [artistRef, artistIsVisible] = useIntersectionInView(options);
+  const [writerRef, writerIsVisible] = useIntersectionInView(options);
+  const [hypermediaRef, hypermediaIsVisible] = useIntersectionInView(options);
+  const [archiveRef, archiveIsVisible] = useIntersectionInView(options);
 
-  const headerScrollRef = useRef(null);
-  const submissionScrollRef = useRef(null);
-  const editionScrollRef = useRef(null);
+  const artistScrollRef = useRef(null);
+  const writerScrollRef = useRef(null);
+  const hypermediaScrollRef = useRef(null);
+  const archiveScrollRef = useRef(null);
 
   // Use `useCallback` so we don't recreate the function on each render. Could result in infinite loop
-  const headerRefs = useCallback(
+  const artistRefs = useCallback(
     (node) => {
-      headerScrollRef.current = node;
-      headerRef(node);
+      artistScrollRef.current = node;
+      artistRef(node);
     },
-    [headerRef]
+    [artistRef]
   );
 
-  const submissionRefs = useCallback(
+  const writerRefs = useCallback(
     (node) => {
-      submissionScrollRef.current = node;
-      submissionRef(node);
+      writerScrollRef.current = node;
+      writerRef(node);
     },
-    [submissionRef]
+    [writerRef]
   );
 
-  const editionRefs = useCallback(
+  const hypermediaRefs = useCallback(
     (node) => {
-      editionScrollRef.current = node;
-      editionRef(node);
+      hypermediaScrollRef.current = node;
+      hypermediaRef(node);
     },
-    [editionRef]
+    [hypermediaRef]
+  );
+
+  const archiveRefs = useCallback(
+    (node) => {
+      archiveScrollRef.current = node;
+      archiveRef(node);
+    },
+    [archiveRef]
   );
 
   const handleScollTo = (ref) =>
@@ -69,42 +83,14 @@ const Residency = ({ pageData }) => {
       behavior: "smooth",
     });
 
-  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
-  //
-  //  Text animation refs
-  //
-  //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
-  const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    amount: 0.55,
-  });
-  const ref2 = useRef(null);
-  const isInView2 = useInView(ref2, {
-    once: true,
-    amount: 0.55,
-  });
-
   return (
     <Wrapper>
       <Sidebar>
         <SidebarList>
           <small
-            onClick={() => handleScollTo(headerScrollRef)}
+            onClick={() => handleScollTo(writerScrollRef)}
             style={{
-              color: headerIsVisible
-                ? "var(--color-black)"
-                : "var(--color-grey)",
-            }}
-          >
-            résidence d’artiste
-          </small>
-          <br />
-          <br />
-          <small
-            onClick={() => handleScollTo(submissionScrollRef)}
-            style={{
-              color: submissionIsVisible
+              color: writerIsVisible
                 ? "var(--color-black)"
                 : "var(--color-grey)",
             }}
@@ -114,21 +100,45 @@ const Residency = ({ pageData }) => {
           <br />
           <br />
           <small
-            onClick={() => handleScollTo(editionScrollRef)}
+            onClick={() => handleScollTo(artistScrollRef)}
             style={{
-              color: editionIsVisible
+              color: artistIsVisible
+                ? "var(--color-black)"
+                : "var(--color-grey)",
+            }}
+          >
+            résidence d’artiste
+          </small>
+          <br />
+          <br />
+          <small
+            onClick={() => handleScollTo(hypermediaScrollRef)}
+            style={{
+              color: hypermediaIsVisible
                 ? "var(--color-black)"
                 : "var(--color-grey)",
             }}
           >
             résidence hypermédiatique
           </small>
+          <br />
+          <br />
+          <small
+            onClick={() => handleScollTo(archiveScrollRef)}
+            style={{
+              color: archiveIsVisible
+                ? "var(--color-black)"
+                : "var(--color-grey)",
+            }}
+          >
+            archive
+          </small>
         </SidebarList>
       </Sidebar>
       <MainContent>
         <Landing>
           <LandingText>
-            <h1 ref={headerRefs} role="heading">
+            <h1 ref={artistRefs} role="heading">
               <SplitText
                 string="Artistes en résidence"
                 variantParent={textAnim}
@@ -152,26 +162,39 @@ const Residency = ({ pageData }) => {
           </LandingText>
         </Landing>
         {pageData.residencesData.map((individual) => {
-          // Change the title according to the incoming SEO title data
+          // Change the category title according to the incoming SEO title data
           // to make it easier to read
-          let residencyTitle;
-          if (individual.type === "écrivain") {
-            residencyTitle = "Résidence d'écrivain.e";
-          } else if (individual.type === "artiste") {
-            residencyTitle = "Résidence d'artiste";
+          let residencyCategory;
+          let scrollToRef;
+          if (individual.type === "artiste") {
+            residencyCategory = "Résidence d'artiste";
+            scrollToRef = artistRefs;
+          } else if (individual.type === "écrivain") {
+            residencyCategory = "Résidence d'écrivain.e";
+            scrollToRef = writerRefs;
           } else if (individual.type === "hypermédia") {
-            residencyTitle = "Résidence hypermédiatique";
+            residencyCategory = "Résidence hypermédiatique";
+            scrollToRef = hypermediaRefs;
           }
-
           return (
-            <ResidencyEntry key={individual._id}>
+            <ResidencyEntry key={individual._key}>
               <ResidencyText>
-                <SEOTitleFlex>
+                <SEOTitleFlex ref={scrollToRef}>
                   <h3>{individual.title}</h3>
-                  <h5>{residencyTitle}</h5>
+                  <h5>{residencyCategory}</h5>
                 </SEOTitleFlex>
                 <MarkdownContent blocks={individual.shortBio} />
 
+                <LinkWrapper>
+                  <small>
+                    <Link
+                      scroll={false}
+                      href={`/residences/${individual.slug}`}
+                    >
+                      En savoir plus
+                    </Link>
+                  </small>
+                </LinkWrapper>
                 <Socials>
                   {individual.instagram && (
                     <SocialLink>
@@ -214,6 +237,9 @@ const Residency = ({ pageData }) => {
             </ResidencyEntry>
           );
         })}
+        <div ref={archiveRefs}>
+          <ResidenceArchive data={archiveData} />
+        </div>
       </MainContent>
     </Wrapper>
   );
@@ -223,10 +249,12 @@ export default Residency;
 
 export async function getStaticProps() {
   const footerLogos = await client.fetch(footerLogoQuery);
-  const pageData = await client.fetch(residenciesPageQuery);
+  const pageData = await client.fetch(activeResidenciesQuery);
+  const archiveData = await client.fetch(residencesArchiveQuery);
   return {
     props: {
       pageData,
+      archiveData,
       footerLogos,
     },
     revalidate: 10,
@@ -322,25 +350,50 @@ const ResidencyEntry = styled.div`
   margin: 5rem auto;
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid var(--color-grey);
+
+  :nth-child(odd) {
+    flex-direction: row-reverse;
+  }
 
   h5 {
     color: var(--color-grey);
+  }
+  @media (max-width: ${breakpoints.l}px) {
+    flex-direction: column-reverse;
+
+    :nth-child(odd) {
+      flex-direction: column-reverse;
+    }
   }
 `;
 
 const ResidencyText = styled.div`
   width: 45%;
   padding-bottom: 10rem;
-  border-bottom: 1px solid var(--color-grey);
+
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    padding-bottom: 1rem;
+  }
 `;
 const ResidencyImage = styled.div`
   width: 50%;
-  padding: 2rem;
   position: relative;
   display: block;
+  @media (max-width: ${breakpoints.l}px) {
+    width: 100%;
+    margin: 0 auto;
+  }
 `;
 
 const SEOTitleFlex = styled.div`
+  scroll-margin: 120px;
   // This is needed to flip the order of the H tags to comply with descending SEO order preference
   margin-bottom: 2rem;
 
@@ -385,5 +438,23 @@ const SocialLink = styled.div`
   }
   @media (max-width: ${breakpoints.s}px) {
     padding-right: 2rem;
+  }
+`;
+
+const LinkWrapper = styled.div`
+  border: 1px solid var(--color-black);
+  border-radius: 10px;
+  display: inline-block;
+  margin: 4rem 0;
+  padding: 1rem 6rem;
+  cursor: pointer;
+
+  :hover {
+    background: var(--color-turquoise);
+    transition: var(--transition);
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    margin: 2rem 0;
   }
 `;

@@ -44,6 +44,9 @@ export const useMousePosition = () => {
 };
 
 const APropos = ({ equipeData, footerLogos }) => {
+
+
+
   const { x, y } = useMousePosition();
   const [activeIndex, setActiveIndex] = useState(-1);
   const [activeCategory, setActiveCategory] = useState(-1);

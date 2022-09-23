@@ -8,7 +8,7 @@ import SplitText from "../../utils/splitText";
 import MarkdownContent from "../../utils/MarkdownContent";
 
 const MapFAQ = ({ data }) => {
-  return data.map((question, idx) => {
+  return data.map((question) => {
     const [open, setOpen] = useState(false);
     const [hover, setHover] = useState(false);
 
@@ -29,7 +29,7 @@ const MapFAQ = ({ data }) => {
 
     return (
       <QuestionItem
-        key={idx + "faq"}
+        key={data._key}
         onClick={() => setOpen(!open)}
         whileHover={() => setHover(true)}
         onMouseLeave={() => setHover(false)}

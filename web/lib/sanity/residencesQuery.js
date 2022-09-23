@@ -3,22 +3,9 @@ import groq from "groq";
 // Query for Active residencies. If multiple are active, only select the first.
 export const activeResidenciesQuery = groq`
   *[_type == "residences" && active != false] | order(year desc)[0] {
+    _id,
     residencesData[] {
-      _id,
-      title, 
-      type,
-      "imageUrl": mainImage.asset->url,
-      "lqip": mainImage.asset->metadata.lqip,
-    },
-    year, 
-  }
-`;
-
-// Query for residencies page
-export const residenciesPageQuery = groq`
-  *[_type == "residences" && active != false] | order(year desc)[0] {
-    residencesData[] {
-      _id,
+      _key,
       title, 
       type,
       shortBio,
@@ -26,8 +13,24 @@ export const residenciesPageQuery = groq`
       portfolio,
       "imageUrl": mainImage.asset->url,
       "lqip": mainImage.asset->metadata.lqip,
+      "slug": slug.current,
     },
     year, 
+  }
+`;
+
+// Query for residencies page
+export const residenciesPageQuery = groq`
+  *[$slug in residencesData[].slug.current][0] {
+    _id,
+    "person": residencesData[slug.current == $slug][0] {
+      _key,
+      title, 
+      type,
+      "imageUrl": mainImage.asset->url,
+      "lqip": mainImage.asset->metadata.lqip,
+      "slug": slug.current,
+    }
   }
 `;
 
@@ -36,7 +39,8 @@ export const residencesArchiveQuery = groq`
   *[_type == "residences" && active != true] | order(year desc) {
     _id,
     residencesData[] {
-      title, type
+      _key, title, type,
+      "slug": slug.current,
     },
     year, 
   }
