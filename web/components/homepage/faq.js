@@ -16,7 +16,8 @@ const MapFAQ = ({ data }) => {
       visible: {
         height: "auto",
         transition: {
-          ease: "easeIn",
+          duration: 0.4,
+          ease: [0.5, 0, 0.75, 0],
         },
       },
       hidden: {
@@ -26,10 +27,10 @@ const MapFAQ = ({ data }) => {
         },
       },
     };
-
+    console.log(data);
     return (
       <QuestionItem
-        key={data._key}
+        key={question._key}
         onClick={() => setOpen(!open)}
         whileHover={() => setHover(true)}
         onMouseLeave={() => setHover(false)}

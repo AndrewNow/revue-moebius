@@ -308,7 +308,7 @@ const ImageWrapper = styled.div`
   position: relative;
   display: block;
   width: 100%;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   overflow: hidden;
   user-select: none;
 `;

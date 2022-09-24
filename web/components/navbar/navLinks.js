@@ -29,12 +29,12 @@ export const LinkData = [
     url: `/nouvelles`,
     title: "Nouvelles",
   },
+  {
+    url: `/residences`,
+    title: "Résidences",
+  },
 ];
 
-// {
-//   url: `/residences`,
-//   title: "Résidences",
-// },
 // {
 //   url: `/contact`,
 //   title: "Nous Contacter",
@@ -178,7 +178,7 @@ const NavLinks = ({ isOpen, setOpen }) => {
         onMouseEnter={() => setParentHovered(true)}
         onMouseLeave={handleParentLeave}
       >
-        {LinkData.slice(0, 3).map((link) => {
+        {LinkData.slice(0, 4).map((link) => {
           return (
             <WrapLink
               key={link.title}
@@ -228,7 +228,7 @@ const NavLinks = ({ isOpen, setOpen }) => {
         onMouseEnter={() => setParentHovered(true)}
         onMouseLeave={handleParentLeave}
       >
-        {LinkData.slice(3, 6).map((link) => {
+        {LinkData.slice(4, 7).map((link) => {
           return (
             <WrapLink
               key={link.title}

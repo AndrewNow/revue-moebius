@@ -79,13 +79,14 @@ const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  
   span:nth-of-type(2) {
     padding-top: 0;
     margin-left: 5%;
     white-space: nowrap;
   }
   h1 {
+    opacity: .95;
     width: 90%;
     margin: 0 auto;
   }
@@ -107,11 +108,11 @@ const TextWrapper = styled.div`
       font-size: 7.5vw;
     }
   }
-
+  
   @media (max-width: ${breakpoints.s}px) {
     margin: 4rem auto;
     width: 95%;
-
+    
     h1 {
       width: 100%;
       font-size: 45px;
@@ -139,6 +140,8 @@ const Paragraph = styled.div`
   width: 90%;
   margin: 0 auto;
   p {
+    opacity: 0.85;
+
     /* width: 45%; */
     margin: 3rem 0;
     text-align: justify;
@@ -182,6 +185,7 @@ const Span = styled.span`
 `;
 
 const InternalLink = styled.div`
+  opacity: 0.85;
   display: inline-block;
   margin: 2rem auto;
   margin-bottom: 0;

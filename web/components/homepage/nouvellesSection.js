@@ -8,7 +8,7 @@ import { useInView } from "framer-motion";
 import { textAnim, textChild, textAnimSlow } from "../../styles/animations";
 import SplitText from "../../utils/splitText";
 
-const NewsSection = ({ newsFeed, featuredArticle }) => {
+const NouvellesSection = ({ newsFeed, featuredArticle }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -112,7 +112,7 @@ const NewsSection = ({ newsFeed, featuredArticle }) => {
   );
 };
 
-export default NewsSection;
+export default NouvellesSection;
 
 const Header = styled.header`
   width: 100%;
@@ -184,8 +184,12 @@ const FeaturedArticleImg = styled.div`
 
 const FeaturedArticleText = styled.div`
   margin-top: 2rem;
+  width: 75%;
   color: var(--color-black);
   small {
+    display: block;
+    font-size: 16px;
+    margin-top: 0.5rem;
     color: var(--color-grey);
   }
 
@@ -223,7 +227,7 @@ const ArticleFeed = styled.div`
   height: 780px;
   /* height: 100%; */
   overflow-y: scroll;
-  scroll-snap-type: y mandatory;
+  /* scroll-snap-type: y mandatory; */
   @media (max-width: 1500px) {
     height: 670px;
   }
@@ -244,7 +248,7 @@ const Article = styled.article`
   scroll-snap-align: start;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   padding: 2rem 0;
   width: 90%;
   margin: 0 auto;
@@ -264,7 +268,6 @@ const ArticleImg = styled.div`
   min-width: 45%;
   /* width: 275px; */
   height: auto;
-
   .imageHover {
     transition: var(--transition-image);
     transform-origin: center;
@@ -302,16 +305,19 @@ const ArticleImg = styled.div`
 
 const ArticleText = styled.div`
   padding-left: 2rem;
+  padding-top: 0.5rem;
   h5 {
     margin-bottom: 1rem;
     font-family: "Editorial";
     font-size: 30px;
+    letter-spacing: 0.02rem;
     a {
       color: var(--color-black);
       text-decoration: none;
     }
   }
   small {
+    font-size: 14px;
     color: var(--color-grey);
   }
   :hover {

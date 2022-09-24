@@ -14,7 +14,7 @@ import {
 import { faqQuery } from "../lib/sanity/faqQuery";
 import Landing from "../components/homepage/landing";
 import BannerMarquee from "../components/bannerMarquee";
-import NewsSection from "../components/homepage/newsSection";
+import NouvellesSection from "../components/homepage/nouvellesSection";
 import NumerosSection from "../components/homepage/numerosSection";
 import BaladoSection from "../components/homepage/baladoSection";
 import Faq from "../components/homepage/faq";
@@ -39,7 +39,10 @@ export default function Home({
       </Inner>
       <BannerMarquee data={bannerData} />
       <Inner>
-        <NewsSection newsFeed={newsFeed} featuredArticle={featuredArticle} />
+        <NouvellesSection
+          newsFeed={newsFeed}
+          featuredArticle={featuredArticle}
+        />
       </Inner>
       <NumerosSection numerosData={numerosData} />
       <ResidencesSection data={residencesData} />
