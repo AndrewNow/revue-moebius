@@ -1,7 +1,7 @@
 import groq from "groq";
 
-export const proposerUnTexteQuery = groq`
-  *[_type == "proposerUnTexte"] {
+export const soumettreUnTexteQuery = groq`
+  *[_type == "soumettreUnTexte"] {
     _id,
     title,
     description,

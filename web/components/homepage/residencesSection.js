@@ -51,7 +51,8 @@ const ResidencesSection = ({ data }) => {
                 <ResidencyImage>
                   <Image
                     src={individual.imageUrl}
-                    placeholder={individual.lqip}
+                    placeholder="blur"
+                    blurDataURL={individual.lqip}
                     layout="intrinsic"
                     height={"100%"}
                     width={"100%"}
@@ -71,7 +72,8 @@ const ResidencesSection = ({ data }) => {
                 <ResidencyImage>
                   <Image
                     src={individual.imageUrl}
-                    placeholder={individual.lqip}
+                    placeholder="blur"
+                    blurDataURL={individual.lqip}
                     layout="intrinsic"
                     height={"100%"}
                     width={"100%"}
@@ -91,7 +93,8 @@ const ResidencesSection = ({ data }) => {
                 <ResidencyImage>
                   <Image
                     src={individual.imageUrl}
-                    placeholder={individual.lqip}
+                    placeholder="blur"
+                    blurDataURL={individual.lqip}
                     layout="intrinsic"
                     height={"100%"}
                     width={"100%"}
@@ -165,7 +168,10 @@ const Banner = styled.div`
     color: var(--static-black);
     text-transform: uppercase;
   }
-
+  @media (max-width: ${breakpoints.l}px) {
+    padding: 2.5rem 0;
+  }
+  
   @media (max-width: ${breakpoints.s}px) {
     padding: 2rem 0;
   }

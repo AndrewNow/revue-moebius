@@ -89,11 +89,11 @@ const NouvellesSection = ({ newsFeed, featuredArticle }) => {
                       className="imageHover"
                     />
                   </Link>
+                </ArticleImg>
+                <ArticleText>
                   <FeedTag style={{ background: articleTag.color }}>
                     <small>{articleTag.title}</small>
                   </FeedTag>
-                </ArticleImg>
-                <ArticleText>
                   <h5>
                     <Link scroll={false} href={`/nouvelles/${article.slug}`}>
                       {article.title}
@@ -368,14 +368,14 @@ const ArticleText = styled.div`
 `;
 
 const FeedTag = styled.div`
-  position: absolute;
   z-index: 2;
-  top: 1rem;
-  left: 1rem;
-  padding: 10px 18px;
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 8px 14px;
   border-radius: 20px;
 
   small {
+    font-size: 12px;
     color: var(--static-black);
   }
   @media (max-width: ${breakpoints.xl}px) {
@@ -383,7 +383,7 @@ const FeedTag = styled.div`
     left: 7px;
     padding: 5px 7px;
     small {
-      font-size: 14px;
+      /* font-size: 14px; */
     }
   }
   @media (max-width: ${breakpoints.s}px) {

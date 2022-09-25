@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { client } from "../lib/sanity/client";
 import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
-import { proposerUnTexteQuery } from "../lib/sanity/proposerUnTexteQuery";
+import { soumettreUnTexteQuery } from "../lib/sanity/soumettreUnTexteQuery";
 import { useInView as useIntersectionInView } from "react-intersection-observer";
 import { useRef, useCallback } from "react";
 import { breakpoints } from "../utils/breakpoints";
@@ -17,7 +17,7 @@ import {
 } from "../styles/animations";
 import MarkdownContent from "../utils/MarkdownContent";
 
-const ProposerUnTexte = ({ pageData }) => {
+const SoumettreUnTexte = ({ pageData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
   //
   //  ref logic for sidebar nav
@@ -225,11 +225,11 @@ const ProposerUnTexte = ({ pageData }) => {
   );
 };
 
-export default ProposerUnTexte;
+export default SoumettreUnTexte;
 
 export async function getStaticProps() {
   const footerLogos = await client.fetch(footerLogoQuery);
-  const pageData = await client.fetch(proposerUnTexteQuery);
+  const pageData = await client.fetch(soumettreUnTexteQuery);
   return {
     props: {
       pageData,

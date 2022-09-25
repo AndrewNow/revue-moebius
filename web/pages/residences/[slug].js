@@ -271,7 +271,7 @@ const Inner = styled.div`
   width: 85%;
   margin: 0 auto;
 
-  @media (max-width: ${breakpoints.m}px) {
+  @media (max-width: ${breakpoints.l}px) {
     width: 90%;
   }
 `;
@@ -299,6 +299,11 @@ const FlexTitle = styled.div`
   h5 {
     color: var(--color-grey);
   }
+  @media (max-width: ${breakpoints.xl}px) {
+    h2 {
+      margin-top: 0.5rem;
+    }
+  }
   @media (max-width: ${breakpoints.m}px) {
     h2,
     h5 {
@@ -323,7 +328,7 @@ const LinkWrapper = styled.div`
   }
   :hover {
     background: var(--color-cream);
-    border: 1px solid transparent;
+    /* border: 1px solid transparent; */
     small {
       color: var(--color-black);
     }
@@ -397,13 +402,13 @@ const Main = styled.div`
     }
   }
   @media (max-width: ${breakpoints.xl}px) {
-    p {
-      font-size: 18px;
-    }
+    /* p {
+      font-size: 18px; */
+    /* } */
   }
   @media (max-width: ${breakpoints.m}px) {
     width: 100%;
-    font-size: 20px;
+    /* font-size: 20px; */
   }
 `;
 
@@ -480,6 +485,14 @@ const PhotoCredit = styled.div`
     display: block;
     text-align: center;
     width: 100%;
+  }
+  @media (max-width: ${breakpoints.xxl}px) {
+    bottom: 1rem;
+    small {
+      font-size: 12px;
+    }
+  }
+  @media (max-width: ${breakpoints.xl}px) {
   }
 `;
 

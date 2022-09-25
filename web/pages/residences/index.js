@@ -9,7 +9,6 @@ import { useInView as useIntersectionInView } from "react-intersection-observer"
 import { useRef, useCallback } from "react";
 import { breakpoints } from "../../utils/breakpoints";
 import SplitText from "../../utils/splitText";
-import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import {
   textAnim,
@@ -22,6 +21,7 @@ import MarkdownContent from "../../utils/MarkdownContent";
 import Image from "next/image";
 import { Instagram, LinkIcon } from "../../svg/icons";
 import ResidenceArchive from "../../components/residenceArchive/residenceArchive";
+
 
 const Residency = ({ pageData, archiveData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -82,7 +82,8 @@ const Residency = ({ pageData, archiveData }) => {
     ref.current.scrollIntoView({
       behavior: "smooth",
     });
-
+  
+  
   return (
     <Wrapper>
       <Sidebar>
@@ -331,12 +332,11 @@ const LandingText = styled.div`
     width: 60%;
   }
   @media (max-width: ${breakpoints.m}px) {
-    margin: 2rem;
     h1 {
       margin-bottom: 1rem;
     }
     p {
-      width: 90%;
+      width: 100%;
     }
   }
 `;

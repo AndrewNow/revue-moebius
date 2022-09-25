@@ -6,28 +6,28 @@ import Link from "next/link";
 
 export const LinkData = [
   {
-    url: `/vente`,
-    title: "Vente et abonnements",
-  },
-  {
     url: `/a-propos`,
     title: "À propos",
   },
   {
-    url: `/proposer-un-texte`,
-    title: "Proposer un texte",
-  },
-  {
-    url: `/balado`,
-    title: "Mœbius-balado",
+    url: `/nouvelles`,
+    title: "Nouvelles",
   },
   {
     url: `/numeros`,
     title: "Numéros",
   },
   {
-    url: `/nouvelles`,
-    title: "Nouvelles",
+    url: `/balado`,
+    title: "Mœbius-balado",
+  },
+  {
+    url: `/vente`,
+    title: "Vente et abonnement",
+  },
+  {
+    url: `/soumettre-un-texte`,
+    title: "Soumettre un texte",
   },
   {
     url: `/residences`,

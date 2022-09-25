@@ -112,6 +112,7 @@ const NumerosSection = ({ numerosData }) => {
                       layout="fill"
                       placeholder="blur"
                       blurDataURL={numero.lqip}
+                      className="imageHover"
                     />
                   )}
                 </ImageWrapper>
@@ -160,7 +161,7 @@ const NumerosSection = ({ numerosData }) => {
               <small>Découvrez plus</small>
               <h5>
                 <Link scroll={false} href="/numeros">
-                  Cliquez ici pour consulter tous les numéros
+                  Consulter tous les numéros.
                 </Link>
               </h5>
             </Text>
@@ -311,6 +312,18 @@ const ImageWrapper = styled.div`
   /* border-radius: 5px; */
   overflow: hidden;
   user-select: none;
+
+  .imageHover {
+    transition: var(--transition-image);
+    transform-origin: center;
+  }
+  :hover {
+    .imageHover {
+      /* scale: 1.05; */
+      transform: scale(1.025);
+      filter: blur(2px) saturate(110%);
+    }
+  }
 `;
 
 const Placeholder = styled.div`

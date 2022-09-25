@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { breakpoints } from "../../utils/breakpoints";
 import { Chevron } from "../../svg/icons";
 import { ArrowRight } from "../../svg/icons";
+import Link from "next/link";
 
 const MapResidenceEntries = ({ data }) => {
   const [open, setOpen] = useState(false);
@@ -66,7 +67,9 @@ const MapResidenceEntries = ({ data }) => {
                       <ArrowWrapper>
                         <ArrowRight />
                       </ArrowWrapper>
-                      <motion.h3>{entry.title}</motion.h3>
+                      <Link href={`residences/${entry.slug}`}>
+                        <motion.h3>{entry.title}</motion.h3>
+                      </Link>
                     </HideArrow>
                   </ArchiveResidencyEntry>
                 );
@@ -220,8 +223,8 @@ const HideArrow = styled.div`
   }
   :hover {
     h3 {
+      margin-left: 2.5rem;
       padding-left: 1rem;
-      transform: translateX(2.5rem);
     }
   }
 
