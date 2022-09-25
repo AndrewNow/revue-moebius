@@ -186,14 +186,9 @@ const Residency = ({ pageData, archiveData }) => {
                 <MarkdownContent blocks={individual.shortBio} />
 
                 <LinkWrapper>
-                  <small>
-                    <Link
-                      scroll={false}
-                      href={`/residences/${individual.slug}`}
-                    >
-                      En savoir plus
-                    </Link>
-                  </small>
+                  <Link scroll={false} href={`/residences/${individual.slug}`}>
+                    <small>En savoir plus</small>
+                  </Link>
                 </LinkWrapper>
                 <Socials>
                   {individual.instagram && (
@@ -225,7 +220,8 @@ const Residency = ({ pageData, archiveData }) => {
               <ResidencyImage>
                 <Image
                   src={individual.imageUrl}
-                  placeholder={individual.lqip}
+                  placeholder="blur"
+                  blurDataURL={individual.lqip}
                   alt={`Image portrait pour ${individual.title}`}
                   width={675}
                   height={675}
@@ -325,7 +321,7 @@ const LandingText = styled.div`
   padding-bottom: 5rem;
   h1,
   p {
-    color: var(--color-black);
+    color: var(--static-black);
   }
   h1 {
     scroll-margin: 120px;
@@ -446,10 +442,19 @@ const LinkWrapper = styled.div`
   border-radius: 10px;
   display: inline-block;
   margin: 4rem 0;
-  padding: 1rem 6rem;
+  small {
+    display: inline-block;
+    padding: 1rem 6rem;
+  }
   cursor: pointer;
-
+  a {
+    text-decoration: none;
+  }
   :hover {
+    border: 1px solid transparent;
+    small {
+      color: var(--static-black);
+    }
     background: var(--color-turquoise);
     transition: var(--transition);
   }

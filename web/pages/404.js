@@ -52,11 +52,16 @@ const Button = styled.div`
   border: 1px solid var(--static-black);
   padding: 1rem 2rem;
   border-radius: 10px;
-  transition: var(--transition);
   cursor: pointer;
   background: var(--color-blue);
-
+  transition: var(--transition);
+  small {
+    transition: var(--transition);
+  }
   :hover {
+    small {
+      color: var(--color-black);
+    }
     background: var(--color-cream);
   }
 `;

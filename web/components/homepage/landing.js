@@ -54,11 +54,9 @@ const Landing = ({ data }) => {
           />
         </h1>
         <InternalLink>
-          <small>
-            <Link scroll={false} href={`/numeros/${data.slug}`}>
-              En savoir plus
-            </Link>
-          </small>
+          <Link scroll={false} href={`/numeros/${data.slug}`}>
+            <small>En savoir plus</small>
+          </Link>
         </InternalLink>
       </TextWrapper>
     </LandingSection>
@@ -147,18 +145,19 @@ const TextWrapper = styled(motion.div)`
 const InternalLink = styled.div`
   display: inline-block;
   border-radius: 10px;
-  padding: 1.25rem 4.5rem;
   color: var(--color-black);
   background: var(--color-turquoise);
   transition: var(--transition);
 
   cursor: pointer;
+
   small {
-    a {
-      text-decoration: none;
-    }
-    color: var(--color-black);
     transition: var(--transition);
+    display: inline-block;
+    padding: 1.25rem 4.5rem;
+
+    margin: 0;
+    color: var(--static-black);
   }
 
   :hover {
@@ -168,10 +167,14 @@ const InternalLink = styled.div`
     filter: brightness(0.9);
   }
   @media (max-width: ${breakpoints.xl}px) {
-    padding: 1rem 3rem;
+    small {
+      padding: 1rem 3rem;
+    }
   }
   @media (max-width: ${breakpoints.l}px) {
-    padding: .75rem 3rem;
+    small {
+      padding: 0.75rem 3rem;
+    }
   }
   @media (max-width: ${breakpoints.s}px) {
     background: var(--color-turquoise);

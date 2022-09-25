@@ -129,7 +129,6 @@ const SearchParent = styled(motion.span)`
   border-bottom: 1px solid var(--static-cream);
   background: var(--color-clay);
 
-
   .searchRoot {
     width: 95%;
     position: relative;
@@ -305,6 +304,7 @@ const TextWrapper = styled.div`
   small {
     color: var(--static-cream);
     font-size: 12px;
+    line-height: 100%;
   }
 
   @media (max-width: ${breakpoints.s}px) {
@@ -318,10 +318,11 @@ const TagWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  
+
   small {
     display: block;
-    padding: .15rem 0;
+    padding: 0.15rem 0;
+    line-height: 100%;
   }
 
   .number-highlighted {

@@ -190,13 +190,14 @@ const InternalLink = styled.div`
   margin: 2rem auto;
   margin-bottom: 0;
   border-radius: 10px;
-  padding: 0.75rem 4rem;
   border: 1px solid var(--static-cream);
   color: var(--static-cream);
   transition: var(--transition);
 
   cursor: pointer;
   small {
+    display: inline-block;
+    padding: 0.75rem 4rem;
     transition: var(--transition);
   }
 
