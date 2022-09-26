@@ -12,6 +12,7 @@ import {
   textAnimSlow,
   textAnimFast,
 } from "../../styles/animations";
+import { motion } from "framer-motion";
 
 const Abonnements = ({ abonnements }) => {
   const { addItem } = useShoppingCart();
@@ -70,7 +71,7 @@ const Abonnements = ({ abonnements }) => {
             <Header>
               <h1 ref={ref} role="heading">
                 <SplitText
-                  string="Abonnements"
+                  string="Abonnement"
                   variantParent={textAnim}
                   variantParentMobile={textAnimSlow}
                   variantChild={textChild}
@@ -78,20 +79,27 @@ const Abonnements = ({ abonnements }) => {
                   animate={isInView ? "visible" : "hidden"}
                 />
               </h1>
-              <p role="heading">
-                <SplitText
-                  string="La revue Mœbius est publiée à raison de quatre numéros par
-                  année. Les taxes et frais postaux sont inclus dans les tarifs.
-                  Pour l’abonnement numérique, veuillez vous rendre sur le site
-                  web de la SODEP ou sur Érudit."
-                  variantParent={textAnimFast}
-                  variantParentMobile={textAnim}
-                  variantChild={textChild}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                  isParagraphText={true}
-                />
-              </p>
+              <motion.p
+                role="heading"
+                variantChild={textAnim}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+              >
+                <motion.span variants={textAnim}>
+                  La revue <em>Mœbius</em> est publiée quatre fois par année. En
+                  2023, à partir du no 178, le nombre de publications annuelles
+                  passera à trois. Les frais postaux sont inclus dans le tarif
+                  d’abonnement. Pour vous abonner au format numérique,
+                  rendez-vous sur le site web de la{" "}
+                  <a
+                    href="https://www.sodep.qc.ca/numero/numero-174-ete-2022/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    SODEP.
+                  </a>
+                </motion.span>
+              </motion.p>
             </Header>
             <AddProductWrapper>
               <h3>
@@ -112,10 +120,10 @@ const Abonnements = ({ abonnements }) => {
           </Left>
           <Form>
             <RadioWrapper>
-              <small>Type de plan</small>
+              <small>Type d’abonnement »</small>
               <RadioGroup>
                 <label htmlFor="regular">
-                  <h3>Regulier</h3>
+                  <h3>Régulier</h3>
                   <input
                     defaultChecked={true}
                     onClick={(e) => setType(e.target.value)}
@@ -169,7 +177,7 @@ const Abonnements = ({ abonnements }) => {
               </RadioGroup>
             </RadioWrapper>
             <RadioWrapper>
-              <small>Years</small>
+              <small>Durée de l’abonnement</small>
               <RadioGroup>
                 <label htmlFor="1 an">
                   <h3>Un an</h3>
@@ -199,7 +207,7 @@ const Abonnements = ({ abonnements }) => {
               </RadioGroup>
             </RadioWrapper>
             <RadioWrapper>
-              <small>Country</small>
+              <small>Pays</small>
               <RadioGroup>
                 <label htmlFor="canada">
                   <h3>Au Canada</h3>
@@ -313,6 +321,13 @@ const Header = styled.div`
   h1 {
     margin-bottom: 2rem;
     line-height: 100%;
+  }
+  p {
+    color: var(--static-cream);
+    a {
+      color: var(--static-cream);
+      text-decoration: underline;
+    }
   }
   @media (max-width: ${breakpoints.m}px) {
     width: 100%;

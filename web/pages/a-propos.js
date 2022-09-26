@@ -44,9 +44,6 @@ export const useMousePosition = () => {
 };
 
 const APropos = ({ equipeData, footerLogos }) => {
-
-
-
   const { x, y } = useMousePosition();
   const [activeIndex, setActiveIndex] = useState(-1);
   const [activeCategory, setActiveCategory] = useState(-1);
@@ -214,18 +211,23 @@ const APropos = ({ equipeData, footerLogos }) => {
                 role="heading"
               >
                 <motion.span aria-hidden="true" variants={textChild}>
-                  Mœbius est une revue littéraire québécoise fondée en 1977 par
-                  Pierre DesRuisseaux, Raymond Martin et Guy Melançon. Elle a
-                  été dirigée par Robert Giroux pendant trente-cinq ans. La
-                  revue paraît quatre fois par année.
+                  <em>Mœbius</em> est une revue de création littéraire
+                  québécoise fondée en 1977 par Pierre DesRuisseaux, Raymond
+                  Martin et Guy Melançon. La revue valorise la perméabilité des
+                  formes et des genres littéraires, l’expérimentation et la mise
+                  en scène de la subjectivité. Elle se veut de même un lieu où
+                  réunir les textes d’auteur·rice·s établi·e·s et d’écrivain·e·s
+                  émergent·e·s.
                   <br />
                   <br />
-                  Valorisant la perméabilité des tons et des genres littéraires,
-                  Mœbius publie des textes en prose et en vers, ainsi que des
-                  textes navigant entre l’essai et la critique littéraire, dans
-                  un esprit d’hybridation et de mise en scène de la
-                  subjectivité. Mœbius réunit des textes d’écrivain·e·s
-                  accompli·e·s à ceux d’auteur·e·s moins connu·e·s.
+                  <em>Mœbius</em> reconnaît une valeur à toutes les formes
+                  d’expressions littéraires, artistiques et culturelles et
+                  souhaite contribuer à faire émerger de nouvelles voix et à
+                  favoriser l’expression de sensibilités ou d’imaginaires qui
+                  ont longtemps été privés de s’exprimer. En promouvant
+                  différentes esthétiques littéraires et artistiques, elle
+                  souhaite contribuer à une décolonisation progressive de la
+                  littérature, des arts et de la culture.
                   <br />
                   <br />
                 </motion.span>
@@ -238,16 +240,23 @@ const APropos = ({ equipeData, footerLogos }) => {
                 role="heading"
               >
                 <motion.span aria-hidden="true" variants={textChild}>
-                  Avec le cent cinquante-deuxième numéro qui paraît en février
-                  2017, et à l’occasion de la formation d’une toute nouvelle
-                  équipe et d’un changement de direction, l’identité visuelle et
-                  les thèmes de Mœbius sont réinventés.
+                  La revue a été dirigée par Robert Giroux pendant trente-cinq
+                  ans. En 2017, avec la formation d’une toute nouvelle équipe et
+                  l’arrivée à la direction de Marie-Julie Flagothier, l’identité
+                  visuelle de la revue et les thèmes des appels de textes sont
+                  réinventés. Les couvertures sont désormais signées par un·e
+                  artiste en résidence pour l’année. Quant aux thèmes, ils
+                  prennent maintenant la forme d’une citation littéraire. En
+                  2018, une résidence d’auteur·rice s’ajoute à ces nouveautés.
                   <br />
                   <br />
-                  Les couvertures sont désormais signées par un·e artiste en
-                  résidence pour l’année. Quant aux thèmes, ils sont maintenant
-                  présentés sous la forme d’une citation tirée d’une œuvre
-                  littéraire.
+                  L’année 2023 marque une nouvelle étape dans le développement
+                  de <em>Mœbius</em>. Fidèle à son objectif d’accueillir les
+                  expérimentations les plus contemporaines en littérature, la
+                  revue crée une résidence annuelle de littérature
+                  hypermédiatique. Les œuvres créées par un duo composé d’un·e
+                  écrivain·e et d’un·e artiste accompagnent la publication des
+                  numéros de la revue et sont hébergée sur son site web.
                 </motion.span>
               </motion.p>
             </LandingParagraph>
@@ -260,10 +269,7 @@ const APropos = ({ equipeData, footerLogos }) => {
                 key={teamCategory._id}
                 onMouseEnter={() => setActiveCategory(categoryIdx)}
               >
-                <small
-                  key={teamCategory._id}
-                  className="small-title"
-                >
+                <small key={teamCategory._id} className="small-title">
                   {teamCategory.category}
                 </small>
                 {teamCategory.membres.map((member, index) => {
@@ -314,7 +320,7 @@ const APropos = ({ equipeData, footerLogos }) => {
 
             <ContactFlex style={{ zIndex: modalOpen ? 0 : 6 }}>
               <small>
-                1463 Boulevard Saint-Joseph Est <br /> Montréal (Québec)
+                1463, Boulevard Saint-Joseph Est <br /> Montréal (Québec)
                 <br /> H2J 1M6 <br /> Canada
                 <br />
                 <br />
@@ -359,21 +365,42 @@ const APropos = ({ equipeData, footerLogos }) => {
             et distribution */}
           </h2>
           <p>
-            Mœbius est subventionnée par le Conseil des arts du Canada, le
-            Conseil des arts et des lettres du Québec et le Conseil des arts de
-            Montréal. La revue est membre de la Société de développement des
-            périodiques culturels québécois (SODEP) et de la Fédération
-            québécoise du loisir littéraire (FQLL).
+            La revue <em>Mœbius</em> est subventionnée par le Conseil des arts
+            du Canada, le Conseil des arts et des lettres du Québec et le
+            Conseil des arts de Montréal. La revue est membre de la Société de
+            développement des périodiques culturels québécois (
+            <a href="https://www.sodep.qc.ca/" target="_blank" rel="noreferrer">
+              SODEP
+            </a>
+            ) et de la Fédération québécoise du loisir littéraire (FQLL).
             <br />
             <br />
-            Mœbius est diffusée au Canada par la SODEP et diffusée au format
-            papier par Dimédia. La revue est diffusée en France et en Belgique
-            par DNM (Distribution du Nouveau Monde). Elle est distribuée au
-            format numérique par la SODEP (sodep.qc.ca) et ANEL-De Marque
-            (vitrine.entrepotnumerique.com).
+            <em>Mœbius</em> est diffusée au Canada par Dimédia. La revue est
+            diffusée en France et en Belgique par DNM (Distribution du Nouveau
+            Monde). Elle est distribuée au format numérique par la{" "}
+            <a href="https://www.sodep.qc.ca/" target="_blank" rel="noreferrer">
+              SODEP
+            </a>{" "}
+            et{" "}
+            <a
+              href="https://www.vitrine.entrepotnumerique.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              ANEL-De Marque
+            </a>
+            .
             <br />
             <br />
-            Les archives de la revue sont disponibles sur Érudit (erudit.org).
+            Les archives de la revue sont disponibles sur{" "}
+            <a
+              href="https://www.erudit.org/fr/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Érudit
+            </a>
+            .
           </p>
         </Distribution>
       </MainContent>
@@ -667,6 +694,13 @@ const Distribution = styled.div`
   p {
     margin: 2rem 0;
     margin-left: 40%;
+    a {
+      color: var(--color-purple);
+      text-decoration: none;
+      :hover {
+        text-decoration: underline;
+      }
+    }
   }
   @media (max-width: ${breakpoints.xxl}px) {
     p {

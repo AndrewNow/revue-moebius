@@ -83,6 +83,18 @@ export default function Balado({ baladoData }) {
       ? filteredArticles.length
       : visiblePosts;
 
+  // If balado has one number, set a title with one number.
+  // If balado has two numbers, set a title with both numbers.
+  // If balado has no numbers and only a title, set a title w/ that title.
+  let baladoTitle;
+  if (featured?.secondNumber && featured?.number) {
+    baladoTitle = `Mœbius-balado n°${featured?.number} & ${featured?.secondNumber}`;
+  } else if (featured?.number && !featured?.secondNumber) {
+    baladoTitle = `Mœbius-balado n°${featured?.number}`;
+  } else if (!featured?.number && !featured?.secondNumber && featured?.title) {
+    baladoTitle = featured?.title;
+  }
+
   return (
     <Main>
       <Inner>
@@ -94,16 +106,7 @@ export default function Balado({ baladoData }) {
               </Tag>
               <h1 role="heading">
                 <SplitText
-                  string={`Mœbius n°${featured?.number}, `}
-                  variantParent={textAnim}
-                  variantParentMobile={textAnimSlow}
-                  variantChild={textChild}
-                  initial="hidden"
-                  animate="visible"
-                />
-                <br />
-                <SplitText
-                  string={featured?.title}
+                  string={baladoTitle}
                   variantParent={textAnim}
                   variantParentMobile={textAnimSlow}
                   variantChild={textChild}
@@ -152,12 +155,7 @@ export default function Balado({ baladoData }) {
           </h4>
           <p role="heading">
             <SplitText
-              string="Afin de poursuivre la mission de Mœbius de favoriser la réflexion
-            sur la création littéraire, Mœbius-balado accompagnera chacune des
-            parutions de la revue. Mœbius-balado est maintenant disponible sur
-            plusieurs plateformes ! Écoutez-le aussi sur Spotify, Anchor et plus
-            encore. Merci à Littérature québécoise mobile qui rend possible ce
-            projet. Bonne écoute !"
+              string="Poursuivant la mission que s’est donnée Mœbius de favoriser la réflexion sur la création littéraire, Mœbius-balado accompagne la parution de chacun des numéros de la revue. Découvrez les coulisses de l’édition grâce aux entretiens entre les copilotes, et écoutez les auteurices lire des extraits de leur texte et parler de leur création."
               variantParent={textAnimFastest}
               variantParentMobile={textAnimFastest}
               variantChild={textChild}

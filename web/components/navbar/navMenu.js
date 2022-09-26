@@ -128,7 +128,7 @@ const NavMenu = ({ isOpen, setOpen, mediaKitData }) => {
                   Téléchargez le kit média
                 </a>
               </small>
-              <small>REVUE MOEBIEUS ©{new Date().getFullYear()}</small>
+              <small>Revue Mœbius ©{new Date().getFullYear()}</small>
             </BottomInner>
           </Bottom>
         </Menu>

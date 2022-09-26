@@ -7,6 +7,19 @@ import { gridChild } from "../styles/animations";
 import ConvertDateToString from "../utils/convertDateToString";
 
 const BaladoItem = ({ balado }) => {
+  
+  // If balado has one number, set a title with one number.
+  // If balado has two numbers, set a title with both numbers.
+  // If balado has no numbers and only a title, set a title w/ that title.
+  let baladoTitle;
+  if (balado?.secondNumber && balado?.number) {
+    baladoTitle = `Mœbius-balado n°${balado?.number} & ${balado?.secondNumber}`;
+  } else if (balado?.number && !balado?.secondNumber) {
+    baladoTitle = `Mœbius-balado n°${balado?.number}`;
+  } else if (!balado?.number && !balado?.secondNumber && balado?.title) {
+    baladoTitle = balado?.title;
+  }
+
   return (
     <Item key={balado._id} variants={gridChild}>
       <ImageWrapper style={{ background: balado.color }}>
@@ -21,6 +34,7 @@ const BaladoItem = ({ balado }) => {
               placeholder="blur"
               blurDataURL={balado.lqip}
               // layout="fill"
+              objectFit='cover'
             />
           )}
         </ColorWrapper>
@@ -29,8 +43,8 @@ const BaladoItem = ({ balado }) => {
         <ConvertDateToString data={balado?.publishedAt} />
       </small>
       <h4>
-        Mœbius n°{balado.number} <br />
-        {balado.title}
+        {baladoTitle}
+        <br />
       </h4>
       <EpisodeLink>
         <Link scroll={false} href={`balado/${balado.slug}`}>
@@ -58,10 +72,11 @@ const Item = styled(motion.div)`
   small {
     margin: 2rem auto;
     color: var(--color-grey);
+    margin-bottom: 0.5rem;
   }
   h4 {
     color: var(--color-black);
-    margin: 1rem auto;
+    margin: 0 auto;
   }
   @media (max-width: ${breakpoints.s}px) {
     width: 90%;
@@ -81,11 +96,12 @@ const ImageWrapper = styled.div`
 
 const EpisodeLink = styled.div`
   margin: 1rem auto;
-  border: 1px solid var(--color-black);
+  margin-bottom: 1.5rem;
   display: inline-block;
   border-radius: 10px;
   cursor: pointer;
   transition: var(--transition);
+  background: var(--color-turquoise);
   small {
     transition: var(--transition);
     display: inline-block;
@@ -95,7 +111,7 @@ const EpisodeLink = styled.div`
   }
   :hover {
     background: var(--color-turquoise);
-    border: 1px solid transparent;
+    filter: brightness(0.9);
     small {
       color: var(--static-black);
     }

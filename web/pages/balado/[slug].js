@@ -31,7 +31,7 @@ export default function Balado({ balado }) {
               )}
             </ImageWrapper>
             <BannerText>
-              <h1 style={{ color: balado.textcolor }}>Mœbius-balado</h1>
+              {/* <h1 style={{ color: balado.textcolor }}>Mœbius-balado</h1> */}
               <WrapDetails>
                 <BannerDetails>
                   {balado.discussion && (

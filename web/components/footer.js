@@ -4,6 +4,7 @@ import { breakpoints } from "../utils/breakpoints";
 import MailchimpFormContainer from "./mailchimp/mailchimpFormContainer";
 import { Instagram, Facebook, Twitter } from "../svg/icons";
 import Link from "next/link";
+import { LinkData } from "./navbar/navLinks";
 
 const Footer = ({ logos }) => {
   return (
@@ -53,7 +54,7 @@ const Footer = ({ logos }) => {
               <a href="mailto:revuemoebius@gmail.com">revuemoebius@gmail.com</a>
               <br />
               <br />
-              1463 Boulevard Saint-Joseph Est <br />
+              1463, Boulevard Saint-Joseph Est <br />
               Montréal, Québec <br />
               H2J 1M6
               <br /> Canada
@@ -63,29 +64,13 @@ const Footer = ({ logos }) => {
         <Information>
           <InformationInner>
             <Title>Index</Title>
-            <h5>
-              <Link scroll={false} href="/a-propos">
-                À propos
-              </Link>
-            </h5>
-            <h5>
-              <Link href="/proposer-un-texte">Proposer un texte</Link>
-            </h5>
-            <h5>
-              <Link href="/vente">Vente et abonnements</Link>
-            </h5>
-            <h5>
-              <Link href="/numeros">Numéros</Link>
-            </h5>
-            {/* <Link href="/residences">
-              <h5>Résidences</h5>
-            </Link> */}
-            <h5>
-              <Link href="/balado">Mœbius-balado</Link>
-            </h5>
-            <h5>
-              <Link href="/nouvelles">Nouvelles</Link>
-            </h5>
+            {LinkData.map((link) => (
+              <h5>
+                <Link scroll={false} href={link.url}>
+                  {link.title}
+                </Link>
+              </h5>
+            ))}
           </InformationInner>
         </Information>
       </MainContent>
@@ -96,7 +81,7 @@ const Footer = ({ logos }) => {
               Téléchargez le kit média
             </a>
           </small>
-          <small>REVUE MOEBIEUS ©{new Date().getFullYear()}</small>
+          <small>Revue Mœbius ©{new Date().getFullYear()}</small>
         </BottomInner>
       </Bottom>
       <Bottom style={{ borderTop: "1px solid var(--static-cream)" }}>

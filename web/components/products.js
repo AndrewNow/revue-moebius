@@ -58,7 +58,7 @@ const Products = ({ product }) => {
       </ImageWrapper>
       <TextWrapper>
         <span>
-          <small>Moebius n°{product.number}</small>
+          <small>Mœbius n°{product.number}</small>
           <Link scroll={false} href={`/numeros/${product.slug}`}>
             <h4>{product.title}</h4>
           </Link>
