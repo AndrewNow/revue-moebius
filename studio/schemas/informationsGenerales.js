@@ -1,12 +1,12 @@
 export default {
   name: "informationsGenerales",
   type: "document",
-  title: "Informations Générales",
+  title: "Informations générales",
   fields: [
     {
-      name: "url",
-      type: "url",
-      title: "Footer images",
+      name: "mediaKit",
+      type: "file",
+      title: "Kit média",
     },
     {
       name: "Partenaires",
@@ -22,12 +22,14 @@ export default {
               type: "string",
               name: "partnershipName",
               title: "Nom du partenaire",
+              validation: (Rule) => Rule.required(),
             },
             {
               type: "image",
               name: "partnerLogo",
               title: "Logo du partenaire",
               description: "Soumettez le logo d'un partenaire ici.",
+              validation: (Rule) => Rule.required(),
             },
           ],
           preview: {
