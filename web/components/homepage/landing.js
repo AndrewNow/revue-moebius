@@ -105,8 +105,9 @@ const ImageWrapper = styled(motion.div)`
 
   :hover {
     .mainImg {
-      transform: rotateY(0deg);
+      transform: rotateY(0deg) translateY(-1%);
       cursor: pointer;
+      filter: var(--drop-shadow);
     }
     .supportingImg {
       transform: translate(10%, -50%) rotateY(15deg) rotateX(10deg);
@@ -136,8 +137,8 @@ const MainImage = styled.div`
   width: 70%;
   position: relative;
   z-index: 3;
-  transform: rotateY(10deg) rotateX(5deg);
-  filter: var(--drop-shadow);
+  transform: rotateY(10deg) rotateX(4deg);
+  filter: var(--drop-shadow-light);
   transition: var(--transition-image);
 
   @media (max-width: ${breakpoints.s}px) {
@@ -150,13 +151,11 @@ const SupportingImage = styled(motion.div)`
   width: 45%;
   top: 50%;
   left: 0%;
-  transform: translate(0%, -50%) rotateY(5deg);
-  /* opacity: 0.5; */
+  transform: translate(5%, -50%) rotateY(5deg);
   opacity: 0.5;
   filter: brightness(0.8) blur(1px);
-  
   transition: var(--transition-image);
-  
+
   @media (max-width: ${breakpoints.s}px) {
     filter: brightness(0.8) blur(1px);
     transform: translate(15%, -50%) rotateY(5deg);

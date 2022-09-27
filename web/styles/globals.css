@@ -22,7 +22,8 @@
   --color-cream: #fffff8;
   --color-black: #353535;
   --nav-color: #fffff810;
-  --drop-shadow: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.1));
+  --drop-shadow-light: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.05));
+  --drop-shadow: drop-shadow(0px 0px 25px rgba(0, 0, 0, 0.15));
 }
 
 [data-theme="dark"] {
@@ -30,7 +31,8 @@
   --color-black: #fffff8;
   --color-cream: #353535;
   --nav-color: #35353598;
-  --drop-shadow: drop-shadow(-5px 0px 30px rgba(255, 255, 255, 0.105));
+  --drop-shadow-light: drop-shadow(-5px 0px 10px rgba(255, 255, 255, 0.05));
+  --drop-shadow: drop-shadow(-5px 0px 30px rgba(255, 255, 255, 0.125));
 }
 
 @font-face {
