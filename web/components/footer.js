@@ -64,8 +64,8 @@ const Footer = ({ logos }) => {
         <Information>
           <InformationInner>
             <Title>Index</Title>
-            {LinkData.map((link) => (
-              <h5>
+            {LinkData.map((link, idx) => (
+              <h5 key={idx}>
                 <Link scroll={false} href={link.url}>
                   {link.title}
                 </Link>
@@ -88,16 +88,16 @@ const Footer = ({ logos }) => {
         <ImageBanner>
           {logos?.[0]?.Partenaires.map((partner, i) => {
             return (
-              <ImageInnerWrapper key={i}>
+              <ImageInnerWrapper key={partner._key + i}>
                 <Image
                   src={partner?.imageUrl}
                   alt={partner?.partnershipName}
                   quality={100}
                   layout="fill"
-                  // objectFit="scale-down"
                   objectFit="contain"
                   placeholder="blur"
                   blurDataURL={partner?.lqip}
+                  // objectFit="scale-down"
                 />
               </ImageInnerWrapper>
             );

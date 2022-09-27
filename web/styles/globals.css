@@ -22,6 +22,7 @@
   --color-cream: #fffff8;
   --color-black: #353535;
   --nav-color: #fffff810;
+  --drop-shadow: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.1));
 }
 
 [data-theme="dark"] {
@@ -29,6 +30,7 @@
   --color-black: #fffff8;
   --color-cream: #353535;
   --nav-color: #35353598;
+  --drop-shadow: drop-shadow(-5px 0px 30px rgba(255, 255, 255, 0.105));
 }
 
 @font-face {
@@ -78,7 +80,7 @@
 }
 
 ::selection {
-  background: #F8F8A5;
+  background: #f8f8a5;
   color: var(--static-black);
 }
 
@@ -143,7 +145,9 @@ h6 {
   font-weight: 100;
 }
 
-p, ul, li {
+p,
+ul,
+li {
   font-family: "Simula";
   font-weight: 300;
 }

@@ -25,6 +25,7 @@ export default BannerMarquee;
 
 const Wrapper = styled.div`
   width: 100%;
+  margin: 5rem 0;
   background-color: var(--color-turquoise);
   /* * {
     font-size: 16px !important;

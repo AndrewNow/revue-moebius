@@ -156,8 +156,8 @@ const Menu = styled(motion.div)`
   align-items: stretch;
   top: 0;
   width: 100%;
-  height: 85vh;
-  max-height: 800px;
+  /* height: 85vh; */
+  /* max-height: 800px; */
   z-index: 990;
   @media (max-width: ${breakpoints.l}px) {
     max-height: none;
@@ -272,6 +272,7 @@ const Bottom = styled.div`
   position: relative;
   color: var(--static-cream);
   transition: var(--transition);
+  background: var(--color-clay);
 `;
 
 const BottomInner = styled.div`

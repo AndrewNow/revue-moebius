@@ -66,8 +66,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  border-top: 1px solid var(--color-black);
-  padding-top: 5rem;
 
   @media (max-width: ${breakpoints.l}px) {
     width: 60%;

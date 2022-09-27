@@ -326,6 +326,7 @@ const Links = styled(motion.div)`
   justify-content: flex-end;
   flex-direction: column;
   position: relative;
+  padding-top: 150px;
   padding-bottom: 50px;
   a {
     text-decoration: none;
@@ -333,6 +334,7 @@ const Links = styled(motion.div)`
 
   @media (max-width: ${breakpoints.l}px) {
     padding-bottom: 0;
+    padding-top: 0;
     width: 100%;
     height: auto;
     margin: 0 auto;

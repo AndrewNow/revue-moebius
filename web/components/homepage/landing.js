@@ -9,30 +9,36 @@ import { textAnim, textAnimSlow, textChild } from "../../styles/animations";
 const Landing = ({ data }) => {
   return (
     <LandingSection>
-      <ImageWrapper>
-        <MainImage>
-          {data.image && (
-            <Image
-              priority
-              src={data.image}
-              alt={data.title}
-              placeholder="blur"
-              blurDataURL={data.lqip}
-              layout="intrinsic"
-              width={519}
-              height={733}
-              quality={90}
-            />
+      <ImageWrapper
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, delay: 0.25, ease: [0.85, 0, 0.15, 1] }}
+      >
+        <MainImage className="mainImg">
+          {data[0].image && (
+            <Link scroll={false} href={`/numeros/${data[0].slug}`}>
+              <Image
+                priority
+                src={data[0].image}
+                alt={data[0].title}
+                placeholder="blur"
+                blurDataURL={data[0].lqip}
+                layout="intrinsic"
+                width={519}
+                height={733}
+                quality={90}
+              />
+            </Link>
           )}
         </MainImage>
-        <SupportingImage>
-          {data.image && (
+        <SupportingImage className="supportingImg">
+          {data[1].image && (
             <Image
               priority
-              src={data.image}
-              alt={data.title}
+              src={data[1].image}
+              alt={data[1].title}
               placeholder="blur"
-              blurDataURL={data.lqip}
+              blurDataURL={data[1].lqip}
               layout="intrinsic"
               width={320}
               height={453}
@@ -42,7 +48,9 @@ const Landing = ({ data }) => {
         </SupportingImage>
       </ImageWrapper>
       <TextWrapper>
-        <motion.small variants={textChild}>Mœbius n°{data.number}</motion.small>
+        <motion.small variants={textChild}>
+          Mœbius n°{data[0].number}
+        </motion.small>
         <h1 role="heading">
           <SplitText
             string="Consultez notre dernier numéro"
@@ -54,7 +62,7 @@ const Landing = ({ data }) => {
           />
         </h1>
         <InternalLink>
-          <Link scroll={false} href={`/numeros/${data.slug}`}>
+          <Link scroll={false} href={`/numeros/${data[0].slug}`}>
             <small>En savoir plus</small>
           </Link>
         </InternalLink>
@@ -66,9 +74,11 @@ const Landing = ({ data }) => {
 export default Landing;
 
 const LandingSection = styled.section`
-  height: 100vh;
+  /* min-height: 100vh; */
   width: 90%;
-  margin: 0 auto;
+  margin: 0rem auto;
+  padding-top: 140px;
+  margin-bottom: 3rem;
   display: flex;
   justify-content: space-evenly;
 
@@ -77,18 +87,33 @@ const LandingSection = styled.section`
     height: auto;
   }
   @media (max-width: ${breakpoints.m}px) {
+    padding-top: 0;
+    margin-bottom: 0;
     flex-direction: column-reverse;
     align-items: center;
     min-height: auto;
   }
 `;
 
-const ImageWrapper = styled.div`
+const ImageWrapper = styled(motion.div)`
   position: relative;
   width: 45%;
   display: flex;
   justify-content: center;
   align-items: center;
+  perspective: 2500px;
+
+  :hover {
+    .mainImg {
+      transform: rotateY(0deg);
+      cursor: pointer;
+    }
+    .supportingImg {
+      transform: translate(10%, -50%) rotateY(15deg) rotateX(10deg);
+      filter: brightness(0.77) blur(2px);
+    }
+  }
+
   @media (max-width: ${breakpoints.m}px) {
     width: 80%;
     margin: 3rem 0;
@@ -96,6 +121,13 @@ const ImageWrapper = styled.div`
   @media (max-width: ${breakpoints.s}px) {
     width: 100%;
     margin: 2rem 0;
+    perspective: none;
+    :hover {
+      .supportingImg {
+        transform: translate(15%, -50%) rotateY(5deg);
+        filter: brightness(0.8) blur(1px);
+      }
+    }
   }
 `;
 
@@ -104,6 +136,13 @@ const MainImage = styled.div`
   width: 70%;
   position: relative;
   z-index: 3;
+  transform: rotateY(10deg) rotateX(5deg);
+  filter: var(--drop-shadow);
+  transition: var(--transition-image);
+
+  @media (max-width: ${breakpoints.s}px) {
+    transform: rotateY(0deg) rotateX(0deg);
+  }
 `;
 
 const SupportingImage = styled(motion.div)`
@@ -111,8 +150,17 @@ const SupportingImage = styled(motion.div)`
   width: 45%;
   top: 50%;
   left: 0%;
-  transform: translate(0%, -50%);
+  transform: translate(0%, -50%) rotateY(5deg);
+  /* opacity: 0.5; */
   opacity: 0.5;
+  filter: brightness(0.8) blur(1px);
+  
+  transition: var(--transition-image);
+  
+  @media (max-width: ${breakpoints.s}px) {
+    filter: brightness(0.8) blur(1px);
+    transform: translate(15%, -50%) rotateY(5deg);
+  }
 `;
 
 const TextWrapper = styled(motion.div)`

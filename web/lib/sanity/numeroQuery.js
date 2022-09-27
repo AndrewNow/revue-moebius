@@ -33,7 +33,7 @@ export const numeroHomepageQuery = groq`
     "slug": slug.current,
     "image": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
-  }[0]
+  }[0..1]
 `;
 
 // Query 7 articles for the homepage Numeros carousel
