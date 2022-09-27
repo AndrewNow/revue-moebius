@@ -7,7 +7,6 @@ import { gridChild } from "../styles/animations";
 import ConvertDateToString from "../utils/convertDateToString";
 
 const BaladoItem = ({ balado }) => {
-  
   // If balado has one number, set a title with one number.
   // If balado has two numbers, set a title with both numbers.
   // If balado has no numbers and only a title, set a title w/ that title.
@@ -23,21 +22,19 @@ const BaladoItem = ({ balado }) => {
   return (
     <Item key={balado._id} variants={gridChild}>
       <ImageWrapper style={{ background: balado.color }}>
-        <ColorWrapper>
-          {balado.imageUrl && (
-            <Image
-              src={balado.imageUrl}
-              alt={`Image couverture pour Moebius-Balado ${balado.number}`}
-              height={500}
-              width={500}
-              quality={90}
-              placeholder="blur"
-              blurDataURL={balado.lqip}
-              // layout="fill"
-              objectFit='cover'
-            />
-          )}
-        </ColorWrapper>
+        {balado.imageUrl && (
+          <Image
+            src={balado.imageUrl}
+            alt={`Image couverture pour Moebius-Balado ${balado.number}`}
+            height={500}
+            width={500}
+            quality={90}
+            placeholder="blur"
+            blurDataURL={balado.lqip}
+            // layout="fill"
+            objectFit="cover"
+          />
+        )}
       </ImageWrapper>
       <small>
         <ConvertDateToString data={balado?.publishedAt} />
@@ -57,12 +54,9 @@ const BaladoItem = ({ balado }) => {
 
 export default BaladoItem;
 
-const ColorWrapper = styled.div`
-  width: 90%;
-  height: 90%;
-`;
 
 const Item = styled(motion.div)`
+  margin-top: 2rem;
   text-align: center;
   max-width: 500px;
   small,

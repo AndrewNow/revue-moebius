@@ -15,18 +15,24 @@ const AProposSection = () => {
         </h1>
         <Paragraph>
           <p>
-            Mœbius est une revue littéraire québécoise fondée en 1977 par Pierre
-            DesRuisseaux, Raymond Martin et Guy Melançon. Elle a été dirigée par
-            Robert Giroux pendant trente-cinq ans. La revue paraît quatre fois
-            par année.
+            <em>Mœbius</em> est une revue de création littéraire québécoise
+            fondée en 1977 par Pierre DesRuisseaux, Raymond Martin et Guy
+            Melançon. La revue valorise la perméabilité des formes et des genres
+            littéraires, l’expérimentation et la mise en scène de la
+            subjectivité. Elle se veut de même un lieu où réunir les textes
+            d’auteur·rice·s établi·e·s et d’écrivain·e·s émergent·e·s.
             <br />
             <br />
           </p>
           <p>
-            Mœbius est une revue littéraire québécoise fondée en 1977 par Pierre
-            DesRuisseaux, Raymond Martin et Guy Melançon. Elle a été dirigée par
-            Robert Giroux pendant trente-cinq ans. La revue paraît quatre fois
-            par année.
+            <em>Mœbius</em> reconnaît une valeur à toutes les formes
+            d’expressions littéraires, artistiques et culturelles et souhaite
+            contribuer à faire émerger de nouvelles voix et à favoriser
+            l’expression de sensibilités ou d’imaginaires qui ont longtemps été
+            privés de s’exprimer. En promouvant différentes esthétiques
+            littéraires et artistiques, elle souhaite contribuer à une
+            décolonisation progressive de la littérature, des arts et de la
+            culture.
           </p>
         </Paragraph>
         <InternalLink>
@@ -35,7 +41,7 @@ const AProposSection = () => {
           </Link>
         </InternalLink>
       </TextWrapper>
-    </Wrapper>
+    </Wrapper>  
   );
 };
 
@@ -79,14 +85,14 @@ const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   span:nth-of-type(2) {
     padding-top: 0;
     margin-left: 5%;
     white-space: nowrap;
   }
   h1 {
-    opacity: .95;
+    opacity: 0.95;
     width: 90%;
     margin: 0 auto;
   }
@@ -108,11 +114,11 @@ const TextWrapper = styled.div`
       font-size: 7.5vw;
     }
   }
-  
+
   @media (max-width: ${breakpoints.s}px) {
     margin: 4rem auto;
     width: 95%;
-    
+
     h1 {
       width: 100%;
       font-size: 45px;

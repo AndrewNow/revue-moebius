@@ -29,7 +29,7 @@ const BaladoSection = ({ baladoData }) => {
           <Text>
             <h1 ref={ref} role="heading">
               <SplitText
-                string="Mœbius balado"
+                string="Mœbius-balado"
                 variantParent={textAnim}
                 variantParentMobile={textAnimSlow}
                 variantChild={textChild}

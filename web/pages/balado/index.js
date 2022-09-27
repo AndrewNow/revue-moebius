@@ -123,8 +123,7 @@ export default function Balado({ baladoData }) {
                 </Link>
               </EpisodeLink>
             </FeaturedText>
-            <FeaturedImageWrapper style={{ background: featured?.color }}>
-              <ColorWrapper>
+            <FeaturedImageWrapper>
                 {featured?.imageUrl && (
                   <Image
                     src={featured?.imageUrl}
@@ -137,7 +136,6 @@ export default function Balado({ baladoData }) {
                     blurDataURL={featured.lqip}
                   />
                 )}
-              </ColorWrapper>
             </FeaturedImageWrapper>
           </FeaturedBalado>
         )}
@@ -357,49 +355,14 @@ const Grid = styled(motion.div)`
   }
 `;
 
-const ColorWrapper = styled.div`
-  width: 90%;
-  height: 90%;
-`;
-
-const Item = styled(motion.div)`
-  text-align: center;
-  max-width: 500px;
-  small,
-  h4 {
-    display: block;
-  }
-  small {
-    margin: 2rem auto;
-    color: var(--color-grey);
-  }
-  h4 {
-    color: var(--color-black);
-    margin: 1rem auto;
-  }
-  @media (max-width: ${breakpoints.s}px) {
-    width: 90%;
-    small {
-      margin-bottom: 0;
-    }
-  }
-`;
-
-const ImageWrapper = styled.div`
-  width: 100%;
-  aspect-ratio: 1/1;
-  position: relative;
-  display: grid;
-  place-items: center;
-`;
-
 const EpisodeLink = styled.div`
   margin: 1rem auto;
-  border: 1px solid var(--color-black);
   display: inline-block;
   border-radius: 10px;
   cursor: pointer;
   transition: var(--transition);
+  background: var(--color-turquoise);
+
   small {
     transition: var(--transition);
     display: inline-block;
@@ -409,7 +372,7 @@ const EpisodeLink = styled.div`
   }
   :hover {
     background: var(--color-turquoise);
-    border: 1px solid transparent;
+    filter: brightness(0.9);
     small {
       color: var(--static-black);
     }

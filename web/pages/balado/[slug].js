@@ -13,7 +13,18 @@ import ConvertDateToString from "../../utils/convertDateToString";
 import MarkdownContent from "../../utils/MarkdownContent";
 
 export default function Balado({ balado }) {
-  console.log(balado);
+  // If balado has one number, set a title with one number.
+  // If balado has two numbers, set a title with both numbers.
+  // If balado has no numbers and only a title, set a title w/ that title.
+  let baladoTitle;
+  if (balado?.secondNumber && balado?.number) {
+    baladoTitle = `Mœbius-balado n°${balado?.number} & ${balado?.secondNumber}`;
+  } else if (balado?.number && !balado?.secondNumber) {
+    baladoTitle = `Mœbius-balado n°${balado?.number}`;
+  } else if (!balado?.number && !balado?.secondNumber && balado?.title) {
+    baladoTitle = balado?.title;
+  }
+
   return (
     <>
       <Banner style={{ background: balado.color }}>
@@ -31,7 +42,10 @@ export default function Balado({ balado }) {
               )}
             </ImageWrapper>
             <BannerText>
-              {/* <h1 style={{ color: balado.textcolor }}>Mœbius-balado</h1> */}
+              <small>
+                <ConvertDateToString data={balado?.publishedAt} />
+              </small>
+              <h2 style={{ color: balado.textcolor }}>{baladoTitle}</h2>
               <WrapDetails>
                 <BannerDetails>
                   {balado.discussion && (
@@ -82,54 +96,50 @@ export default function Balado({ balado }) {
       </Banner>
       <Wrapper>
         <Inner>
-          <Header>
-            <small>
-              <ConvertDateToString data={balado?.publishedAt} />
-            </small>
-            <h1>
-              N°{balado?.number}- {balado?.title}
-            </h1>
-            <SpotifyButton
-              href={balado?.embed}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <small>Ouvrir en Spotify</small>
-            </SpotifyButton>
-          </Header>
-          <Content>
-            {balado?.embed && (
-              <SpotifyWrapper>
-                <Spotify wide height="100%" link={balado?.embed} />
-              </SpotifyWrapper>
-            )}
-            <MarkdownWrapper>
-              <MarkdownContent blocks={balado?.body} />
-            </MarkdownWrapper>
-            <ShareButton input={balado?.embed} />
-            <Return>
-              <Link scroll={false} href="/balado">
-                <span>
-                  <svg
-                    width="18"
-                    height="16"
-                    viewBox="0 0 18 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 1L1 8L8 15M1 8L17 8L1 8Z"
-                      stroke="var(--color-black)"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>{" "}
-                  Retourner vers balados
-                </span>
-              </Link>
-            </Return>
-          </Content>
+          <MainContentFlex>
+            <StickyLink>
+              <SpotifyButton
+                href={balado?.embed}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <small>Ouvrir en Spotify</small>
+              </SpotifyButton>
+            </StickyLink>
+            <Content>
+              {balado?.embed && (
+                <SpotifyWrapper>
+                  <Spotify wide height="100%" link={balado?.embed} />
+                </SpotifyWrapper>
+              )}
+              <MarkdownWrapper>
+                <MarkdownContent blocks={balado?.body} />
+              </MarkdownWrapper>
+              <ShareButton input={balado?.embed} />
+              <Return>
+                <Link scroll={false} href="/balado">
+                  <span>
+                    <svg
+                      width="18"
+                      height="16"
+                      viewBox="0 0 18 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 1L1 8L8 15M1 8L17 8L1 8Z"
+                        stroke="var(--color-black)"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>{" "}
+                    Retourner vers balados
+                  </span>
+                </Link>
+              </Return>
+            </Content>
+          </MainContentFlex>
         </Inner>
       </Wrapper>
     </>
@@ -169,10 +179,10 @@ const Banner = styled.section`
   padding-top: 10rem;
 `;
 
-const BannerFlex = styled.div`
+const BannerFlex = styled.header`
   margin: 0 auto;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 
   @media (max-width: ${breakpoints.l}px) {
@@ -202,6 +212,16 @@ const Wrapper = styled.section``;
 
 const BannerText = styled.div`
   margin-left: 5%;
+  width: 60%;
+  small {
+    display: block;
+    margin-bottom: 1.5rem;
+    color: var(--color-grey);
+  }
+  h2 {
+    font-family: "Editorial-Italic";
+    margin-bottom: 6rem;
+  }
 
   @media (max-width: ${breakpoints.l}px) {
     margin: 0;
@@ -274,37 +294,50 @@ const BannerItem = styled.div`
   }
 `;
 
-const Header = styled.header`
-  width: 80%;
-  padding-top: 10vh;
-  padding-left: 5vw;
-  padding-bottom: 3rem;
-  color: var(--color-black);
+const MainContentFlex = styled.div`
+  position: relative;
+  display: flex;
+  padding-top: 5rem;
 
-  small {
-    padding: 2rem 0;
-    padding-top: 0;
-    display: block;
-  }
   @media (max-width: ${breakpoints.xl}px) {
-    padding-top: 20vh;
-    padding-bottom: 5rem;
-    padding-left: 0;
-    width: 100%;
+    flex-direction: column;
   }
   @media (max-width: ${breakpoints.m}px) {
-    padding-top: 10vh;
+    padding-top: 3rem;
+  }
+`;
+const StickyLink = styled.div`
+  position: sticky;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  top: 20vh;
+  padding-bottom: 10rem;
+  width: 35%;
+
+  @media (max-width: ${breakpoints.xxl}px) {
+    padding-bottom: 6rem;
+  }
+
+  @media (max-width: ${breakpoints.xl}px) {
+    width: 100%;
+    position: relative;
+    top: 0;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    display: none;
   }
 `;
 
 const SpotifyButton = styled.a`
-  border: 1px solid var(--color-black);
+  position: relative;
   display: inline-block;
-  margin-top: 2rem;
-  padding: 1rem 3rem;
+  margin: 0 auto;
+  padding: 1rem 4rem;
   border-radius: 10px;
   text-decoration: none;
   transition: var(--transition);
+  background: var(--color-turquoise);
 
   small {
     padding: 0;
@@ -312,14 +345,26 @@ const SpotifyButton = styled.a`
 
   :hover {
     background: var(--color-turquoise);
-    color: var(--static-black);
+    filter: brightness(0.9);
+    small {
+      color: var(--static-black);
+    }
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    background: var(--color-turquoise);
     border: 1px solid transparent;
+    small {
+      color: var(--static-black);
+    }
   }
 `;
 
 const Content = styled.div`
   padding-bottom: 10rem;
-  margin-left: 40vw;
+  margin-left: 5%;
+  padding-right: 5%;
+  width: 60%;
 
   p,
   h1,
@@ -335,9 +380,15 @@ const Content = styled.div`
     color: var(--color-black);
   }
 
-  @media (max-width: ${breakpoints.xl}px) {
-    margin-left: 0;
+
+  @media (max-width: ${breakpoints.xxl}px) {
+    padding-right: 0;
     padding-bottom: 5rem;
+  }
+
+  @media (max-width: ${breakpoints.xl}px) {
+    width: 100%;
+    margin-left: 0;
   }
 
   @media (max-width: ${breakpoints.m}px) {
@@ -385,7 +436,7 @@ const Return = styled.small`
 
 const MarkdownWrapper = styled.div`
   margin-bottom: 5rem;
-  margin-top: 3rem;
+  margin-top: 1rem;
   h1,
   h2,
   h3,

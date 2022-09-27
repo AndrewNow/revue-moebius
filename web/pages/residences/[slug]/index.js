@@ -1,14 +1,14 @@
-import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
-import { residenciesPageQuery } from "../../lib/sanity/residencesQuery";
-import { client } from "../../lib/sanity/client";
+import { footerLogoQuery } from "../../../lib/sanity/footerLogoQuery";
+import { residenciesPageQuery } from "../../../lib/sanity/residencesQuery";
+import { client } from "../../../lib/sanity/client";
 import groq from "groq";
 import styled from "styled-components";
-import { breakpoints } from "../../utils/breakpoints";
-import MarkdownContent from "../../utils/MarkdownContent";
-import ShareButton from "../../components/shareButton";
+import { breakpoints } from "../../../utils/breakpoints";
+import MarkdownContent from "../../../utils/MarkdownContent";
+import ShareButton from "../../../components/shareButton";
 import Link from "next/link";
 import Image from "next/image";
-import { Instagram, LinkIcon } from "../../svg/icons";
+import { Instagram, LinkIcon } from "../../../svg/icons";
 
 const Residences = ({ residence }) => {
   const data = residence?.person;
