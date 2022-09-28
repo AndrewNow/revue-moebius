@@ -594,25 +594,25 @@ const Button = styled.button`
   background: none;
   display: inline-block;
   margin: 3rem auto;
-  border: 1px solid var(--color-black) !important;
+  border: 1px solid var(--static-black) !important;
   border-radius: 10px;
   padding: 1rem 1rem;
 
   transition: var(--transition);
 
-  background: var(--color-cream);
+  background: var(--static-cream);
 
   small {
     margin: 0 auto;
     width: 100%;
-    color: var(--color-black);
+    color: var(--static-black);
     transition: var(--transition);
   }
 
   :disabled {
     cursor: not-allowed;
     border: 1px solid var(--color-grey) !important;
-    background: var(--color-cream);
+    background: var(--static-cream);
     small {
       color: var(--color-grey);
     }

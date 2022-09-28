@@ -3,9 +3,7 @@ import groq from "groq";
 import { client } from "../../lib/sanity/client";
 import { nouvellesQuery } from "../../lib/sanity/nouvellesQuery";
 import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
-import Image from "next/image";
 import styled from "styled-components";
-import { Inner } from "../index";
 import { breakpoints } from "../../utils/breakpoints";
 import ShareButton from "../../components/shareButton";
 import ConvertDateToString from "../../utils/convertDateToString";
@@ -90,6 +88,7 @@ const Header = styled.header`
   color: var(--color-black);
 
   small {
+    color: var(--color-grey);
     padding: 2rem 0;
     display: block;
   }
@@ -99,6 +98,15 @@ const Header = styled.header`
     padding-bottom: 1rem;
   }
 `;
+
+const Inner = styled.div`
+  width: 92.5%;
+  margin: 0 auto;
+
+  @media (max-width: ${breakpoints.m}px) {
+    width: 90%;
+  }
+`
 
 const Content = styled.div`
   padding-bottom: 10rem;

@@ -156,7 +156,7 @@ const Banner = styled.div`
   align-items: center;
   user-select: none;
   color: var(--static-black);
-
+  margin-bottom: 10rem;
   a {
     cursor: pointer;
     margin: 0 1rem;
@@ -168,7 +168,8 @@ const Banner = styled.div`
     }
   }
 
-  @media (max-width: ${breakpoints.s}px) {
+  @media (max-width: ${breakpoints.m}px) {
+    margin-bottom: 7.5rem;
     a {
       text-decoration: underline;
     }

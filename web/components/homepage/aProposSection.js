@@ -9,7 +9,7 @@ const AProposSection = () => {
       <TextWrapper>
         <h1>
           <Span>
-            La revue moebius; <br />
+            La revue Mœbius: <br />
           </Span>
           <Span>présentation & historique</Span>
         </h1>
@@ -41,16 +41,16 @@ const AProposSection = () => {
           </Link>
         </InternalLink>
       </TextWrapper>
-    </Wrapper>  
+    </Wrapper>
   );
 };
 
 export default AProposSection;
 
 const gradient = keyframes`
-  0%{background-position:0% 45%}
-  50%{background-position:100% 56%}
-  100%{background-position:0% 45%}
+  0%{background-position:0% 45%;}
+  50%{background-position:100% 56%;}
+  100%{background-position:0% 45%;}
 `;
 
 const Wrapper = styled.div`
@@ -64,9 +64,9 @@ const Wrapper = styled.div`
   background: linear-gradient(283deg, #98657a, #8ab7b7, #789090, #b78298);
   background-size: 400% 400%;
 
-  -webkit-animation: ${gradient} 20s ease infinite;
-  -moz-animation: ${gradient} 20s ease infinite;
-  animation: ${gradient} 20s ease infinite;
+  -webkit-animation: ${gradient} 15s ease infinite;
+  -moz-animation: ${gradient} 15s ease infinite;
+  animation: ${gradient} 15s ease infinite;
 
   @media (max-width: ${breakpoints.l}px) {
     border-radius: 15px;

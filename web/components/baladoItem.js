@@ -73,9 +73,10 @@ const Item = styled(motion.div)`
     margin: 0 auto;
   }
   @media (max-width: ${breakpoints.s}px) {
+    margin-top: 0;
     width: 90%;
     small {
-      margin-bottom: 0;
+      margin-bottom: .5rem;
     }
   }
 `;

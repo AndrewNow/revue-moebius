@@ -295,7 +295,7 @@ const Landing = styled.header`
   position: relative;
   margin-bottom: 2rem;
   @media (max-width: ${breakpoints.m}px) {
-    height: 60vh;
+    height: auto;
   }
 `;
 
@@ -316,7 +316,9 @@ const LandingText = styled.div`
     width: 60%;
   }
   @media (max-width: ${breakpoints.m}px) {
-    margin: 2rem;
+    position: relative;
+    margin: 5rem 2rem;
+    margin-top: 15rem;
     h1 {
       margin-bottom: 1rem;
     }

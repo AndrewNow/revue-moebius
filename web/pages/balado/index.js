@@ -193,8 +193,8 @@ export default function Balado({ baladoData }) {
         {/* only show button when there are articles that correspond. */}
         {visiblePosts >= baladoData.length ? (
           // if user hits end of news articles, button closes posts
-          <LoadMoreButton onClick={handleClosePosts} layout>
-            <small>Afficher moins d'articles</small>
+          <LoadMoreButton onClick={handleClosePosts} layout disabled>
+            <small>Afficher plus d'articles</small>
           </LoadMoreButton>
         ) : (
           // Button to open more posts
@@ -336,6 +336,10 @@ const Header = styled.header`
 const Main = styled.div`
   background-color: var(--color-cream);
   transition: var(--transition);
+
+  @media (max-width: ${breakpoints.m}px) {
+    padding-bottom: 5rem;
+  }
 `;
 
 const Grid = styled(motion.div)`
@@ -352,6 +356,10 @@ const Grid = styled(motion.div)`
     grid-template-columns: 1fr;
     place-items: center;
     row-gap: 5rem;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    row-gap: 4rem;
+    padding-bottom: 2rem;
   }
 `;
 

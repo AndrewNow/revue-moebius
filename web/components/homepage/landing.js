@@ -102,7 +102,12 @@ const ImageWrapper = styled(motion.div)`
   justify-content: center;
   align-items: center;
   perspective: 2500px;
-
+  .mainImg {
+    z-index: 2;
+  }
+  .supportingImg {
+    z-index: 1;
+  }
   :hover {
     .mainImg {
       transform: rotateY(0deg) translateY(-1%);

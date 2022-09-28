@@ -299,6 +299,14 @@ export const LoadMoreButton = styled.button`
     }
   }
 
+  :disabled {
+    border: 1px solid var(--color-grey)!important;
+    cursor: not-allowed;
+    small {
+      color: var(--color-grey);
+    }
+  }
+
   @media (max-width: ${breakpoints.s}px) {
     margin: 2rem auto;
     padding: 1rem 3rem;

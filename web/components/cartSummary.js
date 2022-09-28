@@ -110,7 +110,7 @@ export default function CartSummary({ setOpenCart, openCart }) {
               {cartCount > 0 ? (
                 Object.keys(cartDetails).map((cartItem) => {
                   /* Get items from the cart {cartDetails} and map over them, 
-              to add them as line items */
+                  to add them as line items */
                   const item = cartDetails[cartItem];
                   return (
                     <LineItem key={item.id} layout>
@@ -134,15 +134,15 @@ export default function CartSummary({ setOpenCart, openCart }) {
                         )}
                       </ImageWrapper>
                       <LineItemTitle>
-                        {item.name && <small>{item.name}</small>}
+                        {item?.name && <small>{item?.name}</small>}
                         <ButtonGroup>
                           <Button
-                            onClick={() => decrementItem(item.id)}
+                            onClick={() => decrementItem(item?.id)}
                             aria-label="Retirer un article du panier."
                           >
                             <DecrementIcon />
                           </Button>
-                          <small>{item.quantity}</small>
+                          <small>{item?.quantity}</small>
                           <Button
                             onClick={() => addItem(item)}
                             aria-label="Ajouter un article au panier."
