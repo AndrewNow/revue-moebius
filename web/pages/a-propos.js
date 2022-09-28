@@ -184,7 +184,7 @@ const APropos = ({ equipeData, footerLogos }) => {
           <LandingText ref={ref}>
             <h1 ref={headerRefs} role="heading">
               <SplitText
-                string="La revue Mœbius;"
+                string="La revue Mœbius:"
                 variantParent={textAnim}
                 variantParentMobile={textAnimSlow}
                 variantChild={textChild}

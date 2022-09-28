@@ -1,5 +1,19 @@
 import groq from "groq";
 
+export const homepageResidenciesQuery = groq`
+*[_type == "residences" && active != false] | order(year desc)[0] {
+    _id,
+    residencesData[] {
+      _key,
+      title, 
+      type,
+      "imageUrl": mainImage.asset->url,
+      "lqip": mainImage.asset->metadata.lqip,
+      "slug": slug.current,
+    },
+  }
+`;
+
 // Query for Active residencies. If multiple are active, only select the first.
 export const activeResidenciesQuery = groq`
   *[_type == "residences" && active != false] | order(year desc)[0] {

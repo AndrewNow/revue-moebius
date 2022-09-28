@@ -20,7 +20,7 @@ import BaladoSection from "../components/homepage/baladoSection";
 import Faq from "../components/homepage/faq";
 import AProposSection from "../components/homepage/aProposSection";
 import ResidencesSection from "../components/homepage/residencesSection";
-import { activeResidenciesQuery } from "../lib/sanity/residencesQuery";
+import { homepageResidenciesQuery } from "../lib/sanity/residencesQuery";
 
 export default function Home({
   latestNumero,
@@ -60,7 +60,7 @@ export async function getStaticProps() {
   const newsFeed = await client.fetch(nouvellesListHomepageQuery);
   const featuredArticle = await client.fetch(nouvellesFeaturedQuery);
   const numerosData = await client.fetch(numeroHomepageCarouselQuery);
-  const residencesData = await client.fetch(activeResidenciesQuery);
+  const residencesData = await client.fetch(homepageResidenciesQuery);
   const baladoData = await client.fetch(featuredBaladoQuery);
   const faqData = await client.fetch(faqQuery);
 
