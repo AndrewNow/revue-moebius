@@ -1,9 +1,5 @@
 import { footerLogoQuery } from "../../../../lib/sanity/footerLogoQuery";
-import {
-  residencesTextQuery,
-  residencesParentQuery,
-  residenciesPageQuery,
-} from "../../../../lib/sanity/residencesQuery";
+import { residencesTextQuery } from "../../../../lib/sanity/residencesQuery";
 import { client } from "../../../../lib/sanity/client";
 import groq from "groq";
 import styled from "styled-components";
@@ -25,6 +21,22 @@ const TexteDePresentation = ({ pageData }) => {
   return (
     <>
       <Header>
+        <BreadCrumbs>
+          <small>
+            <Link scroll={false} href={`/residences`}>
+              Résidences
+            </Link>
+            {" > "}
+            <Link
+              scroll={false}
+              href={`/residences/${data?.associatedArtist.slug}`}
+            >
+              {data?.associatedArtist.title}
+            </Link>
+            {" > "}
+            <strong> Texte de présentation</strong>
+          </small>
+        </BreadCrumbs>
         {data?.associatedNumero && (
           <Tag>
             <Link
@@ -53,10 +65,10 @@ const TexteDePresentation = ({ pageData }) => {
             <MarkdownContent blocks={data?.body} />
           </MarkdownWrapper>
           <ShareButton input={data?.slug} />
-          {/* <Return>
+          <Return>
             <Link
               scroll={false}
-              href={`/nouvelles/${data?.slug}`}
+              href={`/residences/${data?.associatedArtist.slug}`}
             >
               <span>
                 <svg
@@ -74,10 +86,10 @@ const TexteDePresentation = ({ pageData }) => {
                     strokeLinejoin="round"
                   />
                 </svg>{" "}
-                Retourner au prix du public
+                Retourner vers la page de {data?.associatedArtist.title}
               </span>
             </Link>
-          </Return> */}
+          </Return>
         </Content>
       </Inner>
     </>
@@ -129,13 +141,14 @@ export async function getStaticPaths() {
 }
 
 const Header = styled.header`
+  position: relative;
   width: 100%;
   margin: 0 auto;
   text-align: center;
   padding-top: 25vh;
   padding-bottom: 10rem;
   color: var(--static-black);
-  background: var(--color-blue);
+  background: var(--color-turquoise);
 
   small {
     padding: 1rem 0;
@@ -147,9 +160,40 @@ const Header = styled.header`
   }
 `;
 
+const BreadCrumbs = styled.div`
+  position: absolute;
+  top: 10vh;
+  left: 4vw;
+  small {
+    font-size: 14px;
+    color: var(--color-grey);
+    a {
+      color: var(--color-grey);
+      text-decoration: none;
+      transition: var(--transition);
+      :hover {
+        color: var(--color-black);
+      }
+    }
+  }
+  strong {
+    font-weight: 100;
+    color: var(--color-black);
+  }
+
+  @media (max-width: ${breakpoints.l}px) {
+    small {
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+  display: none;
+`;
+
 const Tag = styled.div`
   display: inline-block;
-  background: var(--color-turquoise);
+  background: var(--color-blue);
   z-index: 2;
   padding: 10px 18px;
   border-radius: 20px;

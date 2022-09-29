@@ -72,48 +72,16 @@ export const residenciesPageQuery = groq`
     "lqip": mainImage.asset->metadata.lqip,
     "slug": slug.current,
   }
-  // *[$slug in residenceData[].slug.current][0] {
-  //   _id,
-  //   "person": residenceData[slug.current == $slug][0] {
-  //     _key,
-  //     title, 
-  //     type,
-  //     bio,
-  //     photoCredit,
-  //     contributions[]->{
-  //       "imageUrl": mainImage.asset->url,
-  //       "lqip": mainImage.asset->metadata.lqip,
-  //       slug,
-  //     },
-  //     portfolio, 
-  //     instagram,
-  //     "imageUrl": mainImage.asset->url,
-  //     "lqip": mainImage.asset->metadata.lqip,
-  //     "slug": slug.current,
-  //   }
-  // }
 `;
 
-export const residencesParentQuery = groq`
-  *[_type == "artistesEnResidence"] {
-    _id,
-    title,
-    "slug": slug.current,
-  }
-`;
 export const residencesTextQuery = groq`
   *[_type == "texteDePresentation"] {
-    // texteDePresentationData[]->{
-    //   _id,
-    //   associatedArtist,
-    //   associatedNumero,
-    //   author,
-    //   body,
-    //   "slug": slug.current,
-    // },
     _id,
     title,
-    associatedArtist,
+    associatedArtist[0]->{
+      "slug": slug.current,
+      title,
+    },
     associatedNumero[0]->{
       "slug": slug.current,
       number
