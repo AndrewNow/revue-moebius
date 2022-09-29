@@ -106,7 +106,7 @@ const Inner = styled.div`
   @media (max-width: ${breakpoints.m}px) {
     width: 90%;
   }
-`
+`;
 
 const Content = styled.div`
   padding-bottom: 10rem;
@@ -126,7 +126,6 @@ const Content = styled.div`
   blockquote {
     color: var(--color-black);
     margin: 1.5rem 0;
-    display: block;
   }
 
   @media (max-width: ${breakpoints.xl}px) {
@@ -203,4 +202,3 @@ const MarkdownWrapper = styled.div`
     height: 100%;
   }
 `;
-
