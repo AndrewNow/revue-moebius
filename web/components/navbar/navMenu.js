@@ -1,7 +1,5 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
 import { AlgoliaSearch } from "../../lib/algolia/algoliaSearch";
 import NavLinks from "./navLinks";
@@ -164,7 +162,7 @@ const Menu = styled(motion.div)`
     height: auto;
   }
   @media (max-width: ${breakpoints.s}px) {
-    height: 100vh;
+    /* height: 100vh; */
   }
 `;
 
