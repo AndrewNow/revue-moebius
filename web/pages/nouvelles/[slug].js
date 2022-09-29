@@ -113,21 +113,6 @@ const Content = styled.div`
   width: 70%;
   margin: 0 auto;
 
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  ul,
-  li,
-  ol,
-  blockquote {
-    color: var(--color-black);
-    margin: 1.5rem 0;
-  }
-
   @media (max-width: ${breakpoints.xl}px) {
     padding-bottom: 5rem;
   }
@@ -182,8 +167,8 @@ const MarkdownWrapper = styled.div`
   p,
   blockquote,
   code {
-    /* margin: 1.5rem 0; */
-    display: inline-block;
+    margin: 1.5rem 0;
+    /* display: inline-block; */
   }
 
   a {
