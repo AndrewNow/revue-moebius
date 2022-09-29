@@ -139,13 +139,15 @@ export default function CartSummary({ setOpenCart, openCart }) {
                           <Button
                             onClick={() => decrementItem(item?.id)}
                             aria-label="Retirer un article du panier."
-                          >
+                            type="button"
+                            >
                             <DecrementIcon />
                           </Button>
                           <small>{item?.quantity}</small>
                           <Button
                             onClick={() => addItem(item)}
                             aria-label="Ajouter un article au panier."
+                            type="button"
                           >
                             <IncrementIcon />
                           </Button>
@@ -179,7 +181,7 @@ export default function CartSummary({ setOpenCart, openCart }) {
                 </NoItemsInCart>
               )}
             </ItemInner>
-            {cartCount > 0 && <Gradient />}
+            {cartCount > 1 && <Gradient />}
           </LineItemWrapper>
           <CheckoutWrapper>
             <Count suppressHydrationWarning>
@@ -437,7 +439,7 @@ const LineItem = styled(motion.div)`
   }
   @media (max-width: ${breakpoints.s}px) {
     :last-child {
-      margin-bottom: 2rem;
+      /* margin-bottom: 2rem; */
     }
   }
 `;
