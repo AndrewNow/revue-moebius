@@ -17,10 +17,10 @@ const MarkdownContent = ({ blocks }) => {
     },
     block: {
       ["normalCenterAlign"]: ({ children }) => (
-        <p style={{ textAlign: "center" }}>{children}</p>
+        <p style={{ textAlign: "center", display: "block" }}>{children}</p>
       ),
       ["normalRightAlign"]: ({ children }) => (
-        <p style={{ textAlign: "right" }}>{children}</p>
+        <p style={{ textAlign: "right", display: "block" }}>{children}</p>
       ),
     },
   };
