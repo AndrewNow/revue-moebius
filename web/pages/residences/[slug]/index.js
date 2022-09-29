@@ -53,7 +53,7 @@ const Residences = ({ data }) => {
                 layout="fill"
                 quality={90}
                 objectFit="contain"
-                objectPosition="center 80%"
+                objectPosition="center 90%"
               />
             </ImageWrapper>
           </MobileLayout>
@@ -67,12 +67,15 @@ const Residences = ({ data }) => {
                 <h2>{data.title}</h2>
                 <h5>{residencyCategory}</h5>
               </FlexTitle>
-              {data.presentation && (
-                <small>
-                  <Link scroll={false} href={`/${data.presentation}`}>
-                    <LinkWrapper>Texte de présentation</LinkWrapper>
+              {data.texteDePresentationData !== null && (
+                <LinkWrapper>
+                  <Link
+                    scroll={false}
+                    href={`/residences/${data.slug}/${data.texteDePresentationData.slug}`}
+                  >
+                    <small>Texte de présentation</small>
                   </Link>
-                </small>
+                </LinkWrapper>
               )}
             </MobileLayout>
             <MarkdownContent blocks={data.bio} />
@@ -153,7 +156,10 @@ const Residences = ({ data }) => {
                   {data.contributions?.map((numero) => {
                     return (
                       <GridItem key={numero.slug.current}>
-                        <Link href={`/numeros/${numero.slug.current}`}>
+                        <Link
+                          scroll={false}
+                          href={`/numeros/${numero.slug.current}`}
+                        >
                           <Image
                             src={numero.imageUrl}
                             placeholder="blur"
@@ -267,6 +273,9 @@ const Header = styled.div`
   }
   @media (max-width: ${breakpoints.m}px) {
     padding: 0;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    padding: 2rem 0;
   }
 `;
 

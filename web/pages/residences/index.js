@@ -22,7 +22,6 @@ import Image from "next/image";
 import { Instagram, LinkIcon } from "../../svg/icons";
 import ResidenceArchive from "../../components/residenceArchive/residenceArchive";
 
-
 const Residency = ({ pageData, archiveData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
   //
@@ -82,22 +81,11 @@ const Residency = ({ pageData, archiveData }) => {
     ref.current.scrollIntoView({
       behavior: "smooth",
     });
-  
-  
+
   return (
     <Wrapper>
       <Sidebar>
         <SidebarList>
-          <small
-            onClick={() => handleScollTo(writerScrollRef)}
-            style={{
-              color: writerIsVisible
-                ? "var(--color-black)"
-                : "var(--color-grey)",
-            }}
-          >
-            Résidence d’écrivain.e
-          </small>
           <br />
           <br />
           <small
@@ -109,6 +97,16 @@ const Residency = ({ pageData, archiveData }) => {
             }}
           >
             résidence d’artiste
+          </small>
+          <small
+            onClick={() => handleScollTo(writerScrollRef)}
+            style={{
+              color: writerIsVisible
+                ? "var(--color-black)"
+                : "var(--color-grey)",
+            }}
+          >
+            Résidence d’écrivain.e
           </small>
           <br />
           <br />
@@ -338,6 +336,9 @@ const LandingText = styled.div`
     p {
       width: 100%;
     }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    padding-left: .25rem;
   }
 `;
 
