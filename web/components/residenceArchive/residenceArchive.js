@@ -48,7 +48,7 @@ const MapResidenceEntries = ({ data }) => {
             exit="hidden"
           >
             <ArchiveResidencyWrapper>
-              {data.residencesData.map((entry) => {
+              {data.residenceData.map((entry) => {
                 // Change the category title according to the incoming SEO title data
                 // to make it easier to read
                 let residencyCategory;

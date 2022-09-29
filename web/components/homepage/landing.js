@@ -4,14 +4,15 @@ import Link from "next/link";
 import { breakpoints } from "../../utils/breakpoints";
 import SplitText from "../../utils/splitText";
 import { textAnim, textAnimSlow, textChild } from "../../styles/animations";
+import { motion } from 'framer-motion'
 
 const Landing = ({ data }) => {
   return (
     <LandingSection>
       <ImageWrapper
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: 1 }}
-        // transition={{ duration: 2, delay: 0.25, ease: [0.85, 0, 0.15, 1] }}
+      // initial={{ opacity: 0 }}
+      // animate={{ opacity: 1 }}
+      // transition={{ duration: 2, delay: 0.25, ease: [0.85, 0, 0.15, 1] }}
       >
         <MainImage className="mainImg">
           {data[0].image && (
@@ -150,7 +151,7 @@ const MainImage = styled.div`
   }
 `;
 
-const SupportingImage = styled(motion.div)`
+const SupportingImage = styled.div`
   position: absolute;
   width: 45%;
   top: 50%;

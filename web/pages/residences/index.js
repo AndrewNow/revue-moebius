@@ -162,7 +162,7 @@ const Residency = ({ pageData, archiveData }) => {
             </p>
           </LandingText>
         </Landing>
-        {pageData.residencesData.map((individual) => {
+        {pageData.residenceData.map((individual) => {
           // Change the category title according to the incoming SEO title data
           // to make it easier to read
           let residencyCategory;

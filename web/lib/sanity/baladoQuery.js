@@ -47,3 +47,5 @@ export const featuredBaladoQuery = groq`
     "lqip": mainImage.asset->metadata.lqip,
   }[0]
 `;
+
+

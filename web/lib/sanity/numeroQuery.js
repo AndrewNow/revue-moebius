@@ -23,7 +23,7 @@ export const numeroQuery = groq`
   }
 `;
 
-// Query for the feature hero on the home page
+// Query for the feature hero on the home page, get the first 2 results
 export const numeroHomepageQuery = groq`
  *[_type == "numero"] | order(number desc) {
     _id,  

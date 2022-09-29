@@ -35,9 +35,18 @@ const ResidencesSection = ({ data }) => {
         </Marquee>
       </Banner>
       <InnerSection>
-        {data.residencesData.map((individual, idx) => {
+        {data.residenceData.map((individual, idx) => {
           // Change speed depending on if an item's ID is odd or even
           const MARQUEE_SPEED = idx % 2 == 0 ? 55 : 75;
+
+          let residencyTitle;
+          if (individual.type === "artiste") {
+            residencyTitle = "artiste";
+          } else if (individual.type === "écrivain") {
+            residencyTitle = "écrivain.e";
+          } else if (individual.type === "hypermédia") {
+            residencyTitle = "hypermédia";
+          }
 
           return (
             <Marquee
@@ -65,7 +74,7 @@ const ResidencesSection = ({ data }) => {
                   <h2>{individual.title}</h2>
                 </Link>
                 <Link href="/residences" scroll={false}>
-                  <h4>({individual.type})</h4>
+                  <h4>({residencyTitle})</h4>
                 </Link>
               </ResidencyItem>
               <ResidencyItem>
@@ -171,7 +180,7 @@ const Banner = styled.div`
   @media (max-width: ${breakpoints.l}px) {
     padding: 2.5rem 0;
   }
-  
+
   @media (max-width: ${breakpoints.s}px) {
     padding: 2rem 0;
   }

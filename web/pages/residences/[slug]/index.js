@@ -10,8 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Instagram, LinkIcon } from "../../../svg/icons";
 
-const Residences = ({ residence }) => {
-  const data = residence?.person;
+const Residences = ({ data }) => {
   // Change the category title according to the incoming SEO title data
   // to make it easier to read
   let residencyCategory;
@@ -23,6 +22,7 @@ const Residences = ({ residence }) => {
     residencyCategory = "Résidence hypermédiatique";
   }
 
+  console.log(data);
   return (
     <Wrapper>
       <Header>
@@ -32,13 +32,16 @@ const Residences = ({ residence }) => {
               <h2>{data.title}</h2>
               <h5>{residencyCategory}</h5>
             </FlexTitle>
-            {/* {data.presentation && ( */}
-            <LinkWrapper>
-              <Link scroll={false} href={`/${data.presentation}`}>
-                <small>Texte de présentation</small>
-              </Link>
-            </LinkWrapper>
-            {/* )} */}
+            {data.texteDePresentationData !== null && (
+              <LinkWrapper>
+                <Link
+                  scroll={false}
+                  href={`/residences/${data.slug}/${data.texteDePresentationData.slug}`}
+                >
+                  <small>Texte de présentation</small>
+                </Link>
+              </LinkWrapper>
+            )}
           </DesktopLayout>
           <MobileLayout>
             <ImageWrapper>
@@ -228,25 +231,25 @@ export default Residences;
 export async function getStaticProps({ params }) {
   const footerLogos = await client.fetch(footerLogoQuery);
 
-  const residence = await client.fetch(residenciesPageQuery, {
+  const data = await client.fetch(residenciesPageQuery, {
     slug: params.slug,
   });
 
   return {
     props: {
-      residence,
+      data,
       footerLogos,
     },
   };
 }
 
 export async function getStaticPaths() {
-  const residences = await client.fetch(
-    groq`*[_type == "residences"].residencesData[].slug.current`
+  const data = await client.fetch(
+    groq`*[_type == "artistesEnResidence" && defined(slug.current)][].slug.current`
   );
-  return {
-    paths: residences.map((slug) => ({ params: { slug } })),
 
+  return {
+    paths: data.map((slug) => ({ params: { slug } })),
     fallback: true,
   };
 }

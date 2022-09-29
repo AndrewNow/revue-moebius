@@ -1,35 +1,43 @@
-import Link from "next/link";
+import { footerLogoQuery } from "../../../../lib/sanity/footerLogoQuery";
+import {
+  residencesTextQuery,
+  residencesParentQuery,
+  residenciesPageQuery,
+} from "../../../../lib/sanity/residencesQuery";
+import { client } from "../../../../lib/sanity/client";
 import groq from "groq";
-import { client } from "../../lib/sanity/client";
-import { prixDuPublicQuery } from "../../lib/sanity/prixDuPublicQuery";
-import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
 import styled from "styled-components";
-import { Inner } from "../index";
-import { breakpoints } from "../../utils/breakpoints";
-import ShareButton from "../../components/shareButton";
-import MarkdownContent from "../../utils/MarkdownContent";
-import SplitText from "../../utils/splitText";
-import { textAnim, textChild, textAnimSlow } from "../../styles/animations";
+import Link from "next/link";
+import { breakpoints } from "../../../../utils/breakpoints";
+import ShareButton from "../../../../components/shareButton";
+import MarkdownContent from "../../../../utils/MarkdownContent";
+import SplitText from "../../../../utils/splitText";
+import {
+  textAnim,
+  textAnimSlow,
+  textChild,
+} from "../../../../styles/animations";
+import { Inner } from "../../../index";
 
-export default function PrixDuPublic({ prixDuPublic }) {
+const TexteDePresentation = ({ pageData }) => {
+  const data = pageData[0];
+  console.log(data);
   return (
     <>
       <Header>
-        {prixDuPublic?.associatedNumero && (
+        {data?.associatedNumero && (
           <Tag>
             <Link
               scroll={false}
-              href={`/numeros/${prixDuPublic?.associatedNumero[0].slug}`}
+              href={`/numeros/${data?.associatedNumero.slug}`}
             >
-              <small>
-                Édition N°{prixDuPublic?.associatedNumero[0].number}
-              </small>
+              <small>Édition N°{data?.associatedNumero.number}</small>
             </Link>
           </Tag>
         )}
         <h1>
           <SplitText
-            string={prixDuPublic?.title}
+            string={data?.title}
             variantParent={textAnim}
             variantParentMobile={textAnimSlow}
             variantChild={textChild}
@@ -37,18 +45,18 @@ export default function PrixDuPublic({ prixDuPublic }) {
             animate="visible"
           />
         </h1>
-        <small>Rédigé par: {prixDuPublic?.author}</small>
+        <small>Rédigé par: {data?.author}</small>
       </Header>
       <Inner>
         <Content>
           <MarkdownWrapper>
-            <MarkdownContent blocks={prixDuPublic?.body} />
+            <MarkdownContent blocks={data?.body} />
           </MarkdownWrapper>
-          <ShareButton input={prixDuPublic?.slug} />
-          <Return>
+          <ShareButton input={data?.slug} />
+          {/* <Return>
             <Link
               scroll={false}
-              href={`/nouvelles/${prixDuPublic?.associatedNouvelles[0].slug.current}`}
+              href={`/nouvelles/${data?.slug}`}
             >
               <span>
                 <svg
@@ -69,36 +77,53 @@ export default function PrixDuPublic({ prixDuPublic }) {
                 Retourner au prix du public
               </span>
             </Link>
-          </Return>
+          </Return> */}
         </Content>
       </Inner>
     </>
   );
-}
+};
+
+export default TexteDePresentation;
 
 export async function getStaticProps({ params }) {
+  console.log("params", params);
+
   const footerLogos = await client.fetch(footerLogoQuery);
 
-  let slug;
-  const prixDuPublic = await client.fetch(prixDuPublicQuery, {
-    slug: params.slug,
+  const pageData = await client.fetch(residencesTextQuery, {
+    texte: params.texte,
   });
 
   return {
     props: {
-      prixDuPublic,
+      pageData,
       footerLogos,
     },
   };
 }
 
 export async function getStaticPaths() {
-  const paths = await client.fetch(
-    groq`*[_type == "prixDuPublic" && defined(slug.current)][].slug.current`
+  const data = await client.fetch(
+    groq`*[_type == "artistesEnResidence"] {
+      "slug": slug.current,
+      texteDePresentationData[0]->{
+        "slug": slug.current,
+      },
+    }`
   );
 
   return {
-    paths: paths.map((slug) => ({ params: { slug } })),
+    paths: data
+      .filter((item) => item.texteDePresentationData)
+      .map((item) => {
+        return {
+          params: {
+            slug: item.slug,
+            texte: item.texteDePresentationData.slug,
+          },
+        };
+      }),
     fallback: true,
   };
 }
