@@ -25,15 +25,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/numeros": [
+    "/nouvelles/[slug]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/numeros.js"
-    ],
-    "/numeros/[slug]": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/numeros/[slug].js"
+      "static/chunks/pages/nouvelles/[slug].js"
     ]
   },
   "ampFirstPages": []
