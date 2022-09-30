@@ -1,8 +1,4 @@
-/**
- * @type {import('next').NextConfig}
- */
-
-const nextConfig = {
+module.exports = {
   reactStrictMode: true,
   compiler: {
     // ssr and displayName are configured by default
@@ -31,5 +27,3 @@ const nextConfig = {
     ],
   },
 };
-
-module.exports = nextConfig
