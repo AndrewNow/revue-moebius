@@ -66,6 +66,10 @@ export const residenciesPageQuery = groq`
       "lqip": mainImage.asset->metadata.lqip,
       slug,
     },
+    contributionsEcrivain[]->{
+      "slug": slug.current,
+      title
+    },
     portfolio, 
     instagram,
     "imageUrl": mainImage.asset->url,
@@ -92,3 +96,19 @@ export const residencesTextQuery = groq`
   }
 `;
 
+export const residencesEcrivainQuery = groq`
+  *[_type == "contributionsEcrivain"] {
+    _id,
+    title,
+    associatedArtist[0]->{
+      "slug": slug.current,
+      title,
+    },
+    associatedNumero[0]->{
+      "slug": slug.current,
+      number
+    },
+    body,
+    "slug": slug.current,
+  }
+`;

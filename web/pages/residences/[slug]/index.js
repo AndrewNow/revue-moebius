@@ -36,7 +36,7 @@ const Residences = ({ data }) => {
               <LinkWrapper>
                 <Link
                   scroll={false}
-                  href={`/residences/${data.slug}/${data.texteDePresentationData.slug}`}
+                  href={`/residences/${data.slug}/texte-de-presentation/${data.texteDePresentationData.slug}`}
                 >
                   <small>Texte de présentation</small>
                 </Link>
@@ -149,33 +149,52 @@ const Residences = ({ data }) => {
                 )}
               </Socials>
             </MobileLayout>
-            {data.contributions && (
+            {(data.contributions || data.contributionsEcrivain) && (
               <Contributions>
                 <small>Contributions:</small>
-                <ContributionGrid>
-                  {data.contributions?.map((numero) => {
-                    return (
-                      <GridItem key={numero.slug.current}>
-                        <Link
-                          scroll={false}
-                          href={`/numeros/${numero.slug.current}`}
-                        >
-                          <Image
-                            src={numero.imageUrl}
-                            placeholder="blur"
-                            blurDataURL={numero.lqip}
-                            layout="fill"
-                            objectFit="cover"
-                            quality={40}
-                            className="imageHover"
-                          />
-                        </Link>
-                      </GridItem>
-                    );
-                  })}
-                </ContributionGrid>
+                {data.contributions && (
+                  <ContributionGrid>
+                    {data.contributions?.map((numero) => {
+                      return (
+                        <GridItem key={numero.slug.current}>
+                          <Link
+                            scroll={false}
+                            href={`/numeros/${numero.slug.current}`}
+                          >
+                            <Image
+                              src={numero.imageUrl}
+                              placeholder="blur"
+                              blurDataURL={numero.lqip}
+                              layout="fill"
+                              objectFit="cover"
+                              quality={40}
+                              className="imageHover"
+                            />
+                          </Link>
+                        </GridItem>
+                      );
+                    })}
+                  </ContributionGrid>
+                )}
+                {data.contributionsEcrivain && (
+                  <ContributionsEcrivain>
+                    {data.contributionsEcrivain?.map((publication) => {
+                      return (
+                        <li>
+                          <Link
+                            scroll={false}
+                            href={`/residences/${data.slug}/contributions/${publication.slug}`}
+                          >
+                            <small> « {publication.title} »</small>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ContributionsEcrivain>
+                )}
               </Contributions>
             )}
+
             <DesktopLayout>
               <Socials>
                 {data.instagram && (
@@ -536,6 +555,21 @@ const ContributionGrid = styled.div`
   place-items: center;
   justify-items: start;
   justify-content: start;
+`;
+
+const ContributionsEcrivain = styled.ul`
+  padding-top: 1rem;
+  padding-left: 1rem;
+  li {
+    padding-left: 1rem;
+  }
+
+  :hover {
+    li {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
 `;
 
 const GridItem = styled.div`

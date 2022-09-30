@@ -86,8 +86,6 @@ const Residency = ({ pageData, archiveData }) => {
     <Wrapper>
       <Sidebar>
         <SidebarList>
-          <br />
-          <br />
           <small
             onClick={() => handleScollTo(artistScrollRef)}
             style={{
@@ -98,6 +96,8 @@ const Residency = ({ pageData, archiveData }) => {
           >
             résidence d’artiste
           </small>
+          <br />
+          <br />
           <small
             onClick={() => handleScollTo(writerScrollRef)}
             style={{
@@ -338,7 +338,7 @@ const LandingText = styled.div`
     }
   }
   @media (max-width: ${breakpoints.s}px) {
-    padding-left: .25rem;
+    padding-left: 0.25rem;
   }
 `;
 
