@@ -22,6 +22,8 @@ import boutique from "./boutique";
 import youtube from "./youtube";
 import prixDuPublic from "./prixDuPublic";
 import residences from "./residences";
+import artistesEnResidence from "./artistesEnResidence";
+import texteDePresentation from "./texteDePresentation";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -45,6 +47,8 @@ export default createSchema({
     prixDuPublic,
     faq,
     abonnements,
+    artistesEnResidence,
+    texteDePresentation,
     category,
     informationsGenerales,
     youtube,
