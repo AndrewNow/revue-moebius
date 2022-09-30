@@ -29,6 +29,7 @@ export async function getStaticProps() {
     props: {
       footerLogos,
     },
+    revalidate: 10,
   };
 }
 

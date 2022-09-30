@@ -89,6 +89,7 @@ export async function getStaticProps({ params }) {
       prixDuPublic,
       footerLogos,
     },
+    revalidate: 10,
   };
 }
 

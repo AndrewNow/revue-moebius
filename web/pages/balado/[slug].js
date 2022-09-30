@@ -159,6 +159,7 @@ export async function getStaticProps({ params }) {
       balado,
       footerLogos,
     },
+    revalidate: 10,
   };
 }
 

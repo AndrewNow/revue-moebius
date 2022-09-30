@@ -226,10 +226,10 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       numero,
-
       readMoreData,
       footerLogos,
     },
+    revalidate: 10,
   };
 }
 

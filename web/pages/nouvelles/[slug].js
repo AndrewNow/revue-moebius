@@ -65,6 +65,7 @@ export async function getStaticProps({ params }) {
       nouvelles,
       footerLogos,
     },
+    revalidate: 10,
   };
 }
 

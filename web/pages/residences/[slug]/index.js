@@ -246,6 +246,7 @@ export async function getStaticProps({ params }) {
       data,
       footerLogos,
     },
+    revalidate: 10,
   };
 }
 
