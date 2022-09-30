@@ -42,22 +42,22 @@ export default {
       },
       validation: (Rule) => Rule.required(),
     },
-    // {
-    //   name: "color",
-    //   title: "Couleur de fond",
-    //   type: "colorPicker",
-    //   initialValue: "#FFFFF8",
-    //   validation: (Rule) => Rule.required(),
-    // },
-    // {
-    //   name: "textcolor",
-    //   title: "Couleur de texte",
-    //   initialValue: "#353535",
-    //   description:
-    //     "Soit Noir: #353535 ou Blanc: #FFFFF8. Consultez ce lien pour vérifier que le contraste est adéquat https://webaim.org/resources/contrastchecker/",
-    //   type: "colorPicker",
-    //   validation: (Rule) => Rule.required(),
-    // },
+    {
+      name: "color",
+      title: "Couleur de fond",
+      type: "colorPicker",
+      initialValue: "#FFFFF8",
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "textcolor",
+      title: "Couleur de texte",
+      initialValue: "#353535",
+      description:
+        "Soit Noir: #353535 ou Blanc: #FFFFF8. Consultez ce lien pour vérifier que le contraste est adéquat https://webaim.org/resources/contrastchecker/",
+      type: "colorPicker",
+      validation: (Rule) => Rule.required(),
+    },
     {
       name: "slug",
       title: "Slug",
