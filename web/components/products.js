@@ -37,6 +37,7 @@ const Products = ({ product }) => {
     },
   };
 
+
   return (
     <Numero key={product._id} variants={gridChild}>
       <ImageWrapper>

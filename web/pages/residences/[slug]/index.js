@@ -17,7 +17,7 @@ const Residences = ({ data }) => {
   if (data.type === "artiste") {
     residencyCategory = "Résidence d'artiste";
   } else if (data.type === "écrivain") {
-    residencyCategory = "Résidence d'écrivain.e";
+    residencyCategory = "Résidence d'écrivain·e";
   } else if (data.type === "hypermédia") {
     residencyCategory = "Résidence hypermédiatique";
   }
@@ -558,17 +558,17 @@ const ContributionGrid = styled.div`
 `;
 
 const ContributionsEcrivain = styled.ul`
-  padding-top: 1rem;
   padding-left: 1rem;
   li {
     padding-left: 1rem;
+    small {
+      margin-bottom: 0;
+    }
   }
 
-  :hover {
-    li {
-      cursor: pointer;
-      text-decoration: underline;
-    }
+  li:hover {
+    cursor: pointer;
+    text-decoration: underline;
   }
 `;
 

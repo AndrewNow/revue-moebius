@@ -85,8 +85,16 @@ const MapResidenceEntries = ({ data }) => {
 const ResidenceArchive = ({ data }) => {
   return (
     <Section>
-      <h2>Archive</h2>
-      <p>Découvrir les résidences du passé.</p>
+      <h2>Archives</h2>
+      <p>
+        <em>Mœbius</em> accueille chaque année un·e artiste et un·e écrivain·e
+        en résidence. Aux artistes, la revue offre de faire de sa page
+        couverture un canevas. Aux écrivain·e·s, elle donne l’espace d’une
+        parole qui peut se déployer en plusieurs épisodes. Dès 2023, un nouveau
+        terrain d’exploration sera ouvert à un duo formé d’un·e artiste et
+        d’un·auteurice : la résidence hypermédiatique. Découvrez leurs œuvres
+        ici!
+      </p>
       <Archive>
         {data.map((yearData) => {
           return <MapResidenceEntries data={yearData} />;
@@ -106,6 +114,9 @@ const Section = styled.section`
   h2,
   p {
     color: var(--color-black);
+  }
+  p {
+    width: 86%;
   }
 
   @media (max-width: ${breakpoints.s}px) {

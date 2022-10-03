@@ -40,8 +40,11 @@ const MapFAQ = ({ data }) => {
             color: hover ? "var(--static-black)" : "var(--color-black)",
           }}
         >
-          <h4>{question.question}</h4>
-          <Chevron open={open} />
+          <h5>{question.question}</h5>
+          <Chevron
+            open={open}
+            hover={hover}
+          />
         </QuestionTitle>
         <AnimatePresence exitBeforeEnter>
           {open && (

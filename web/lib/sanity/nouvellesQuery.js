@@ -16,7 +16,7 @@ export const nouvellesQuery = groq`
 
 // Display all articles of type "nouvelles"
 export const nouvellesListQuery = groq`
-  *[_type == "nouvelles"]{
+  *[_type == "nouvelles" ] | order(publishedAt desc) {
     _id,
     title,
     publishedAt,
@@ -29,7 +29,7 @@ export const nouvellesListQuery = groq`
 
 // Display all articles, except for the featured one
 export const nouvellesListHomepageQuery = groq`
-  *[_type == "nouvelles" && (!defined(featured) || featured == false)]{
+  *[_type == "nouvelles" && (!defined(featured) || featured == false)] | order(publishedAt desc) {
     _id,
     title,
     publishedAt,
@@ -42,7 +42,7 @@ export const nouvellesListHomepageQuery = groq`
 
 // Query for only the featured article on the home page.
 export const nouvellesFeaturedQuery = groq`
-  *[_type == "nouvelles" && featured == true]{
+  *[_type == "nouvelles" && featured == true] {
     _id,
     title,
     publishedAt,

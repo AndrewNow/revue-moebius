@@ -45,7 +45,7 @@ export default function Balado({ baladoData }) {
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
-    amount: 0.25,
+    amount: 0.45,
   });
 
   const ref2 = useRef(null);
@@ -376,7 +376,7 @@ const EpisodeLink = styled.div`
     display: inline-block;
     padding: 1rem 4rem;
     margin: 0;
-    color: var(--color-black);
+    color: var(--static-black);
   }
   :hover {
     background: var(--color-turquoise);

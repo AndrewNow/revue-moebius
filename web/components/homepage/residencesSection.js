@@ -43,7 +43,7 @@ const ResidencesSection = ({ data }) => {
           if (individual.type === "artiste") {
             residencyTitle = "artiste";
           } else if (individual.type === "écrivain") {
-            residencyTitle = "écrivain.e";
+            residencyTitle = "écrivain·e";
           } else if (individual.type === "hypermédia") {
             residencyTitle = "hypermédia";
           }

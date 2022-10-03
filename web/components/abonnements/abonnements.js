@@ -120,7 +120,7 @@ const Abonnements = ({ abonnements }) => {
           </Left>
           <Form>
             <RadioWrapper>
-              <small>Type d’abonnement »</small>
+              <small>Type d’abonnement</small>
               <RadioGroup>
                 <label htmlFor="regular">
                   <h3>Régulier</h3>

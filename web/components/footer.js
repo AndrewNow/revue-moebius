@@ -283,6 +283,9 @@ const BottomInner = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  :hover {small > a {
+    text-decoration: underline;
+  }}
   .mediaKit {
     text-decoration: none;
     color: var(--static-cream);

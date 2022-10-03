@@ -128,7 +128,7 @@ export const LightDarkButton = ({ darkTheme }) => {
   );
 };
 
-export const Chevron = ({ open }) => {
+export const Chevron = ({ open, hover }) => {
   return (
     <motion.svg
       width="44"
@@ -145,7 +145,7 @@ export const Chevron = ({ open }) => {
     >
       <path
         d="M10.7129 17.5872L21.0841 27.9583L31.4552 17.5872L30.1591 16.291L21.0841 25.366L12.0091 16.291L10.7129 17.5872Z"
-        fill="var(--static-black"
+        fill={hover ? "var(--static-black)" : "var(--color-black)"}
       />
     </motion.svg>
   );

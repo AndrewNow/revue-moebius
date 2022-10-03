@@ -22,16 +22,16 @@ export const LinkData = [
     title: "Mœbius-balado",
   },
   {
+    url: `/residences`,
+    title: "Résidences",
+  },
+  {
     url: `/vente`,
     title: "Vente et abonnement",
   },
   {
     url: `/soumettre-un-texte`,
     title: "Soumettre un texte",
-  },
-  {
-    url: `/residences`,
-    title: "Résidences",
   },
 ];
 

@@ -173,13 +173,13 @@ const BreadCrumbs = styled.div`
       text-decoration: none;
       transition: var(--transition);
       :hover {
-        color: var(--color-black);
+        color: var(--static-black);
       }
     }
   }
   strong {
     font-weight: 100;
-    color: var(--color-black);
+    color: var(--static-black);
   }
 
   @media (max-width: ${breakpoints.l}px) {

@@ -97,7 +97,7 @@ export const residencesTextQuery = groq`
 `;
 
 export const residencesEcrivainQuery = groq`
-  *[_type == "contributionsEcrivain"] {
+  *[_type == "contributionsEcrivain" && defined(slug.current)] {
     _id,
     title,
     associatedArtist[0]->{

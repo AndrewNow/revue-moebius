@@ -394,7 +394,7 @@ const APropos = ({ equipeData, footerLogos }) => {
             <br />
             Les archives de la revue sont disponibles sur{" "}
             <a
-              href="https://www.erudit.org/fr/"
+              href="https://www.erudit.org/fr/revues/moebius/#back-issues"
               target="_blank"
               rel="noreferrer"
             >

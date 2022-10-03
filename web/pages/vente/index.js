@@ -34,7 +34,7 @@ const Vente = ({ numeros, abonnements, boutique }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
 
   // Only display 9 posts at first
-  const [visiblePosts, setVisiblePosts] = useState(12);
+  const [visiblePosts, setVisiblePosts] = useState(8);
 
   // Value to increment more/less posts by
   const MORE_POSTS = 8;
@@ -135,7 +135,7 @@ const Vente = ({ numeros, abonnements, boutique }) => {
           )}
         </Inner>
       </Content>
-      <Abonnements abonnements={abonnements} />
+      {abonnements.length && <Abonnements abonnements={abonnements} />}
       {boutique.length && <Boutique boutique={boutique} />}
     </>
   );

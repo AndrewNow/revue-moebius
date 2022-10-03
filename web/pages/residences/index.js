@@ -106,7 +106,7 @@ const Residency = ({ pageData, archiveData }) => {
                 : "var(--color-grey)",
             }}
           >
-            Résidence d’écrivain.e
+            Résidence d’écrivain·e
           </small>
           <br />
           <br />
@@ -139,7 +139,7 @@ const Residency = ({ pageData, archiveData }) => {
           <LandingText>
             <h1 ref={artistRefs} role="heading">
               <SplitText
-                string="Artistes en résidence"
+                string="Résidences"
                 variantParent={textAnim}
                 variantParentMobile={textAnimSlow}
                 variantChild={textChild}
@@ -169,7 +169,7 @@ const Residency = ({ pageData, archiveData }) => {
             residencyCategory = "Résidence d'artiste";
             scrollToRef = artistRefs;
           } else if (individual.type === "écrivain") {
-            residencyCategory = "Résidence d'écrivain.e";
+            residencyCategory = "Résidence d'écrivain·e";
             scrollToRef = writerRefs;
           } else if (individual.type === "hypermédia") {
             residencyCategory = "Résidence hypermédiatique";

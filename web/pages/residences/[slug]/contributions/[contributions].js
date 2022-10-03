@@ -8,7 +8,11 @@ import { breakpoints } from "../../../../utils/breakpoints";
 import ShareButton from "../../../../components/shareButton";
 import MarkdownContent from "../../../../utils/MarkdownContent";
 import SplitText from "../../../../utils/splitText";
-import { textAnim, textAnimSlow, textChild } from "../../../../styles/animations";
+import {
+  textAnim,
+  textAnimSlow,
+  textChild,
+} from "../../../../styles/animations";
 import { Inner } from "../../../index";
 
 const ContributionEcrivain = ({ pageData }) => {
@@ -53,7 +57,7 @@ const ContributionEcrivain = ({ pageData }) => {
             animate="visible"
           />
         </h1>
-        <small>Rédigé par: {data?.author}</small>
+        {data?.author && <small>Rédigé par: {data?.author}</small>}
       </Header>
       <Inner>
         <Content>
@@ -101,6 +105,7 @@ export async function getStaticProps({ params }) {
 
   const pageData = await client.fetch(residencesEcrivainQuery, {
     slug: params.slug,
+    contributions: params.contributions,
   });
 
   return {
@@ -114,7 +119,7 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   const data = await client.fetch(
-    groq`*[_type == "artistesEnResidence"] {
+    groq`*[_type == "artistesEnResidence" && defined(slug.current) && defined(contributionsEcrivain)] {
       "slug": slug.current,
       contributionsEcrivain[]->{
         "slug": slug.current,
@@ -126,6 +131,9 @@ export async function getStaticPaths() {
     paths: data
       .filter((item) => item.contributionsEcrivain)
       .map((item, idx) => {
+
+        // const contributions = item.contributionsEcrivain.map((item) => item);
+        
         return {
           params: {
             slug: item.slug,
@@ -136,7 +144,6 @@ export async function getStaticPaths() {
     fallback: true,
   };
 }
-
 
 const Header = styled.header`
   position: relative;
@@ -170,13 +177,13 @@ const BreadCrumbs = styled.div`
       text-decoration: none;
       transition: var(--transition);
       :hover {
-        color: var(--color-black);
+        color: var(--static-black);
       }
     }
   }
   strong {
     font-weight: 100;
-    color: var(--color-black);
+    color: var(--static-black);
   }
 
   @media (max-width: ${breakpoints.l}px) {
