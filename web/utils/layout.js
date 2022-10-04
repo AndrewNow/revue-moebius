@@ -6,7 +6,6 @@ export const Layout = (props) => {
   return (
     <>
       <Head>
-        {/* <b link rel="icon" href="/xxxfavicon.png" /> */}
         <link rel="icon" href="/favicon.png"></link>
         <meta property="og:image" content="https://i.imgur.com/mk55koK.png" />
         <meta

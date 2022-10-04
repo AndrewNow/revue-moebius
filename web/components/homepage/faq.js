@@ -28,7 +28,6 @@ const MapFAQ = ({ data }) => {
       },
     };
 
-    console.log(hover)
     return (
       <QuestionItem
         key={question._key}
@@ -38,7 +37,7 @@ const MapFAQ = ({ data }) => {
       >
         <QuestionTitle
           style={{
-            background: hover ? "var(--color-yellow)" : "var(--color-cream)",
+            backgroundColor: hover ? "var(--color-yellow)" : "var(--color-cream)",
             color: hover ? "var(--static-black)" : "var(--color-black)",
           }}
         >
@@ -68,7 +67,7 @@ const MapFAQ = ({ data }) => {
 };
 
 const Faq = ({ faqData }) => {
-  const data = faqData[0].faqData;
+  const data = faqData.faqData;
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });

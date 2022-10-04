@@ -12,6 +12,7 @@ import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
 import ShareButton from "../../components/shareButton";
 import ConvertDateToString from "../../utils/convertDateToString";
 import MarkdownContent from "../../utils/MarkdownContent";
+import Head from "next/head";
 
 export default function Numeros({ numero, readMoreData }) {
   // logic for showing 3 randomized articles at the bottom of the page
@@ -54,6 +55,29 @@ export default function Numeros({ numero, readMoreData }) {
 
   return (
     <>
+      <Head>
+        <title>
+          {numero?.title
+            ? `${numero?.title} - Numéro ${numero?.number}`
+            : "Numéros"}
+        </title>
+        <meta
+          property="og:title"
+          content={
+            numero?.title
+              ? `${numero?.title} - Numéro ${numero?.number}`
+              : "Numéros"
+          }
+        />
+        <meta
+          property="og:description"
+          content={numero?.directedBy ? `Dirigé par ${numero?.directedBy}` : ""}
+        />
+        <meta
+          name="description"
+          content={numero?.directedBy ? `Dirigé par ${numero?.directedBy}` : ""}
+        />
+      </Head>
       <Header>
         <Inner>
           <HeaderFlex>

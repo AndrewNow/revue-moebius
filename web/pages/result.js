@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useReward } from "react-rewards";
 // import PrintObject from "../components/PrintObject";
 // import { breakpoints } from "../utils/breakpoints";
+import Head from "next/head";
 
 const ResultPage = () => {
   const router = useRouter();
@@ -40,6 +41,10 @@ const ResultPage = () => {
 
   return (
     <>
+      <Head>
+        <title>La revue Mœbius</title>
+        <meta property="og:title" content="La Revue Mœbius" />
+      </Head>
       <Wrapper>
         <Reward id="rewardId" />
         <Text>

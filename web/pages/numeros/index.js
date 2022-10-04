@@ -75,15 +75,18 @@ const Numeros = ({ numeroData }) => {
   return (
     <>
       <Head>
+        <title>Retrouvez tous les numéros de la revue Mœbius</title>
         <meta
           property="og:title"
           content="Retrouvez tous les numéros de la revue Mœbius"
-          key="title"
         />
         <meta
           property="og:description"
           content="Survolez les archives de la revue. Notre catalogue vous permet de revisiter nos numéros, des plus anciens aux plus récents. "
-          key="description"
+        />
+        <meta
+          name="description"
+          content="Survolez les archives de la revue. Notre catalogue vous permet de revisiter nos numéros, des plus anciens aux plus récents. "
         />
       </Head>
       <Header>

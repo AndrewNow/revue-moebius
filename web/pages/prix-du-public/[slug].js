@@ -10,10 +10,26 @@ import ShareButton from "../../components/shareButton";
 import MarkdownContent from "../../utils/MarkdownContent";
 import SplitText from "../../utils/splitText";
 import { textAnim, textChild, textAnimSlow } from "../../styles/animations";
+import Head from "next/head";
 
 export default function PrixDuPublic({ prixDuPublic }) {
   return (
     <>
+      <Head>
+        <title>
+          {prixDuPublic?.title
+            ? `${prixDuPublic?.title} - Prix du public`
+            : "Prix du public"}
+        </title>
+        <meta
+          property="og:title"
+          content={
+            prixDuPublic?.title
+              ? `${prixDuPublic?.title} - Prix du public`
+              : "Prix du public"
+          }
+        />
+      </Head>
       <Header>
         {prixDuPublic?.associatedNumero && (
           <Tag>

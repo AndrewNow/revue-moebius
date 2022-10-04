@@ -25,15 +25,15 @@ const Residences = ({ data }) => {
   return (
     <>
       <Head>
-        <meta
-          property="og:title"
-          content="Découvrez nos résidences"
-          key="title"
-        />
+        <title>{data.title} - Résidence</title>
+        <meta property="og:title" content={`${data.title} - Résidence`} />
         <meta
           property="og:description"
           content="Mœbius accueille chaque année un·e artiste et un·e écrivain·e en résidence. Dès 2023, un nouveau terrain d’exploration sera ouvert à un duo formé d’un·e artiste et d’un·auteur·rice : la résidence hypermédiatique."
-          key="description"
+        />
+        <meta
+          name="description"
+          content="Mœbius accueille chaque année un·e artiste et un·e écrivain·e en résidence. Dès 2023, un nouveau terrain d’exploration sera ouvert à un duo formé d’un·e artiste et d’un·auteur·rice : la résidence hypermédiatique."
         />
       </Head>
       <Wrapper>
@@ -548,7 +548,7 @@ const Contributions = styled.div`
   position: relative;
   small {
     display: block;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   @media (max-width: ${breakpoints.l}px) {
@@ -575,7 +575,8 @@ const ContributionsEcrivain = styled.ul`
   li {
     padding-left: 1rem;
     small {
-      margin-bottom: 0;
+      margin-bottom: 1.25rem;
+      line-height: 120%;
     }
   }
 

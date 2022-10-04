@@ -8,47 +8,68 @@ import { breakpoints } from "../../utils/breakpoints";
 import ShareButton from "../../components/shareButton";
 import ConvertDateToString from "../../utils/convertDateToString";
 import MarkdownContent from "../../utils/MarkdownContent";
+import Head from "next/head";
+import SplitText from "../../utils/splitText";
+import { textAnimFast, textAnimSlow, textChild } from "../../styles/animations";
 
 export default function Nouvelles({ nouvelles }) {
   return (
-    <Inner>
-      <Header>
-        <small>
-          <ConvertDateToString data={nouvelles?.publishedAt} />
-        </small>
-        <h1>{nouvelles?.title}</h1>
-      </Header>
-      <Content>
-        <MarkdownWrapper>
-          <MarkdownContent blocks={nouvelles?.body} />
-        </MarkdownWrapper>
-        <ShareButton
-          input={`https://revuemoebius.com/nouvelles/${nouvelles?.slug}`}
+    <>
+      <Head>
+        <title>{nouvelles?.title ? nouvelles?.title : "Nouvelles"}</title>
+        <meta
+          property="og:title"
+          content={nouvelles?.title ? nouvelles?.title : "Nouvelles"}
         />
-        <Return>
-          <Link scroll={false} href="/nouvelles">
-            <span>
-              <svg
-                width="18"
-                height="16"
-                viewBox="0 0 18 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M8 1L1 8L8 15M1 8L17 8L1 8Z"
-                  stroke="var(--color-black)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>{" "}
-              Retourner vers nouvelles
-            </span>
-          </Link>
-        </Return>
-      </Content>
-    </Inner>
+      </Head>
+      <Inner>
+        <Header>
+          <small>
+            <ConvertDateToString data={nouvelles?.publishedAt} />
+          </small>
+          <h1>
+            <SplitText
+              string={nouvelles?.title}
+              variantParent={textAnimFast}
+              variantParentMobile={textAnimSlow}
+              variantChild={textChild}
+              initial="hidden"
+              animate="visible"
+            />
+          </h1>
+        </Header>
+        <Content>
+          <MarkdownWrapper>
+            <MarkdownContent blocks={nouvelles?.body} />
+          </MarkdownWrapper>
+          <ShareButton
+            input={`https://revuemoebius.com/nouvelles/${nouvelles?.slug}`}
+          />
+          <Return>
+            <Link scroll={false} href="/nouvelles">
+              <span>
+                <svg
+                  width="18"
+                  height="16"
+                  viewBox="0 0 18 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8 1L1 8L8 15M1 8L17 8L1 8Z"
+                    stroke="var(--color-black)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>{" "}
+                Retourner vers nouvelles
+              </span>
+            </Link>
+          </Return>
+        </Content>
+      </Inner>
+    </>
   );
 }
 

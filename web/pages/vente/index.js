@@ -69,15 +69,18 @@ const Vente = ({ numeros, abonnements, boutique }) => {
   return (
     <>
       <Head>
+        <title>Achetez un numéro ou abonnez-vous à Mœbius</title>
         <meta
           property="og:title"
           content="Achetez un numéro ou abonnez-vous à Mœbius"
-          key="title"
         />
         <meta
           property="og:description"
           content="Vous voulez des suggestions de lectures ou plutôt découvrir de nouvelles voix ? Peut-être voulez-vous offrir poésie, récits et confettis à vos proches ? Toutes les raisons sont bonnes pour visiter notre boutique en ligne : vous pouvez vous procurer le tout dernier (ou le tout premier) numéro de la revue, ainsi que vous abonner ou offrir un abonnement à Mœbius."
-          key="description"
+        />
+        <meta
+          name="description"
+          content="Vous voulez des suggestions de lectures ou plutôt découvrir de nouvelles voix ? Peut-être voulez-vous offrir poésie, récits et confettis à vos proches ? Toutes les raisons sont bonnes pour visiter notre boutique en ligne : vous pouvez vous procurer le tout dernier (ou le tout premier) numéro de la revue, ainsi que vous abonner ou offrir un abonnement à Mœbius."
         />
       </Head>
       <Header>

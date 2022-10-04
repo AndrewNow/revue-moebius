@@ -11,6 +11,7 @@ import { textAnim, textAnimSlow, textChild } from "../../styles/animations";
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart";
 import Link from "next/link";
 import MarkdownContent from "../../utils/MarkdownContent";
+import Head from "next/head";
 
 const BoutiqueProduct = ({ boutiqueData }) => {
   const { addItem } = useShoppingCart();
@@ -37,80 +38,105 @@ const BoutiqueProduct = ({ boutiqueData }) => {
   };
 
   return (
-    <PageWrapper>
-      <ProductWrapper>
-        <ProductText>
-          <h1 role="heading">
-            <SplitText
-              string={boutiqueData?.title}
-              variantParent={textAnim}
-              variantParentMobile={textAnimSlow}
-              variantChild={textChild}
-              initial="hidden"
-              animate="visible"
-            />
-          </h1>
-          <Subtitle>
-            <ConvertDateToString data={boutiqueData?.publishedAt} />
-          </Subtitle>
-          <Button
-            onClick={() => addItem(stripeFormattedProduct)}
-            aria-label="Ajouter au panier"
-            disabled={boutiqueData?.available ? false : true}
-            suppressHydrationWarning
-          >
-            {boutiqueData?.available ? (
-              <small suppressHydrationWarning>
-                Ajouter au panier -{" "}
-                {formatCurrencyString({
-                  value: boutiqueData?.price,
-                  currency: boutiqueData?.currency,
-                })}
-              </small>
-            ) : (
-              <small>Non disponible</small>
-            )}
-          </Button>
-        </ProductText>
-        <ImageWrapper>
-          <Image
-            src={boutiqueData.imageUrl}
-            alt={`Image couverture pour Moebius-Balado ${boutiqueData.number}`}
-            width={700}
-            height={700}
-            quality={95}
-            priority={true}
-            placeholder="blur"
-            blurDataURL={boutiqueData.lqip}
-          />
-        </ImageWrapper>
-      </ProductWrapper>
-      <MainContent>
-        <MarkdownContent blocks={boutiqueData?.body} />
-      </MainContent>
-      <Return>
-        <Link scroll={false} href="/vente">
-          <span>
-            <svg
-              width="18"
-              height="16"
-              viewBox="0 0 18 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8 1L1 8L8 15M1 8L17 8L1 8Z"
-                stroke="var(--color-black)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+    <>
+      <Head>
+        <title>
+          {boutiqueData?.title
+            ? `${boutiqueData?.title} - Boutique`
+            : "Boutique"}
+        </title>
+        <meta
+          property="og:title"
+          content={
+            boutiqueData?.title
+              ? `${boutiqueData?.title} - Boutique`
+              : "Boutique"
+          }
+        />
+        <meta
+          property="og:description"
+          content="Vous voulez des suggestions de lectures ou plutôt découvrir de nouvelles voix ? Peut-être voulez-vous offrir poésie, récits et confettis à vos proches ? Toutes les raisons sont bonnes pour visiter notre boutique en ligne : vous pouvez vous procurer le tout dernier (ou le tout premier) numéro de la revue, ainsi que vous abonner ou offrir un abonnement à Mœbius."
+        />
+        <meta
+          name="description"
+          content="Vous voulez des suggestions de lectures ou plutôt découvrir de nouvelles voix ? Peut-être voulez-vous offrir poésie, récits et confettis à vos proches ? Toutes les raisons sont bonnes pour visiter notre boutique en ligne : vous pouvez vous procurer le tout dernier (ou le tout premier) numéro de la revue, ainsi que vous abonner ou offrir un abonnement à Mœbius."
+        />
+      </Head>
+      <PageWrapper>
+        <ProductWrapper>
+          <ProductText>
+            <h1 role="heading">
+              <SplitText
+                string={boutiqueData?.title}
+                variantParent={textAnim}
+                variantParentMobile={textAnimSlow}
+                variantChild={textChild}
+                initial="hidden"
+                animate="visible"
               />
-            </svg>{" "}
-            Retourner vers la page de vente
-          </span>
-        </Link>
-      </Return>
-    </PageWrapper>
+            </h1>
+            <Subtitle>
+              <ConvertDateToString data={boutiqueData?.publishedAt} />
+            </Subtitle>
+            <Button
+              onClick={() => addItem(stripeFormattedProduct)}
+              aria-label="Ajouter au panier"
+              disabled={boutiqueData?.available ? false : true}
+              suppressHydrationWarning
+            >
+              {boutiqueData?.available ? (
+                <small suppressHydrationWarning>
+                  Ajouter au panier -{" "}
+                  {formatCurrencyString({
+                    value: boutiqueData?.price,
+                    currency: boutiqueData?.currency,
+                  })}
+                </small>
+              ) : (
+                <small>Non disponible</small>
+              )}
+            </Button>
+          </ProductText>
+          <ImageWrapper>
+            <Image
+              src={boutiqueData?.imageUrl}
+              alt={`Image couverture ${boutiqueData?.title}`}
+              width={700}
+              height={700}
+              quality={95}
+              priority={true}
+              placeholder="blur"
+              blurDataURL={boutiqueData?.lqip}
+            />
+          </ImageWrapper>
+        </ProductWrapper>
+        <MainContent>
+          <MarkdownContent blocks={boutiqueData?.body} />
+        </MainContent>
+        <Return>
+          <Link scroll={false} href="/vente">
+            <span>
+              <svg
+                width="18"
+                height="16"
+                viewBox="0 0 18 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 1L1 8L8 15M1 8L17 8L1 8Z"
+                  stroke="var(--color-black)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>{" "}
+              Retourner vers la page de vente
+            </span>
+          </Link>
+        </Return>
+      </PageWrapper>
+    </>
   );
 };
 

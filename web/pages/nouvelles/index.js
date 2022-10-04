@@ -15,6 +15,7 @@ import {
   textAnimSlow,
   textAnimFast,
 } from "../../styles/animations";
+import CountViewMorePosts from "../../utils/countViewMorePosts";
 import Head from "next/head";
 
 export default function Nouvelles({ nouvellesData, categories }) {
@@ -88,15 +89,15 @@ export default function Nouvelles({ nouvellesData, categories }) {
   return (
     <>
       <Head>
-        <meta
-          property="og:title"
-          content="Restez à l’affût de nos activités"
-          key="title"
-        />
+        <title>Restez à l’affût de nos activités</title>
+        <meta property="og:title" content="Restez à l’affût de nos activités" />
         <meta
           property="og:description"
           content="Retrouvez les captations d'événements passés aussi bien que les toutes dernières nouvelles de la revue. Suivez-nous sur nos réseaux afin de ne rien manquer : appels de texte, lancements, tables rondes, concours et plus encore."
-          key="description"
+        />
+        <meta
+          name="description"
+          content="Retrouvez les captations d'événements passés aussi bien que les toutes dernières nouvelles de la revue. Suivez-nous sur nos réseaux afin de ne rien manquer : appels de texte, lancements, tables rondes, concours et plus encore."
         />
       </Head>
       <Main>
@@ -164,6 +165,11 @@ export default function Nouvelles({ nouvellesData, categories }) {
           {/* only show button when there are articles that correspond. */}
           {filtered.length > 6 ? (
             <>
+              <CountViewMorePosts
+                dataSource={nouvellesData}
+                filteredArticles={filteredArticles}
+                count={countDisplayedPosts}
+              />
               {visiblePosts >= nouvellesData.length ? (
                 // if user hits end of news articles, button closes posts
                 <LoadMoreButton onClick={handleClosePosts} layout>
@@ -315,7 +321,7 @@ export const LoadMoreButton = styled.button`
   }
 
   :disabled {
-    border: 1px solid var(--color-grey)!important;
+    border: 1px solid var(--color-grey) !important;
     cursor: not-allowed;
     small {
       color: var(--color-grey);

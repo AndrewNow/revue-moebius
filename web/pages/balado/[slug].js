@@ -11,6 +11,7 @@ import Spotify from "react-spotify-embed";
 import ShareButton from "../../components/shareButton";
 import ConvertDateToString from "../../utils/convertDateToString";
 import MarkdownContent from "../../utils/MarkdownContent";
+import Head from "next/head";
 
 export default function Balado({ balado }) {
   // If balado has one number, set a title with one number.
@@ -27,6 +28,13 @@ export default function Balado({ balado }) {
 
   return (
     <>
+      <Head>
+        <title>{baladoTitle ? baladoTitle : "Balado"}</title>
+        <meta
+          property="og:title"
+          content={baladoTitle ? baladoTitle : "Balado"}
+        />
+      </Head>
       <Banner style={{ background: balado.color }}>
         <Inner>
           <BannerFlex>
@@ -47,8 +55,8 @@ export default function Balado({ balado }) {
               </small>
               <h2 style={{ color: balado.textcolor }}>{baladoTitle}</h2>
               <WrapDetails>
-                <BannerDetails>
-                  {balado.discussion && (
+                {balado.discussion && (
+                  <BannerDetails>
                     <BannerItem>
                       <small style={{ color: balado.textcolor }}>
                         Discussion
@@ -59,10 +67,10 @@ export default function Balado({ balado }) {
                         );
                       })}
                     </BannerItem>
-                  )}
-                </BannerDetails>
-                <BannerDetails>
-                  {balado.interviews && (
+                  </BannerDetails>
+                )}
+                {balado.interviews && (
+                  <BannerDetails>
                     <BannerItem>
                       <small style={{ color: balado.textcolor }}>
                         Entrevues et lectures
@@ -73,10 +81,10 @@ export default function Balado({ balado }) {
                         );
                       })}
                     </BannerItem>
-                  )}
-                </BannerDetails>
-                <BannerDetails>
-                  {balado.animation && (
+                  </BannerDetails>
+                )}
+                {balado.animation && (
+                  <BannerDetails>
                     <BannerItem>
                       <small style={{ color: balado.textcolor }}>
                         Animation
@@ -87,8 +95,8 @@ export default function Balado({ balado }) {
                         );
                       })}
                     </BannerItem>
-                  )}
-                </BannerDetails>
+                  </BannerDetails>
+                )}
               </WrapDetails>
             </BannerText>
           </BannerFlex>
@@ -217,7 +225,6 @@ const BannerText = styled.div`
   small {
     display: block;
     margin-bottom: 1.5rem;
-    color: var(--color-grey);
   }
   h2 {
     font-family: "Editorial-Italic";
@@ -228,10 +235,16 @@ const BannerText = styled.div`
     margin: 0;
     margin-top: 5rem;
     width: 80%;
+    h2 {
+      margin-bottom: 3rem;
+    }
   }
   @media (max-width: ${breakpoints.m}px) {
     width: 100%;
     margin-top: 3rem;
+    h2 {
+      margin-bottom: 1.5rem;
+    }
   }
 `;
 
@@ -274,6 +287,7 @@ const BannerItem = styled.div`
     }
   }
   @media (max-width: ${breakpoints.l}px) {
+    margin-top: 1rem;
     h4 {
       font-size: 28px;
     }
@@ -381,7 +395,6 @@ const Content = styled.div`
     color: var(--color-black);
   }
 
-
   @media (max-width: ${breakpoints.xxl}px) {
     padding-right: 0;
     padding-bottom: 5rem;
@@ -428,6 +441,11 @@ const Return = styled.small`
     color: var(--color-black);
     svg {
       transform: translateX(-5px);
+    }
+  }
+  @media (max-width: ${breakpoints.xxl}px) {
+    span {
+      justify-content: flex-start;
     }
   }
   @media (max-width: ${breakpoints.s}px) {

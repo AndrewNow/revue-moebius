@@ -87,15 +87,15 @@ const SoumettreUnTexte = ({ pageData }) => {
   return (
     <>
       <Head>
-        <meta
-          property="og:title"
-          content="Publiez dans la revue Mœbius"
-          key="title"
-        />
+        <title>Publiez dans la revue Mœbius</title>
+        <meta property="og:title" content="Publiez dans la revue Mœbius" />
         <meta
           property="og:description"
           content="Découvrez l'appel en cours et la date limite pour soumettre votre texte, et consultez nos protocoles de soumission et d'édition. Mœbius est une revue de création littéraire qui défend un véritable dialogue productif autour des textes, et l’accompagnement qu’elle propose fait sa réputation dans le milieu littéraire québécois."
-          key="description"
+        />
+        <meta
+          name="description"
+          content="Découvrez l'appel en cours et la date limite pour soumettre votre texte, et consultez nos protocoles de soumission et d'édition. Mœbius est une revue de création littéraire qui défend un véritable dialogue productif autour des textes, et l’accompagnement qu’elle propose fait sa réputation dans le milieu littéraire québécois."
         />
       </Head>
       <Wrapper>

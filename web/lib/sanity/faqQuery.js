@@ -1,6 +1,6 @@
 import groq from "groq";
 
 export const faqQuery = groq`
-*[_type=="faq"]{
+*[_type=="faq"][0]{
     faqData
   }`;

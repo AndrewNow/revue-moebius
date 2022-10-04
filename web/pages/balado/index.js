@@ -99,15 +99,18 @@ export default function Balado({ baladoData }) {
   return (
     <>
       <Head>
+        <title>Écoutez les épisodes du Mœbius-balado</title>
         <meta
           property="og:title"
           content="Écoutez les épisodes du Mœbius-balado"
-          key="title"
         />
         <meta
           property="og:description"
           content="Poursuivant la mission que s’est donnée Mœbius de favoriser la réflexion sur la création littéraire, Mœbius-balado accompagne la parution de chacun des numéros de la revue Découvrez les coulisses de l’édition grâce aux entretiens entre les copilotes, et écoutez les auteur·rice·s lire des extraits de leur texte et parler de leur création."
-          key="description"
+        />
+        <meta
+          name="description"
+          content="Poursuivant la mission que s’est donnée Mœbius de favoriser la réflexion sur la création littéraire, Mœbius-balado accompagne la parution de chacun des numéros de la revue Découvrez les coulisses de l’édition grâce aux entretiens entre les copilotes, et écoutez les auteur·rice·s lire des extraits de leur texte et parler de leur création."
         />
       </Head>
       <Main>

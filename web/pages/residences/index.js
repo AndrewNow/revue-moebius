@@ -10,18 +10,13 @@ import { useRef, useCallback } from "react";
 import { breakpoints } from "../../utils/breakpoints";
 import SplitText from "../../utils/splitText";
 import Link from "next/link";
-import {
-  textAnim,
-  textAnimFast,
-  textAnimFastest,
-  textAnimSlow,
-  textChild,
-} from "../../styles/animations";
+import { textAnim, textAnimSlow, textChild } from "../../styles/animations";
 import MarkdownContent from "../../utils/MarkdownContent";
 import Image from "next/image";
 import { Instagram, LinkIcon } from "../../svg/icons";
 import ResidenceArchive from "../../components/residenceArchive/residenceArchive";
-import {motion} from 'framer-motion'
+import { motion } from "framer-motion";
+import Head from "next/head";
 
 const Residency = ({ pageData, archiveData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -84,160 +79,182 @@ const Residency = ({ pageData, archiveData }) => {
     });
 
   return (
-    <Wrapper>
-      <Sidebar>
-        <SidebarList>
-          <small
-            onClick={() => handleScollTo(artistScrollRef)}
-            style={{
-              color: artistIsVisible
-                ? "var(--color-black)"
-                : "var(--color-grey)",
-            }}
-          >
-            résidence d’artiste
-          </small>
-          <br />
-          <br />
-          <small
-            onClick={() => handleScollTo(writerScrollRef)}
-            style={{
-              color: writerIsVisible
-                ? "var(--color-black)"
-                : "var(--color-grey)",
-            }}
-          >
-            Résidence d’écrivain·e
-          </small>
-          <br />
-          <br />
-          <small
-            onClick={() => handleScollTo(hypermediaScrollRef)}
-            style={{
-              color: hypermediaIsVisible
-                ? "var(--color-black)"
-                : "var(--color-grey)",
-            }}
-          >
-            résidence hypermédiatique
-          </small>
-          <br />
-          <br />
-          <small
-            onClick={() => handleScollTo(archiveScrollRef)}
-            style={{
-              color: archiveIsVisible
-                ? "var(--color-black)"
-                : "var(--color-grey)",
-            }}
-          >
-            archive
-          </small>
-        </SidebarList>
-      </Sidebar>
-      <MainContent>
-        <Landing>
-          <LandingText>
-            <h1 ref={artistRefs} role="heading">
-              <SplitText
-                string="Résidences"
-                variantParent={textAnim}
-                variantParentMobile={textAnimSlow}
-                variantChild={textChild}
+    <>
+      <Head>
+        <title>Découvrez nos résidences</title>
+        <meta property="og:title" content="Découvrez nos résidences" />
+        <meta
+          property="og:description"
+          content="Mœbius accueille chaque année un·e artiste et un·e écrivain·e en résidence. Dès 2023, un nouveau terrain d’exploration sera ouvert à un duo formé d’un·e artiste et d’un·auteur·rice : la résidence hypermédiatique."
+        />
+        <meta
+          name="description"
+          content="Mœbius accueille chaque année un·e artiste et un·e écrivain·e en résidence. Dès 2023, un nouveau terrain d’exploration sera ouvert à un duo formé d’un·e artiste et d’un·auteur·rice : la résidence hypermédiatique."
+        />
+      </Head>
+      <Wrapper>
+        <Sidebar>
+          <SidebarList>
+            <small
+              onClick={() => handleScollTo(artistScrollRef)}
+              style={{
+                color: artistIsVisible
+                  ? "var(--color-black)"
+                  : "var(--color-grey)",
+              }}
+            >
+              résidence d’artiste
+            </small>
+            <br />
+            <br />
+            <small
+              onClick={() => handleScollTo(writerScrollRef)}
+              style={{
+                color: writerIsVisible
+                  ? "var(--color-black)"
+                  : "var(--color-grey)",
+              }}
+            >
+              Résidence d’écrivain·e
+            </small>
+            <br />
+            <br />
+            <small
+              onClick={() => handleScollTo(hypermediaScrollRef)}
+              style={{
+                color: hypermediaIsVisible
+                  ? "var(--color-black)"
+                  : "var(--color-grey)",
+              }}
+            >
+              résidence hypermédiatique
+            </small>
+            <br />
+            <br />
+            <small
+              onClick={() => handleScollTo(archiveScrollRef)}
+              style={{
+                color: archiveIsVisible
+                  ? "var(--color-black)"
+                  : "var(--color-grey)",
+              }}
+            >
+              archive
+            </small>
+          </SidebarList>
+        </Sidebar>
+        <MainContent>
+          <Landing>
+            <LandingText>
+              <h1 ref={artistRefs} role="heading">
+                <SplitText
+                  string="Résidences"
+                  variantParent={textAnim}
+                  variantParentMobile={textAnimSlow}
+                  variantChild={textChild}
+                  initial="hidden"
+                  animate="visible"
+                />
+              </h1>
+              <motion.p
+                role="heading"
+                variants={textAnimSlow}
                 initial="hidden"
                 animate="visible"
-              />
-            </h1>
-            <motion.p role="heading" variants={textAnimSlow} initial="hidden" animate="visible">
-              <motion.span variants={textChild}>
-                <em>Mœbius </em>accueille chaque année un·e artiste et un·e
-                écrivain·e en résidence. Aux artistes, la revue offre de faire
-                de sa page couverture un canevas. Aux écrivain·e·s, elle donne
-                l’espace d’une parole qui peut se déployer en plusieurs
-                épisodes. Dès 2023, un nouveau terrain d’exploration sera ouvert
-                à un duo formé d’un·e artiste et d’un·auteurice : la résidence
-                hypermédiatique. Découvrez leurs œuvres ici!
-              </motion.span>
-            </motion.p>
-          </LandingText>
-        </Landing>
-        {pageData.residenceData.map((individual) => {
-          // Change the category title according to the incoming SEO title data
-          // to make it easier to read
-          let residencyCategory;
-          let scrollToRef;
-          if (individual.type === "artiste") {
-            residencyCategory = "Résidence d'artiste";
-            scrollToRef = artistRefs;
-          } else if (individual.type === "écrivain") {
-            residencyCategory = "Résidence d'écrivain·e";
-            scrollToRef = writerRefs;
-          } else if (individual.type === "hypermédia") {
-            residencyCategory = "Résidence hypermédiatique";
-            scrollToRef = hypermediaRefs;
-          }
-          return (
-            <ResidencyEntry key={individual._key}>
-              <ResidencyText>
-                <SEOTitleFlex ref={scrollToRef}>
-                  <h3>{individual.title}</h3>
-                  <h5>{residencyCategory}</h5>
-                </SEOTitleFlex>
-                <MarkdownContent blocks={individual.shortBio} />
+              >
+                <motion.span variants={textChild}>
+                  <em>Mœbius </em>accueille chaque année un·e artiste et un·e
+                  écrivain·e en résidence. Aux artistes, la revue offre de faire
+                  de sa page couverture un canevas. Aux écrivain·e·s, elle donne
+                  l’espace d’une parole qui peut se déployer en plusieurs
+                  épisodes. Dès 2023, un nouveau terrain d’exploration sera
+                  ouvert à un duo formé d’un·e artiste et d’un·auteurice : la
+                  résidence hypermédiatique. Découvrez leurs œuvres ici!
+                </motion.span>
+              </motion.p>
+            </LandingText>
+          </Landing>
+          {pageData.residenceData.map((individual) => {
+            // Change the category title according to the incoming SEO title data
+            // to make it easier to read
+            let residencyCategory;
+            let scrollToRef;
+            if (individual.type === "artiste") {
+              residencyCategory = "Résidence d'artiste";
+              scrollToRef = artistRefs;
+            } else if (individual.type === "écrivain") {
+              residencyCategory = "Résidence d'écrivain·e";
+              scrollToRef = writerRefs;
+            } else if (individual.type === "hypermédia") {
+              residencyCategory = "Résidence hypermédiatique";
+              scrollToRef = hypermediaRefs;
+            }
+            return (
+              <ResidencyEntry key={individual._key}>
+                <ResidencyText>
+                  <SEOTitleFlex ref={scrollToRef}>
+                    <h3>{individual.title}</h3>
+                    <h5>{residencyCategory}</h5>
+                  </SEOTitleFlex>
+                  <MarkdownContent blocks={individual.shortBio} />
 
-                <LinkWrapper>
-                  <Link scroll={false} href={`/residences/${individual.slug}`}>
-                    <small>En savoir plus</small>
-                  </Link>
-                </LinkWrapper>
-                <Socials>
-                  {individual.instagram && (
-                    <SocialLink>
-                      <Instagram />
-                      <a
-                        href={individual.instagram}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <small>Instagram</small>
-                      </a>
-                    </SocialLink>
-                  )}
-                  {individual.portfolio && (
-                    <SocialLink>
-                      <LinkIcon />
-                      <a
-                        href={individual.portfolio}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <small>Portfolio</small>
-                      </a>
-                    </SocialLink>
-                  )}
-                </Socials>
-              </ResidencyText>
-              <ResidencyImage>
-                <Image
-                  src={individual.imageUrl}
-                  placeholder="blur"
-                  blurDataURL={individual.lqip}
-                  alt={`Image portrait pour ${individual.title}`}
-                  width={675}
-                  height={675}
-                  // layout="fill"
-                  objectFit="contain"
-                  quality={90}
-                />
-              </ResidencyImage>
-            </ResidencyEntry>
-          );
-        })}
-        <div ref={archiveRefs}>
-          <ResidenceArchive data={archiveData} />
-        </div>
-      </MainContent>
-    </Wrapper>
+                  <LinkWrapper>
+                    <Link
+                      scroll={false}
+                      href={`/residences/${individual.slug}`}
+                    >
+                      <small>En savoir plus</small>
+                    </Link>
+                  </LinkWrapper>
+                  <Socials>
+                    {individual.instagram && (
+                      <SocialLink>
+                        <Instagram />
+                        <a
+                          href={individual.instagram}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <small>Instagram</small>
+                        </a>
+                      </SocialLink>
+                    )}
+                    {individual.portfolio && (
+                      <SocialLink>
+                        <LinkIcon />
+                        <a
+                          href={individual.portfolio}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <small>Portfolio</small>
+                        </a>
+                      </SocialLink>
+                    )}
+                  </Socials>
+                </ResidencyText>
+                <ResidencyImage>
+                  <Image
+                    src={individual.imageUrl}
+                    placeholder="blur"
+                    blurDataURL={individual.lqip}
+                    alt={`Image portrait pour ${individual.title}`}
+                    width={675}
+                    height={675}
+                    // layout="fill"
+                    objectFit="contain"
+                    quality={90}
+                  />
+                </ResidencyImage>
+              </ResidencyEntry>
+            );
+          })}
+          <div ref={archiveRefs}>
+            <ResidenceArchive data={archiveData} />
+          </div>
+        </MainContent>
+      </Wrapper>
+    </>
   );
 };
 

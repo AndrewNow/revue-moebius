@@ -33,19 +33,18 @@ export default function Home({
   baladoData,
   faqData,
 }) {
-  console.log(faqData);
   return (
     <>
       <Head>
-        <meta
-          property="og:title"
-          content="Acceuil - La Revue Mœbius"
-          key="title"
-        />
+        <title>Acceuil - La revue Mœbius</title>
+        <meta property="og:title" content="Acceuil - La Revue Mœbius" />
         <meta
           property="og:description"
-          content="Mœbius est une revue de création littéraire québécoise fondée en 1977 qui réunit des textes d’auteur·rice·s établi·e·s et d’écrivain·e·s émergent·e·s. La revue valorise la perméabilité des formes et des genres littéraires, l’expérimentation et la mise en scène de la subjectivité. s"
-          key="description"
+          content="Mœbius est une revue de création littéraire québécoise fondée en 1977 qui réunit des textes d’auteur·rice·s établi·e·s et d’écrivain·e·s émergent·e·s. La revue valorise la perméabilité des formes et des genres littéraires, l’expérimentation et la mise en scène de la subjectivité."
+        />
+        <meta
+          name="description"
+          content="Mœbius est une revue de création littéraire québécoise fondée en 1977 qui réunit des textes d’auteur·rice·s établi·e·s et d’écrivain·e·s émergent·e·s. La revue valorise la perméabilité des formes et des genres littéraires, l’expérimentation et la mise en scène de la subjectivité."
         />
       </Head>
       <Main>

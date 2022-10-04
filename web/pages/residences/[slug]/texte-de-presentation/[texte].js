@@ -14,12 +14,27 @@ import {
   textChild,
 } from "../../../../styles/animations";
 import { Inner } from "../../../index";
+import Head from "next/head";
 
 const TexteDePresentation = ({ pageData }) => {
   const data = pageData[0];
-  console.log(data);
   return (
     <>
+      <Head>
+        <title>{data.title} - Texte de présentation</title>
+        <meta
+          property="og:title"
+          content={`${data.title} - Texte de présentation`}
+        />
+        <meta
+          property="og:description"
+          content="Mœbius accueille chaque année un·e artiste et un·e écrivain·e en résidence. Dès 2023, un nouveau terrain d’exploration sera ouvert à un duo formé d’un·e artiste et d’un·auteur·rice : la résidence hypermédiatique."
+        />
+        <meta
+          name="description"
+          content="Mœbius accueille chaque année un·e artiste et un·e écrivain·e en résidence. Dès 2023, un nouveau terrain d’exploration sera ouvert à un duo formé d’un·e artiste et d’un·auteur·rice : la résidence hypermédiatique."
+        />
+      </Head>
       <Header>
         <BreadCrumbs>
           <small>
