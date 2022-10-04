@@ -47,7 +47,6 @@ const ResidencesSection = ({ data }) => {
           } else if (individual.type === "hypermédia") {
             residencyTitle = "hypermédia";
           }
-          console.log(individual)
           return (
             <span key={individual._id}>
             <Marquee

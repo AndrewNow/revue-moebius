@@ -32,6 +32,7 @@ export default function Home({
   baladoData,
   faqData,
 }) {
+  console.log(faqData)
   return (
     <Main>
       <Inner>
