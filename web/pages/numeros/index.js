@@ -18,6 +18,7 @@ import {
 } from "../../styles/animations";
 import { LoadMoreButton } from "../nouvelles";
 import CountViewMorePosts from "../../utils/countViewMorePosts";
+import Head from "next/head";
 
 const Numeros = ({ numeroData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -73,6 +74,18 @@ const Numeros = ({ numeroData }) => {
 
   return (
     <>
+      <Head>
+        <meta
+          property="og:title"
+          content="Retrouvez tous les numéros de la revue Mœbius"
+          key="title"
+        />
+        <meta
+          property="og:description"
+          content="Survolez les archives de la revue. Notre catalogue vous permet de revisiter nos numéros, des plus anciens aux plus récents. "
+          key="description"
+        />
+      </Head>
       <Header>
         <Inner>
           <h1 ref={ref} role="heading">

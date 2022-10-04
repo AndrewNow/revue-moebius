@@ -21,6 +21,7 @@ import Faq from "../components/homepage/faq";
 import AProposSection from "../components/homepage/aProposSection";
 import ResidencesSection from "../components/homepage/residencesSection";
 import { homepageResidenciesQuery } from "../lib/sanity/residencesQuery";
+import Head from "next/head";
 
 export default function Home({
   latestNumero,
@@ -32,25 +33,39 @@ export default function Home({
   baladoData,
   faqData,
 }) {
-  console.log(faqData)
+  console.log(faqData);
   return (
-    <Main>
-      <Inner>
-        <Landing data={latestNumero} />
-      </Inner>
-      <BannerMarquee data={bannerData} />
-      <Inner>
-        <NouvellesSection
-          newsFeed={newsFeed}
-          featuredArticle={featuredArticle}
+    <>
+      <Head>
+        <meta
+          property="og:title"
+          content="Acceuil - La Revue Mœbius"
+          key="title"
         />
-      </Inner>
-      <NumerosSection numerosData={numerosData} />
-      <ResidencesSection data={residencesData} />
-      <BaladoSection baladoData={baladoData} />
-      <AProposSection />
-      <Faq faqData={faqData} />
-    </Main>
+        <meta
+          property="og:description"
+          content="Mœbius est une revue de création littéraire québécoise fondée en 1977 qui réunit des textes d’auteur·rice·s établi·e·s et d’écrivain·e·s émergent·e·s. La revue valorise la perméabilité des formes et des genres littéraires, l’expérimentation et la mise en scène de la subjectivité. s"
+          key="description"
+        />
+      </Head>
+      <Main>
+        <Inner>
+          <Landing data={latestNumero} />
+        </Inner>
+        <BannerMarquee data={bannerData} />
+        <Inner>
+          <NouvellesSection
+            newsFeed={newsFeed}
+            featuredArticle={featuredArticle}
+          />
+        </Inner>
+        <NumerosSection numerosData={numerosData} />
+        <ResidencesSection data={residencesData} />
+        <BaladoSection baladoData={baladoData} />
+        <AProposSection />
+        <Faq faqData={faqData} />
+      </Main>
+    </>
   );
 }
 

@@ -9,6 +9,7 @@ import ShareButton from "../../../components/shareButton";
 import Link from "next/link";
 import Image from "next/image";
 import { Instagram, LinkIcon } from "../../../svg/icons";
+import Head from "next/head";
 
 const Residences = ({ data }) => {
   // Change the category title according to the incoming SEO title data
@@ -21,48 +22,24 @@ const Residences = ({ data }) => {
   } else if (data.type === "hypermédia") {
     residencyCategory = "Résidence hypermédiatique";
   }
-
-  console.log(data);
   return (
-    <Wrapper>
-      <Header>
-        <Inner>
-          <DesktopLayout>
-            <FlexTitle>
-              <h2>{data.title}</h2>
-              <h5>{residencyCategory}</h5>
-            </FlexTitle>
-            {data.texteDePresentationData !== null && (
-              <LinkWrapper>
-                <Link
-                  scroll={false}
-                  href={`/residences/${data.slug}/texte-de-presentation/${data.texteDePresentationData.slug}`}
-                >
-                  <small>Texte de présentation</small>
-                </Link>
-              </LinkWrapper>
-            )}
-          </DesktopLayout>
-          <MobileLayout>
-            <ImageWrapper>
-              <Image
-                src={data.imageUrl}
-                placeholder="blur"
-                blurDataURL={data.lqip}
-                alt={`image de ${data.title}`}
-                layout="fill"
-                quality={90}
-                objectFit="contain"
-                objectPosition="center 90%"
-              />
-            </ImageWrapper>
-          </MobileLayout>
-        </Inner>
-      </Header>
-      <Content>
-        <Flex>
-          <Main>
-            <MobileLayout>
+    <>
+      <Head>
+        <meta
+          property="og:title"
+          content="Découvrez nos résidences"
+          key="title"
+        />
+        <meta
+          property="og:description"
+          content="Mœbius accueille chaque année un·e artiste et un·e écrivain·e en résidence. Dès 2023, un nouveau terrain d’exploration sera ouvert à un duo formé d’un·e artiste et d’un·auteur·rice : la résidence hypermédiatique."
+          key="description"
+        />
+      </Head>
+      <Wrapper>
+        <Header>
+          <Inner>
+            <DesktopLayout>
               <FlexTitle>
                 <h2>{data.title}</h2>
                 <h5>{residencyCategory}</h5>
@@ -71,46 +48,14 @@ const Residences = ({ data }) => {
                 <LinkWrapper>
                   <Link
                     scroll={false}
-                    href={`/residences/${data.slug}/${data.texteDePresentationData.slug}`}
+                    href={`/residences/${data.slug}/texte-de-presentation/${data.texteDePresentationData.slug}`}
                   >
                     <small>Texte de présentation</small>
                   </Link>
                 </LinkWrapper>
               )}
-            </MobileLayout>
-            <MarkdownContent blocks={data.bio} />
-            <DesktopLayout>
-              <div style={{ marginTop: "2rem" }}>
-                <ShareButton
-                  input={`https://revuemoebius.com/residences/${data.slug}`}
-                />
-              </div>
-              <Return>
-                <Link scroll={false} href="/residences">
-                  <span>
-                    <svg
-                      width="18"
-                      height="16"
-                      viewBox="0 0 18 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8 1L1 8L8 15M1 8L17 8L1 8Z"
-                        stroke="var(--color-black)"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>{" "}
-                    Retourner vers résidences
-                  </span>
-                </Link>
-              </Return>
             </DesktopLayout>
-          </Main>
-          <Sidebar>
-            <DesktopLayout>
+            <MobileLayout>
               <ImageWrapper>
                 <Image
                   src={data.imageUrl}
@@ -120,134 +65,202 @@ const Residences = ({ data }) => {
                   layout="fill"
                   quality={90}
                   objectFit="contain"
-                  objectPosition="center 80%"
+                  objectPosition="center 90%"
                 />
-                {data.photoCredit && (
-                  <PhotoCredit>
-                    <small>© Crédit photo: {data.photoCredit}</small>
-                  </PhotoCredit>
-                )}
               </ImageWrapper>
-            </DesktopLayout>
-            <MobileLayout>
-              <Socials>
-                {data.instagram && (
-                  <SocialLink>
-                    <Instagram />
-                    <a href={data.instagram} target="_blank" rel="noreferrer">
-                      <small>Instagram</small>
-                    </a>
-                  </SocialLink>
-                )}
-                {data.portfolio && (
-                  <SocialLink>
-                    <LinkIcon />
-                    <a href={data.portfolio} target="_blank" rel="noreferrer">
-                      <small>Portfolio</small>
-                    </a>
-                  </SocialLink>
-                )}
-              </Socials>
             </MobileLayout>
-            {(data.contributions || data.contributionsEcrivain) && (
-              <Contributions>
-                <small>Contributions:</small>
-                {data.contributions && (
-                  <ContributionGrid>
-                    {data.contributions?.map((numero) => {
-                      return (
-                        <GridItem key={numero.slug.current}>
-                          <Link
-                            scroll={false}
-                            href={`/numeros/${numero.slug.current}`}
-                          >
-                            <Image
-                              src={numero.imageUrl}
-                              placeholder="blur"
-                              blurDataURL={numero.lqip}
-                              layout="fill"
-                              objectFit="cover"
-                              quality={40}
-                              className="imageHover"
-                            />
-                          </Link>
-                        </GridItem>
-                      );
-                    })}
-                  </ContributionGrid>
-                )}
-                {data.contributionsEcrivain && (
-                  <ContributionsEcrivain>
-                    {data.contributionsEcrivain?.map((publication) => {
-                      return (
-                        <li>
-                          <Link
-                            scroll={false}
-                            href={`/residences/${data.slug}/contributions/${publication.slug}`}
-                          >
-                            <small> « {publication.title} »</small>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ContributionsEcrivain>
-                )}
-              </Contributions>
-            )}
-
-            <DesktopLayout>
-              <Socials>
-                {data.instagram && (
-                  <SocialLink>
-                    <Instagram />
-                    <a href={data.instagram} target="_blank" rel="noreferrer">
-                      <small>Instagram</small>
-                    </a>
-                  </SocialLink>
-                )}
-                {data.portfolio && (
-                  <SocialLink>
-                    <LinkIcon />
-                    <a href={data.portfolio} target="_blank" rel="noreferrer">
-                      <small>Portfolio</small>
-                    </a>
-                  </SocialLink>
-                )}
-              </Socials>
-            </DesktopLayout>
-            <MobileLayout>
-              <div style={{ marginTop: "2rem" }}>
-                <ShareButton
-                  input={`https://revuemoebius.com/residences/${data.slug}`}
-                />
-              </div>
-              <Return>
-                <Link scroll={false} href="/residences">
-                  <span>
-                    <svg
-                      width="18"
-                      height="16"
-                      viewBox="0 0 18 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+          </Inner>
+        </Header>
+        <Content>
+          <Flex>
+            <Main>
+              <MobileLayout>
+                <FlexTitle>
+                  <h2>{data.title}</h2>
+                  <h5>{residencyCategory}</h5>
+                </FlexTitle>
+                {data.texteDePresentationData !== null && (
+                  <LinkWrapper>
+                    <Link
+                      scroll={false}
+                      href={`/residences/${data.slug}/${data.texteDePresentationData.slug}`}
                     >
-                      <path
-                        d="M8 1L1 8L8 15M1 8L17 8L1 8Z"
-                        stroke="var(--color-black)"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>{" "}
-                    Retourner vers résidences
-                  </span>
-                </Link>
-              </Return>
-            </MobileLayout>
-          </Sidebar>
-        </Flex>
-      </Content>
-    </Wrapper>
+                      <small>Texte de présentation</small>
+                    </Link>
+                  </LinkWrapper>
+                )}
+              </MobileLayout>
+              <MarkdownContent blocks={data.bio} />
+              <DesktopLayout>
+                <div style={{ marginTop: "2rem" }}>
+                  <ShareButton
+                    input={`https://revuemoebius.com/residences/${data.slug}`}
+                  />
+                </div>
+                <Return>
+                  <Link scroll={false} href="/residences">
+                    <span>
+                      <svg
+                        width="18"
+                        height="16"
+                        viewBox="0 0 18 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 1L1 8L8 15M1 8L17 8L1 8Z"
+                          stroke="var(--color-black)"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>{" "}
+                      Retourner vers résidences
+                    </span>
+                  </Link>
+                </Return>
+              </DesktopLayout>
+            </Main>
+            <Sidebar>
+              <DesktopLayout>
+                <ImageWrapper>
+                  <Image
+                    src={data.imageUrl}
+                    placeholder="blur"
+                    blurDataURL={data.lqip}
+                    alt={`image de ${data.title}`}
+                    layout="fill"
+                    quality={90}
+                    objectFit="contain"
+                    objectPosition="center 80%"
+                  />
+                  {data.photoCredit && (
+                    <PhotoCredit>
+                      <small>© Crédit photo: {data.photoCredit}</small>
+                    </PhotoCredit>
+                  )}
+                </ImageWrapper>
+              </DesktopLayout>
+              <MobileLayout>
+                <Socials>
+                  {data.instagram && (
+                    <SocialLink>
+                      <Instagram />
+                      <a href={data.instagram} target="_blank" rel="noreferrer">
+                        <small>Instagram</small>
+                      </a>
+                    </SocialLink>
+                  )}
+                  {data.portfolio && (
+                    <SocialLink>
+                      <LinkIcon />
+                      <a href={data.portfolio} target="_blank" rel="noreferrer">
+                        <small>Portfolio</small>
+                      </a>
+                    </SocialLink>
+                  )}
+                </Socials>
+              </MobileLayout>
+              {(data.contributions || data.contributionsEcrivain) && (
+                <Contributions>
+                  <small>Contributions:</small>
+                  {data.contributions && (
+                    <ContributionGrid>
+                      {data.contributions?.map((numero) => {
+                        return (
+                          <GridItem key={numero.slug.current}>
+                            <Link
+                              scroll={false}
+                              href={`/numeros/${numero.slug.current}`}
+                            >
+                              <Image
+                                src={numero.imageUrl}
+                                placeholder="blur"
+                                blurDataURL={numero.lqip}
+                                layout="fill"
+                                objectFit="cover"
+                                quality={40}
+                                className="imageHover"
+                              />
+                            </Link>
+                          </GridItem>
+                        );
+                      })}
+                    </ContributionGrid>
+                  )}
+                  {data.contributionsEcrivain && (
+                    <ContributionsEcrivain>
+                      {data.contributionsEcrivain?.map((publication) => {
+                        return (
+                          <li>
+                            <Link
+                              scroll={false}
+                              href={`/residences/${data.slug}/contributions/${publication.slug}`}
+                            >
+                              <small> « {publication.title} »</small>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ContributionsEcrivain>
+                  )}
+                </Contributions>
+              )}
+
+              <DesktopLayout>
+                <Socials>
+                  {data.instagram && (
+                    <SocialLink>
+                      <Instagram />
+                      <a href={data.instagram} target="_blank" rel="noreferrer">
+                        <small>Instagram</small>
+                      </a>
+                    </SocialLink>
+                  )}
+                  {data.portfolio && (
+                    <SocialLink>
+                      <LinkIcon />
+                      <a href={data.portfolio} target="_blank" rel="noreferrer">
+                        <small>Portfolio</small>
+                      </a>
+                    </SocialLink>
+                  )}
+                </Socials>
+              </DesktopLayout>
+              <MobileLayout>
+                <div style={{ marginTop: "2rem" }}>
+                  <ShareButton
+                    input={`https://revuemoebius.com/residences/${data.slug}`}
+                  />
+                </div>
+                <Return>
+                  <Link scroll={false} href="/residences">
+                    <span>
+                      <svg
+                        width="18"
+                        height="16"
+                        viewBox="0 0 18 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 1L1 8L8 15M1 8L17 8L1 8Z"
+                          stroke="var(--color-black)"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>{" "}
+                      Retourner vers résidences
+                    </span>
+                  </Link>
+                </Return>
+              </MobileLayout>
+            </Sidebar>
+          </Flex>
+        </Content>
+      </Wrapper>
+    </>
   );
 };
 

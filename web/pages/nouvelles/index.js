@@ -15,6 +15,7 @@ import {
   textAnimSlow,
   textAnimFast,
 } from "../../styles/animations";
+import Head from "next/head";
 
 export default function Nouvelles({ nouvellesData, categories }) {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._
@@ -85,86 +86,100 @@ export default function Nouvelles({ nouvellesData, categories }) {
   };
 
   return (
-    <Main>
-      <Header>
-        <HeaderText>
-          <h1>
-            <SplitText
-              string="Nouvelles et événements"
-              variantParent={textAnim}
-              variantParentMobile={textAnimSlow}
-              variantChild={textChild}
-              initial="hidden"
-              animate="visible"
+    <>
+      <Head>
+        <meta
+          property="og:title"
+          content="Restez à l’affût de nos activités"
+          key="title"
+        />
+        <meta
+          property="og:description"
+          content="Retrouvez les captations d'événements passés aussi bien que les toutes dernières nouvelles de la revue. Suivez-nous sur nos réseaux afin de ne rien manquer : appels de texte, lancements, tables rondes, concours et plus encore."
+          key="description"
+        />
+      </Head>
+      <Main>
+        <Header>
+          <HeaderText>
+            <h1>
+              <SplitText
+                string="Nouvelles et événements"
+                variantParent={textAnim}
+                variantParentMobile={textAnimSlow}
+                variantChild={textChild}
+                initial="hidden"
+                animate="visible"
+              />
+            </h1>
+            <p>
+              <SplitText
+                string="Retrouvez les captations d'événements passés aussi bien que les
+              toutes dernières nouvelles de la revue."
+                variantParent={textAnimFast}
+                variantParentMobile={textAnim}
+                variantChild={textChild}
+                initial="hidden"
+                animate="visible"
+                isParagraphText={true}
+              />
+            </p>
+          </HeaderText>
+        </Header>
+        <Inner>
+          <WrapFilter>
+            <CountResults>
+              <small>
+                Affichage de {countDisplayedPosts} sur {filtered.length}{" "}
+                {filtered.length > 1 || filtered.length === 0
+                  ? "résultats"
+                  : "résultat"}
+              </small>
+            </CountResults>
+            <Filter
+              categories={categories}
+              nouvellesData={nouvellesData}
+              setFiltered={setFiltered}
+              setActiveFilter={setActiveFilter}
+              activeFilter={activeFilter}
             />
-          </h1>
-          <p>
-            <SplitText
-              string="Retrouvez les captations d'événements passés aussi bien que les
-            toutes dernières nouvelles de la revue."
-              variantParent={textAnimFast}
-              variantParentMobile={textAnim}
-              variantChild={textChild}
-              initial="hidden"
-              animate="visible"
-              isParagraphText={true}
-            />
-          </p>
-        </HeaderText>
-      </Header>
-      <Inner>
-        <WrapFilter>
-          <CountResults>
-            <small>
-              Affichage de {countDisplayedPosts} sur {filtered.length}{" "}
-              {filtered.length > 1 || filtered.length === 0
-                ? "résultats"
-                : "résultat"}
-            </small>
-          </CountResults>
-          <Filter
-            categories={categories}
-            nouvellesData={nouvellesData}
-            setFiltered={setFiltered}
-            setActiveFilter={setActiveFilter}
-            activeFilter={activeFilter}
-          />
-        </WrapFilter>
-        <ArticleGrid layout layoutId="article">
-          {filtered.length > 0 ? (
-            // Render the articles w/ the associated filter.
-            filteredArticles
-          ) : (
-            // If none exist, then show a placeholder.
-            <motion.h5
-              style={{ color: "var(--color-black)" }}
-              variants={animateArticles}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-            >
-              Nous n'avons pas d'articles de ce type pour le moment.
-            </motion.h5>
-          )}
-        </ArticleGrid>
-        {/* only show button when there are articles that correspond. */}
-        {filtered.length > 6 ? (
-          <>
-            {visiblePosts >= nouvellesData.length ? (
-              // if user hits end of news articles, button closes posts
-              <LoadMoreButton onClick={handleClosePosts} layout>
-                <small>Afficher moins d'articles</small>
-              </LoadMoreButton>
+          </WrapFilter>
+          <ArticleGrid layout layoutId="article">
+            {filtered.length > 0 ? (
+              // Render the articles w/ the associated filter.
+              filteredArticles
             ) : (
-              // Button to open more posts
-              <LoadMoreButton onClick={handleLoadNewPosts} layout>
-                <small>Afficher plus d'articles</small>
-              </LoadMoreButton>
+              // If none exist, then show a placeholder.
+              <motion.h5
+                style={{ color: "var(--color-black)" }}
+                variants={animateArticles}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                Nous n'avons pas d'articles de ce type pour le moment.
+              </motion.h5>
             )}
-          </>
-        ) : null}
-      </Inner>
-    </Main>
+          </ArticleGrid>
+          {/* only show button when there are articles that correspond. */}
+          {filtered.length > 6 ? (
+            <>
+              {visiblePosts >= nouvellesData.length ? (
+                // if user hits end of news articles, button closes posts
+                <LoadMoreButton onClick={handleClosePosts} layout>
+                  <small>Afficher moins d'articles</small>
+                </LoadMoreButton>
+              ) : (
+                // Button to open more posts
+                <LoadMoreButton onClick={handleLoadNewPosts} layout>
+                  <small>Afficher plus d'articles</small>
+                </LoadMoreButton>
+              )}
+            </>
+          ) : null}
+        </Inner>
+      </Main>
+    </>
   );
 }
 

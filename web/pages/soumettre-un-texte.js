@@ -16,6 +16,7 @@ import {
   textChild,
 } from "../styles/animations";
 import MarkdownContent from "../utils/MarkdownContent";
+import Head from "next/head";
 
 const SoumettreUnTexte = ({ pageData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -84,144 +85,158 @@ const SoumettreUnTexte = ({ pageData }) => {
   });
 
   return (
-    <Wrapper>
-      <Sidebar>
-        <SidebarList>
-          <small
-            onClick={() => handleScollTo(headerScrollRef)}
-            style={{
-              color: headerIsVisible
-                ? "var(--color-black)"
-                : "var(--color-grey)",
-            }}
-          >
-            {pageData.title}
-          </small>
-          <br />
-          <br />
-          <small
-            onClick={() => handleScollTo(submissionScrollRef)}
-            style={{
-              color: submissionIsVisible
-                ? "var(--color-black)"
-                : "var(--color-grey)",
-            }}
-          >
-            Protocole de soumission
-          </small>
-          <br />
-          <br />
-          <small
-            onClick={() => handleScollTo(editionScrollRef)}
-            style={{
-              color: editionIsVisible
-                ? "var(--color-black)"
-                : "var(--color-grey)",
-            }}
-          >
-            Protocole d'édition
-          </small>
-        </SidebarList>
-      </Sidebar>
-      <MainContent>
-        <Landing>
-          <LandingText>
-            <h1 ref={headerRefs} role="heading">
-              <SplitText
-                string={pageData.title}
-                variantParent={textAnim}
-                variantParentMobile={textAnimSlow}
-                variantChild={textChild}
-                initial="hidden"
-                animate="visible"
-              />
-            </h1>
-            <p role="heading">
-              <SplitText
-                string={pageData.description}
-                variantParent={textAnimFast}
-                variantParentMobile={textAnimFastest}
-                variantChild={textChild}
-                initial="hidden"
-                animate="visible"
-                isParagraphText={true}
-              />
-            </p>
-            <motion.span
-              variants={textChild}
-              initial="hidden"
-              animate="visible"
+    <>
+      <Head>
+        <meta
+          property="og:title"
+          content="Publiez dans la revue Mœbius"
+          key="title"
+        />
+        <meta
+          property="og:description"
+          content="Découvrez l'appel en cours et la date limite pour soumettre votre texte, et consultez nos protocoles de soumission et d'édition. Mœbius est une revue de création littéraire qui défend un véritable dialogue productif autour des textes, et l’accompagnement qu’elle propose fait sa réputation dans le milieu littéraire québécois."
+          key="description"
+        />
+      </Head>
+      <Wrapper>
+        <Sidebar>
+          <SidebarList>
+            <small
+              onClick={() => handleScollTo(headerScrollRef)}
+              style={{
+                color: headerIsVisible
+                  ? "var(--color-black)"
+                  : "var(--color-grey)",
+              }}
             >
-              {pageData.slug ? (
-                <Link scroll={false} href={`/nouvelles/${pageData.slug}`}>
-                  <InternalLink>
-                    <small>Consultez l'appel</small>
-                  </InternalLink>
-                </Link>
-              ) : (
-                <DisabledLink>
-                  <small>Appel fermé</small>
-                </DisabledLink>
-              )}
-            </motion.span>
-          </LandingText>
-        </Landing>
-        <Protocols>
-          <ProtocolText>
-            <Protocol ref={ref}>
-              <h3 ref={submissionRefs} role="heading">
+              {pageData.title}
+            </small>
+            <br />
+            <br />
+            <small
+              onClick={() => handleScollTo(submissionScrollRef)}
+              style={{
+                color: submissionIsVisible
+                  ? "var(--color-black)"
+                  : "var(--color-grey)",
+              }}
+            >
+              Protocole de soumission
+            </small>
+            <br />
+            <br />
+            <small
+              onClick={() => handleScollTo(editionScrollRef)}
+              style={{
+                color: editionIsVisible
+                  ? "var(--color-black)"
+                  : "var(--color-grey)",
+              }}
+            >
+              Protocole d'édition
+            </small>
+          </SidebarList>
+        </Sidebar>
+        <MainContent>
+          <Landing>
+            <LandingText>
+              <h1 ref={headerRefs} role="heading">
                 <SplitText
-                  string="Protocole de soumission"
+                  string={pageData.title}
+                  variantParent={textAnim}
+                  variantParentMobile={textAnimSlow}
+                  variantChild={textChild}
+                  initial="hidden"
+                  animate="visible"
+                />
+              </h1>
+              <p role="heading">
+                <SplitText
+                  string={pageData.description}
                   variantParent={textAnimFast}
                   variantParentMobile={textAnimFastest}
                   variantChild={textChild}
+                  initial="hidden"
+                  animate="visible"
+                  isParagraphText={true}
+                />
+              </p>
+              <motion.span
+                variants={textChild}
+                initial="hidden"
+                animate="visible"
+              >
+                {pageData.slug ? (
+                  <Link scroll={false} href={`/nouvelles/${pageData.slug}`}>
+                    <InternalLink>
+                      <small>Consultez l'appel</small>
+                    </InternalLink>
+                  </Link>
+                ) : (
+                  <DisabledLink>
+                    <small>Appel fermé</small>
+                  </DisabledLink>
+                )}
+              </motion.span>
+            </LandingText>
+          </Landing>
+          <Protocols>
+            <ProtocolText>
+              <Protocol ref={ref}>
+                <h3 ref={submissionRefs} role="heading">
+                  <SplitText
+                    string="Protocole de soumission"
+                    variantParent={textAnimFast}
+                    variantParentMobile={textAnimFastest}
+                    variantChild={textChild}
+                    initial="hidden"
+                    animate={isInView ? "visible" : "hidden"}
+                    isParagraphText={true}
+                  />
+                </h3>
+                <motion.span
+                  variants={textChild}
                   initial="hidden"
                   animate={isInView ? "visible" : "hidden"}
-                  isParagraphText={true}
-                />
-              </h3>
-              <motion.span
-                variants={textChild}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-              >
-                <MarkdownContent blocks={pageData.soumission} />
-              </motion.span>
-            </Protocol>
-            <Protocol ref={ref2}>
-              <h3 ref={editionRefs} role="heading">
-                <SplitText
-                  string="Protocole d’édition"
-                  variantParent={textAnimFast}
-                  variantParentMobile={textAnimFastest}
-                  variantChild={textChild}
+                >
+                  <MarkdownContent blocks={pageData.soumission} />
+                </motion.span>
+              </Protocol>
+              <Protocol ref={ref2}>
+                <h3 ref={editionRefs} role="heading">
+                  <SplitText
+                    string="Protocole d’édition"
+                    variantParent={textAnimFast}
+                    variantParentMobile={textAnimFastest}
+                    variantChild={textChild}
+                    initial="hidden"
+                    animate={isInView2 ? "visible" : "hidden"}
+                    isParagraphText={true}
+                  />
+                </h3>
+                <motion.span
+                  variants={textChild}
                   initial="hidden"
                   animate={isInView2 ? "visible" : "hidden"}
-                  isParagraphText={true}
-                />
-              </h3>
-              <motion.span
-                variants={textChild}
-                initial="hidden"
-                animate={isInView2 ? "visible" : "hidden"}
-              >
-                <MarkdownContent blocks={pageData.edition} />
-              </motion.span>
-            </Protocol>
-          </ProtocolText>
-        </Protocols>
-        {(pageData.extraInfoTitle || pageData.extraInfoDescription) && (
-          <OtherInfo>
-            <small>
-              {pageData.extraInfoTitle}
-              <br />
-              <br />
-              {pageData.extraInfoDescription}
-            </small>
-          </OtherInfo>
-        )}
-      </MainContent>
-    </Wrapper>
+                >
+                  <MarkdownContent blocks={pageData.edition} />
+                </motion.span>
+              </Protocol>
+            </ProtocolText>
+          </Protocols>
+          {(pageData.extraInfoTitle || pageData.extraInfoDescription) && (
+            <OtherInfo>
+              <small>
+                {pageData.extraInfoTitle}
+                <br />
+                <br />
+                {pageData.extraInfoDescription}
+              </small>
+            </OtherInfo>
+          )}
+        </MainContent>
+      </Wrapper>
+    </>
   );
 };
 

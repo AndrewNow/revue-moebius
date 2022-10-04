@@ -14,7 +14,6 @@ import {
   textAnimSlow,
   textChild,
   textAnimFast,
-  textAnimFastest,
   gridAnim,
   gridChild,
 } from "../../styles/animations";
@@ -22,6 +21,7 @@ import { motion, useInView } from "framer-motion";
 import CountViewMorePosts from "../../utils/countViewMorePosts";
 import { LoadMoreButton } from "../nouvelles";
 import BaladoItem from "../../components/baladoItem";
+import Head from "next/head";
 
 export default function Balado({ baladoData }) {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~**~*:._.:*~*:._.:*~*
@@ -97,118 +97,132 @@ export default function Balado({ baladoData }) {
   }
 
   return (
-    <Main>
-      <Inner>
-        {featured && (
-          <FeaturedBalado>
-            <FeaturedText>
-              <Tag>
-                <small>Nouveauté</small>
-              </Tag>
-              <h1 role="heading">
-                <SplitText
-                  string={baladoTitle}
-                  variantParent={textAnim}
-                  variantParentMobile={textAnimSlow}
-                  variantChild={textChild}
-                  initial="hidden"
-                  animate="visible"
-                />
-              </h1>
-              <Subtitle>
-                <ConvertDateToString data={featured?.publishedAt} />
-              </Subtitle>
-              <EpisodeLink>
-                <Link scroll={false} href={`balado/${featured?.slug}`}>
-                  <small>Écouter l'épisode</small>
-                </Link>
-              </EpisodeLink>
-            </FeaturedText>
-            <FeaturedImageWrapper>
-              {featured?.imageUrl && (
-                <Image
-                  src={featured?.imageUrl}
-                  alt={`Image couverture pour Moebius-Balado ${featured?.number}`}
-                  width={700}
-                  height={700}
-                  quality={95}
-                  priority={true}
-                  placeholder="blur"
-                  blurDataURL={featured.lqip}
-                />
-              )}
-            </FeaturedImageWrapper>
-          </FeaturedBalado>
-        )}
-        <Header ref={ref}>
-          <h4 role="heading">
-            <SplitText
-              string="Mœbius-balado"
-              variantParent={textAnim}
-              variantParentMobile={textAnimFast}
-              variantChild={textChild}
+    <>
+      <Head>
+        <meta
+          property="og:title"
+          content="Écoutez les épisodes du Mœbius-balado"
+          key="title"
+        />
+        <meta
+          property="og:description"
+          content="Poursuivant la mission que s’est donnée Mœbius de favoriser la réflexion sur la création littéraire, Mœbius-balado accompagne la parution de chacun des numéros de la revue Découvrez les coulisses de l’édition grâce aux entretiens entre les copilotes, et écoutez les auteur·rice·s lire des extraits de leur texte et parler de leur création."
+          key="description"
+        />
+      </Head>
+      <Main>
+        <Inner>
+          {featured && (
+            <FeaturedBalado>
+              <FeaturedText>
+                <Tag>
+                  <small>Nouveauté</small>
+                </Tag>
+                <h1 role="heading">
+                  <SplitText
+                    string={baladoTitle}
+                    variantParent={textAnim}
+                    variantParentMobile={textAnimSlow}
+                    variantChild={textChild}
+                    initial="hidden"
+                    animate="visible"
+                  />
+                </h1>
+                <Subtitle>
+                  <ConvertDateToString data={featured?.publishedAt} />
+                </Subtitle>
+                <EpisodeLink>
+                  <Link scroll={false} href={`balado/${featured?.slug}`}>
+                    <small>Écouter l'épisode</small>
+                  </Link>
+                </EpisodeLink>
+              </FeaturedText>
+              <FeaturedImageWrapper>
+                {featured?.imageUrl && (
+                  <Image
+                    src={featured?.imageUrl}
+                    alt={`Image couverture pour Moebius-Balado ${featured?.number}`}
+                    width={700}
+                    height={700}
+                    quality={95}
+                    priority={true}
+                    placeholder="blur"
+                    blurDataURL={featured.lqip}
+                  />
+                )}
+              </FeaturedImageWrapper>
+            </FeaturedBalado>
+          )}
+          <Header ref={ref}>
+            <h4 role="heading">
+              <SplitText
+                string="Mœbius-balado"
+                variantParent={textAnim}
+                variantParentMobile={textAnimFast}
+                variantChild={textChild}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                isParagraphText={true}
+              />
+            </h4>
+            <motion.p
+              role="heading"
+              variants={textAnimSlow}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              isParagraphText={true}
-            />
-          </h4>
-          <motion.p
-            role="heading"
-            variants={textAnimSlow}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-          >
-            <motion.span variants={textChild}>
-              Poursuivant la mission que s’est donnée <em>Mœbius </em>
-              de favoriser la réflexion sur la création littéraire,
-              <em> Mœbius-balado </em> accompagne la parution de chacun des
-              numéros de la revue. Découvrez les coulisses de l’édition grâce
-              aux entretiens entre les copilotes, et écoutez les auteurices lire
-              des extraits de leur texte et parler de leur création.
-            </motion.span>
-          </motion.p>
-        </Header>
-        <Grid
-          ref={ref2}
-          variants={gridAnim}
-          initial="hidden"
-          animate={isInView2 ? "visible" : "hidden"}
-        >
-          {baladoData.length > 0 ? (
-            // Render the articles w/ the associated filter.
-            filteredArticles
-          ) : (
-            // If none exist, then show a placeholder.
-            <motion.h5
-              style={{ color: "var(--color-black)" }}
-              variants={gridChild}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
             >
-              Nous n'avons pas d'articles de ce type pour le moment.
-            </motion.h5>
+              <motion.span variants={textChild}>
+                Poursuivant la mission que s’est donnée <em>Mœbius </em>
+                de favoriser la réflexion sur la création littéraire,
+                <em> Mœbius-balado </em> accompagne la parution de chacun des
+                numéros de la revue. Découvrez les coulisses de l’édition grâce
+                aux entretiens entre les copilotes, et écoutez les auteurices
+                lire des extraits de leur texte et parler de leur création.
+              </motion.span>
+            </motion.p>
+          </Header>
+          <Grid
+            ref={ref2}
+            variants={gridAnim}
+            initial="hidden"
+            animate={isInView2 ? "visible" : "hidden"}
+          >
+            {baladoData.length > 0 ? (
+              // Render the articles w/ the associated filter.
+              filteredArticles
+            ) : (
+              // If none exist, then show a placeholder.
+              <motion.h5
+                style={{ color: "var(--color-black)" }}
+                variants={gridChild}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                Nous n'avons pas d'articles de ce type pour le moment.
+              </motion.h5>
+            )}
+          </Grid>
+          <CountViewMorePosts
+            dataSource={baladoData}
+            filteredArticles={filteredArticles}
+            count={countDisplayedPosts}
+          />
+          {/* only show button when there are articles that correspond. */}
+          {visiblePosts >= baladoData.length ? (
+            // if user hits end of news articles, button closes posts
+            <LoadMoreButton onClick={handleClosePosts} layout disabled>
+              <small>Afficher plus d'articles</small>
+            </LoadMoreButton>
+          ) : (
+            // Button to open more posts
+            <LoadMoreButton onClick={handleLoadNewPosts} layout>
+              <small>Afficher plus d'articles</small>
+            </LoadMoreButton>
           )}
-        </Grid>
-        <CountViewMorePosts
-          dataSource={baladoData}
-          filteredArticles={filteredArticles}
-          count={countDisplayedPosts}
-        />
-        {/* only show button when there are articles that correspond. */}
-        {visiblePosts >= baladoData.length ? (
-          // if user hits end of news articles, button closes posts
-          <LoadMoreButton onClick={handleClosePosts} layout disabled>
-            <small>Afficher plus d'articles</small>
-          </LoadMoreButton>
-        ) : (
-          // Button to open more posts
-          <LoadMoreButton onClick={handleLoadNewPosts} layout>
-            <small>Afficher plus d'articles</small>
-          </LoadMoreButton>
-        )}
-      </Inner>
-    </Main>
+        </Inner>
+      </Main>
+    </>
   );
 }
 
