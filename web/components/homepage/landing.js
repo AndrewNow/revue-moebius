@@ -7,6 +7,8 @@ import { textAnim, textAnimSlow, textChild } from "../../styles/animations";
 import { motion } from 'framer-motion'
 
 const Landing = ({ data }) => {
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  console.log("is safari", isSafari)
   return (
     <LandingSection>
       <ImageWrapper
