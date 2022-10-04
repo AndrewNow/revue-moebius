@@ -16,6 +16,7 @@ import {
   textAnimFast,
   textAnimFastest,
   gridAnim,
+  gridChild,
 } from "../../styles/animations";
 import { motion, useInView } from "framer-motion";
 import CountViewMorePosts from "../../utils/countViewMorePosts";
@@ -124,18 +125,18 @@ export default function Balado({ baladoData }) {
               </EpisodeLink>
             </FeaturedText>
             <FeaturedImageWrapper>
-                {featured?.imageUrl && (
-                  <Image
-                    src={featured?.imageUrl}
-                    alt={`Image couverture pour Moebius-Balado ${featured?.number}`}
-                    width={700}
-                    height={700}
-                    quality={95}
-                    priority={true}
-                    placeholder="blur"
-                    blurDataURL={featured.lqip}
-                  />
-                )}
+              {featured?.imageUrl && (
+                <Image
+                  src={featured?.imageUrl}
+                  alt={`Image couverture pour Moebius-Balado ${featured?.number}`}
+                  width={700}
+                  height={700}
+                  quality={95}
+                  priority={true}
+                  placeholder="blur"
+                  blurDataURL={featured.lqip}
+                />
+              )}
             </FeaturedImageWrapper>
           </FeaturedBalado>
         )}
@@ -151,17 +152,21 @@ export default function Balado({ baladoData }) {
               isParagraphText={true}
             />
           </h4>
-          <p role="heading">
-            <SplitText
-              string="Poursuivant la mission que s’est donnée Mœbius de favoriser la réflexion sur la création littéraire, Mœbius-balado accompagne la parution de chacun des numéros de la revue. Découvrez les coulisses de l’édition grâce aux entretiens entre les copilotes, et écoutez les auteurices lire des extraits de leur texte et parler de leur création."
-              variantParent={textAnimFastest}
-              variantParentMobile={textAnimFastest}
-              variantChild={textChild}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              isParagraphText={true}
-            />
-          </p>
+          <motion.p
+            role="heading"
+            variants={textAnimSlow}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
+            <motion.span variants={textChild}>
+              Poursuivant la mission que s’est donnée <em>Mœbius </em>
+              de favoriser la réflexion sur la création littéraire,
+              <em> Mœbius-balado </em> accompagne la parution de chacun des
+              numéros de la revue. Découvrez les coulisses de l’édition grâce
+              aux entretiens entre les copilotes, et écoutez les auteurices lire
+              des extraits de leur texte et parler de leur création.
+            </motion.span>
+          </motion.p>
         </Header>
         <Grid
           ref={ref2}
@@ -176,7 +181,7 @@ export default function Balado({ baladoData }) {
             // If none exist, then show a placeholder.
             <motion.h5
               style={{ color: "var(--color-black)" }}
-              variants={animateArticles}
+              variants={gridChild}
               initial="hidden"
               animate="visible"
               exit="hidden"
@@ -317,12 +322,19 @@ const Header = styled.header`
   p {
     text-align: center;
     margin: 0 auto;
-    width: 60%;
+    width: 65%;
     color: var(--color-black);
   }
   h4 {
+    font-family: "Editorial-Italic";
     margin: 2rem auto;
     margin-top: 0;
+  }
+
+  @media (max-width: ${breakpoints.xxl}px) {
+    p {
+      width: 75%;
+    }
   }
 
   @media (max-width: ${breakpoints.l}px) {

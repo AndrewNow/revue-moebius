@@ -94,7 +94,7 @@ const ResidencesSection = ({ data }) => {
                   <h2>{individual.title}</h2>
                 </Link>
                 <Link href="/residences" scroll={false}>
-                  <h4>({individual.type})</h4>
+                  <h4>{residencyTitle}</h4>
                 </Link>
               </ResidencyItem>
               <ResidencyItem>
@@ -115,7 +115,7 @@ const ResidencesSection = ({ data }) => {
                   <h2>{individual.title}</h2>
                 </Link>
                 <Link href="/residences" scroll={false}>
-                  <h4>({individual.type})</h4>
+                    <h4>{residencyTitle}</h4>
                 </Link>
               </ResidencyItem>
             </Marquee>

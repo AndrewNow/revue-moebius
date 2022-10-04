@@ -27,6 +27,8 @@ const MapFAQ = ({ data }) => {
         },
       },
     };
+
+    console.log(hover)
     return (
       <QuestionItem
         key={question._key}

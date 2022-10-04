@@ -21,6 +21,7 @@ import MarkdownContent from "../../utils/MarkdownContent";
 import Image from "next/image";
 import { Instagram, LinkIcon } from "../../svg/icons";
 import ResidenceArchive from "../../components/residenceArchive/residenceArchive";
+import {motion} from 'framer-motion'
 
 const Residency = ({ pageData, archiveData }) => {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
@@ -147,17 +148,17 @@ const Residency = ({ pageData, archiveData }) => {
                 animate="visible"
               />
             </h1>
-            <p role="heading">
-              <SplitText
-                string="Mœbius est une revue littéraire québécoise fondée en 1977 par Pierre DesRuisseaux, Raymond Martin et Guy Melançon. Elle a été dirigée par Robert Giroux pendant trente-cinq ans. La revue paraît quatre fois par année."
-                variantParent={textAnimFast}
-                variantParentMobile={textAnimFastest}
-                variantChild={textChild}
-                initial="hidden"
-                animate="visible"
-                isParagraphText={true}
-              />
-            </p>
+            <motion.p role="heading" variants={textAnimSlow} initial="hidden" animate="visible">
+              <motion.span variants={textChild}>
+                <em>Mœbius </em>accueille chaque année un·e artiste et un·e
+                écrivain·e en résidence. Aux artistes, la revue offre de faire
+                de sa page couverture un canevas. Aux écrivain·e·s, elle donne
+                l’espace d’une parole qui peut se déployer en plusieurs
+                épisodes. Dès 2023, un nouveau terrain d’exploration sera ouvert
+                à un duo formé d’un·e artiste et d’un·auteurice : la résidence
+                hypermédiatique. Découvrez leurs œuvres ici!
+              </motion.span>
+            </motion.p>
           </LandingText>
         </Landing>
         {pageData.residenceData.map((individual) => {
@@ -327,7 +328,7 @@ const LandingText = styled.div`
     margin-bottom: 2rem;
   }
   p {
-    width: 60%;
+    width: 80%;
   }
   @media (max-width: ${breakpoints.m}px) {
     h1 {
