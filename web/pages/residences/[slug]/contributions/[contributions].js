@@ -16,8 +16,9 @@ import {
 import { Inner } from "../../../index";
 
 const ContributionEcrivain = ({ pageData }) => {
-  const data = pageData[0];
-  console.log(data);
+  console.log(pageData);
+
+  const data = pageData;
   return (
     <>
       <Header>
@@ -99,13 +100,11 @@ const ContributionEcrivain = ({ pageData }) => {
 export default ContributionEcrivain;
 
 export async function getStaticProps({ params }) {
-  console.log("params", params);
-
   const footerLogos = await client.fetch(footerLogoQuery);
 
   const pageData = await client.fetch(residencesEcrivainQuery, {
-    slug: params.slug,
     contributions: params.contributions,
+    slug: params.contributions,
   });
 
   return {
@@ -127,20 +126,19 @@ export async function getStaticPaths() {
     }`
   );
 
-  return {
-    paths: data
-      .filter((item) => item.contributionsEcrivain)
-      .map((item, idx) => {
+  const pages = data.reduce((arr, item) => {
+    item.contributionsEcrivain.forEach((c) => {
+      const params = {
+        slug: item.slug,
+        contributions: c.slug,
+      };
+      arr.push({ params: params });
+    });
+    return arr;
+  }, []);
 
-        // const contributions = item.contributionsEcrivain.map((item) => item);
-        
-        return {
-          params: {
-            slug: item.slug,
-            contributions: item.contributionsEcrivain[idx].slug,
-          },
-        };
-      }),
+  return {
+    paths: pages.map((page) => page),
     fallback: true,
   };
 }
