@@ -153,6 +153,10 @@ const Header = styled.header`
   color: var(--static-black);
   background: var(--color-turquoise);
 
+  h1 {
+    width: 90%;
+    margin: 0 auto;
+  }
   small {
     padding: 1rem 0;
     display: block;
@@ -192,6 +196,7 @@ const BreadCrumbs = styled.div`
 
   @media (max-width: ${breakpoints.s}px) {
   display: none;
+  }
 `;
 
 const Tag = styled.div`

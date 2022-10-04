@@ -27,16 +27,41 @@ const SplitText = ({
   // to look nice.
   //
   //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:._.:*~*:._.:*~*
+
+  // Check if a given user is on Safari
+  // If yes, animate the mobile version (word by word)
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
   return (
     <>
-      <Desktop initial={initial} variants={variantParent} animate={animate}>
-        {string.split("").map((char, index) => {
-          return (
-            <motion.span variants={variantChild} key={index} aria-hidden="true">
-              {char}
-            </motion.span>
-          );
-        })}
+      <Desktop
+        initial={initial}
+        variants={isSafari ? variantParentMobile : variantParent}
+        animate={animate}
+      >
+        {isSafari
+          ? string.split(" ").map((char, index) => {
+              return (
+                <motion.span
+                  variants={variantChild}
+                  key={index}
+                  aria-hidden="true"
+                >
+                  {char}{" "}
+                </motion.span>
+              );
+            })
+          : string.split("").map((char, index) => {
+              return (
+                <motion.span
+                  variants={variantChild}
+                  key={index}
+                  aria-hidden="true"
+                >
+                  {char}
+                </motion.span>
+              );
+            })}
       </Desktop>
       <Mobile
         initial={initial}

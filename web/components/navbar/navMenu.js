@@ -8,6 +8,9 @@ const NavMenu = ({ isOpen, setOpen, mediaKitData }) => {
   const openModal = {
     hidden: {
       y: "-100%",
+      transitionEnd: {
+        visibility: "hidden"
+      },
       transition: {
         ease: [0.25, 0, 0.35, 1],
         duration: 0.45,
@@ -16,6 +19,7 @@ const NavMenu = ({ isOpen, setOpen, mediaKitData }) => {
     },
     open: {
       y: 0,
+      visibility: "visible",
       transition: {
         ease: [0.25, 0, 0.35, 1],
         duration: 0.75,

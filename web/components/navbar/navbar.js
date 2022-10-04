@@ -153,7 +153,7 @@ const Background = styled(motion.div)`
   border-bottom: 1px solid var(--color-black);
   /* mix-blend-mode: lighten; */
 
-  @media (max-width: ${breakpoints.m}px) {
+  @media (max-width: ${breakpoints.xxl}px) {
     height: 80px;
   }
 `;
@@ -163,14 +163,14 @@ const HamburgerWrapper = styled.div`
   z-index: 1000;
   top: 25px;
   left: 3.75%;
-  @media (max-width: ${breakpoints.m}px) {
+  @media (max-width: ${breakpoints.xxl}px) {
     top: 20px;
   }
 `;
 
 const LogoWrapper = styled.div`
   position: fixed;
-  width: 154px;
+  width: 134px;
   height: auto;
   aspect-ratio: 154/38;
   z-index: 1000;
@@ -179,8 +179,8 @@ const LogoWrapper = styled.div`
   transform: translateX(-50%);
   cursor: pointer;
 
-  @media (max-width: ${breakpoints.l}px) {
-    width: 130px;
+  @media (max-width: ${breakpoints.xxl}px) {
+    width: 110px;
   }
   @media (max-width: ${breakpoints.s}px) {
     width: 100px;

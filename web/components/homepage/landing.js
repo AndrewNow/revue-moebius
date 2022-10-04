@@ -7,14 +7,12 @@ import { textAnim, textAnimSlow, textChild } from "../../styles/animations";
 import { motion } from 'framer-motion'
 
 const Landing = ({ data }) => {
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  console.log("is safari", isSafari)
   return (
     <LandingSection>
       <ImageWrapper
-      // initial={{ opacity: 0 }}
-      // animate={{ opacity: 1 }}
-      // transition={{ duration: 2, delay: 0.25, ease: [0.85, 0, 0.15, 1] }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 2, delay: 0.25, ease: [0.85, 0, 0.15, 1] }}
       >
         <MainImage className="mainImg">
           {data[0].image && (
@@ -117,7 +115,7 @@ const ImageWrapper = styled.div`
       filter: var(--drop-shadow);
     }
     .supportingImg {
-      transform: translate(10%, -50%) rotateY(15deg) rotateX(10deg);
+      transform: translate3D(10%, -50%, -50px) rotateY(5deg) rotateX(10deg);
       filter: brightness(0.77) blur(2px);
     }
   }
@@ -132,7 +130,7 @@ const ImageWrapper = styled.div`
     perspective: none;
     :hover {
       .supportingImg {
-        transform: translate(15%, -50%) rotateY(5deg);
+        transform: translate3d(15%, -50%, -50px) rotateY(5deg);
         filter: brightness(0.8) blur(1px);
       }
     }

@@ -47,15 +47,15 @@ const ResidencesSection = ({ data }) => {
           } else if (individual.type === "hypermédia") {
             residencyTitle = "hypermédia";
           }
-
+          console.log(individual)
           return (
+            <span key={individual._id}>
             <Marquee
               gradientWidth={0}
               play={inView ? true : false}
               speed={MARQUEE_SPEED}
               direction="reverse"
-              key={individual._key}
-            >
+              >
               <ResidencyItem>
                 <ResidencyImage>
                   <Image
@@ -68,7 +68,7 @@ const ResidencesSection = ({ data }) => {
                     objectFit="contain"
                     quality={50}
                     alt={`Image portrait pour ${individual.title}`}
-                  />
+                    />
                 </ResidencyImage>
                 <Link href="/residences" scroll={false}>
                   <h2>{individual.title}</h2>
@@ -89,7 +89,7 @@ const ResidencesSection = ({ data }) => {
                     objectFit="contain"
                     quality={50}
                     alt={`Image portrait pour ${individual.title}`}
-                  />
+                    />
                 </ResidencyImage>
                 <Link href="/residences" scroll={false}>
                   <h2>{individual.title}</h2>
@@ -110,7 +110,7 @@ const ResidencesSection = ({ data }) => {
                     objectFit="contain"
                     quality={50}
                     alt={`Image portrait pour ${individual.title}`}
-                  />
+                    />
                 </ResidencyImage>
                 <Link href="/residences" scroll={false}>
                   <h2>{individual.title}</h2>
@@ -120,6 +120,7 @@ const ResidencesSection = ({ data }) => {
                 </Link>
               </ResidencyItem>
             </Marquee>
+            </span>
           );
         })}
       </InnerSection>

@@ -4,7 +4,7 @@ export const homepageResidenciesQuery = groq`
 *[_type == "residences" && active != false] | order(year desc)[0] {
     _id,
     residenceData[]-> {
-      _key,
+      _id,
       title, 
       type,
       "imageUrl": mainImage.asset->url,
