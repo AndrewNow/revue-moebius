@@ -37,7 +37,7 @@ export default function Home({
     <>
       <Head>
         <title>Acceuil - La revue Mœbius</title>
-        <meta property="og:title" content="Acceuil - La Revue Mœbius" />
+        <meta property="og:title" content="Acceuil - La revue Mœbius" />
         <meta
           property="og:description"
           content="Mœbius est une revue de création littéraire québécoise fondée en 1977 qui réunit des textes d’auteur·rice·s établi·e·s et d’écrivain·e·s émergent·e·s. La revue valorise la perméabilité des formes et des genres littéraires, l’expérimentation et la mise en scène de la subjectivité."

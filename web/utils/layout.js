@@ -8,6 +8,15 @@ export const Layout = (props) => {
       <Head>
         <link rel="icon" href="/favicon.png"></link>
         <meta property="og:image" content="https://i.imgur.com/mk55koK.png" />
+        <meta property="og:title" content="La revue Mœbius" />
+        <meta
+          property="og:description"
+          content="Mœbius est une revue de création littéraire québécoise fondée en 1977 qui réunit des textes d’auteur·rice·s établi·e·s et d’écrivain·e·s émergent·e·s. La revue valorise la perméabilité des formes et des genres littéraires, l’expérimentation et la mise en scène de la subjectivité."
+        />
+        <meta
+          name="description"
+          content="Mœbius est une revue de création littéraire québécoise fondée en 1977 qui réunit des textes d’auteur·rice·s établi·e·s et d’écrivain·e·s émergent·e·s. La revue valorise la perméabilité des formes et des genres littéraires, l’expérimentation et la mise en scène de la subjectivité."
+        />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
