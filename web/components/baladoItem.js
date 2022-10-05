@@ -102,7 +102,7 @@ const EpisodeLink = styled.div`
     display: inline-block;
     padding: 1rem 4rem;
     margin: 0;
-    color: var(--color-black);
+    color: var(--static-black);
   }
   :hover {
     background: var(--color-turquoise);
