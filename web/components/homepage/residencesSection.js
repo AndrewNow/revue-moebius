@@ -18,19 +18,19 @@ const ResidencesSection = ({ data }) => {
       <Banner>
         <Marquee gradientWidth={0} speed={15}>
           <ArrowText>
-            <h5>Artistes en résidence</h5> <ArrowDown />
+            <h5>Résidences en cours</h5> <ArrowDown />
           </ArrowText>
           <ArrowText>
-            <h5>Artistes en résidence</h5> <ArrowDown />
+            <h5>Résidences en cours</h5> <ArrowDown />
           </ArrowText>
           <ArrowText>
-            <h5>Artistes en résidence</h5> <ArrowDown />
+            <h5>Résidences en cours</h5> <ArrowDown />
           </ArrowText>
           <ArrowText>
-            <h5>Artistes en résidence</h5> <ArrowDown />
+            <h5>Résidences en cours</h5> <ArrowDown />
           </ArrowText>
           <ArrowText>
-            <h5>Artistes en résidence</h5> <ArrowDown />
+            <h5>Résidences en cours</h5> <ArrowDown />
           </ArrowText>
         </Marquee>
       </Banner>
@@ -131,19 +131,19 @@ const ResidencesSection = ({ data }) => {
           pauseOnHover={true}
         >
           <ArrowText>
-            <h5>Artistes en résidence</h5> <ArrowUp />
+            <h5>Résidences en cours</h5> <ArrowUp />
           </ArrowText>
           <ArrowText>
-            <h5>Artistes en résidence</h5> <ArrowUp />
+            <h5>Résidences en cours</h5> <ArrowUp />
           </ArrowText>
           <ArrowText>
-            <h5>Artistes en résidence</h5> <ArrowUp />
+            <h5>Résidences en cours</h5> <ArrowUp />
           </ArrowText>
           <ArrowText>
-            <h5>Artistes en résidence</h5> <ArrowUp />
+            <h5>Résidences en cours</h5> <ArrowUp />
           </ArrowText>
           <ArrowText>
-            <h5>Artistes en résidence</h5> <ArrowUp />
+            <h5>Résidences en cours</h5> <ArrowUp />
           </ArrowText>
         </Marquee>
       </Banner>

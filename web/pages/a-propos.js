@@ -132,20 +132,14 @@ const APropos = ({ equipeData, footerLogos }) => {
     <>
       <Head>
         <title>Découvrez la revue</title>
-        <meta
-          property="og:title"
-          content="Découvrez la revue"
-          key="og-title-a-propos"
-        />
+        <meta property="og:title" content="Découvrez la revue" />
         <meta
           property="og:description"
           content="Découvrez la revue, son histoire, sa politique éditoriale et son équipe."
-          key="og-description-a-propos"
         />
         <meta
           name="description"
           content="Découvrez la revue, son histoire, sa politique éditoriale et son équipe."
-          key="description-a-propos"
         />
       </Head>
       <Wrapper>
