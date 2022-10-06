@@ -159,10 +159,9 @@ const QuestionTitle = styled.div`
   align-items: baseline;
   background: var(--color-cream);
   color: var(--color-black);
-  transition: background ease-in .4s;
+  transition: background ease-in 0.4s;
 
-  
-  :hover
+  :hover {
     background: var(--color-yellow);
     color: var(--static-black);
     svg {
