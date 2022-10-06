@@ -27,7 +27,7 @@
 }
 
 [data-theme="dark"] {
-  --logo-color: invert(1);
+  --logo-color: invert(1) brightness(1.2);
   --color-black: #fffff8;
   --color-cream: #353535;
   --nav-color: #35353598;

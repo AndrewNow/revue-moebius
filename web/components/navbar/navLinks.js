@@ -35,11 +35,6 @@ export const LinkData = [
   },
 ];
 
-// {
-//   url: `/contact`,
-//   title: "Nous Contacter",
-// },
-
 const NavLinks = ({ isOpen, setOpen }) => {
   const animateVerticalLine = {
     hidden: {

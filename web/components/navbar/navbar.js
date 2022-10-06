@@ -61,23 +61,28 @@ const Navbar = ({ mediaKitData }) => {
       <Wrapper>
         <HamburgerWrapper onClick={() => setOpenCart(false)}>
           <Hamburger
-            aria-label="Ouvrir le menu"
+            aria-label="Ouvrir le menu."
             toggled={isOpen}
             toggle={setOpen}
             color="var(--color-black)"
           />
         </HamburgerWrapper>
-        <LogoWrapper>
-          <Link scroll={false} href="/">
-            <Image
-              src={Logo}
-              alt="Moebius logo"
-              layout="fill"
-              quality={100}
-              style={{ filter: "var(--logo-color)" }}
-            />
-          </Link>
-        </LogoWrapper>
+        <LogoFixed>
+          <LogoContainer>
+            <Link scroll={false} href="/">
+              <Image
+                src={Logo}
+                alt="Moebius logo"
+                layout="responsive"
+                height={50}
+                objectFit="contain"
+                width={"100%"}
+                quality={100}
+                style={{ filter: "var(--logo-color)" }}
+              />
+            </Link>
+          </LogoContainer>
+        </LogoFixed>
         <RightSideWrapper>
           <AnimatePresence>
             <motion.div
@@ -142,6 +147,9 @@ const Wrapper = styled.div`
 
 const Background = styled(motion.div)`
   position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   z-index: 700;
   background-color: var(--nav-color);
   width: 100%;
@@ -151,7 +159,6 @@ const Background = styled(motion.div)`
   right: 0;
   backdrop-filter: blur(10px) saturate(60%);
   border-bottom: 1px solid var(--color-black);
-  /* mix-blend-mode: lighten; */
 
   @media (max-width: ${breakpoints.xxl}px) {
     height: 80px;
@@ -168,17 +175,26 @@ const HamburgerWrapper = styled.div`
   }
 `;
 
-const LogoWrapper = styled.div`
+const LogoFixed = styled.div`
   position: fixed;
-  width: 134px;
-  height: auto;
-  aspect-ratio: 154/38;
+  display: block;
   z-index: 1000;
-  top: 30px;
+
+  top: 12px;
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
+  @media (max-width: ${breakpoints.s}px) {
+    top: 20px;
+  }
+`;
 
+const LogoContainer = styled.div`
+  position: relative;
+  display: block;
+  aspect-ratio: 1125/394;
+  width: auto;
+  height: 50px;
   @media (max-width: ${breakpoints.xxl}px) {
     width: 110px;
   }
