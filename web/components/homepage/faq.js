@@ -162,7 +162,7 @@ const QuestionTitle = styled.div`
   transition: background ease-in .4s;
 
   
-  :hover {
+  :hover
     background: var(--color-yellow);
     color: var(--static-black);
     svg {
