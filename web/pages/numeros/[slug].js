@@ -413,6 +413,9 @@ const SideContent = styled.div`
   }
   @media (max-width: ${breakpoints.s}px) {
     margin-bottom: 4rem;
+    small {
+      width: 100%;
+    }
   }
 `;
 
