@@ -7,65 +7,6 @@ import { textAnim, textChild, textAnimSlow } from "../../styles/animations";
 import SplitText from "../../utils/splitText";
 import MarkdownContent from "../../utils/MarkdownContent";
 
-const MapFAQ = ({ data }) => {
-  return data.map((question) => {
-    const [open, setOpen] = useState(false);
-    const [hover, setHover] = useState(false);
-
-    const expandAnimation = {
-      visible: {
-        height: "auto",
-        transition: {
-          duration: 0.4,
-          ease: [0.5, 0, 0.75, 0],
-        },
-      },
-      hidden: {
-        height: 0,
-        transition: {
-          ease: "easeInOut",
-        },
-      },
-    };
-
-    return (
-      <QuestionItem
-        key={question._key}
-        onClick={() => setOpen(!open)}
-        whileHover={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
-        <QuestionTitle
-          style={{
-            backgroundColor: hover ? "var(--color-yellow)" : "var(--color-cream)",
-            color: hover ? "var(--static-black)" : "var(--color-black)",
-          }}
-        >
-          <h5>{question.question}</h5>
-          <Chevron
-            open={open}
-            hover={hover}
-          />
-        </QuestionTitle>
-        <AnimatePresence exitBeforeEnter>
-          {open && (
-            <AnswerWrapper
-              variants={expandAnimation}
-              initial="hidden"
-              animate={open ? "visible" : "hidden"}
-              exit="hidden"
-            >
-              <Content>
-                <MarkdownContent blocks={question.answer} />
-              </Content>
-            </AnswerWrapper>
-          )}
-        </AnimatePresence>
-      </QuestionItem>
-    );
-  });
-};
-
 const Faq = ({ faqData }) => {
   const data = faqData.faqData;
 
@@ -92,6 +33,54 @@ const Faq = ({ faqData }) => {
 };
 
 export default Faq;
+
+const MapFAQ = ({ data }) => {
+  return data.map((question) => {
+    const [open, setOpen] = useState(false);
+
+    const expandAnimation = {
+      visible: {
+        height: "auto",
+        transition: {
+          duration: 0.4,
+          ease: [0.5, 0, 0.75, 0],
+        },
+      },
+      hidden: {
+        height: 0,
+        transition: {
+          ease: "easeInOut",
+        },
+      },
+    };
+
+    return (
+      <QuestionItem key={question._key} onClick={() => setOpen(!open)}>
+        <QuestionTitle>
+          <h5>{question.question}</h5>
+          <Chevron
+            open={open}
+            // hover={hover}
+          />
+        </QuestionTitle>
+        <AnimatePresence exitBeforeEnter>
+          {open && (
+            <AnswerWrapper
+              variants={expandAnimation}
+              initial="hidden"
+              animate={open ? "visible" : "hidden"}
+              exit="hidden"
+            >
+              <Content>
+                <MarkdownContent blocks={question.answer} />
+              </Content>
+            </AnswerWrapper>
+          )}
+        </AnimatePresence>
+      </QuestionItem>
+    );
+  });
+};
 
 const Wrapper = styled.section`
   margin: 10rem auto;
@@ -125,7 +114,7 @@ const QuestionWrapper = styled.div`
   }
 `;
 
-const QuestionItem = styled(motion.div)`
+const QuestionItem = styled.div`
   :first-child {
     border-top: 1px solid var(--color-black);
   }
@@ -161,14 +150,28 @@ const QuestionItem = styled(motion.div)`
   }
 `;
 
-const QuestionTitle = styled(motion.div)`
+const QuestionTitle = styled.div`
   padding: 2.5rem;
   padding-top: 1.5rem;
   padding-bottom: 2rem;
-  transition: var(--transition);
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  background: var(--color-cream);
+  color: var(--color-black);
+  transition: background ease-in .4s;
+
+  
+  :hover {
+    background: var(--color-yellow);
+    color: var(--static-black);
+    svg {
+      fill: var(--static-black);
+      path {
+        fill: var(--static-black);
+      }
+    }
+  }
 
   @media (max-width: ${breakpoints.l}px) {
     padding: 2rem 1rem;
