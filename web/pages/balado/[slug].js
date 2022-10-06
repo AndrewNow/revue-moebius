@@ -50,7 +50,7 @@ export default function Balado({ balado }) {
               )}
             </ImageWrapper>
             <BannerText>
-              <small>
+              <small style={{ color: balado.textcolor }}>
                 <ConvertDateToString data={balado?.publishedAt} />
               </small>
               <h2 style={{ color: balado.textcolor }}>{baladoTitle}</h2>
@@ -117,7 +117,14 @@ export default function Balado({ balado }) {
             <Content>
               {balado?.embed && (
                 <SpotifyWrapper>
-                  <Spotify wide height="100%" link={balado?.embed} />
+                  <Spotify
+                    wide
+                    height="100%"
+                    link={balado?.embed}
+                    style={{
+                      backgroundColor: "var(--color-cream)!important",
+                    }}
+                  />
                 </SpotifyWrapper>
               )}
               <MarkdownWrapper>
@@ -217,7 +224,9 @@ const ImageWrapper = styled.div`
   }
 `;
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+  background: var(--color-cream);
+`;
 
 const BannerText = styled.div`
   margin-left: 5%;
@@ -353,7 +362,7 @@ const SpotifyButton = styled.a`
   text-decoration: none;
   transition: var(--transition);
   background: var(--color-turquoise);
-
+  color : var(--static-black);
   small {
     padding: 0;
   }
@@ -414,6 +423,7 @@ const SpotifyWrapper = styled.div`
   height: 300px;
   position: relative;
   display: block;
+
 `;
 
 const Return = styled.small`

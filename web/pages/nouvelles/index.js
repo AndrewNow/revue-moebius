@@ -212,6 +212,9 @@ const Main = styled.div`
 const Inner = styled.div`
   width: 92.5%;
   margin: 0 auto;
+    @media (max-width: ${breakpoints.s}px) {
+      padding-bottom: 3rem;
+    }
 `;
 
 const WrapFilter = styled.div`

@@ -152,7 +152,7 @@ const Vente = ({ numeros, abonnements, boutique }) => {
         </Inner>
       </Content>
       {abonnements.length && <Abonnements abonnements={abonnements} />}
-      {boutique.length && <Boutique boutique={boutique} />}
+      {boutique.length > 0 && <Boutique boutique={boutique} />}
     </>
   );
 };

@@ -73,7 +73,11 @@ export default function Balado({ baladoData }) {
   // When we reach the end of the array, load more posts button becomes a "close posts" button
   const handleClosePosts = () => setVisiblePosts(6);
 
-  // render the posts after being sliced
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
+  //
+  // Render the balado posts (after being sliced)
+  //
+  //.:*~*:._.:*~*:._.:*~*:._.:*~*
   const filteredArticles = baladoData.slice(0, visiblePosts).map((balado) => {
     return <BaladoItem balado={balado} key={balado._id} />;
   });

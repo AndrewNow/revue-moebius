@@ -330,7 +330,9 @@ const Header = styled.div`
     }
   }
   @media (max-width: ${breakpoints.m}px) {
-    width: 100%;
+    h1 {
+      padding-left: 0.4rem;
+    }
   }
 `;
 
