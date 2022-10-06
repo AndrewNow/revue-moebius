@@ -185,7 +185,7 @@ const LogoFixed = styled.div`
   transform: translateX(-50%);
   cursor: pointer;
   @media (max-width: ${breakpoints.s}px) {
-    top: 20px;
+    top: 15px;
   }
 `;
 

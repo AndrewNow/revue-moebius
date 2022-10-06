@@ -170,7 +170,7 @@ export default function CartSummary({ setOpenCart, openCart }) {
               ) : (
                 <NoItemsInCart>
                   <p>
-                    Il n'y a aucun article dans votre panier !
+                    Votre panier est vide !
                     <br />
                     <br />
                     <Link scroll={false} href="/vente">
