@@ -78,11 +78,19 @@ export default {
     },
     {
       name: "contributions",
-      title: "Contributions",
+      title: "Contributions d'artiste",
       description:
         "Faire un lien vers les numéros auxquelles la personne a contribué.",
       type: "array",
       of: [{ type: "reference", to: { type: "numero" } }],
+    },
+    {
+      name: "contributionsEcrivain",
+      title: "Contributions d'écrivain.e.s",
+      description:
+        "Créer un lien vers les textes d'écrivain.es.",
+      type: "array",
+      of: [{ type: "reference", to: { type: "contributionsEcrivain" } }],
     },
     {
       type: "url",

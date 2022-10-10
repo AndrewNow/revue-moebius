@@ -35,6 +35,7 @@ export default async function handler(req, res) {
         },
         //The cart items are inserted.
         line_items,
+        allow_promotion_codes: true,
         automatic_tax: {
           // https://stripe.com/docs/payments/checkout/taxes
           // enabled: true,
@@ -44,7 +45,10 @@ export default async function handler(req, res) {
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}`,
       };
-
+      // const promotionCode = await stripe.promotionCodes.create({
+      //   coupon: ``,
+      //   code: `code`,
+      // })
       const checkoutSession = await stripe.checkout.sessions.create(params);
 
       res.status(200).json(checkoutSession);
