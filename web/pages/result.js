@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { useReward } from "react-rewards";
 // import PrintObject from "../components/PrintObject";
-// import { breakpoints } from "../utils/breakpoints";
+import { breakpoints } from "../utils/breakpoints";
 import Head from "next/head";
 import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
 import { client } from "../lib/sanity/client";
@@ -60,8 +60,9 @@ const ResultPage = () => {
             !
           </h3>
           <p>
-            Un courriel de confirmation va être envoyé à{" "}
-            {data?.payment_intent.charges.data[0].billing_details.email}.
+            Un courriel de confirmation va bientôt être envoyé à l'addresse suivante:{" "}
+            <br />{" "}
+            {data?.payment_intent.charges.data[0].billing_details.email}
           </p>
           <Link scroll={false} href="/">
             <Button>
@@ -113,7 +114,15 @@ const Text = styled.div`
     font-family: "Surt";
   }
   p {
-    padding-bottom: 3rem;
+    padding: 3rem 0;;
+  }
+
+  @media (max-width: ${breakpoints.s}px) {
+    width: 90%;
+    margin: 0 auto;
+    p {
+      padding: 2rem 0;
+    }
   }
 `;
 
