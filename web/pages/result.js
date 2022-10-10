@@ -26,7 +26,30 @@ const ResultPage = () => {
   );
 
   if (error) {
-    return <div>Oops! Échec du chargement.</div>;
+    return (
+      <>
+        <Head>
+          <title>La revue Mœbius</title>
+          <meta property="og:title" content="La revue Mœbius" />
+        </Head>
+        <Wrapper>
+          <Text>
+            <h3>Oops! Échec du chargement.</h3>
+            <p>
+              Si vous pensez qu'il s'agit d'une erreur de notre part, veuillez
+              nous contacter à l'adresse suivante:
+              <br />
+              <a href="mailto:revuemoebius@gmail.com">revuemoebius@gmail.com</a>
+            </p>
+            <Link scroll={false} href="/">
+              <Button>
+                <small>Retourner à la page d'accueil</small>
+              </Button>
+            </Link>
+          </Text>
+        </Wrapper>
+      </>
+    );
   }
 
   // Confetti config
@@ -60,8 +83,8 @@ const ResultPage = () => {
             !
           </h3>
           <p>
-            Un courriel de confirmation va bientôt être envoyé à l'addresse suivante:{" "}
-            <br />{" "}
+            Un courriel de confirmation va bientôt être envoyé à l'addresse
+            suivante: <br />{" "}
             {data?.payment_intent.charges.data[0].billing_details.email}
           </p>
           <Link scroll={false} href="/">
@@ -114,7 +137,7 @@ const Text = styled.div`
     font-family: "Surt";
   }
   p {
-    padding: 3rem 0;;
+    padding: 3rem 0;
   }
 
   @media (max-width: ${breakpoints.s}px) {
