@@ -8,6 +8,8 @@ import { useReward } from "react-rewards";
 // import PrintObject from "../components/PrintObject";
 // import { breakpoints } from "../utils/breakpoints";
 import Head from "next/head";
+import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
+import { client } from "../lib/sanity/client";
 
 const ResultPage = () => {
   const router = useRouter();
@@ -43,7 +45,7 @@ const ResultPage = () => {
     <>
       <Head>
         <title>La revue Mœbius</title>
-        <meta property="og:title" content="La Revue Mœbius" />
+        <meta property="og:title" content="La revue Mœbius" />
       </Head>
       <Wrapper>
         <Reward id="rewardId" />
@@ -51,7 +53,7 @@ const ResultPage = () => {
           <h3>
             Merci de soutenir la revue,{" "}
             {
-              data?.payment_intent.charges.data[0].billing_details.name.split(
+              data?.payment_intent?.charges?.data[0].billing_details.name.split(
                 " "
               )[0]
             }
@@ -80,6 +82,16 @@ const ResultPage = () => {
 };
 
 export default ResultPage;
+
+export async function getStaticProps() {
+  const footerLogos = await client.fetch(footerLogoQuery);
+  return {
+    props: {
+      footerLogos,
+    },
+    revalidate: 10,
+  };
+}
 
 const Reward = styled.span`
   margin: 0 auto;
