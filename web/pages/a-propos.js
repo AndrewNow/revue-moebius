@@ -272,6 +272,9 @@ const APropos = ({ equipeData, footerLogos }) => {
                     hypermédiatique. Les œuvres créées par un duo composé d’un·e
                     écrivain·e et d’un·e artiste accompagnent la publication des
                     numéros de la revue et sont hébergée sur son site web.
+                    <br />
+                    <br />
+                    Consultez <a href="Engagement-Inclusivité-et-Décolonisation_sans sources.pdf" target="_blank">notre engagement sur l'inclusivité et la décolonisation</a> ainsi que <a href="Politique-éditoriale-nov2022.pdf" target="_blank">notre politique éditoriale</a>.
                   </motion.span>
                 </motion.p>
               </LandingParagraph>
@@ -570,6 +573,13 @@ const LandingParagraph = styled.div`
   width: 80%;
   margin: 5rem auto;
   column-gap: 5rem;
+  span > a {
+    color: var(--color-yellow);
+    :hover {
+      transition: var(--transition);
+      filter: brightness(85%);
+    }
+  }
   @media (max-width: ${breakpoints.l}px) {
     margin: 2rem auto;
     display: block;
