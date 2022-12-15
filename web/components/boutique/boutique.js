@@ -53,6 +53,8 @@ const Boutique = ({ boutique }) => {
                         width={408}
                         height={408}
                         quality={95}
+                        objectFit="contain"
+                        objectPosition="top"
                         className="imageHover"
                       />
                     </Link>

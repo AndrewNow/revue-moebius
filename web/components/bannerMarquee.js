@@ -35,9 +35,9 @@ const Wrapper = styled.div`
     padding: 1rem 0;
   }
 
+  color: var(--static-black);
   a {
     text-decoration: none;
-    color: var(--static-black);
   }
 
   :hover {

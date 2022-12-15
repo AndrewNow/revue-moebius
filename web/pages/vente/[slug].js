@@ -75,9 +75,11 @@ const BoutiqueProduct = ({ boutiqueData }) => {
                 animate="visible"
               />
             </h1>
+            {boutiqueData?.publishedAt && 
             <Subtitle>
               <ConvertDateToString data={boutiqueData?.publishedAt} />
             </Subtitle>
+            }
             <Button
               onClick={() => addItem(stripeFormattedProduct)}
               aria-label="Ajouter au panier"
@@ -106,6 +108,7 @@ const BoutiqueProduct = ({ boutiqueData }) => {
               quality={95}
               priority={true}
               placeholder="blur"
+              objectFit="contain"
               blurDataURL={boutiqueData?.lqip}
             />
           </ImageWrapper>
