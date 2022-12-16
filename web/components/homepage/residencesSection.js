@@ -156,7 +156,7 @@ export default ResidencesSection;
 const Wrapper = styled.section`
   width: 100%;
   position: relative;
-  margin: 15rem 0;
+  margin: 10rem 0;
 
   @media (max-width: ${breakpoints.xl}px) {
     margin: 12.5rem 0;
