@@ -258,7 +258,7 @@ const Article = styled.article`
   }
   @media (max-width: ${breakpoints.l}px) {
     width: 100%;
-  }
+  } 
 `;
 
 const ArticleImg = styled.div`
@@ -359,7 +359,7 @@ const ArticleText = styled.div`
   }
   @media (max-width: ${breakpoints.s}px) {
     h5 {
-      font-size: 24px;
+      font-size: 20px;
     }
     small {
       font-size: 12px;
