@@ -203,6 +203,7 @@ const FeaturedArticleText = styled.div`
     }
   }
   @media (max-width: ${breakpoints.s}px) {
+    width: 80%;
     small {
       font-size: 12px;
     }
