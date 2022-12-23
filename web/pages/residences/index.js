@@ -73,10 +73,27 @@ const Residency = ({ pageData, archiveData }) => {
     [archiveRef]
   );
 
-  const handleScollTo = (ref) =>
+  const handleScollTo = (ref) => {
     ref.current.scrollIntoView({
       behavior: "smooth",
     });
+  };
+
+  // Checks to see if a given data type exists
+  // If it exists, render a scrollTo on the left sidebar
+
+  let typeExists = {};
+  pageData.residenceData.map((entry) => {
+    if (entry.type.includes("artiste")) {
+      typeExists.artiste = true;
+    }
+    if (entry.type.includes("écrivain")) {
+      typeExists.ecrivain = true;
+    }
+    if (entry.type.includes("hypermédia")) {
+      typeExists.hypermedia = true;
+    }
+  });
 
   return (
     <>
@@ -95,42 +112,54 @@ const Residency = ({ pageData, archiveData }) => {
       <Wrapper>
         <Sidebar>
           <SidebarList>
-            <small
-              onClick={() => handleScollTo(artistScrollRef)}
-              style={{
-                color: artistIsVisible
-                  ? "var(--color-black)"
-                  : "var(--color-grey)",
-              }}
-            >
-              résidence d’artiste
-            </small>
-            <br />
-            <br />
-            <small
-              onClick={() => handleScollTo(writerScrollRef)}
-              style={{
-                color: writerIsVisible
-                  ? "var(--color-black)"
-                  : "var(--color-grey)",
-              }}
-            >
-              Résidence d’écrivain·e
-            </small>
-            <br />
-            <br />
-            <small
-              onClick={() => handleScollTo(hypermediaScrollRef)}
-              style={{
-                color: hypermediaIsVisible
-                  ? "var(--color-black)"
-                  : "var(--color-grey)",
-              }}
-            >
-              résidence hypermédiatique
-            </small>
-            <br />
-            <br />
+            {typeExists.artiste && (
+              <>
+                <small
+                  onClick={() => handleScollTo(artistScrollRef)}
+                  style={{
+                    color: artistIsVisible
+                      ? "var(--color-black)"
+                      : "var(--color-grey)",
+                  }}
+                >
+                  résidence d’artiste
+                </small>
+                <br />
+                <br />
+              </>
+            )}
+            {typeExists.ecrivain && (
+              <>
+                <small
+                  onClick={() => handleScollTo(writerScrollRef)}
+                  style={{
+                    color: writerIsVisible
+                      ? "var(--color-black)"
+                      : "var(--color-grey)",
+                  }}
+                >
+                  Résidence d’écrivain·e
+                </small>
+                <br />
+                <br />
+              </>
+            )}
+            {typeExists.hypermedia && (
+              <>
+                <small
+                  onClick={() => handleScollTo(hypermediaScrollRef)}
+                  style={{
+                    color: hypermediaIsVisible
+                      ? "var(--color-black)"
+                      : "var(--color-grey)",
+                  }}
+                >
+                  résidence hypermédiatique
+                </small>
+                <br />
+                <br />
+              </>
+            )}
             <small
               onClick={() => handleScollTo(archiveScrollRef)}
               style={{
@@ -190,7 +219,7 @@ const Residency = ({ pageData, archiveData }) => {
               scrollToRef = hypermediaRefs;
             }
             return (
-              <ResidencyEntry key={individual._key}>
+              <ResidencyEntry key={individual.slug}>
                 <ResidencyText>
                   <SEOTitleFlex ref={scrollToRef}>
                     <h3>{individual.title}</h3>

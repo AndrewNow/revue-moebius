@@ -282,7 +282,7 @@ const HeaderText = styled.div`
 
 const ArticleGrid = styled(motion.div)`
   margin-top: 5rem;
-  margin-bottom: 10rem;
+  margin-bottom: 3rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
@@ -299,8 +299,9 @@ const ArticleGrid = styled(motion.div)`
 
 export const LoadMoreButton = styled.button`
   display: block;
-  margin: 5rem auto;
+  margin: 0 auto;
   margin-top: 2rem;
+  margin-bottom: 7rem;
   padding: 1rem 5rem;
   border-radius: 10px;
   text-align: center;
@@ -332,7 +333,7 @@ export const LoadMoreButton = styled.button`
   }
 
   @media (max-width: ${breakpoints.s}px) {
-    margin: 2rem auto;
+    margin: 1rem auto;
     padding: 1rem 3rem;
   }
 `;

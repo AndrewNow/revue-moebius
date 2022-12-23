@@ -14,8 +14,7 @@ const BannerMarquee = ({ data }) => {
             </Link>
           ) : (
             data.title
-          )}
-          {" "}
+          )}{" "}
         </Small>
       </Marquee>
     </Wrapper>
@@ -33,6 +32,7 @@ const Wrapper = styled.div`
   } */
   small {
     padding: 1rem 0;
+    padding-left: 1.5rem;
   }
 
   color: var(--static-black);
@@ -46,11 +46,9 @@ const Wrapper = styled.div`
       text-decoration: underline;
     }
   }
-  /* @media (max-width: ${breakpoints.m}px) {
-    * {
-      font-size: 14px !important;
-    }
-  } */
+  @media (max-width: ${breakpoints.s}px) {
+    margin: 3rem 0;
+  }
 `;
 
 const Small = styled.small`

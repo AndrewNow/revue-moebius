@@ -20,7 +20,6 @@ export default async function handler(req, res) {
 
       // The POST request is then validated against the data from Sanity.
       const line_items = validateCartItems(sanityData, cartItems);
-
       // console.log(JSON.stringify(line_items, 0, 2));
 
       // Create Checkout Sessions from body params.
@@ -38,17 +37,15 @@ export default async function handler(req, res) {
         allow_promotion_codes: true,
         automatic_tax: {
           // https://stripe.com/docs/payments/checkout/taxes
-          // enabled: true,
           enabled: false,
         },
         // disbled while tax_rates are active
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}`,
+
+        payment_intent_data_description: `Revue Moebius - Commande `
       };
-      // const promotionCode = await stripe.promotionCodes.create({
-      //   coupon: ``,
-      //   code: `code`,
-      // })
+
       const checkoutSession = await stripe.checkout.sessions.create(params);
 
       res.status(200).json(checkoutSession);
