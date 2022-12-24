@@ -42,8 +42,6 @@ export default async function handler(req, res) {
         // disbled while tax_rates are active
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}`,
-
-        payment_intent_data_description: `Revue Moebius - Commande `
       };
 
       const checkoutSession = await stripe.checkout.sessions.create(params);

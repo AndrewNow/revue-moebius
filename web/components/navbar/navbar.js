@@ -168,7 +168,7 @@ const Background = styled(motion.div)`
 const HamburgerWrapper = styled.div`
   position: fixed;
   z-index: 1000;
-  top: 25px;
+  top: 22px;
   left: 3.75%;
   @media (max-width: ${breakpoints.xxl}px) {
     top: 20px;
@@ -180,7 +180,7 @@ const LogoFixed = styled.div`
   display: block;
   z-index: 1000;
 
-  top: 12px;
+  top: 11px;
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
@@ -206,7 +206,7 @@ const LogoContainer = styled.div`
 const RightSideWrapper = styled.div`
   position: fixed;
   z-index: 1000;
-  top: 35px;
+  top: 33px;
   right: 3.75%;
   @media (max-width: ${breakpoints.l}px) {
     top: 34px;
