@@ -117,6 +117,7 @@ const TextWrapper = styled.div`
 
   @media (max-width: ${breakpoints.s}px) {
     margin: 4rem auto;
+    margin-top: 3rem;
     width: 95%;
 
     h1 {

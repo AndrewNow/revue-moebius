@@ -37,7 +37,6 @@ const Products = ({ product }) => {
     },
   };
 
-
   return (
     <Numero key={product._id} variants={gridChild}>
       <ImageWrapper>
@@ -92,6 +91,7 @@ export default Products;
 const Numero = styled(motion.div)`
   position: relative;
   min-width: 100%;
+  margin-bottom: 2rem;
   @media (max-width: ${breakpoints.xl}px) {
     max-width: 307px;
   }

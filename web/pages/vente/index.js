@@ -207,6 +207,7 @@ const Header = styled.div`
 
 const Content = styled.div`
   padding: 10rem 0;
+  padding-bottom: 0rem;
   @media (max-width: ${breakpoints.xl}px) {
     padding: 7rem 0;
   }

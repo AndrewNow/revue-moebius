@@ -203,6 +203,7 @@ const FeaturedArticleText = styled.div`
     }
   }
   @media (max-width: ${breakpoints.s}px) {
+    width: 100%;
     small {
       font-size: 12px;
     }
@@ -258,7 +259,7 @@ const Article = styled.article`
   }
   @media (max-width: ${breakpoints.l}px) {
     width: 100%;
-  }
+  } 
 `;
 
 const ArticleImg = styled.div`
@@ -358,8 +359,10 @@ const ArticleText = styled.div`
     }
   }
   @media (max-width: ${breakpoints.s}px) {
+    padding-top: 0;
     h5 {
-      font-size: 24px;
+      font-size: 20px;
+      margin-bottom: .5rem;
     }
     small {
       font-size: 12px;
@@ -387,9 +390,10 @@ const FeedTag = styled.div`
     }
   }
   @media (max-width: ${breakpoints.s}px) {
-    top: 5px;
+    top: 0px;
     left: 5px;
-    padding: 5px 7px;
+    padding: 5px 15px;
+    margin-bottom: .5rem;
     small {
       font-size: 12px;
     }

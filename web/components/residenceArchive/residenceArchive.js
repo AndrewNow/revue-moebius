@@ -97,7 +97,7 @@ const ResidenceArchive = ({ data }) => {
       </p>
       <Archive>
         {data.map((yearData) => {
-          return <MapResidenceEntries data={yearData} />;
+          return <MapResidenceEntries data={yearData} key={yearData._id} />;
         })}
       </Archive>
     </Section>

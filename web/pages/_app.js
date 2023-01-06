@@ -7,6 +7,7 @@ import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import { ThemeProvider } from "next-themes";
 
 const MyApp = ({ Component, pageProps, router }) => {
+
   return (
     <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange>
       <LazyMotion features={domAnimation}>

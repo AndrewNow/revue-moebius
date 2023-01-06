@@ -371,7 +371,7 @@ const Main = styled.div`
   transition: var(--transition);
 
   @media (max-width: ${breakpoints.m}px) {
-    padding-bottom: 5rem;
+    padding-bottom: 4rem;
   }
 `;
 
@@ -380,6 +380,7 @@ const Grid = styled(motion.div)`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 2rem;
   padding: 5rem 0;
+  padding-bottom: 2rem;
 
   @media (max-width: ${breakpoints.xl}px) {
     grid-template-columns: 1fr 1fr;
