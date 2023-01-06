@@ -2,6 +2,7 @@ import { validateCartItems } from "use-shopping-cart/utilities";
 import Stripe from "stripe";
 import { client } from "../../../lib/sanity/client";
 import { allPurchasableProductQuery } from "../../../lib/sanity/numeroQuery";
+import { supportedCountries } from "../../../utils/stripeSupportedCountries";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   // https://github.com/stripe/stripe-node#configuration
@@ -31,7 +32,7 @@ export default async function handler(req, res) {
         billing_address_collection: "auto",
         // uncomment to enable shipping collection
         shipping_address_collection: {
-          allowed_countries: ["US", "CA"],
+          allowed_countries: supportedCountries,
         },
         //The cart items are inserted.
         line_items,
