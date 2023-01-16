@@ -289,7 +289,7 @@ export async function getStaticPaths() {
 
   return {
     paths: data.map((slug) => ({ params: { slug } })),
-    fallback: true,
+    fallback: "blocking",
   };
 }
 

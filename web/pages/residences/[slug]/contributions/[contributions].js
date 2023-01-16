@@ -153,7 +153,7 @@ export async function getStaticPaths() {
 
   return {
     paths: pages.map((page) => page),
-    fallback: true,
+    fallback: "blocking",
   };
 }
 
