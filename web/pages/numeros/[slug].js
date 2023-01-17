@@ -145,27 +145,29 @@ export default function Numeros({ numero, readMoreData }) {
           )}
           <br />
           <br />
-          {numero?.isbn && (
-            <small>
-              ISBN
-              <br />
-              <em>{numero?.isbn}</em>
-              <br />
-              <br />
-            </small>
-          )}
-          {numero?.pages && (
-            <small>
-              Pages <br /> <em>{numero?.pages}</em>
-              <br />
-              <br />
-            </small>
-          )}
-          <br />
-          <br />
-          <ShareButton
-            input={`https://revuemoebius.com/numeros/${numero?.slug}`}
-          />
+          <MobileSideContentWrapper>
+            {numero?.isbn && (
+              <small>
+                ISBN
+                <br />
+                <em>{numero?.isbn}</em>
+                <br />
+                <br />
+              </small>
+            )}
+            {numero?.pages && (
+              <small>
+                Pages <br /> <em>{numero?.pages}</em>
+                <br />
+                <br />
+              </small>
+            )}
+            <br />
+            <br />
+            <ShareButton
+              input={`https://revuemoebius.com/numeros/${numero?.slug}`}
+            />
+          </MobileSideContentWrapper>
         </SideContent>
         <MainContent>
           <MarkdownContent blocks={numero?.body} />
@@ -418,6 +420,13 @@ const SideContent = styled.div`
     }
   }
 `;
+
+const MobileSideContentWrapper = styled.div`
+  @media (max-width: ${breakpoints.s}px) {
+    display: flex;
+    flex-direction: row;
+  }
+`
 
 const MainContent = styled.div`
   width: 45%;

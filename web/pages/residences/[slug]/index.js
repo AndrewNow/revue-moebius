@@ -22,6 +22,9 @@ const Residences = ({ data }) => {
   } else if (data.type === "hypermédia") {
     residencyCategory = "Résidence hypermédiatique";
   }
+
+  console.log(data)
+
   return (
     <>
       <Head>
@@ -192,7 +195,7 @@ const Residences = ({ data }) => {
                     <ContributionsEcrivain>
                       {data.contributionsEcrivain?.map((publication) => {
                         return (
-                          <li>
+                          <li key={publication.title}>
                             <Link
                               scroll={false}
                               href={`/residences/${data.slug}/contributions/${publication.slug}`}

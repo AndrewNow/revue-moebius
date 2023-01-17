@@ -79,7 +79,7 @@ export const residenciesPageQuery = groq`
 `;
 
 export const residencesTextQuery = groq`
-  *[_type == "texteDePresentation"] {
+  *[_type == "texteDePresentation" && slug.current == $slug][0] {
     _id,
     title,
     associatedArtist[0]->{

@@ -17,7 +17,8 @@ import { Inner } from "../../../index";
 import Head from "next/head";
 
 const TexteDePresentation = ({ pageData }) => {
-  const data = pageData[0];
+  const data = pageData;
+
   return (
     <>
       <Head>
@@ -120,6 +121,7 @@ export async function getStaticProps({ params }) {
 
   const pageData = await client.fetch(residencesTextQuery, {
     texte: params.texte,
+    slug: params.texte,
   });
 
   return {
@@ -133,25 +135,27 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   const data = await client.fetch(
-    groq`*[_type == "artistesEnResidence"] {
+    groq`*[_type == "artistesEnResidence" && defined(slug.current) && defined(texteDePresentationData)] {
       "slug": slug.current,
-      texteDePresentationData[0]->{
+      texteDePresentationData[]->{
         "slug": slug.current,
       },
     }`
   );
 
+  const pages = data.reduce((arr, item) => {
+    item.texteDePresentationData.forEach((t) => {
+      const params = {
+        slug: item.slug,
+        texte: t.slug,
+      };
+      arr.push({ params });
+    });
+    return arr;
+  }, []);
+
   return {
-    paths: data
-      .filter((item) => item.texteDePresentationData)
-      .map((item) => {
-        return {
-          params: {
-            slug: item.slug,
-            texte: item.texteDePresentationData.slug,
-          },
-        };
-      }),
+    paths: pages.map((page) => page),
     fallback: "blocking",
   };
 }
