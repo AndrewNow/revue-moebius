@@ -87,6 +87,14 @@ const Button = styled.button`
   small {
     margin-bottom: 1rem;
   }
+
+  @media (max-width: ${breakpoints.s}px) {
+    padding-top: 0;
+    padding-right: 0;
+    small {
+      margin-bottom: .45rem;
+    }
+  }
 `;
 
 const Copied = styled(motion.div)`

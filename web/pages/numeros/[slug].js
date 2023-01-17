@@ -414,7 +414,7 @@ const SideContent = styled.div`
     margin-bottom: 3rem;
   }
   @media (max-width: ${breakpoints.s}px) {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     small {
       width: 100%;
     }
@@ -425,6 +425,7 @@ const MobileSideContentWrapper = styled.div`
   @media (max-width: ${breakpoints.s}px) {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
   }
 `
 
