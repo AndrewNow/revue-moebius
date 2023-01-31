@@ -166,7 +166,7 @@ const Header = styled.header`
   margin: 0 auto;
   text-align: center;
   padding-top: 25vh;
-  padding-bottom: 10rem;
+  padding-bottom: 5rem;
   color: var(--static-black);
   background: var(--color-turquoise);
 
@@ -208,7 +208,8 @@ const BreadCrumbs = styled.div`
   }
 
   @media (max-width: ${breakpoints.s}px) {
-  display: none;
+    display: none;
+  }
 `;
 
 const Tag = styled.div`
