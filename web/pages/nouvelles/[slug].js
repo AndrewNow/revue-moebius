@@ -133,6 +133,7 @@ const Inner = styled.div`
 const Content = styled.div`
   padding-bottom: 10rem;
   width: 70%;
+  max-width: 915px;
   margin: 0 auto;
 
   @media (max-width: ${breakpoints.xl}px) {

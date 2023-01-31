@@ -245,6 +245,7 @@ const Content = styled.div`
   padding-top: 5rem;
   padding-bottom: 10rem;
   width: 60%;
+  max-width: 915px;
   margin: 0 auto;
 
   p,
