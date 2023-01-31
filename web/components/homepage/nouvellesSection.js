@@ -11,7 +11,7 @@ import SplitText from "../../utils/splitText";
 const NouvellesSection = ({ newsFeed, featuredArticle }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-
+  console.log(featuredArticle);
   const hasFeaturedArticle = featuredArticle ? featuredArticle : newsFeed[0];
 
   return (
@@ -259,7 +259,7 @@ const Article = styled.article`
   }
   @media (max-width: ${breakpoints.l}px) {
     width: 100%;
-  } 
+  }
 `;
 
 const ArticleImg = styled.div`
@@ -362,7 +362,7 @@ const ArticleText = styled.div`
     padding-top: 0;
     h5 {
       font-size: 20px;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
     }
     small {
       font-size: 12px;
@@ -393,7 +393,7 @@ const FeedTag = styled.div`
     top: 0px;
     left: 5px;
     padding: 5px 15px;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
     small {
       font-size: 12px;
     }

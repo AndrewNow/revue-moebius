@@ -42,13 +42,14 @@ export const nouvellesListHomepageQuery = groq`
 
 // Query for only the featured article on the home page.
 export const nouvellesFeaturedQuery = groq`
-  *[_type == "nouvelles" && featured == true] {
+  *[_type == "nouvelles" && featured == true] | order(publishedAt desc) [0] {
     _id,
     title,
     publishedAt,
+    featured,
     "category": categories[]->{title, color},
     "slug": slug.current,
     "imageUrl": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
-  }[0]
+  }
 `;
