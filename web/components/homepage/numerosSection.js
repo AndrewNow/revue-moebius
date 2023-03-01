@@ -271,7 +271,7 @@ const Header = styled.header`
   @media (max-width: ${breakpoints.s}px) {
     align-items: center;
     small {
-      font-size: 12px;
+      font-size: 11px;
     }
   }
 `;

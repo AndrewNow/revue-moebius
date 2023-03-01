@@ -33,6 +33,10 @@ const Wrapper = styled.div`
   small {
     padding: 1rem 0;
     padding-left: 1.5rem;
+    a {
+
+      color: var(--static-black);
+    }
   }
 
   color: var(--static-black);
