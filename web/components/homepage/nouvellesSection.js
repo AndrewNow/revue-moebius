@@ -9,6 +9,7 @@ import { textAnim, textChild, textAnimSlow } from "../../styles/animations";
 import SplitText from "../../utils/splitText";
 
 const NouvellesSection = ({ newsFeed, featuredArticle }) => {
+
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   console.log(featuredArticle);
@@ -29,7 +30,7 @@ const NouvellesSection = ({ newsFeed, featuredArticle }) => {
         </h3>
         <small>
           <Link scroll={false} href="/nouvelles">
-            voir tous les nouvelles →
+            voir toutes les nouvelles →
           </Link>
         </small>
       </Header>
