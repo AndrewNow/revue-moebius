@@ -22,6 +22,10 @@ export const LinkData = [
     title: "Mœbius-balado",
   },
   {
+    url: `/hypermedia`,
+    title: "Hypermédia",
+  },
+  {
     url: `/residences`,
     title: "Résidences",
   },
@@ -223,7 +227,7 @@ const NavLinks = ({ isOpen, setOpen }) => {
         onMouseEnter={() => setParentHovered(true)}
         onMouseLeave={handleParentLeave}
       >
-        {LinkData.slice(4, 7).map((link) => {
+        {LinkData.slice(4, LinkData.length).map((link) => {
           return (
             <WrapLink
               key={link.title}
@@ -307,6 +311,7 @@ const GroupLinks = styled.div`
     display: block;
   }
   @media (max-width: ${breakpoints.m}px) {
+    /* justify-content: flex-start; */
     margin: 2rem 0;
   }
 `;
