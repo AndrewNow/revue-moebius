@@ -241,7 +241,7 @@ const Search = styled(motion.div)`
     width: 100%;
     height: auto;
   }
-  @media (max-width: ${breakpoints.xs}px) {
+  @media (max-width: ${breakpoints.s}px) {
     display: none;
   }
 `;
