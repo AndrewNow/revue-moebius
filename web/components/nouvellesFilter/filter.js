@@ -56,6 +56,7 @@ const Filter = ({
     }
   }, [activeFilter]);
 
+  console.log(categories)
   return (
     <FilterWrapper>
       <small style={{ marginRight: "2rem", color: "var(--color-black)" }}>

@@ -70,6 +70,9 @@ function NoResultsBoundary({ children, fallback }) {
   return children;
 }
 
+
+console.log()
+
 export const AlgoliaSearch = ({ setOpen, isOpen }) => {
   return (
     <InstantSearch searchClient={searchClient} indexName="MOEBIUS_PRODUCTION">

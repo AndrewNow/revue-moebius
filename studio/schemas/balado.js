@@ -123,10 +123,16 @@ export default {
     },
     {
       name: "embed",
-      title: "Spotify",
+      title: "Lien Spotify",
       description: "Copiez le lien Spotify ici.",
       type: "string",
       validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "opuscules",
+      title: "Lien Opuscules",
+      description: "Copiez le lien Opuscules ici.",
+      type: "string",
     },
   ],
   orderings: [

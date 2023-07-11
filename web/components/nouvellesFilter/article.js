@@ -46,7 +46,7 @@ const Article = ({ article }) => {
 
 export default Article;
 
-const ArticlePost = styled(motion.article)`
+export const ArticlePost = styled(motion.article)`
   position: relative;
   margin-bottom: 2rem;
   small {
@@ -58,7 +58,7 @@ const ArticlePost = styled(motion.article)`
   }
 `;
 
-const ImageWrapper = styled.div`
+export const ImageWrapper = styled.div`
   aspect-ratio: 852/480;
   display: block;
   position: relative;
@@ -76,7 +76,7 @@ const ImageWrapper = styled.div`
   }
 `;
 
-const ArticleLink = styled.h4`
+export const ArticleLink = styled.h4`
   margin-top: 1rem;
 
   a {

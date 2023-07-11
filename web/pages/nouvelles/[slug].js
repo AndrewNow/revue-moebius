@@ -13,6 +13,51 @@ import SplitText from "../../utils/splitText";
 import { textAnimFast, textAnimSlow, textChild } from "../../styles/animations";
 
 export default function Nouvelles({ nouvelles }) {
+  const isHypermedia = nouvelles.categories[0].title === "Hypermédia"
+  const hasHypermediaLink = isHypermedia && nouvelles.hypermediaLink
+
+  const creditReferenceArr = nouvelles.hypermediaCreditsReference
+
+  const MappedCreditReferences = () => {
+    const length = creditReferenceArr.length;
+    const mapCreditReferences = creditReferenceArr.map((person, index) => {
+      const { title, slug } = person;
+
+      if (length === 2 && index === length - 1) {
+        return (
+          <span key={slug} className="hypermedia-credits">
+            et{' '}
+            <Link href={`/residences/${slug}`}>
+              {title}
+            </Link>
+          </span>
+        );
+      }
+
+      if (index === length - 1) {
+        return (
+          <span key={slug} className="hypermedia-credits">
+            , et{' '}
+            <Link href={`/residences/${slug}`}>
+              {title}
+            </Link>
+          </span>
+        );
+      }
+
+      return (
+        <span key={slug} className="hypermedia-credits">
+          <Link href={`/residences/${slug}`}>
+            {title}
+          </Link>
+          {index !== length - 2 && ','}{' '}
+        </span>
+      );
+    });
+
+    return <>Par {mapCreditReferences}</>;
+  };
+  
   return (
     <>
       <Head>
@@ -37,6 +82,23 @@ export default function Nouvelles({ nouvelles }) {
               animate="visible"
             />
           </h1>
+          {(isHypermedia && nouvelles.hypermediaCreditsReference) &&
+            <p className="hypermedia-credits"><MappedCreditReferences /></p>
+          }
+          {(isHypermedia && nouvelles.hypermediaCreditsString) &&
+            <p className="hypermedia-credits">Par { nouvelles.hypermediaCredits }</p>
+          }
+          {hasHypermediaLink &&
+            <div>
+              <LinkWrapper>
+                <a href={nouvelles.hypermediaLink} target="_blank">
+                  <small> 
+                    Consulter l'œuvre
+                  </small>
+                </a>
+              </LinkWrapper>
+            </div>
+          }
         </Header>
         <Content>
           <MarkdownWrapper>
@@ -108,6 +170,28 @@ const Header = styled.header`
   padding-top: 20vh;
   padding-bottom: 3rem;
   color: var(--color-black);
+  h1 {
+    margin-bottom: 1.5rem;
+  }
+  .hypermedia-credits {
+    color: var(--color-grey);
+    display: inline-block;
+    transition: var(--transition);
+    a {
+      display: inline;
+      color: var(--color-grey);
+    }
+    a:hover {
+      filter: brightness(.5);
+    }
+    display: inline;
+    margin: 0;
+  }
+
+  .hypermedia-link {
+    display: block;
+    
+  }
 
   small {
     color: var(--color-grey);
@@ -118,6 +202,36 @@ const Header = styled.header`
     width: 100%;
     text-align: left;
     padding-bottom: 1rem;
+  }
+`;
+
+const LinkWrapper = styled.div`
+  margin: 4rem auto;
+  margin-bottom: 0;
+  display: inline-block;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--color-turquoise);
+  small {
+    transition: var(--transition);
+    display: inline-block;
+    padding: 1rem 6rem;
+    margin: 0;
+    color: var(--static-black);
+  }
+  :hover {
+    filter: brightness(.9);
+  }
+  
+  @media (max-width: ${breakpoints.s}px) {
+    margin-top: 3rem;
+    small {
+      padding: 0.75rem 3.5rem;
+      color: var(--static-black);
+    }
+    background: var(--color-turquoise);
+    border: 1px solid transparent;
   }
 `;
 

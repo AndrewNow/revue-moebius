@@ -12,7 +12,6 @@ const NouvellesSection = ({ newsFeed, featuredArticle }) => {
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  console.log(featuredArticle);
   const hasFeaturedArticle = featuredArticle ? featuredArticle : newsFeed[0];
 
   return (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -34,6 +34,21 @@ const TeamMember = ({
     // I'm sure there's a smarter way to optimize this but this was honestly just the easiest solution I found.
     setModalOpen(!modalOpen);
   };
+
+    useEffect(() => {
+    if (typeof document !== "undefined") {
+      const bodyElement = document.body;
+      if (open) {
+        bodyElement.style.overflow = "hidden";
+      } else {
+        bodyElement.style.overflow = "auto";
+      }
+      return () => {
+        bodyElement.style.overflow = "auto";
+      };
+    }
+  }, [open]);
+
 
   const hoverAnimBackground = {
     visible: {

@@ -23,8 +23,6 @@ const Residences = ({ data }) => {
     residencyCategory = "Résidence hypermédiatique";
   }
 
-  console.log(data)
-
   return (
     <>
       <Head>
@@ -55,6 +53,15 @@ const Residences = ({ data }) => {
                   >
                     <small>Texte de présentation</small>
                   </Link>
+                </LinkWrapper>
+              )}
+              {(data.texteDePresentationData == null && data.contributionsHypermedia) && (
+                <LinkWrapper>
+                <Link target="_blank" href={`/nouvelles/${data.contributionsHypermedia.slug}`}>
+                  <small>
+                    œuvre hypermédiatique
+                  </small>
+                </Link>
                 </LinkWrapper>
               )}
             </DesktopLayout>
@@ -92,6 +99,15 @@ const Residences = ({ data }) => {
                     </Link>
                   </LinkWrapper>
                 )}
+                {(data.texteDePresentationData == null && data.contributionsHypermedia) && (
+                <LinkWrapper>
+                <Link target="_blank" href={`/nouvelles/${data.contributionsHypermedia.slug}`}>
+                  <small>
+                    œuvre hypermédiatique
+                  </small>
+                </Link>
+                </LinkWrapper>
+              )}
               </MobileLayout>
               <MarkdownContent blocks={data.bio} />
               <DesktopLayout>
@@ -164,7 +180,7 @@ const Residences = ({ data }) => {
                   )}
                 </Socials>
               </MobileLayout>
-              {(data.contributions || data.contributionsEcrivain) && (
+              {(data.contributions?.length > 0 || data.contributionsEcrivain?.length > 0) && (
                 <Contributions>
                   <small>Contributions:</small>
                   {data.contributions && (
@@ -367,6 +383,7 @@ const LinkWrapper = styled.div`
   border-radius: 10px;
   cursor: pointer;
   transition: var(--transition);
+  background: var(--static-cream);
   small {
     transition: var(--transition);
     display: inline-block;
@@ -375,11 +392,7 @@ const LinkWrapper = styled.div`
     color: var(--static-black);
   }
   :hover {
-    background: var(--color-cream);
-    /* border: 1px solid transparent; */
-    small {
-      color: var(--color-black);
-    }
+    filter: brightness(.95);
   }
 
   @media (max-width: ${breakpoints.s}px) {

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import groq from "groq";
 import { client } from "../../lib/sanity/client";
@@ -9,14 +8,14 @@ import { Inner } from "../index";
 import { breakpoints } from "../../utils/breakpoints";
 import Spotify from "react-spotify-embed";
 import ShareButton from "../../components/shareButton";
-import ConvertDateToString from "../../utils/convertDateToString";
 import MarkdownContent from "../../utils/MarkdownContent";
 import Head from "next/head";
+import BaladoHeader from "../../components/baladoHeader";
 
 export default function Balado({ balado }) {
-  // If balado has one number, set a title with one number.
-  // If balado has two numbers, set a title with both numbers.
-  // If balado has no numbers and only a title, set a title w/ that title.
+  // If balado has one associated numero release, set a title with one number.
+  // If balado has two associated numero releases, set a title with both numbers.
+  // If balado has no associated numero and only a title, set a title w/ that title.
   let baladoTitle;
   if (balado?.secondNumber && balado?.number) {
     baladoTitle = `Mœbius-balado n°${balado?.number} & ${balado?.secondNumber}`;
@@ -35,95 +34,17 @@ export default function Balado({ balado }) {
           content={baladoTitle ? baladoTitle : "Balado"}
         />
       </Head>
-      <Banner style={{ background: balado.color }}>
-        <Inner>
-          <BannerFlex>
-            <ImageWrapper>
-              {balado.imageUrl && (
-                <Image
-                  src={balado.imageUrl}
-                  placeholder="blur"
-                  blurDataURL={balado.lqip}
-                  width={620}
-                  height={620}
-                />
-              )}
-            </ImageWrapper>
-            <BannerText>
-              <small style={{ color: balado.textcolor }}>
-                <ConvertDateToString data={balado?.publishedAt} />
-              </small>
-              <h2 style={{ color: balado.textcolor }}>{baladoTitle}</h2>
-              <WrapDetails>
-                {balado.discussion && (
-                  <BannerDetails>
-                    <BannerItem>
-                      <small style={{ color: balado.textcolor }}>
-                        Discussion
-                      </small>
-                      {balado.discussion.map((person) => {
-                        return (
-                          <h4 style={{ color: balado.textcolor }}>{person}</h4>
-                        );
-                      })}
-                    </BannerItem>
-                  </BannerDetails>
-                )}
-                {balado.interviews && (
-                  <BannerDetails>
-                    <BannerItem>
-                      <small style={{ color: balado.textcolor }}>
-                        Entrevues et lectures
-                      </small>
-                      {balado.interviews.map((person) => {
-                        return (
-                          <h4 style={{ color: balado.textcolor }}>{person}</h4>
-                        );
-                      })}
-                    </BannerItem>
-                  </BannerDetails>
-                )}
-                {balado.animation && (
-                  <BannerDetails>
-                    <BannerItem>
-                      <small style={{ color: balado.textcolor }}>
-                        Animation
-                      </small>
-                      {balado.animation.map((person) => {
-                        return (
-                          <h4 style={{ color: balado.textcolor }}>{person}</h4>
-                        );
-                      })}
-                    </BannerItem>
-                  </BannerDetails>
-                )}
-              </WrapDetails>
-            </BannerText>
-          </BannerFlex>
-        </Inner>
-      </Banner>
+      <BaladoHeader balado={balado} baladoTitle={baladoTitle} />
       <Wrapper>
         <Inner>
-          <MainContentFlex>
-            <StickyLink>
-              <SpotifyButton
-                href={balado?.embed}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <small>Ouvrir en Spotify</small>
-              </SpotifyButton>
-            </StickyLink>
+          <MainContent>
             <Content>
               {balado?.embed && (
                 <SpotifyWrapper>
                   <Spotify
                     wide
-                    height="100%"
+                    height="232px"
                     link={balado?.embed}
-                    style={{
-                      backgroundColor: "var(--color-cream)!important",
-                    }}
                   />
                 </SpotifyWrapper>
               )}
@@ -154,7 +75,7 @@ export default function Balado({ balado }) {
                 </Link>
               </Return>
             </Content>
-          </MainContentFlex>
+          </MainContent>
         </Inner>
       </Wrapper>
     </>
@@ -189,139 +110,16 @@ export async function getStaticPaths() {
   };
 }
 
-const Banner = styled.section`
-  width: 100%;
-  padding: 10vh 0;
-  padding-top: 10rem;
-`;
 
-const BannerFlex = styled.header`
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  @media (max-width: ${breakpoints.l}px) {
-    flex-direction: column;
-  }
-`;
-
-const ImageWrapper = styled.div`
-  aspect-ratio: 1/1;
-  width: 35%;
-  height: auto;
-  display: block;
-  position: relative;
-
-  @media (max-width: ${breakpoints.l}px) {
-    width: 50%;
-  }
-  @media (max-width: ${breakpoints.m}px) {
-    width: 75%;
-  }
-  @media (max-width: ${breakpoints.s}px) {
-    width: 100%;
-  }
-`;
 
 const Wrapper = styled.section`
   background: var(--color-cream);
 `;
 
-const BannerText = styled.div`
-  margin-left: 5%;
-  width: 60%;
-  small {
-    display: block;
-    margin-bottom: 1.5rem;
-  }
-  h2 {
-    font-family: "Editorial-Italic";
-    margin-bottom: 6rem;
-  }
-
-  @media (max-width: ${breakpoints.l}px) {
-    margin: 0;
-    margin-top: 5rem;
-    width: 80%;
-    h2 {
-      margin-bottom: 3rem;
-    }
-  }
-  @media (max-width: ${breakpoints.m}px) {
-    width: 100%;
-    margin-top: 3rem;
-    h2 {
-      margin-bottom: 1.5rem;
-    }
-  }
-`;
-
-const WrapDetails = styled.div`
-  display: flex;
-
-  @media (max-width: ${breakpoints.l}px) {
-    justify-content: space-between;
-  }
-  @media (max-width: ${breakpoints.s}px) {
-    flex-direction: column;
-  }
-`;
-
-const BannerDetails = styled.div`
-  margin-right: 3rem;
-
-  @media (max-width: ${breakpoints.l}px) {
-    margin-right: 0;
-  }
-`;
-
-const BannerItem = styled.div`
-  margin-top: 2rem;
-  display: block;
-  small {
-    margin-bottom: 1.5rem;
-    display: block;
-  }
-  h4 {
-    font-size: 2.18vw;
-    white-space: nowrap;
-  }
-  @media (max-width: ${breakpoints.xl}px) {
-    small {
-      font-size: 12px;
-    }
-    h4 {
-      font-size: 2.5vw;
-    }
-  }
-  @media (max-width: ${breakpoints.l}px) {
-    margin-top: 1rem;
-    h4 {
-      font-size: 28px;
-    }
-  }
-
-  @media (max-width: ${breakpoints.m}px) {
-    h4 {
-      font-size: 30px;
-    }
-  }
-  @media (max-width: ${breakpoints.s}px) {
-    margin-bottom: 1rem;
-    h4 {
-      font-size: 35px;
-    }
-    small {
-      margin-bottom: 0.5rem;
-    }
-  }
-`;
-
-const MainContentFlex = styled.div`
+const MainContent = styled.div`
   position: relative;
-  display: flex;
   padding-top: 5rem;
+  margin: 0 auto;
 
   @media (max-width: ${breakpoints.xl}px) {
     flex-direction: column;
@@ -330,65 +128,11 @@ const MainContentFlex = styled.div`
     padding-top: 3rem;
   }
 `;
-const StickyLink = styled.div`
-  position: sticky;
-  align-self: flex-start;
-  display: flex;
-  align-items: center;
-  top: 20vh;
-  padding-bottom: 10rem;
-  width: 35%;
-
-  @media (max-width: ${breakpoints.xxl}px) {
-    padding-bottom: 6rem;
-  }
-
-  @media (max-width: ${breakpoints.xl}px) {
-    width: 100%;
-    position: relative;
-    top: 0;
-  }
-  @media (max-width: ${breakpoints.m}px) {
-    display: none;
-  }
-`;
-
-const SpotifyButton = styled.a`
-  position: relative;
-  display: inline-block;
-  margin: 0 auto;
-  padding: 1rem 4rem;
-  border-radius: 10px;
-  text-decoration: none;
-  transition: var(--transition);
-  background: var(--color-turquoise);
-  color : var(--static-black);
-  small {
-    padding: 0;
-  }
-
-  :hover {
-    background: var(--color-turquoise);
-    filter: brightness(0.9);
-    small {
-      color: var(--static-black);
-    }
-  }
-
-  @media (max-width: ${breakpoints.m}px) {
-    background: var(--color-turquoise);
-    border: 1px solid transparent;
-    small {
-      color: var(--static-black);
-    }
-  }
-`;
 
 const Content = styled.div`
   padding-bottom: 10rem;
-  margin-left: 5%;
-  padding-right: 5%;
   width: 60%;
+  margin: 0 auto;
 
   p,
   h1,
@@ -411,7 +155,6 @@ const Content = styled.div`
 
   @media (max-width: ${breakpoints.xl}px) {
     width: 100%;
-    margin-left: 0;
   }
 
   @media (max-width: ${breakpoints.m}px) {
@@ -420,10 +163,15 @@ const Content = styled.div`
 `;
 
 const SpotifyWrapper = styled.div`
-  height: 300px;
+  height: 232px;
   position: relative;
   display: block;
-
+  overflow: hidden;
+  border-radius: 14px;
+  margin-bottom: 3rem;
+  iframe {
+    background: unset!important;
+  }
 `;
 
 const Return = styled.small`

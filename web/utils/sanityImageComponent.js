@@ -3,7 +3,7 @@ import urlBuilder from "@sanity/image-url";
 import { client } from "../lib/sanity/client";
 
 const SanityImageComponent = ({ value }) => {
-  const { width, height } = getImageDimensions(value);
+  // const { width, height } = getImageDimensions(value);
   return (
     <img
       src={urlBuilder(client)
@@ -17,7 +17,7 @@ const SanityImageComponent = ({ value }) => {
       loading="lazy"
       style={{
         // Avoid jumping around with aspect-ratio CSS property
-        aspectRatio: width / height,
+        // aspectRatio: width / height,
         display: "block",
         margin: "0 auto",
       }}

@@ -6,8 +6,14 @@ export const nouvellesQuery = groq`
     _id,
     title,
     publishedAt,
+    hypermediaCreditsReference[]->{
+      title, 
+      "slug": slug.current
+    },
+    hypermediaCreditsString,
+    hypermediaLink,
     "slug": slug.current,
-    "categories": category[]->{title, slug},
+    "categories": categories[]->{title, slug},
     "imageUrl": mainImage.asset->url,
     "lqip": mainImage.asset->metadata.lqip,
     body,
@@ -20,6 +26,21 @@ export const nouvellesListQuery = groq`
     _id,
     title,
     publishedAt,
+    "category": categories[]->{title, color},
+    "slug": slug.current,
+    "imageUrl": mainImage.asset->url,
+    "lqip": mainImage.asset->metadata.lqip,
+  }
+`;
+
+// Display all articles of type nouvelles that have a category of hypermedia
+export const hypermediaListQuery = groq`
+ *[_type == "nouvelles" && categories[0]->title == "Hypermédia" ] | order(publishedAt desc) {
+    _id,
+    title,
+    publishedAt,
+    hypermediaCreditsReference,
+    hypermediaCreditsString,
     "category": categories[]->{title, color},
     "slug": slug.current,
     "imageUrl": mainImage.asset->url,

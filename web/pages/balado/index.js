@@ -184,7 +184,7 @@ export default function Balado({ baladoData }) {
                 <em> Mœbius-balado </em> accompagne la parution de chacun des
                 numéros de la revue. Découvrez les coulisses de l’édition grâce
                 aux entretiens entre les copilotes, et écoutez les auteurices
-                lire des extraits de leur texte et parler de leur création.
+                lire des extraits de leur texte et parler de leur création. <em>Mœbius</em> est fait en partenariat avec Littérature québécoise mobile et enregistré dans les studios de CHOQ.
               </motion.span>
             </motion.p>
           </Header>

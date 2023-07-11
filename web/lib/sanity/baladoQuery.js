@@ -18,6 +18,7 @@ export const baladoQuery = groq`
     publishedAt,
     body,
     embed,
+    opuscules,
   }
 `;
 

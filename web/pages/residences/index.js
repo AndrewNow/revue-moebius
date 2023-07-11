@@ -6,7 +6,7 @@ import {
   residencesArchiveQuery,
 } from "../../lib/sanity/residencesQuery";
 import { useInView as useIntersectionInView } from "react-intersection-observer";
-import { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useEffect, useState } from "react";
 import { breakpoints } from "../../utils/breakpoints";
 import SplitText from "../../utils/splitText";
 import Link from "next/link";
@@ -30,41 +30,9 @@ const Residency = ({ pageData, archiveData }) => {
     triggerOnce: false,
   };
 
-  const [artistRef, artistIsVisible] = useIntersectionInView(options);
-  const [writerRef, writerIsVisible] = useIntersectionInView(options);
-  const [hypermediaRef, hypermediaIsVisible] = useIntersectionInView(options);
+  // setup scrollTo for archive section
   const [archiveRef, archiveIsVisible] = useIntersectionInView(options);
-
-  const artistScrollRef = useRef(null);
-  const writerScrollRef = useRef(null);
-  const hypermediaScrollRef = useRef(null);
   const archiveScrollRef = useRef(null);
-
-  // Use `useCallback` so we don't recreate the function on each render. Could result in infinite loop
-  const artistRefs = useCallback(
-    (node) => {
-      artistScrollRef.current = node;
-      artistRef(node);
-    },
-    [artistRef]
-  );
-
-  const writerRefs = useCallback(
-    (node) => {
-      writerScrollRef.current = node;
-      writerRef(node);
-    },
-    [writerRef]
-  );
-
-  const hypermediaRefs = useCallback(
-    (node) => {
-      hypermediaScrollRef.current = node;
-      hypermediaRef(node);
-    },
-    [hypermediaRef]
-  );
-
   const archiveRefs = useCallback(
     (node) => {
       archiveScrollRef.current = node;
@@ -72,28 +40,54 @@ const Residency = ({ pageData, archiveData }) => {
     },
     [archiveRef]
   );
-
-  const handleScollTo = (ref) => {
-    ref.current.scrollIntoView({
+  const handleScollToArchive = () => {
+    archiveScrollRef.current.scrollIntoView({
       behavior: "smooth",
     });
   };
 
-  // Checks to see if a given data type exists
-  // If it exists, render a scrollTo on the left sidebar
 
-  let typeExists = {};
-  pageData.residenceData.map((entry) => {
-    if (entry.type.includes("artiste")) {
-      typeExists.artiste = true;
-    }
-    if (entry.type.includes("écrivain")) {
-      typeExists.ecrivain = true;
-    }
-    if (entry.type.includes("hypermédia")) {
-      typeExists.hypermedia = true;
-    }
-  });
+  // setup scrollTo for person entries
+  const personRefs = useRef([]);
+  const setPersonRef = (index, element) => {
+    personRefs.current[index] = element
+  }
+
+  const handleScollTo = (index) => {
+    personRefs.current[index].scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
+
+  // track visibility of person entries for the scrollTo functionality
+  const [isVisible, setIsVisible] = useState([]);
+
+  useEffect(() => {
+    const handleIntersection = (entries) => {
+      entries.forEach((entry) => {
+        const index = personRefs.current.indexOf(entry.target);
+        setIsVisible((prev) => {
+          const updated = [...prev];
+          updated[index] = entry.isIntersecting;
+          return updated;
+        });
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
+
+    personRefs.current.forEach((ref) => {
+      if (ref) {
+        observer.observe(ref);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
 
   return (
     <>
@@ -112,70 +106,42 @@ const Residency = ({ pageData, archiveData }) => {
       <Wrapper>
         <Sidebar>
           <SidebarList>
-            {typeExists.artiste && (
-              <>
-                <small
-                  onClick={() => handleScollTo(artistScrollRef)}
-                  style={{
-                    color: artistIsVisible
-                      ? "var(--color-black)"
-                      : "var(--color-grey)",
-                  }}
-                >
-                  résidence d’artiste
-                </small>
-                <br />
-                <br />
-              </>
-            )}
-            {typeExists.ecrivain && (
-              <>
-                <small
-                  onClick={() => handleScollTo(writerScrollRef)}
-                  style={{
-                    color: writerIsVisible
-                      ? "var(--color-black)"
-                      : "var(--color-grey)",
-                  }}
-                >
-                  Résidence d’écrivain·e
-                </small>
-                <br />
-                <br />
-              </>
-            )}
-            {typeExists.hypermedia && (
-              <>
-                <small
-                  onClick={() => handleScollTo(hypermediaScrollRef)}
-                  style={{
-                    color: hypermediaIsVisible
-                      ? "var(--color-black)"
-                      : "var(--color-grey)",
-                  }}
-                >
-                  résidence hypermédiatique
-                </small>
-                <br />
-                <br />
-              </>
-            )}
+            {
+              pageData.residenceData.map((person, index) => {
+                return (
+                  <React.Fragment key={person.title}>
+                    <small
+                      onClick={() => handleScollTo(index)}
+                      style={{
+                        color: isVisible[index] ?
+                          "var(--color-black)" :
+                          "var(--color-grey)"
+                      }}
+                    >
+                    {person.title}
+                  </small>
+                  <br />
+                  <br />
+                </React.Fragment>
+                )
+              })
+            }
             <small
-              onClick={() => handleScollTo(archiveScrollRef)}
+              onClick={handleScollToArchive}
               style={{
                 color: archiveIsVisible
                   ? "var(--color-black)"
                   : "var(--color-grey)",
               }}
             >
-              archive
+              archives
             </small>
           </SidebarList>
         </Sidebar>
         <MainContent>
           <Landing>
             <LandingText>
-              <h1 ref={artistRefs} role="heading">
+              <h1 role="heading">
                 <SplitText
                   string="Résidences"
                   variantParent={textAnim}
@@ -203,25 +169,24 @@ const Residency = ({ pageData, archiveData }) => {
               </motion.p>
             </LandingText>
           </Landing>
-          {pageData.residenceData.map((individual) => {
+          {pageData.residenceData.map((individual, index) => {
             // Change the category title according to the incoming SEO title data
             // to make it easier to read
             let residencyCategory;
-            let scrollToRef;
+
             if (individual.type === "artiste") {
               residencyCategory = "Résidence d'artiste";
-              scrollToRef = artistRefs;
             } else if (individual.type === "écrivain") {
               residencyCategory = "Résidence d'écrivain·e";
-              scrollToRef = writerRefs;
             } else if (individual.type === "hypermédia") {
               residencyCategory = "Résidence hypermédiatique";
-              scrollToRef = hypermediaRefs;
             }
             return (
               <ResidencyEntry key={individual.slug}>
                 <ResidencyText>
-                  <SEOTitleFlex ref={scrollToRef}>
+                  <SEOTitleFlex
+                    ref={(element) => setPersonRef(index, element)}
+                  >
                     <h3>{individual.title}</h3>
                     <h5>{residencyCategory}</h5>
                   </SEOTitleFlex>

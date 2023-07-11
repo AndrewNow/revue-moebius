@@ -70,6 +70,10 @@ export const residenciesPageQuery = groq`
       "slug": slug.current,
       title
     },
+    contributionsHypermedia[0]->{
+      "slug": slug.current,
+      title
+    },
     portfolio, 
     instagram,
     "imageUrl": mainImage.asset->url,

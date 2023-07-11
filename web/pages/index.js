@@ -23,6 +23,7 @@ import ResidencesSection from "../components/homepage/residencesSection";
 import { homepageResidenciesQuery } from "../lib/sanity/residencesQuery";
 import Head from "next/head";
 
+
 export default function Home({
   latestNumero,
   bannerData,

@@ -12,7 +12,10 @@ const ResidencesSection = ({ data }) => {
     root: null,
     threshold: 0.1,
   });
-
+  
+  const hypermediaData = data.residenceData.filter(item => item.type === "hypermédia")
+  const otherData = data.residenceData.filter(item => item.type !== "hypermédia")
+  console.log(otherData)
   return (
     <Wrapper ref={ref}>
       <Banner>
@@ -35,7 +38,7 @@ const ResidencesSection = ({ data }) => {
         </Marquee>
       </Banner>
       <InnerSection>
-        {data.residenceData.map((individual, idx) => {
+        {otherData.map((individual, idx) => {
           // Change speed depending on if an item's ID is odd or even
           const MARQUEE_SPEED = idx % 2 == 0 ? 55 : 75;
 
@@ -94,7 +97,7 @@ const ResidencesSection = ({ data }) => {
                   <h2>{individual.title}</h2>
                 </Link>
                 <Link href="/residences" scroll={false}>
-                  <h4>{residencyTitle}</h4>
+                  <h4>({residencyTitle})</h4>
                 </Link>
               </ResidencyItem>
               <ResidencyItem>
@@ -115,13 +118,88 @@ const ResidencesSection = ({ data }) => {
                   <h2>{individual.title}</h2>
                 </Link>
                 <Link href="/residences" scroll={false}>
-                    <h4>{residencyTitle}</h4>
+                  <h4>({residencyTitle})</h4>
                 </Link>
               </ResidencyItem>
             </Marquee>
             </span>
           );
         })}
+        {hypermediaData.length && 
+          (
+            <Marquee
+              gradientWidth={0}
+              play={inView ? true : false}
+              speed={95}
+              direction="reverse"
+            >
+              {hypermediaData.map((individual, index) => {
+                // Change speed depending on if an item's ID is odd or even
+                  let residencyTitle;
+                  if (individual.type === "artiste") {
+                    residencyTitle = "artiste";
+                  } else if (individual.type === "écrivain") {
+                    residencyTitle = "écrivain·e";
+                  } else if (individual.type === "hypermédia") {
+                    residencyTitle = "hypermédia";
+                  }
+                
+                const nextData = index > 0 ? hypermediaData[index + 1] : null;
+
+                return (
+                    <>
+                      <ResidencyItem>
+                        <ResidencyImage>
+                          <Image
+                            src={individual.imageUrl}
+                            placeholder="blur"
+                            blurDataURL={individual.lqip}
+                            layout="intrinsic"
+                            height={"100%"}
+                            width={"100%"}
+                            objectFit="contain"
+                            quality={50}
+                            alt={`Image portrait pour ${individual.title}`}
+                            />
+                        </ResidencyImage>
+                        <Link href="/residences" scroll={false}>
+                          <h2>{individual.title}</h2>
+                        </Link>
+                        <Link href="/residences" scroll={false}>
+                          <h4>({residencyTitle})</h4>
+                        </Link>
+                    </ResidencyItem>
+                    {nextData && 
+                      <ResidencyItem>
+                        <ResidencyImage>
+                          <Image
+                            src={nextData.imageUrl}
+                            placeholder="blur"
+                            blurDataURL={nextData.lqip}
+                            layout="intrinsic"
+                            height={"100%"}
+                            width={"100%"}
+                            objectFit="contain"
+                            quality={50}
+                            alt={`Image portrait pour ${nextData.title}`}
+                            />
+                        </ResidencyImage>
+                        <Link href="/residences" scroll={false}>
+                          <h2>{nextData.title}</h2>
+                        </Link>
+                        <Link href="/residences" scroll={false}>
+                          <h4>({residencyTitle})</h4>
+                        </Link>
+                      </ResidencyItem>
+                      }
+                    </>
+                  )
+                }
+                )
+              }
+              </Marquee>
+            )
+        }
       </InnerSection>
       <Banner>
         <Marquee
@@ -268,7 +346,6 @@ const ResidencyImage = styled.div`
   height: 100px;
   max-width: 200px;
   margin: 0 2rem;
-
   @media (max-width: ${breakpoints.m}px) {
     margin: 1rem 2rem;
   }

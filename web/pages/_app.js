@@ -1,3 +1,4 @@
+import React, {useLayoutEffect} from "react";
 import Navbar from "../components/navbar/navbar";
 import "../styles/globals.css";
 import { Layout } from "../utils/layout";
@@ -5,8 +6,21 @@ import Footer from "../components/footer";
 import Cart from "../components/cart";
 import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import { ThemeProvider } from "next-themes";
+// import Lenis from '@studio-freight/lenis'
 
 const MyApp = ({ Component, pageProps, router }) => {
+  // useLayoutEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     const lenis = new Lenis();
+  //     lenis.lerp = 0.2;
+  //     function raf(time) {
+  //       lenis.raf(time);
+  //       requestAnimationFrame(raf);
+  //     }
+
+  //     requestAnimationFrame(raf);
+  //   }
+  // }, []);
 
   return (
     <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange>

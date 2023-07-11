@@ -16,14 +16,14 @@ import { motion } from "framer-motion";
 
 const Abonnements = ({ abonnements }) => {
   const { addItem } = useShoppingCart();
-
+  console.log(abonnements)
   //.:*~*:._.:*~*:._.:*~*:._.:*~*.:*~*:._.:*~*:.
   //
   //  Create state & handlers for each filter
   //
   //    State values must match /studio/schemas/abonnements.js "<...>_OPTIONS".
   //    Possible values are:
-  //      - TYPE_OPTIONS (regular, student, institution)
+  //      - TYPE_OPTIONS (regular, student, institution, digital)
   //      - DURATION_OPTIONS (1 year, 2 years)
   //      - LOCATION_OPTIONS (canada, usa, international)
   //
@@ -175,6 +175,19 @@ const Abonnements = ({ abonnements }) => {
                   <CheckMark />
                 </label>
               </RadioGroup>
+              <RadioGroup>
+                <label htmlFor="digital">
+                  <h3>Numérique</h3>
+                  <input
+                    onClick={(e) => setType(e.target.value)}
+                    type="radio"
+                    name="type"
+                    id="digital"
+                    value="digital"
+                  />
+                  <CheckMark />
+                </label>
+              </RadioGroup>
             </RadioWrapper>
             <RadioWrapper>
               <small>Durée de l’abonnement</small>
@@ -194,8 +207,14 @@ const Abonnements = ({ abonnements }) => {
               </RadioGroup>
               <RadioGroup>
                 <label htmlFor="2 ans">
-                  <h3>Deux ans</h3>
+                  <h3
+                    style={{
+                      opacity: type === "digital" ? "0.5" : 1,
+                      cursor: type === "digital" ? "not-allowed" : "pointer",
+                      transition: "var(--transition)",
+                  }}>Deux ans</h3>
                   <input
+                    disabled={type === "digital"}
                     onClick={(e) => setDuration(e.target.value)}
                     type="radio"
                     name="duration"
