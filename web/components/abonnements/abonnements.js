@@ -89,15 +89,7 @@ const Abonnements = ({ abonnements }) => {
                   La revue <em>Mœbius</em> est publiée quatre fois par année. En
                   2023, à partir du no 178, le nombre de publications annuelles
                   passera à trois. Les frais postaux sont inclus dans le tarif
-                  d’abonnement. Pour vous abonner au format numérique,
-                  rendez-vous sur le site web de la{" "}
-                  <a
-                    href="https://www.sodep.qc.ca/numero/numero-174-ete-2022/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    SODEP.
-                  </a>
+                  d’abonnement.
                 </motion.span>
               </motion.p>
             </Header>

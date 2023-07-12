@@ -49,6 +49,17 @@ export default Article;
 export const ArticlePost = styled(motion.article)`
   position: relative;
   margin-bottom: 2rem;
+  .hypermedia-credits {
+    a {
+      color: var(--color-purple);
+      text-decoration: none;
+    }
+  }
+  .hypermedia-credits {
+    a:hover {
+      text-decoration: underline;
+    }
+  }
   small {
     color: var(--color-black);
   }

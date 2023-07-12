@@ -25,31 +25,43 @@ export default function Nouvelles({ nouvelles }) {
 
       if (length === 2 && index === length - 1) {
         return (
-          <span key={slug} className="hypermedia-credits">
+          <span key={title} className="hypermedia-credits">
             et{' '}
-            <Link href={`/residences/${slug}`}>
-              {title}
-            </Link>
+              {slug ? 
+          <Link href={`/residences/${slug}`}>
+            {title}
+          </Link>
+            :
+            {title}
+          }
           </span>
         );
       }
 
       if (index === length - 1) {
         return (
-          <span key={slug} className="hypermedia-credits">
+          <span key={title} className="hypermedia-credits">
             , et{' '}
-            <Link href={`/residences/${slug}`}>
-              {title}
-            </Link>
+              {slug ? 
+          <Link href={`/residences/${slug}`}>
+            {title}
+          </Link>
+            :
+            {title}
+          }
           </span>
         );
       }
 
       return (
-        <span key={slug} className="hypermedia-credits">
+        <span key={title} className="hypermedia-credits">
+            {slug ? 
           <Link href={`/residences/${slug}`}>
             {title}
           </Link>
+            :
+            {title}
+          }
           {index !== length - 2 && ','}{' '}
         </span>
       );
@@ -86,7 +98,7 @@ export default function Nouvelles({ nouvelles }) {
             <p className="hypermedia-credits"><MappedCreditReferences /></p>
           }
           {(isHypermedia && nouvelles.hypermediaCreditsString) &&
-            <p className="hypermedia-credits">Par { nouvelles.hypermediaCredits }</p>
+            <p className="hypermedia-credits">Par { nouvelles.hypermediaCreditsString }</p>
           }
           {hasHypermediaLink &&
             <div>

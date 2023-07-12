@@ -21,7 +21,7 @@ import Head from "next/head";
 import { blurDataAnimation } from "../../utils/blurDataURLTools";
 import ConvertDateToString from "../../utils/convertDateToString";
 
-export default function Nouvelles({ hypermediaData }) {
+export default function Nouvelles({ hypermediaData }) {  
   const [filtered, setFiltered] = useState([]);
 
   useEffect(() => {
@@ -54,6 +54,62 @@ export default function Nouvelles({ hypermediaData }) {
 
   // render the posts after being sliced
   const filteredArticles = filtered.slice(0, visiblePosts).map((article) => {
+  console.log(article)
+  const creditReferenceArr = article.hypermediaCreditsReference
+  
+  const MappedCreditReferences = () => {
+    
+    const length = creditReferenceArr.length;
+    const mapCreditReferences = creditReferenceArr.map((person, index) => {
+      const { title, slug } = person;
+
+      if (length === 2 && index === length - 1) {
+        return (
+          <span key={title} className="hypermedia-credits">
+            et{' '}
+              {slug ? 
+          <Link href={`/residences/${slug}`}>
+            {title}
+          </Link>
+            :
+            {title}
+          }
+          </span>
+        );
+      }
+
+      if (index === length - 1) {
+        return (
+          <span key={title} className="hypermedia-credits">
+            , et{' '}
+              {slug ? 
+          <Link href={`/residences/${slug}`}>
+            {title}
+          </Link>
+            :
+            {title}
+          }
+          </span>
+        );
+      }
+
+      return (
+        <span key={title} className="hypermedia-credits">
+          {slug ? 
+          <Link href={`/residences/${slug}`}>
+            {title}
+          </Link>
+            :
+            {title}
+          }
+          {index !== length - 2 && ','}{' '}
+        </span>
+      );
+    });
+
+    return <>Par {mapCreditReferences}</>;
+  };
+  
     return (
       <ArticlePost key={article._id + "article"} layout>
       <ImageWrapper>
@@ -78,8 +134,11 @@ export default function Nouvelles({ hypermediaData }) {
           {article.title}
         </Link>
         </ArticleLink>
-        {article.hypermediaCredits &&
-        <p style={{ color: "var(--color-grey", marginTop: ".25rem", fontFamily: "Surt-Light" }}>Par {article.hypermediaCredits}</p>
+        {article.hypermediaCreditsReference &&
+          <p style={{ color: "var(--color-grey", marginTop: ".25rem", fontFamily: "Surt-Light" }}><MappedCreditReferences /></p>
+        }
+        {article.hypermediaCreditsString &&
+          <p style={{ color: "var(--color-grey", marginTop: ".25rem", fontFamily: "Surt-Light" }}>Par {article.hypermediaCreditsString}</p>
         }
       <small style={{ color: "var(--color-grey)", display: "block", marginTop: ".25rem"}}>
         <ConvertDateToString data={article?.publishedAt} />
@@ -116,15 +175,15 @@ export default function Nouvelles({ hypermediaData }) {
   return (
     <>
       <Head>
-        <title>Restez à l’affût de nos activités</title>
-        <meta property="og:title" content="Restez à l’affût de nos activités" />
+        <title>Littérature hypermédiatique</title>
+        <meta property="og:title" content="Littérature hypermédiatique" />
         <meta
           property="og:description"
-          content="Retrouvez les captations d'événements passés aussi bien que les toutes dernières nouvelles de la revue. Suivez-nous sur nos réseaux afin de ne rien manquer : appels de texte, lancements, tables rondes, concours et plus encore."
+          content="Fidèle à son objectif d'accueillir les expérimentations les plus contemporaines en littérature, Mœbius accueille désormais une résidence annuelle de littérature hypermédiatique. Retrouvez toutes les œuvres mises en ligne depuis sa création juste ici."
         />
         <meta
           name="description"
-          content="Retrouvez les captations d'événements passés aussi bien que les toutes dernières nouvelles de la revue. Suivez-nous sur nos réseaux afin de ne rien manquer : appels de texte, lancements, tables rondes, concours et plus encore."
+          content="Fidèle à son objectif d'accueillir les expérimentations les plus contemporaines en littérature, Mœbius accueille désormais une résidence annuelle de littérature hypermédiatique. Retrouvez toutes les œuvres mises en ligne depuis sa création juste ici."
         />
       </Head>
       <Main>
@@ -142,8 +201,7 @@ export default function Nouvelles({ hypermediaData }) {
             </h1>
             <p>
               <SplitText
-                string="Retrouvez les captations d'événements passés aussi bien que les
-              toutes dernières nouvelles de la revue."
+                string="Fidèle à son objectif d'accueillir les expérimentations les plus contemporaines en littérature, Mœbius accueille désormais une résidence annuelle de littérature hypermédiatique. Retrouvez toutes les œuvres mises en ligne depuis sa création juste ici."
                 variantParent={textAnimFast}
                 variantParentMobile={textAnim}
                 variantChild={textChild}
@@ -285,7 +343,7 @@ const HeaderText = styled.div`
     color: var(--static-cream);
   }
   p {
-    max-width: 40%;
+    max-width: 50%;
     margin: 0 auto;
   }
   @media (max-width: ${breakpoints.l}px) {
@@ -300,7 +358,7 @@ const HeaderText = styled.div`
   @media (max-width: ${breakpoints.m}px) {
     p {
       max-width: none;
-      width: 90%;
+      width: 95%;
     }
   }
 `;

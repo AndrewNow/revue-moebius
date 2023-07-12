@@ -39,7 +39,10 @@ export const hypermediaListQuery = groq`
     _id,
     title,
     publishedAt,
-    hypermediaCreditsReference,
+    hypermediaCreditsReference[]->{
+      title, 
+      "slug": slug.current
+    },
     hypermediaCreditsString,
     "category": categories[]->{title, color},
     "slug": slug.current,
