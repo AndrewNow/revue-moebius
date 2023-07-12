@@ -48,7 +48,7 @@ const ResidencesSection = ({ data }) => {
           } else if (individual.type === "écrivain") {
             residencyTitle = "écrivain·e";
           } else if (individual.type === "hypermédia") {
-            residencyTitle = "hypermédia";
+            residencyTitle = "hypermédiatique";
           }
           return (
             <span key={individual._id}>
@@ -56,7 +56,7 @@ const ResidencesSection = ({ data }) => {
               gradientWidth={0}
               play={inView ? true : false}
               speed={MARQUEE_SPEED}
-              direction="reverse"
+              // direction="reverse"
               >
               <ResidencyItem>
                 <ResidencyImage>
@@ -131,7 +131,7 @@ const ResidencesSection = ({ data }) => {
               gradientWidth={0}
               play={inView ? true : false}
               speed={95}
-              direction="reverse"
+              // direction="reverse"
             >
               {hypermediaData.map((individual, index) => {
                 // Change speed depending on if an item's ID is odd or even
@@ -141,7 +141,7 @@ const ResidencesSection = ({ data }) => {
                   } else if (individual.type === "écrivain") {
                     residencyTitle = "écrivain·e";
                   } else if (individual.type === "hypermédia") {
-                    residencyTitle = "hypermédia";
+                    residencyTitle = "hypermédiatique";
                   }
                 
                 const nextData = index > 0 ? hypermediaData[index + 1] : null;
