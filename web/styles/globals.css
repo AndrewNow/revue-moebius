@@ -20,6 +20,7 @@
 [data-theme="light"] {
   --logo-color: invert(0);
   --color-cream: #fffff8;
+  --color-cream-low-opacity: #fffff850;
   --color-black: #353535;
   --nav-color: #fffff810;
   --drop-shadow-light: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.05));

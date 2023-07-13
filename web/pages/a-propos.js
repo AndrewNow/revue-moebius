@@ -335,7 +335,6 @@ const APropos = ({ equipeData, footerLogos }) => {
                   animate={isInView3 ? "visible" : "hidden"}
                 />
               </h2>
-
               <ContactFlex style={{ zIndex: modalOpen ? 0 : 6 }}>
                 <small>
                   1463, Boulevard Saint-Joseph Est <br /> Montréal (Québec)

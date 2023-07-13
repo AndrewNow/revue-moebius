@@ -261,9 +261,10 @@ const HoveredBackgroundColor = styled(motion.div)`
 `;
 
 const Container = styled(motion.div)`
-  z-index: 15;
+  z-index: 9999999;
   position: fixed;
   background: #00000097;
+  backdrop-filter: blur(5px);
   top: 0;
   left: 0;
   width: 100vw;
@@ -290,33 +291,36 @@ const ModalWrapper = styled(motion.div)`
   top: 5%;
   left: 50%;
   width: 1270px;
-  /* max-height: 85vh; */
+  /* remove max-height */
+  height: 85vh;
   max-width: 65%;
   background: var(--color-cream);
   user-select: none;
   border: 1px solid var(--color-black);
   box-sizing: border-box;
+
   @media (max-width: 1700px) {
     max-width: 75%;
   }
   @media (max-width: ${breakpoints.xl}px) {
     max-width: 90%;
-    max-height: none;
+    /* max-height: unset; */
     margin-top: 4rem;
   }
   @media (max-width: ${breakpoints.l}px) {
     max-height: 90vh;
     position: relative;
     max-width: none;
-    max-height: none;
+    max-height: unset;
     width: 60%;
     margin-top: 25vh;
     border: none;
   }
   @media (max-width: ${breakpoints.m}px) {
     width: 100%;
+    height: auto;
+    margin-bottom: 5rem;
     top: 0;
-    max-height: none;
   }
 `;
 
@@ -324,7 +328,7 @@ const ModalFlex = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
-  max-height: 795px;
+  /* max-height: 795px; */
   height: 100%;
   @media (max-width: ${breakpoints.l}px) {
     flex-direction: column;
@@ -384,6 +388,7 @@ const ModalText = styled.div`
 const ModalTextInner = styled.div`
   overflow-y: auto;
   max-height: 750px;
+  height: 100%;
   width: 80%;
   margin: 0 auto;
   padding: 0.5rem;
@@ -399,6 +404,9 @@ const ModalTextInner = styled.div`
   small {
     width: 75%;
     display: block;
+  }
+  p {
+    margin-bottom: 1rem;
   }
   h2 {
     margin: 2rem 0;
@@ -448,9 +456,15 @@ const SocialLink = styled.div`
 
 const CloseButton = styled.div`
   position: absolute;
-  top: 1rem;
-  right: 1.5rem;
+  top: 1.25rem;
+  right: 1.25rem;
   padding: 1rem;
+  
+  width: 46px;
+  height: 46px;
+  border-radius: 100%;
+  display: grid;
+  place-items: center;
   cursor: pointer;
   small {
     font-family: "Surt";
