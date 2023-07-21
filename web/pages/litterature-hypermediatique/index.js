@@ -1,33 +1,37 @@
-import { useState, useEffect } from "react";
-import styled, { keyframes } from "styled-components";
-import { client } from "../../lib/sanity/client";
-import { footerLogoQuery } from "../../lib/sanity/footerLogoQuery";
-import { hypermediaListQuery } from "../../lib/sanity/nouvellesQuery";
-import { categoryQuery } from "../../lib/sanity/categoryQuery";
-import { motion } from "framer-motion";
-import { breakpoints } from "../../utils/breakpoints";
+import { useState, useEffect } from 'react'
+import styled, { keyframes } from 'styled-components'
+import { client } from '../../lib/sanity/client'
+import { footerLogoQuery } from '../../lib/sanity/footerLogoQuery'
+import { hypermediaListQuery } from '../../lib/sanity/nouvellesQuery'
+import { categoryQuery } from '../../lib/sanity/categoryQuery'
+import { motion } from 'framer-motion'
+import { breakpoints } from '../../utils/breakpoints'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArticleLink, ArticlePost, ImageWrapper } from "../../components/nouvellesFilter/article";
-import SplitText from "../../utils/splitText";
+import {
+  ArticleLink,
+  ArticlePost,
+  ImageWrapper,
+} from '../../components/nouvellesFilter/article'
+import SplitText from '../../utils/splitText'
 import {
   textAnim,
   textChild,
   textAnimSlow,
   textAnimFast,
-} from "../../styles/animations";
-import CountViewMorePosts from "../../utils/countViewMorePosts";
-import Head from "next/head";
-import { blurDataAnimation } from "../../utils/blurDataURLTools";
-import ConvertDateToString from "../../utils/convertDateToString";
+} from '../../styles/animations'
+import CountViewMorePosts from '../../utils/countViewMorePosts'
+import Head from 'next/head'
+import { blurDataAnimation } from '../../utils/blurDataURLTools'
+import ConvertDateToString from '../../utils/convertDateToString'
 
-export default function Nouvelles({ hypermediaData }) {  
-  const [filtered, setFiltered] = useState([]);
+export default function Hypermedia({ hypermediaData }) {
+  const [filtered, setFiltered] = useState([])
 
   useEffect(() => {
     // On load, create a copy of the nouvelles query data
-    setFiltered(hypermediaData);
-  }, []);
+    setFiltered(hypermediaData)
+  }, [])
 
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
   //
@@ -36,116 +40,131 @@ export default function Nouvelles({ hypermediaData }) {
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
 
   // Only display 6 posts at first
-  const [visiblePosts, setVisiblePosts] = useState(6);
+  const [visiblePosts, setVisiblePosts] = useState(6)
 
   // Value to increment more/less posts by
-  const MORE_POSTS = 4;
+  const MORE_POSTS = 4
 
   // When user clicks on the load more button, load 6 more posts (see: MORE_POSTS)
   const handleLoadNewPosts = () =>
-    setVisiblePosts((visiblePosts) => visiblePosts + MORE_POSTS);
+    setVisiblePosts((visiblePosts) => visiblePosts + MORE_POSTS)
 
   // When we reach the end of the array, load more posts button becomes a "close posts" button
-  const handleClosePosts = () => setVisiblePosts(6);
+  const handleClosePosts = () => setVisiblePosts(6)
 
   // Counter for the display at the top
   const countDisplayedPosts =
-    visiblePosts >= filtered.length ? filtered.length : visiblePosts;
+    visiblePosts >= filtered.length ? filtered.length : visiblePosts
 
   // render the posts after being sliced
   const filteredArticles = filtered.slice(0, visiblePosts).map((article) => {
-  console.log(article)
-  const creditReferenceArr = article.hypermediaCreditsReference
-  
-  const MappedCreditReferences = () => {
-    
-    const length = creditReferenceArr.length;
-    const mapCreditReferences = creditReferenceArr.map((person, index) => {
-      const { title, slug } = person;
+    console.log(article)
+    const creditReferenceArr = article.hypermediaCreditsReference
 
-      if (length === 2 && index === length - 1) {
+    const MappedCreditReferences = () => {
+      const length = creditReferenceArr.length
+      const mapCreditReferences = creditReferenceArr.map((person, index) => {
+        const { title, slug } = person
+
+        if (length === 2 && index === length - 1) {
+          return (
+            <span key={title} className="hypermedia-credits">
+              et{' '}
+              {slug ? (
+                <Link href={`/residences/${slug}`}>{title}</Link>
+              ) : (
+                { title }
+              )}
+            </span>
+          )
+        }
+
+        if (index === length - 1) {
+          return (
+            <span key={title} className="hypermedia-credits">
+              , et{' '}
+              {slug ? (
+                <Link href={`/residences/${slug}`}>{title}</Link>
+              ) : (
+                { title }
+              )}
+            </span>
+          )
+        }
+
         return (
           <span key={title} className="hypermedia-credits">
-            et{' '}
-              {slug ? 
-          <Link href={`/residences/${slug}`}>
-            {title}
-          </Link>
-            :
-            {title}
-          }
+            {slug ? (
+              <Link href={`/residences/${slug}`}>{title}</Link>
+            ) : (
+              { title }
+            )}
+            {index !== length - 2 && ','}{' '}
           </span>
-        );
-      }
+        )
+      })
 
-      if (index === length - 1) {
-        return (
-          <span key={title} className="hypermedia-credits">
-            , et{' '}
-              {slug ? 
-          <Link href={`/residences/${slug}`}>
-            {title}
-          </Link>
-            :
-            {title}
-          }
-          </span>
-        );
-      }
+      return <>Par {mapCreditReferences}</>
+    }
 
-      return (
-        <span key={title} className="hypermedia-credits">
-          {slug ? 
-          <Link href={`/residences/${slug}`}>
-            {title}
-          </Link>
-            :
-            {title}
-          }
-          {index !== length - 2 && ','}{' '}
-        </span>
-      );
-    });
-
-    return <>Par {mapCreditReferences}</>;
-  };
-  
     return (
-      <ArticlePost key={article._id + "article"} layout>
-      <ImageWrapper>
-        {article.imageUrl && (
+      <ArticlePost key={article._id + 'article'} layout>
+        <ImageWrapper>
+          {article.imageUrl && (
+            <Link scroll={false} href={`/nouvelles/${article.slug}`}>
+              <Image
+                src={article.imageUrl}
+                alt="Thumbnail image"
+                quality={100}
+                width={852}
+                height={480}
+                layout="responsive"
+                placeholder="blur"
+                blurDataURL={blurDataAnimation(852, 480)}
+                className="imageHover"
+              />
+            </Link>
+          )}
+        </ImageWrapper>
+        <ArticleLink>
           <Link scroll={false} href={`/nouvelles/${article.slug}`}>
-            <Image
-              src={article.imageUrl}
-              alt="Thumbnail image"
-              quality={100}
-              width={852}
-              height={480}
-              layout="responsive"
-              placeholder="blur"
-              blurDataURL={blurDataAnimation(852, 480)}
-              className="imageHover"
-            />
+            {article.title}
           </Link>
-        )}
-      </ImageWrapper>
-      <ArticleLink>
-        <Link scroll={false} href={`/nouvelles/${article.slug}`}>
-          {article.title}
-        </Link>
         </ArticleLink>
-        {article.hypermediaCreditsReference &&
-          <p style={{ color: "var(--color-grey", marginTop: ".25rem", fontFamily: "Surt-Light" }}><MappedCreditReferences /></p>
-        }
-        {article.hypermediaCreditsString &&
-          <p style={{ color: "var(--color-grey", marginTop: ".25rem", fontFamily: "Surt-Light" }}>Par {article.hypermediaCreditsString}</p>
-        }
-      <small style={{ color: "var(--color-grey)", display: "block", marginTop: ".25rem"}}>
-        <ConvertDateToString data={article?.publishedAt} />
-      </small>
-    </ArticlePost>
+        {article.hypermediaCreditsReference && (
+          <p
+            style={{
+              color: 'var(--color-grey',
+              marginTop: '.25rem',
+              fontFamily: 'Surt-Light',
+            }}
+          >
+            <MappedCreditReferences />
+          </p>
+        )}
+        {article.hypermediaCreditsString && (
+          <p
+            style={{
+              color: 'var(--color-grey',
+              marginTop: '.25rem',
+              fontFamily: 'Surt-Light',
+            }}
+          >
+            Par {article.hypermediaCreditsString}
+          </p>
+        )}
+        <small
+          style={{
+            color: 'var(--color-grey)',
+            display: 'block',
+            marginTop: '.25rem',
+          }}
+        >
+          <ConvertDateToString data={article?.publishedAt} />
+        </small>
+      </ArticlePost>
     )
-  });
+  })
 
   //.:*~*:._.:*~*:._.:*~*:._.:*~*
   //
@@ -170,7 +189,7 @@ export default function Nouvelles({ hypermediaData }) {
         ease: [0.25, 0, 0.35, 1],
       },
     },
-  };
+  }
 
   return (
     <>
@@ -191,7 +210,7 @@ export default function Nouvelles({ hypermediaData }) {
           <HeaderText>
             <h1>
               <SplitText
-                string="Hypermédia"
+                string="Littérature hypermédiatique"
                 variantParent={textAnim}
                 variantParentMobile={textAnimSlow}
                 variantChild={textChild}
@@ -220,7 +239,7 @@ export default function Nouvelles({ hypermediaData }) {
             ) : (
               // If none exist, then show a placeholder.
               <motion.h5
-                style={{ color: "var(--color-black)" }}
+                style={{ color: 'var(--color-black)' }}
                 variants={animateArticles}
                 initial="hidden"
                 animate="visible"
@@ -254,13 +273,13 @@ export default function Nouvelles({ hypermediaData }) {
         </Inner>
       </Main>
     </>
-  );
+  )
 }
 
 export async function getStaticProps() {
-  const footerLogos = await client.fetch(footerLogoQuery);
-  const hypermediaData = await client.fetch(hypermediaListQuery);
-  const categories = await client.fetch(categoryQuery);
+  const footerLogos = await client.fetch(footerLogoQuery)
+  const hypermediaData = await client.fetch(hypermediaListQuery)
+  const categories = await client.fetch(categoryQuery)
 
   return {
     props: {
@@ -269,21 +288,21 @@ export async function getStaticProps() {
       categories,
     },
     revalidate: 10,
-  };
+  }
 }
 
 const Main = styled.div`
   background-color: var(--color-cream);
   transition: var(--transition);
-`;
+`
 
 const Inner = styled.div`
   width: 92.5%;
   margin: 0 auto;
-    @media (max-width: ${breakpoints.s}px) {
-      padding-bottom: 3rem;
-    }
-`;
+  @media (max-width: ${breakpoints.s}px) {
+    padding-bottom: 3rem;
+  }
+`
 
 const WrapFilter = styled.div`
   display: flex;
@@ -292,7 +311,7 @@ const WrapFilter = styled.div`
   @media (max-width: ${breakpoints.l}px) {
     flex-direction: column-reverse;
   }
-`;
+`
 
 const CountResults = styled.div`
   text-align: right;
@@ -303,7 +322,7 @@ const CountResults = styled.div`
     margin-top: 2rem;
     text-align: center;
     small {
-      font-family: "Simula";
+      font-family: 'Simula';
       text-transform: none;
       letter-spacing: 0.01rem;
       /* font-size: 14px; */
@@ -313,13 +332,13 @@ const CountResults = styled.div`
   @media (max-width: ${breakpoints.s}px) {
     margin-top: 2rem;
   }
-`;
+`
 
 const gradient = keyframes`
   0%{background-position:0% 45%;}
   50%{background-position:100% 56%;}
   100%{background-position:0% 45%;}
-`;
+`
 
 const Header = styled.header`
   padding-top: 20vh;
@@ -333,13 +352,17 @@ const Header = styled.header`
   -moz-animation: ${gradient} 15s ease infinite;
   animation: ${gradient} 15s ease infinite;
   transition: var(--transition);
-`;
+`
 
 const HeaderText = styled.div`
   text-align: center;
   padding: 5rem 0;
 
-  p, h1 {
+  h1 {
+    margin-bottom: 2rem;
+  }
+  p,
+  h1 {
     color: var(--static-cream);
   }
   p {
@@ -361,7 +384,7 @@ const HeaderText = styled.div`
       width: 95%;
     }
   }
-`;
+`
 
 const ArticleGrid = styled(motion.div)`
   margin-top: 5rem;
@@ -378,7 +401,7 @@ const ArticleGrid = styled(motion.div)`
   @media (max-width: ${breakpoints.s}px) {
     margin: 2rem auto;
   }
-`;
+`
 
 export const LoadMoreButton = styled.button`
   display: block;
@@ -419,4 +442,4 @@ export const LoadMoreButton = styled.button`
     margin: 1rem auto;
     padding: 1rem 3rem;
   }
-`;
+`

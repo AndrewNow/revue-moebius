@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import Image from "next/image";
-import { breakpoints } from "../utils/breakpoints";
-import MailchimpFormContainer from "./mailchimp/mailchimpFormContainer";
-import { Instagram, Facebook, Twitter } from "../svg/icons";
-import Link from "next/link";
-import { LinkData } from "./navbar/navLinks";
+import styled from 'styled-components'
+import Image from 'next/image'
+import { breakpoints } from '../utils/breakpoints'
+import MailchimpFormContainer from './mailchimp/mailchimpFormContainer'
+import { Instagram, Facebook, Twitter } from '../svg/icons'
+import Link from 'next/link'
+import { LinkData } from './navbar/navLinks'
 
 const Footer = ({ logos }) => {
   return (
@@ -15,6 +15,7 @@ const Footer = ({ logos }) => {
       <MainContent>
         <Socials>
           <SocialsInner>
+            <Title>Nous Suivre</Title>
             <a
               href="https://www.instagram.com/revuemoebius/"
               target="_blank"
@@ -35,7 +36,7 @@ const Footer = ({ logos }) => {
                 @revuemoebius
               </small>
             </a>
-            <a
+            {/* <a
               href="https://twitter.com/Revue_Moebius"
               target="_blank"
               rel="noreferrer"
@@ -44,7 +45,7 @@ const Footer = ({ logos }) => {
                 <Twitter />
                 @revuemoebius
               </small>
-            </a>
+            </a> */}
           </SocialsInner>
         </Socials>
         <Information>
@@ -84,7 +85,7 @@ const Footer = ({ logos }) => {
           <small>Revue Mœbius ©{new Date().getFullYear()}</small>
         </BottomInner>
       </Bottom>
-      <Bottom style={{ borderTop: "1px solid var(--static-cream)" }}>
+      <Bottom style={{ borderTop: '1px solid var(--static-cream)' }}>
         <ImageBanner>
           {logos?.[0]?.Partenaires.map((partner, i) => {
             return (
@@ -100,22 +101,22 @@ const Footer = ({ logos }) => {
                   // objectFit="scale-down"
                 />
               </ImageInnerWrapper>
-            );
+            )
           })}
         </ImageBanner>
       </Bottom>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
 
 const Wrapper = styled.footer`
   background: var(--static-black);
   width: 100%;
   position: relative;
   z-index: 5;
-`;
+`
 
 const Newsletter = styled.div`
   height: 200px;
@@ -123,10 +124,10 @@ const Newsletter = styled.div`
     width: 92.5%;
     margin: 0 auto;
     padding: 2rem 0;
-    font-family: "Surt";
+    font-family: 'Surt';
     color: var(--static-cream);
   }
-`;
+`
 
 const MainContent = styled.div`
   width: 100%;
@@ -138,14 +139,14 @@ const MainContent = styled.div`
   @media (max-width: ${breakpoints.m}px) {
     flex-direction: column;
   }
-`;
+`
 
 const Information = styled.div`
   width: 35%;
   position: relative;
 
   :before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 0;
@@ -166,11 +167,11 @@ const Information = styled.div`
       display: none;
     }
   }
-`;
+`
 
 const Title = styled.small`
   margin-bottom: 2rem;
-`;
+`
 
 const InformationInner = styled.div`
   margin: 2rem;
@@ -191,7 +192,7 @@ const InformationInner = styled.div`
       text-decoration: underline !important;
     }
   }
-`;
+`
 
 const Socials = styled.div`
   width: 30%;
@@ -205,7 +206,7 @@ const Socials = styled.div`
     width: 100%;
     border-bottom: 1px solid var(--static-cream);
   }
-`;
+`
 
 const SocialsInner = styled.div`
   margin: 2rem 3.75vw;
@@ -215,6 +216,9 @@ const SocialsInner = styled.div`
     margin: 2rem;
   }
 
+  small {
+    display: block;
+  }
   a {
     color: var(--static-cream);
     align-self: center;
@@ -223,6 +227,9 @@ const SocialsInner = styled.div`
     :hover {
       text-decoration: underline;
     }
+  }
+  a:first-child {
+    margin-top: 2rem;
   }
   a:nth-child(even) {
     small {
@@ -267,14 +274,14 @@ const SocialsInner = styled.div`
       margin-top: 0;
     }
   }
-`;
+`
 
 const Bottom = styled.div`
   width: 100%;
   align-self: center;
   position: relative;
   color: var(--static-cream);
-`;
+`
 
 const BottomInner = styled.div`
   width: 92.5%;
@@ -283,9 +290,11 @@ const BottomInner = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  :hover {small > a {
-    text-decoration: underline;
-  }}
+  :hover {
+    small > a {
+      text-decoration: underline;
+    }
+  }
   .mediaKit {
     text-decoration: none;
     color: var(--static-cream);
@@ -309,7 +318,7 @@ const BottomInner = styled.div`
   }
   @media (max-width: ${breakpoints.s}px) {
   }
-`;
+`
 
 const ImageBanner = styled.div`
   width: 92.5%;
@@ -332,7 +341,7 @@ const ImageBanner = styled.div`
   @media (max-width: ${breakpoints.s}px) {
     height: 400px;
   }
-`;
+`
 
 const ImageInnerWrapper = styled.div`
   width: 140px;
@@ -344,4 +353,4 @@ const ImageInnerWrapper = styled.div`
     max-width: 50%;
     min-width: 140px;
   }
-`;
+`
