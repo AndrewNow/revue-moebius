@@ -22,12 +22,12 @@ export const LinkData = [
     title: 'Mœbius-balado',
   },
   {
-    url: `/litterature-hypermediatique`,
-    title: 'Littérature hypermédiatique',
-  },
-  {
     url: `/residences`,
     title: 'Résidences',
+  },
+  {
+    url: `/litterature-hypermediatique`,
+    title: 'Littérature hypermédiatique',
   },
   {
     url: `/vente`,
