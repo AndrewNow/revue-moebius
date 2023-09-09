@@ -55,10 +55,10 @@ const Footer = ({ logos }) => {
               <a href="mailto:revuemoebius@gmail.com">revuemoebius@gmail.com</a>
               <br />
               <br />
-              1463, Boulevard Saint-Joseph Est <br />
-              Montréal, Québec <br />
-              H2J 1M6
-              <br /> Canada
+              6792 Boul. Saint-Laurent <br />
+              Montréal, QC
+              <br />
+              H2S 3C7
             </h5>
           </InformationInner>
         </Information>

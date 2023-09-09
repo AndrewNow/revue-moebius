@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
-import styled from "styled-components";
-import { client } from "../lib/sanity/client";
-import { footerLogoQuery } from "../lib/sanity/footerLogoQuery";
-import { useInView as useIntersectionInView } from "react-intersection-observer";
-import { useRef, useCallback } from "react";
-import { equipeQuery } from "../lib/sanity/equipeQuery";
-import HoverImage from "../components/imageOnHover/hoverImage";
-import TeamMember from "../components/imageOnHover/aPropos/teamMember";
-import { breakpoints } from "../utils/breakpoints";
-import SplitText from "../utils/splitText";
-import { motion, useInView } from "framer-motion";
+import { useState, useEffect } from 'react'
+import styled from 'styled-components'
+import { client } from '../lib/sanity/client'
+import { footerLogoQuery } from '../lib/sanity/footerLogoQuery'
+import { useInView as useIntersectionInView } from 'react-intersection-observer'
+import { useRef, useCallback } from 'react'
+import { equipeQuery } from '../lib/sanity/equipeQuery'
+import HoverImage from '../components/imageOnHover/hoverImage'
+import TeamMember from '../components/imageOnHover/aPropos/teamMember'
+import { breakpoints } from '../utils/breakpoints'
+import SplitText from '../utils/splitText'
+import { motion, useInView } from 'framer-motion'
 import {
   textAnim,
   textChild,
   textAnimSlow,
   textAnimSlowDelayed,
-} from "../styles/animations";
-import Head from "next/head";
+} from '../styles/animations'
+import Head from 'next/head'
 
 //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
 //
@@ -24,31 +24,31 @@ import Head from "next/head";
 //
 //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
 export const useMousePosition = () => {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     const updateMousePosition = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
+      setMousePos({ x: e.clientX, y: e.clientY })
+    }
 
-    if (typeof window !== "undefined") {
-      window.addEventListener("mousemove", updateMousePosition);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('mousemove', updateMousePosition)
     }
 
     return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("mousemove", updateMousePosition);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('mousemove', updateMousePosition)
       }
-    };
-  }, []);
-  return mousePos;
-};
+    }
+  }, [])
+  return mousePos
+}
 
 const APropos = ({ equipeData, footerLogos }) => {
-  const { x, y } = useMousePosition();
-  const [activeIndex, setActiveIndex] = useState(-1);
-  const [activeCategory, setActiveCategory] = useState(-1);
-  const [modalOpen, setModalOpen] = useState(false);
+  const { x, y } = useMousePosition()
+  const [activeIndex, setActiveIndex] = useState(-1)
+  const [activeCategory, setActiveCategory] = useState(-1)
+  const [modalOpen, setModalOpen] = useState(false)
 
   // ^ this third state is for the global "modal open" state.
   // We need this second state to toggle the z-index of the other clickable items of the page, putting them behind the modal when clicked.
@@ -63,71 +63,71 @@ const APropos = ({ equipeData, footerLogos }) => {
     root: null,
     threshold: 0.2,
     triggerOnce: false,
-  };
-  const [headerRef, headerIsVisible] = useIntersectionInView(options);
-  const [equipeRef, equipeIsVisible] = useIntersectionInView(options);
-  const [diffusionRef, diffusionIsVisible] = useIntersectionInView(options);
-  const [contactUsRef, contactUsIsVisible] = useIntersectionInView(options);
+  }
+  const [headerRef, headerIsVisible] = useIntersectionInView(options)
+  const [equipeRef, equipeIsVisible] = useIntersectionInView(options)
+  const [diffusionRef, diffusionIsVisible] = useIntersectionInView(options)
+  const [contactUsRef, contactUsIsVisible] = useIntersectionInView(options)
 
-  const headerScrollRef = useRef(null);
-  const equipeScrollRef = useRef(null);
-  const contactUsScrollRef = useRef(null);
-  const diffusionScrollRef = useRef(null);
+  const headerScrollRef = useRef(null)
+  const equipeScrollRef = useRef(null)
+  const contactUsScrollRef = useRef(null)
+  const diffusionScrollRef = useRef(null)
 
   // Use `useCallback` so we don't recreate the function on each render. Could result in infinite loop
   const headerRefs = useCallback(
     (node) => {
-      headerScrollRef.current = node;
-      headerRef(node);
+      headerScrollRef.current = node
+      headerRef(node)
     },
     [headerRef]
-  );
+  )
 
   const equipeRefs = useCallback(
     (node) => {
-      equipeScrollRef.current = node;
-      equipeRef(node);
+      equipeScrollRef.current = node
+      equipeRef(node)
     },
     [equipeRef]
-  );
+  )
 
   const contactUsRefs = useCallback(
     (node) => {
-      contactUsScrollRef.current = node;
-      contactUsRef(node);
+      contactUsScrollRef.current = node
+      contactUsRef(node)
     },
     [contactUsRef]
-  );
+  )
 
   const diffusionRefs = useCallback(
     (node) => {
-      diffusionScrollRef.current = node;
-      diffusionRef(node);
+      diffusionScrollRef.current = node
+      diffusionRef(node)
     },
     [diffusionRef]
-  );
+  )
 
   const handleScollTo = (ref) =>
     ref.current.scrollIntoView({
-      behavior: "smooth",
-    });
+      behavior: 'smooth',
+    })
 
   //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
   //
   //  Text animation refs
   //
   //.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true })
 
-  const ref2 = useRef(null);
-  const isInView2 = useInView(ref2, { once: true });
+  const ref2 = useRef(null)
+  const isInView2 = useInView(ref2, { once: true })
 
-  const ref3 = useRef(null);
-  const isInView3 = useInView(ref3, { once: true });
+  const ref3 = useRef(null)
+  const isInView3 = useInView(ref3, { once: true })
 
-  const ref4 = useRef(null);
-  const isInView4 = useInView(ref4, { once: true });
+  const ref4 = useRef(null)
+  const isInView4 = useInView(ref4, { once: true })
   return (
     <>
       <Head>
@@ -149,8 +149,8 @@ const APropos = ({ equipeData, footerLogos }) => {
               onClick={() => handleScollTo(headerScrollRef)}
               style={{
                 color: headerIsVisible
-                  ? "var(--color-black)"
-                  : "var(--color-grey)",
+                  ? 'var(--color-black)'
+                  : 'var(--color-grey)',
               }}
             >
               La Revue Mœbius
@@ -161,8 +161,8 @@ const APropos = ({ equipeData, footerLogos }) => {
               onClick={() => handleScollTo(equipeScrollRef)}
               style={{
                 color: equipeIsVisible
-                  ? "var(--color-black)"
-                  : "var(--color-grey)",
+                  ? 'var(--color-black)'
+                  : 'var(--color-grey)',
               }}
             >
               Équipe
@@ -173,8 +173,8 @@ const APropos = ({ equipeData, footerLogos }) => {
               onClick={() => handleScollTo(contactUsScrollRef)}
               style={{
                 color: contactUsIsVisible
-                  ? "var(--color-black)"
-                  : "var(--color-grey)",
+                  ? 'var(--color-black)'
+                  : 'var(--color-grey)',
               }}
             >
               Nous contacter
@@ -185,8 +185,8 @@ const APropos = ({ equipeData, footerLogos }) => {
               onClick={() => handleScollTo(diffusionScrollRef)}
               style={{
                 color: diffusionIsVisible
-                  ? "var(--color-black)"
-                  : "var(--color-grey)",
+                  ? 'var(--color-black)'
+                  : 'var(--color-grey)',
               }}
             >
               Diffusion et distribution
@@ -203,7 +203,7 @@ const APropos = ({ equipeData, footerLogos }) => {
                   variantParentMobile={textAnimSlow}
                   variantChild={textChild}
                   initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
+                  animate={isInView ? 'visible' : 'hidden'}
                 />
               </h1>
               <h1 ref={headerRefs} role="heading">
@@ -213,7 +213,7 @@ const APropos = ({ equipeData, footerLogos }) => {
                   variantParentMobile={textAnimSlowDelayed}
                   variantChild={textChild}
                   initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
+                  animate={isInView ? 'visible' : 'hidden'}
                 />
               </h1>
               <LandingParagraph>
@@ -221,7 +221,7 @@ const APropos = ({ equipeData, footerLogos }) => {
                   ref={ref2}
                   variants={textAnim}
                   initial="hidden"
-                  animate={isInView2 ? "visible" : "hidden"}
+                  animate={isInView2 ? 'visible' : 'hidden'}
                   role="heading"
                 >
                   <motion.span aria-hidden="true" variants={textChild}>
@@ -250,7 +250,7 @@ const APropos = ({ equipeData, footerLogos }) => {
                   ref={ref2}
                   variants={textAnim}
                   initial="hidden"
-                  animate={isInView2 ? "visible" : "hidden"}
+                  animate={isInView2 ? 'visible' : 'hidden'}
                   role="heading"
                 >
                   <motion.span aria-hidden="true" variants={textChild}>
@@ -274,7 +274,18 @@ const APropos = ({ equipeData, footerLogos }) => {
                     numéros de la revue et sont hébergée sur son site web.
                     <br />
                     <br />
-                    Consultez <a href="Engagement-Inclusivité-et-Décolonisation_sans sources.pdf" target="_blank">notre engagement sur l'inclusivité et la décolonisation</a> ainsi que <a href="Politique-éditoriale-nov2022.pdf" target="_blank">notre politique éditoriale</a>.
+                    Consultez{' '}
+                    <a
+                      href="Engagement-Inclusivité-et-Décolonisation_sans sources.pdf"
+                      target="_blank"
+                    >
+                      notre engagement sur l'inclusivité et la décolonisation
+                    </a>{' '}
+                    ainsi que{' '}
+                    <a href="Politique-éditoriale-nov2022.pdf" target="_blank">
+                      notre politique éditoriale
+                    </a>
+                    .
                   </motion.span>
                 </motion.p>
               </LandingParagraph>
@@ -300,26 +311,26 @@ const APropos = ({ equipeData, footerLogos }) => {
                         index={index}
                         key={member._key}
                       />
-                    );
+                    )
                   })}
                 </div>
-              );
+              )
             })}
             <CursorMedia>
               {equipeData[activeCategory]?.membres.map((image, index) => {
-                const isActive = index === activeIndex;
-                const xPos = isActive ? x : 0;
-                const yPos = isActive ? y : 0;
+                const isActive = index === activeIndex
+                const xPos = isActive ? x : 0
+                const yPos = isActive ? y : 0
 
                 return (
                   <HoverImage
-                    key={image._key + "key"}
+                    key={image._key + 'key'}
                     data={image}
                     active={isActive}
                     x={xPos}
                     y={yPos}
                   />
-                );
+                )
               })}
             </CursorMedia>
           </TeamWrapper>
@@ -332,13 +343,13 @@ const APropos = ({ equipeData, footerLogos }) => {
                   variantParentMobile={textAnimSlow}
                   variantChild={textChild}
                   initial="hidden"
-                  animate={isInView3 ? "visible" : "hidden"}
+                  animate={isInView3 ? 'visible' : 'hidden'}
                 />
               </h2>
               <ContactFlex style={{ zIndex: modalOpen ? 0 : 6 }}>
                 <small>
-                  1463, Boulevard Saint-Joseph Est <br /> Montréal (Québec)
-                  <br /> H2J 1M6 <br /> Canada
+                  6792 Boul. Saint-Laurent <br /> Montréal, QC
+                  <br /> H2S 3C7
                   <br />
                   <br />
                   <a href={`${footerLogos[0].mediaKitPDF}?dl=`}>
@@ -379,7 +390,7 @@ const APropos = ({ equipeData, footerLogos }) => {
                 variantParentMobile={textAnimSlow}
                 variantChild={textChild}
                 initial="hidden"
-                animate={isInView4 ? "visible" : "hidden"}
+                animate={isInView4 ? 'visible' : 'hidden'}
               />
               {/* Diffusion <br />
             et distribution */}
@@ -401,15 +412,15 @@ const APropos = ({ equipeData, footerLogos }) => {
               <br />
               <em>Mœbius</em> est diffusée au Canada par Dimédia. La revue est
               diffusée en France et en Belgique par DNM (Distribution du Nouveau
-              Monde). Elle est distribuée au format numérique par la{" "}
+              Monde). Elle est distribuée au format numérique par la{' '}
               <a
                 href="https://www.sodep.qc.ca/"
                 target="_blank"
                 rel="noreferrer"
               >
                 SODEP
-              </a>{" "}
-              et{" "}
+              </a>{' '}
+              et{' '}
               <a
                 href="https://www.vitrine.entrepotnumerique.com"
                 target="_blank"
@@ -420,7 +431,7 @@ const APropos = ({ equipeData, footerLogos }) => {
               .
               <br />
               <br />
-              Les archives de la revue sont disponibles sur{" "}
+              Les archives de la revue sont disponibles sur{' '}
               <a
                 href="https://www.erudit.org/fr/revues/moebius/#back-issues"
                 target="_blank"
@@ -434,21 +445,21 @@ const APropos = ({ equipeData, footerLogos }) => {
         </MainContent>
       </Wrapper>
     </>
-  );
-};
+  )
+}
 
-export default APropos;
+export default APropos
 
 export async function getStaticProps() {
-  const footerLogos = await client.fetch(footerLogoQuery);
-  const equipeData = await client.fetch(equipeQuery);
+  const footerLogos = await client.fetch(footerLogoQuery)
+  const equipeData = await client.fetch(equipeQuery)
   return {
     props: {
       equipeData,
       footerLogos,
     },
     revalidate: 10,
-  };
+  }
 }
 
 const Wrapper = styled.div`
@@ -456,7 +467,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   width: 100%;
   position: relative;
-`;
+`
 
 const Sidebar = styled.div`
   width: 20%;
@@ -470,7 +481,7 @@ const Sidebar = styled.div`
   @media (max-width: ${breakpoints.m}px) {
     display: none;
   }
-`;
+`
 
 const SidebarList = styled.div`
   width: 80%;
@@ -488,7 +499,7 @@ const SidebarList = styled.div`
       font-size: 13px;
     }
   }
-`;
+`
 
 const MainContent = styled.div`
   width: 80%;
@@ -500,7 +511,7 @@ const MainContent = styled.div`
     border: none;
     width: 100%;
   }
-`;
+`
 
 const Landing = styled.header`
   position: relative;
@@ -509,7 +520,7 @@ const Landing = styled.header`
   @media (max-width: ${breakpoints.m}px) {
     margin-bottom: 0rem;
   }
-`;
+`
 
 const LandingText = styled.div`
   position: relative;
@@ -564,7 +575,7 @@ const LandingText = styled.div`
       }
     }
   }
-`;
+`
 
 const LandingParagraph = styled.div`
   display: grid;
@@ -586,7 +597,7 @@ const LandingParagraph = styled.div`
   @media (max-width: ${breakpoints.s}px) {
     width: 90%;
   }
-`;
+`
 
 const TeamWrapper = styled.div`
   width: 85%;
@@ -619,7 +630,7 @@ const TeamWrapper = styled.div`
       align-items: center;
     }
   }
-`;
+`
 
 const CursorMedia = styled.div`
   position: fixed;
@@ -646,7 +657,7 @@ const CursorMedia = styled.div`
   @media (max-width: ${breakpoints.m}px) {
     display: none;
   }
-`;
+`
 
 const ContactUsWrapper = styled.div`
   background: var(--color-blue);
@@ -656,17 +667,17 @@ const ContactUsWrapper = styled.div`
   @media (max-width: ${breakpoints.m}px) {
     padding: 5rem 0;
   }
-`;
+`
 
 const ContactUsInner = styled.div`
   width: 85%;
   margin: 0 auto;
   h2 {
     scroll-margin: 120px;
-    font-family: "Editorial-Italic";
+    font-family: 'Editorial-Italic';
     color: var(--static-black);
   }
-`;
+`
 
 const ContactFlex = styled.div`
   position: relative;
@@ -706,7 +717,7 @@ const ContactFlex = styled.div`
       font-size: 25px;
     }
   }
-`;
+`
 
 const Distribution = styled.div`
   position: relative;
@@ -723,7 +734,7 @@ const Distribution = styled.div`
 
   h2 {
     max-width: 60%;
-    font-family: "Editorial-Italic";
+    font-family: 'Editorial-Italic';
     color: var(--color-black);
   }
 
@@ -766,4 +777,4 @@ const Distribution = styled.div`
       max-width: 60%;
     }
   }
-`;
+`
